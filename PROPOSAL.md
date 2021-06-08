@@ -9,8 +9,9 @@
 ### Proposition
 
 Notre jeu sera de type bullet hell dans une arène en tore, qui nous permettrait donc de pouvoir avoir un déplacement infini.
-Le but du jeu est de survivre les vagues ennemis jusqu'à la fin du jeu et de vaincre le boss final. Le joueur devient de plus 
-en plus fort au fil des niveaux et acquiert de meilleurs armes.
+Le jeu comportera un seul joueur. Le but du jeu est de survivre les vagues ennemis jusqu'à la fin du jeu et de vaincre le 
+boss final. Le joueur devient de plus en plus fort au fil des niveaux et acquiert de meilleurs armes. Les deux viewports
+seront implémentés grâce à une minimap. 
 
 #### Inventaire :
 

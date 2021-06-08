@@ -2,54 +2,63 @@
 
 ## Propositions pour le jeu 
 
-### Besante Joan Capet Théo, Conjard Samuel, Fodor Gergely, Pelisse-Verdoux Cyprien, Royet Julian, Viallet Pauline.
+### Besante Joan, Capet Théo, Conjard Samuel, Fodor Gergely, Pelisse-Verdoux Cyprien, Royet Julian, Viallet Camille.
 
 ------------------------------------------------------
 
-### Partie Technique
+### Proposition
 
-- Plusieurs mondes avec un système de saisons:
+Notre jeu sera de type bullet hell dans une arène en tore, qui nous permettrait donc de pouvoir avoir un déplacement infini.
+Le but du jeu est de survivre les vagues ennemis jusqu'à la fin du jeu et de vaincre le boss final. Le joueur devient de plus 
+en plus fort au fil des niveaux et acquiert de meilleurs armes.
 
-La carte reste la même mais il y a un nouveau thème et des changement visuel et de gameplay
+#### Inventaire :
 
-    - Monde normal : rien
-    - Mone de glace : ça glisse, stalagmite, il faut bouger
-    - Monde de feu : case magma, météore 
-    - Monde des ténèbre : visibilité réduite
+Le joueur aura 2 emplacements d'armes, une de corps à corps (CaC) et une à distance. Au début du jeu, le personnage n'a 
+qu'une arme de CaC faible (ex. poignard) et aucune arme à distance. Au cours du jeu, le joueur pourra ramasser d'autre 
+armes plus forte et qui se comporte de manière différentes et remplacer ces armes. Néanmoins, le joueur ne peut avoir qu'une 
+seul arme de Cac et une arme à distance à la fois. Les armes de CaC n'ont pas de durabilité donc une fois ramasser, elles 
+peuvent être utilisées jusqu'à se qu'elles soient remplacées. Les armes à distances sont limité en munitions et donc 
+doivent être utilisé de manière stratégique.
 
+#### Caches d’armes :
 
-### Partie Game Design
+Afin de forcer le joueur à se déplacer dans la carte, des caches d'armes vont apparaitre de manière aléatoire dans l'arène.
+Lorsqu'une cache d'arme apparait, le joueur est notifié de son emplacement via une minimap. Une fois sur place, pour 
+accéder au contenu, le joueur doit remplir un objectif tel que briser la cache d'arme en l'attaquant ou défendre la cache 
+de vague d'ennemis. Dans une première implémentation, on peut imaginer que les armes apparaissent directement sans cache
+d'arme.
 
-Notre jeu serait donc de type bullet hell dans une arène en tore, qui nous permettrait donc de pouvoir avoir un deplacement infini 
+#### Saisons :
 
-Inventaire :
-2 slots d’arme, une de CaC, une à distance.
-De base, un poignard et pas de flingue.
-Les armes de CaC n’on pas de durabilité et les armes à distance on des munitions limitées
-Drop d’armes et le joueur peut remplacer ces armes.
+Au fil du jeu, l'arène va évoluer. Nous appelons cela des saisons et lors d'un changement de saison, les sprites, les musiques
+ainsi que certains éléments de gameplay vont changer. **Il est important de noter que nous ne changeons pas de monde.**
+C'est bien le monde qui évolue. Nous avons 4 idées de saison :
 
-Cache d’arme :
-Spawn de cache d’arme à attaquer ou défendre.
-Lorsqu’une cache apparaît, le joueur est notifié via la minimap.
-Au début, les armes apparaissent toutes seules.
+- **Normal** : rien de spéciale.
+- **Glace** : cases glissantes, stalagmites pouvant être utilisés comme projectile, rester immobile trop longtemps inflige des dégâts.
+- **Feu** : cases de lave infligeant des dégâts, météores tombant du ciel.
+- **Ténèbre** : visibilité réduite.
 
-Saison : 
-“Plusieurs mondes”
-La carte reste la même mais il y a un nouveau thème et des changement visuel et de gameplay
-Monde normal : rien
-Monde de glace : ça glisse, stalagmite, il faut bouger
-Monde de feu : case magma, météore 
-Monde des ténèbre : visibilité réduite
+Le changement de saison sera mis en oeuvre avec une phase de transition. Par exemple, entre la saison normale et celle 
+de glace, il se mettra à neiger, montrant ainsi l'arriver de l'hiver
 
-Boss :
-Le boss final est au milieu de la carte depuis le début du jeu mais il est inaccessible. À la fin des niveaux, il devient disponible et il faut le tuer.
+#### Boss :
 
-XP :
-On gagne de l’xp en tuant des ennemis.
-A chaque niveau on augmente nos stats. Tous les 5 niveaux, on gagne un skill
+Le boss final sera au milieu de la carte depuis le début du jeu mais il sera inaccessible. 
+À la fin de tous les niveaux, il devient disponible et il faudra le tuer. Cela mettra fin au jeu
 
-Variété d’arme et d’ennemi et de drone support.
+#### XP :
 
-Musique :
-Le monde réagit à la musique.
-Les ennemis tirent sur la musique.
+Le joueur gagne de l’XP en tuant des ennemis. À chaque niveau il augmente ses stats (vie, puissance). Tous les 5 niveaux, 
+il débloque une compétence spéciale (dash, renvoyer des projectiles).
+
+#### Musique :
+
+Le monde réagira à la musique. Les ennemis tireront en rythme avec la musique et les vagues ennemis apparaitront à des 
+moments clés de la musique. Nous aurons aussi une musique différente pour chaque monde.
+
+#### Drones :
+
+Le joueur aura à sa disposition des drones qui vont l'aider. Cela peut aller des drones basiques qui tirent sur les ennemis
+jusqu'à des drones très spécifiques. Par exemple un drone qui éclaire dans un certain rayon pour la saison des ténèbres.

@@ -63,3 +63,23 @@ moments clés de la musique. Nous aurons aussi une musique différente pour chaq
 
 Le joueur aura à sa disposition des drones qui vont l'aider. Cela peut aller des drones basiques qui tirent sur les ennemis
 jusqu'à des drones très spécifiques. Par exemple un drone qui éclaire dans un certain rayon pour la saison des ténèbres.
+
+### Aspect technique
+
+#### Hitbox
+
+Par difficulté d'implémentation :
+
+- Les hitbox sont des ronds. Il suffit de calculer des distances pour les collisions.
+- Par compositions de polygones
+- Algorithme de GJK
+
+#### Environment
+
+L'environment sera créé avec une répartition par cases mais l'integralité du jeu sera géré par coordonnée.
+
+#### Pathfinding
+
+On évite les algorithmes de recherche de chemin complexes. On veut juste se rapprocher du joueur naïvement quite à adapter 
+la génération de terrain (éviter les culs-de-sac).
+

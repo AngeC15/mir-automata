@@ -26,8 +26,11 @@ import java.io.File;
 import java.io.IOException;
 
 import Utils.Vector2;
+import View.Game;
 
 import javax.imageio.ImageIO;
+
+import Controller.CanvasListener;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -54,7 +57,7 @@ public class Cowboy {
   /*
    * Simple animation here, the cowbow 
    */
-  public void tick(long elapsed) {
+  public void tick(long elapsed, CanvasListener m_listener) {
     m_imageElapsed += elapsed;
     if (m_imageElapsed > 200) {
       m_imageElapsed = 0;
@@ -63,7 +66,6 @@ public class Cowboy {
     m_moveElapsed += elapsed;
     if (m_moveElapsed>24 & m_width!=0) {
       m_moveElapsed=0;
-//      m_x = (m_x +2)%m_width;
     }
   }
   

@@ -3,6 +3,7 @@ package View;
 import java.awt.BorderLayout;
 
 import Model.Cowboy;
+import Utils.Vector2;
 import Controller.audio.*;
 import Controller.audio.info3.game.sound.RandomFileInputStream;
 
@@ -116,8 +117,8 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 	public void tick(long elapsed) {
-
-		m_cowboy.tick(elapsed);
+		
+		m_cowboy.tick(elapsed, m_listener);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

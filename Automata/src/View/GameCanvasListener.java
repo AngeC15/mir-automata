@@ -18,7 +18,7 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package Controller;
+package View;
 
 import java.awt.Graphics;
 import java.awt.event.KeyListener;

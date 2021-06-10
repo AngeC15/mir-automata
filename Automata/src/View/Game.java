@@ -45,7 +45,7 @@ public class Game {
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
-		m_listener = new CanvasListener(this);
+		m_listener = new CanvasListener(this, m_cowboy);
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);

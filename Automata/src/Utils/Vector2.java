@@ -4,6 +4,11 @@ public class Vector2 {
 	public float x;
 	public float y;
 	
+	public Vector2(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public float norm() {
 		return (float) Math.sqrt(x*x + y*y);
 	}
@@ -14,7 +19,6 @@ public class Vector2 {
 	}
 	
 	public void scale(float s) {
-		s /= norm();
 		x *= s;
 		y *= s;
 	}

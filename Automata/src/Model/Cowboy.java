@@ -25,6 +25,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import Utils.Vector2;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -43,7 +45,8 @@ public class Cowboy {
     m_images = loadSprite("Resources/winchester-4x6.png", 4, 6);
   }
   
-  public void Move(Vecteur2 vect) {
+  public void move(Vector2 vect) {
+	  vect.normalize();
 	  m_x += vect.x;
 	  m_y += vect.y;
   }

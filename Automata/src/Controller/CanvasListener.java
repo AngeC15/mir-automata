@@ -25,14 +25,18 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import Model.Cowboy;
+import Utils.Vector2;
 import View.Game;
 import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
+  Cowboy cow;
 
-  public CanvasListener(Game game) {
+  public CanvasListener(Game game, Cowboy cow) {
     m_game = game;
+    this.cow = cow;
   }
 
   @Override
@@ -92,10 +96,19 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void keyPressed(KeyEvent e) {
     System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
-    switch(e.getKeyChar()) {
-    case VK_UP:
-    	
-    	
+    switch(e.getKeyCode()) {
+    case KeyEvent.VK_UP:
+    	cow.move(new Vector2(0, -1));
+    	break;
+    case KeyEvent.VK_DOWN:
+    	cow.move(new Vector2(0, 1));
+    	break;
+    case KeyEvent.VK_LEFT:
+    	cow.move(new Vector2(-1, 0));
+    	break;
+    case KeyEvent.VK_RIGHT:
+    	cow.move(new Vector2(1, 0));
+    	break;
     }
   }
 

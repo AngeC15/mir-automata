@@ -7,8 +7,9 @@ public class Entity {
 	protected Automaton automaton;
 	int id;
 	
-	public Entity(int id) {
+	public Entity(int id, Automaton a) {
 		this.id = id;
+		automaton = a;
 	}
 	public int getID() {
 		return id;

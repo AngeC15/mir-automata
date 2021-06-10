@@ -30,7 +30,7 @@ public class Automaton {
 				valid.add(t);
 		}
 		if(valid.size() > 0) {
-			int randIdx = ThreadLocalRandom.current().nextInt(0, valid.size() + 1);
+			int randIdx = ThreadLocalRandom.current().nextInt(0, valid.size());
 			boolean r = valid.get(randIdx).action.apply(entity, gs);
 			entity.setState(valid.get(randIdx).destination);
 			return r;

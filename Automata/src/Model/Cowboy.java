@@ -18,7 +18,7 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package Controller;
+package Model;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -39,8 +39,13 @@ public class Cowboy {
   int m_x=10, m_y=10;
   int m_width;
   
-  Cowboy() throws IOException {
-    m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+  public Cowboy() throws IOException {
+    m_images = loadSprite("Resources/winchester-4x6.png", 4, 6);
+  }
+  
+  public void Move(Vecteur2 vect) {
+	  m_x += vect.x;
+	  m_y += vect.y;
   }
   
   /*
@@ -55,9 +60,11 @@ public class Cowboy {
     m_moveElapsed += elapsed;
     if (m_moveElapsed>24 & m_width!=0) {
       m_moveElapsed=0;
-      m_x = (m_x +2)%m_width;
+//      m_x = (m_x +2)%m_width;
     }
   }
+  
+  
   
   public void paint(Graphics g, int width, int height) {
     m_width = width;

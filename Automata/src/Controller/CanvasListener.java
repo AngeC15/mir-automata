@@ -92,6 +92,11 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void keyPressed(KeyEvent e) {
     System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
+    switch(e.getKeyChar()) {
+    case VK_UP:
+    	
+    	
+    }
   }
 
   @Override

@@ -1,9 +1,15 @@
 package View;
 
 import java.awt.BorderLayout;
+
+import Model.Cowboy;
+import Controller.audio.*;
+import Controller.audio.info3.game.sound.RandomFileInputStream;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.RandomAccessFile;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,14 +18,6 @@ import Controller.CanvasListener;
 
 
 public class Game {
-
-	
-	JFrame m_frame;
-	JLabel m_text;
-	GameCanvas m_canvas;
-	CanvasListener m_listener;
-	Sound m_music;
-	private long m_textElapsed;
 
 	static Game game;
 
@@ -32,10 +30,18 @@ public class Game {
 			th.printStackTrace(System.err);
 		}
 	}
-	
+
+	JFrame m_frame;
+	JLabel m_text;
+	GameCanvas m_canvas;
+	CanvasListener m_listener;
+	Cowboy m_cowboy;
+	Sound m_music;
+
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
+		m_cowboy = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -51,7 +57,11 @@ public class Game {
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
-	
+
+	/*
+	 * Then it lays out the frame, with a border layout, adding a label to the north
+	 * and the game canvas to the center.
+	 */
 	private void setupFrame() {
 
 		m_frame.setTitle("Game");
@@ -69,14 +79,45 @@ public class Game {
 		// make the vindow visible
 		m_frame.setVisible(true);
 	}
-	
+
+	/*
+	 * ================================================================ All the
+	 * methods below are invoked from the GameCanvas listener, once the window is
+	 * visible on the screen.
+	 * ==============================================================
+	 */
+
+	/*
+	 * Called from the GameCanvas listener when the frame
+	 */
+	String m_musicName;
+
+	void loadMusic() {
+		m_musicName = m_musicNames[m_musicIndex];
+		String filename = "resources/" + m_musicName + ".ogg";
+		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
+		try { 
+			RandomAccessFile file = new RandomAccessFile(filename,"r");
+			RandomFileInputStream fis = new RandomFileInputStream(file);
+			m_canvas.playMusic(fis, 0, 1.0F);
+		} catch (Throwable th) {
+			th.printStackTrace(System.err);
+			System.exit(-1);
+		}
+	}
+
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
+
+	private long m_textElapsed;
+
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
 	 */
 	public void tick(long elapsed) {
 
-		//m_cowboy.tick(elapsed);
+		m_cowboy.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -109,7 +150,7 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
-		//m_cowboy.paint(g, width, height);
+		m_cowboy.paint(g, width, height);
 	}
 
 }

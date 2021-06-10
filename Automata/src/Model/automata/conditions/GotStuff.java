@@ -3,14 +3,11 @@ package Model.automata.conditions;
 import Model.Entity;
 import Model.GameState;
 
-public class True extends Condition{
+public class GotStuff extends Condition{
 
 	@Override
 	public boolean eval(Entity e, GameState s) {
-		// TODO Auto-generated method stub
+		System.out.println("Pas encore implémenté, merci de repasser");
 		return false;
 	}
-	
-	
-
 }

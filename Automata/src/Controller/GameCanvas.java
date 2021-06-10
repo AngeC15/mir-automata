@@ -1,3 +1,4 @@
+package Controller;
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  * Educational software for a basic game development
@@ -51,6 +52,7 @@ import java.io.InputStream;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import Controller.info3;
 import info3.game.sound.AudioPlayer;
 import info3.game.sound.AudioPlayerListener;
 

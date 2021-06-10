@@ -1,3 +1,4 @@
+package Controller;
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  * Educational software for a basic game development

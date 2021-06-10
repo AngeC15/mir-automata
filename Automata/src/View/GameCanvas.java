@@ -1,4 +1,3 @@
-package Controller;
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  * Educational software for a basic game development
@@ -19,6 +18,7 @@ package Controller;
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
+package View;
 /*
  * Copyright (C) 2020  Pr. Olivier Gruber
  *
@@ -52,9 +52,6 @@ import java.io.InputStream;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import Controller.info3;
-import info3.game.sound.AudioPlayer;
-import info3.game.sound.AudioPlayerListener;
 
 /**
  * A game-oriented canvas. It creates the JFrame in which it will added so that
@@ -133,28 +130,11 @@ public class GameCanvas extends Canvas {
   public void playMusic(final InputStream is, long duration, float vol) {
     if (!is.markSupported())
       throw new IllegalArgumentException("Input stream must support mark/reset");
-    _playMusic(is, duration, vol);
+    
   }
 
-  public void stopMusic(String name) {
-    _stopMusic(name);
-  }
 
-  /**
-   * Play the given audio stream for the specified duration as a sound over the
-   * background music. A duration of 0 requests to play the audio stream up to the
-   * end. The end of play of an audio stream is always notified to the canvas
-   * listener.
-   * 
-   * @param the       name must be unique. if the name is already playing, the
-   *                  playing is stopped and restarted.
-   * 
-   * @param duration, in milliseconds. 0 means until the end of the audio stream.
-   * @param volume,   as a percentage (.10 for 10%, .80 for 80%)
-   */
-  public void playSound(String name, final InputStream is, long duration, float vol) {
-    _playSound(name, is, duration, vol);
-  }
+
 
   /**
    * This method sets the unique timer to the given delay.
@@ -405,7 +385,6 @@ public class GameCanvas extends Canvas {
       // (in particular, cut any further ticks),
       // but do the last call to exit()
       m_listener = null;
-      _stopPlayers();
       try {
         if (l != null)
           l.exit();
@@ -436,84 +415,6 @@ public class GameCanvas extends Canvas {
     }
   }
 
-  AudioPlayerListener m_apl = new AudioPlayerListener() {
-    @Override
-    public void endOfPlay(AudioPlayer player, final String name) {
-      post(new Runnable() {
-        @Override
-        public void run() {
-          // System.out.println("End of play for " + name);
-          if (m_listener != null)
-            m_listener.endOfPlay(name);
-        }
-      });
-    }
-  };
-
-  float m_musicVol;
-  InputStream m_musicInputStream;
-  AudioPlayer m_musicPlayer;
-
-  private void _playMusic(final InputStream is, long duration, float vol) {
-    if (m_musicPlayer != null)
-      m_musicPlayer.stop();    
-    m_musicPlayer = new OggPlayer(this);
-    m_musicVol = vol;
-    m_musicInputStream = is;
-    m_musicInputStream.mark(Integer.MAX_VALUE);
-    m_musicPlayer.playMusic("music", is, duration, vol);
-    return;
-  }
-
-  private void _stopMusic(String name) {
-    if (m_musicPlayer != null) {
-      m_musicPlayer.stop();
-      m_musicPlayer = null;
-    }
-  }
-
-  AudioPlayer m_players[] = new AudioPlayer[10];
-  int m_nplayers;
-
-  public void stopped(AudioPlayer player) {
-    for (int i=0;i<m_nplayers;i++) {
-      if (player == m_players[i]) {
-        m_players[i].stop();
-        for (i++;i<m_nplayers;i++) 
-          m_players[i-1] = m_players[i];
-        m_players[i-1] = null;
-        m_nplayers--;
-      }
-    }
-  }
-    
-  private void _playSound(String name, final InputStream is, long duration, float vol) {
-    AudioPlayer player;
-    if (m_nplayers >= m_players.length) {
-      player = m_players[0];
-      player.stop();
-      for (int i=1;i<m_nplayers;i++) 
-        m_players[i-1] = m_players[i];
-      m_players[m_nplayers-1] = null;
-      m_nplayers--;      
-    }
-    player = new OggPlayer(this);
-    m_players[m_nplayers++] = player;
-    player.playSound(name, is, duration, vol, m_apl);
-    return;
-  }
-
-  private void _stopPlayers() {
-    if (m_musicPlayer == null) {
-      m_musicPlayer.stop();
-      m_musicPlayer = null;
-    }
-    for (int i=0;i<m_nplayers;i++) {
-      m_players[i].stop();
-      m_players[i] = null;
-    }
-    m_nplayers=0;
-  }
 
   Timer m_delayTimer;
 

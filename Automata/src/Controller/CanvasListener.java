@@ -25,12 +25,13 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import Controller.GameCanvasListener;
+import View.Game;
+import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
 
-  CanvasListener(Game game) {
+  public CanvasListener(Game game) {
     m_game = game;
   }
 
@@ -110,7 +111,7 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void windowOpened() {
-    m_game.loadMusic();
+    //m_game.loadMusic();
 //    m_game.m_canvas.setTimer(6000);
   }
 
@@ -122,7 +123,7 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void endOfPlay(String name) {
 //    if (!m_expired) // only reload if it was a forced reload by timer
-      m_game.loadMusic();
+     // m_game.loadMusic();
 //    m_expired = false;
   }
 

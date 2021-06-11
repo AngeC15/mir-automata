@@ -3,6 +3,20 @@ package Model.automata.actions;
 import Model.Entity;
 import Model.GameState;
 
+/**
+ * Hi
+ * 
+ * @author Cyprien, Julian, Samuel
+ *
+ */
 public abstract class Action {
+
+	/**
+	 * 
+	 * 
+	 * @param e
+	 * @param s
+	 * @return
+	 */
 	public abstract boolean apply(Entity e, GameState s);
 }

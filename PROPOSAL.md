@@ -107,7 +107,7 @@ Le jeu tourne à 30 fps donc un `paint` environ tout les 40 ms. Il y a peu (ou p
 à chaque ticks de 1ms et, si le `Model` devient trop grand, mettre à jour tout le `Model` en même temps (au même ticks)
 prendra trop de temps.
 
-### Extenssion
+### Extension
 
 #### Boss :
 

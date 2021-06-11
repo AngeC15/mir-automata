@@ -25,14 +25,102 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(Category cat) {
-		// TODO Auto-generated method stub
-		return null;
+		CategoryExtension categorie = null;
+		//on récupère ce que le parser a detecté
+		switch(cat.terminal.content) {
+			case "A":
+				categorie = CategoryExtension.A;
+				break;
+			case "C":
+				categorie = CategoryExtension.C;
+				break;
+			case "D":
+				categorie = CategoryExtension.D;
+				break;
+			case "G":
+				categorie = CategoryExtension.G;
+				break;
+			case "J":
+				categorie = CategoryExtension.J;
+				break;
+			case "M":
+				categorie = CategoryExtension.M;
+				break;
+			case "O":
+				categorie = CategoryExtension.O;
+				break;
+			case "P":
+				categorie = CategoryExtension.P;
+				break;
+			case "T":
+				categorie = CategoryExtension.T;
+				break;
+			case "V":
+				categorie = CategoryExtension.V;
+				break;
+			case "@":
+				categorie = CategoryExtension.PLAYER;
+				break;
+			case "_":
+				categorie = CategoryExtension.ENTITY;
+				break;
+			default:
+				System.out.println("Should never happen, category not recognized");
+				System.out.println("By default, void value used");
+				categorie = CategoryExtension.V;
+				break;
+		}
+		return categorie;
 	}
 
 	@Override
 	public Object visit(Direction dir) {
-		// TODO Auto-generated method stub
-		return null;
+		//same as category, but for directions
+		DirectionExtension orientation = null;
+		switch (dir.terminal.content) {
+		case "N":
+			orientation = DirectionExtension.N;
+			break;
+		case "NE":
+			orientation = DirectionExtension.NE;
+			break;
+		case "E":
+			orientation = DirectionExtension.E;
+			break;
+		case "SE":
+			orientation = DirectionExtension.E;
+			break;
+		case "S":
+			orientation = DirectionExtension.S;
+			break;
+		case "SO":
+			orientation = DirectionExtension.SO;
+			break;
+		case "O":
+			orientation = DirectionExtension.O;
+			break;
+		case "NO":
+			orientation = DirectionExtension.NO;
+			break;
+		case "F":
+			orientation = DirectionExtension.F;
+			break;
+		case "R":
+			orientation = DirectionExtension.R;
+			break;
+		case "B":
+			orientation = DirectionExtension.B;
+			break;
+		case "L":
+			orientation = DirectionExtension.L;
+			break;
+		default:
+			System.out.println("Should never happen, direction not recognized");
+			System.out.println("By default, Est value used");
+			orientation = DirectionExtension.E;
+			break;
+		}
+		return orientation;		
 	}
 
 	@Override

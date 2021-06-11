@@ -3,6 +3,8 @@ package Model.automata.actions;
 import Model.Entity;
 import Model.GameState;
 
+/**
+ */
 public class Turn extends Action{
 
 	@Override

@@ -3,6 +3,25 @@
 ## Répartition des tâches
 
 #### Pour l'ensemble du groupe : 
+- Répartition des taches
+
+#### *Théo + Julian* : architecture MVC et entrées clavier
+- Travail sur les entrées du clavier
+- Implémentation de l'architecture MVC
+
+#### *Cyprien + Samuel* : représentation exécutable des automates à partir de l'AST
+- Compréhension globale
+
+#### *Gergely* : Rédaction du contrat
+
+#### *Johan* : Recherche de Sprite
+
+---
+# JOURNAL du Jeudi 10 juin
+
+## Répartition des tâches
+
+#### Pour l'ensemble du groupe : 
 - Mise en place de l'environnement de developpement.
 - Réalisation de prototype en sous-groupes.
 

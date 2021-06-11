@@ -48,7 +48,7 @@ seul arme de Cac et une arme à distance à la fois. Les armes de CaC n'ont pas 
 peuvent être utilisées jusqu'à se qu'elles soient remplacées. Les armes à distances sont limité en munitions et donc
 doivent être utilisé de manière stratégique.
 
-Du point de vue du `Model`, toute entitée à entre 0 et 2 armes. Les éléments "non-vivant" tel que les arbres ou le flaque
+Du point de vue du `Model`, toute entité à entre 0 et 2 armes. Les éléments "non-vivant" tel que les arbres ou le flaque
 de lave ainsi que les ennemis qui foncent sur le joueur pour lui faire des dégats n'ont aucune armes. Les ennemis classiques
 on une seul arme et les joueur en à une ou deux. Les armes tireront de manière différente (tout droit, bombe, zigzag,
 plus ou moins rapide) et donc, selon l'arme, l'automate des balles tirées change. Changer d'arme veut dire changer l'automate
@@ -89,7 +89,7 @@ accéder au contenu, le joueur doit remplir un objectif tel que briser la cache 
 de vague d'ennemis. Dans une première implémentation, on peut imaginer que les armes apparaissent directement sans cache
 d'arme.
 
-Les caches d'armes auront leurs automate qui finira toujours par créer une arme avec `Egg` et se détruira en allant dans
+Les caches d'armes auront leurs automates qui finira toujours par créer une arme avec `Egg` et se détruira en allant dans
 l'état `()`.
 
 #### Musique :
@@ -107,7 +107,20 @@ Le jeu tourne à 30 fps donc un `paint` environ tout les 40 ms. Il y a peu (ou p
 à chaque ticks de 1ms et, si le `Model` devient trop grand, mettre à jour tout le `Model` en même temps (au même ticks)
 prendra trop de temps.
 
-### Extension
+#### Pathfinding
+
+On évite les algorithmes de recherche de chemin complexes. On veut juste se rapprocher du joueur naïvement quite à adapter
+la génération de terrain (éviter les culs-de-sac).
+
+Ainsi, la détection du joueur se fera par la condition `Closest()` du language GAL, implémentés de manière à avoir un
+conne de détection.
+
+### Extensions
+
+------------------------------------------------------
+
+Les fonctionnallités suivantes sont celles qui ne sont pas essentielles pour le projet mais que nous trouvons tout de
+même très intéressantes.  
 
 #### Boss :
 
@@ -125,12 +138,16 @@ Le boss diffère des autre entité par quelques points :
 Le joueur gagne de l’XP en tuant des ennemis. À chaque niveau il augmente ses stats (vie, puissance). Tous les 5 niveaux,
 il débloque une compétence spéciale (dash, renvoyer des projectiles).
 
+Un système de niveau avec les stats qui augmente est plutôt simple à implémentés. Il s'agit principalment de calcule de pourcentage.
+Les compétences spéciales sont bien plus difficile à implémentées (et très intéressantes d'un point de vue gameplay).
+Chaques compétences apporterait un changement à la physique du jeu et probablement une nouvelle entrée utilisateur.
+En plus du code suplémentaire, il faudrait faire attention à ne pas créer des situations impossible (dasher dans un mur).
+
 #### Drones :
 
 Le joueur aura à sa disposition des drones qui vont l'aider. Cela peut aller des drones basiques qui tirent sur les ennemis
 jusqu'à des drones très spécifiques. Par exemple un drone qui éclaire dans un certain rayon pour la saison des ténèbres.
 
-#### Pathfinding
-
-On évite les algorithmes de recherche de chemin complexes. On veut juste se rapprocher du joueur naïvement quite à adapter
-la génération de terrain (éviter les culs-de-sac).
+Les drones fonctionneraient dans le `Model` tout comme les ennemis. Ce serait des entités dans le camp du joueur.
+Sans les drones, les ennemis n'on pas le choix de leur cible, il n'y a que le joueur à attaquer. L'introduction des drones
+impliquerait d'augmenter les implémentations de `Closest()` affin de pouvoir choisir un ennemis en particulier à attaquer.

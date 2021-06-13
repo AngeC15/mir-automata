@@ -14,7 +14,7 @@
 
 #### *Gergely* : Rédaction du contrat
 
-#### *Johan* : Recherche de Sprite
+#### *Joan* : Recherche de Sprite
 
 ---
 # JOURNAL du Jeudi 10 juin

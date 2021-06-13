@@ -288,8 +288,12 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
-		// TODO Auto-generated method stub
-		return null;
+		operator result = null;
+		switch(operator.operator) {
+			case "":
+				break;
+		}
+		return result;
 	}
 
 	@Override

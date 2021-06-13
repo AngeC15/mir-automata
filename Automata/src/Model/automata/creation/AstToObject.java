@@ -125,20 +125,153 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(Key key) {
-		// TODO Auto-generated method stub
-		return null;
+		KeyExtension cle = null;
+		switch(key.terminal.content) {
+			case "a":
+				cle = KeyExtension.A;
+				break;
+			case "z":
+				cle = KeyExtension.Z;
+				break;
+			case "e":
+				cle = KeyExtension.E;
+				break;
+			case "r":
+				cle = KeyExtension.R;
+				break;
+			case "t":
+				cle = KeyExtension.T;
+				break;
+			case "y":
+				cle = KeyExtension.Y;
+				break;
+			case "u":
+				cle = KeyExtension.U;
+				break;
+			case "i":
+				cle = KeyExtension.I;
+				break;
+			case "o":
+				cle = KeyExtension.O;
+				break;
+			case "p":
+				cle = KeyExtension.P;
+				break;
+			case "q":
+				cle = KeyExtension.Q;
+				break;
+			case "s":
+				cle = KeyExtension.S;
+				break;
+			case "d":
+				cle = KeyExtension.D;
+				break;
+			case "f":
+				cle = KeyExtension.F;
+				break;
+			case "g":
+				cle = KeyExtension.G;
+				break;
+			case "h":
+				cle = KeyExtension.H;
+				break;
+			case "j":
+				cle = KeyExtension.J;
+				break;
+			case "k":
+				cle = KeyExtension.K;
+				break;
+			case "l":
+				cle = KeyExtension.L;
+				break;
+			case "m":
+				cle = KeyExtension.M;
+				break;
+			case "w":
+				cle = KeyExtension.W;
+				break;
+			case "x":
+				cle = KeyExtension.X;
+				break;
+			case "c":
+				cle = KeyExtension.C;
+				break;
+			case "v":
+				cle = KeyExtension.V;
+				break;
+			case "b":
+				cle = KeyExtension.B;
+				break;
+			case "n":
+				cle = KeyExtension.N;
+				break;
+			case "0":
+				cle = KeyExtension.ZERO;
+				break;
+			case "1":
+				cle = KeyExtension.UN;
+				break;
+			case "2":
+				cle = KeyExtension.DEUX;
+				break;
+			case "3":
+				cle = KeyExtension.TROIS;
+				break;
+			case "4":
+				cle = KeyExtension.QUATRE;
+				break;
+			case "5":
+				cle = KeyExtension.CINQ;
+				break;
+			case "6":
+				cle = KeyExtension.SIX;
+				break;
+			case "7":
+				cle = KeyExtension.SEPT;
+				break;
+			case "8":
+				cle = KeyExtension.HUIT;
+				break;
+			case "9":
+				cle = KeyExtension.NEUF;
+				break;
+			case "SPACE":
+				cle = KeyExtension.SPACE;
+				break;
+			case "ENTER":
+				cle = KeyExtension.ENTER;
+				break;
+			case "FU":
+				cle = KeyExtension.AU;
+				break;
+			case "FR":
+				cle = KeyExtension.AR;
+				break;
+			case "FD":
+				cle = KeyExtension.AD;
+				break;
+			case "FL":
+				cle = KeyExtension.AL;
+				break;
+			default:
+				System.out.println("Should never happen, Key not recognized");
+				System.out.println("By default, ENTER value used");
+				cle = KeyExtension.ENTER;
+				break;
+		}
+		return cle;
 	}
 
 	@Override
 	public Object visit(Value v) {
-		// TODO Auto-generated method stub
-		return null;
+		//on retourne un integer avec la value de v
+		return v.value;
 	}
 
 	@Override
 	public Object visit(Underscore u) {
-		// TODO Auto-generated method stub
-		return null;
+		//on return ce qui correspond à l'underscore dans notre catégorie
+		return CategoryExtension.ENTITY;
 	}
 
 	@Override

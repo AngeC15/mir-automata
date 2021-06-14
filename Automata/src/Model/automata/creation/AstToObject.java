@@ -11,6 +11,7 @@ import Model.automata.ast.BinaryOp;
 import Model.automata.ast.Category;
 import Model.automata.ast.Condition;
 import Model.automata.ast.Direction;
+import Model.automata.ast.Expression;
 import Model.automata.ast.FunCall;
 import Model.automata.ast.IVisitor;
 import Model.automata.ast.Key;
@@ -21,6 +22,7 @@ import Model.automata.ast.UnaryOp;
 import Model.automata.ast.Underscore;
 import Model.automata.ast.Value;
 import Model.automata.conditions.operators.AndOperator;
+import Model.automata.conditions.operators.NotOperator;
 import Model.automata.conditions.operators.OrOperator;
 
 public class AstToObject implements IVisitor {
@@ -278,13 +280,13 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		
 	}
 
 	@Override
 	public Object exit(FunCall funcall, List<Object> parameters) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 
@@ -316,81 +318,86 @@ public class AstToObject implements IVisitor {
 		Model.automata.conditions.Condition result = null;
 		switch(operator.operator) {
 			case "!":
-				
+				result = new NotOperator((Model.automata.conditions.Condition) expression);
+				break;
+			default:
+				System.out.println("Should never happen, Unary Operator not recognized");
+				System.out.println("By default, not value used");
+				result = new NotOperator((Model.automata.conditions.Condition) expression);
 				break;
 		}
-		return null;
+		return result;
 	}
 
 	@Override
 	public Object visit(State state) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void enter(Mode mode) {
-		// TODO Auto-generated method stub
+		String nom = state.name;
+		return new StateExtension(nom);
 		
 	}
 
 	@Override
+	public void enter(Mode mode) {
+		System.out.println("Not yet implemented need help");		
+	}
+
+	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
-		// TODO Auto-generated method stub
-		return null;
+		//quand on quitte le "noeud" on veut en obtenir un mode (CAD un comportement associer à un état)
+		return new ModeExtension((StateExtension)source_state,(BehaviourExtension)behaviour);
+		
 	}
 
 	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 
 	@Override
 	public void enter(Condition condition) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Not yet implemented need help");		
 	}
 
 	@Override
 	public Object exit(Condition condition, Object expression) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 
 	@Override
-	public void enter(Action acton) {
-		// TODO Auto-generated method stub
+	public void enter(Action action) {
+		System.out.println("Not yet implemented need help");
 		
 	}
 
 	@Override
 	public Object exit(Action action, List<Object> funcalls) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 
-	@Override
+	@Override  
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
-		// TODO Auto-generated method stub
-		return null;
+		Model.automata.Transition trans = new Model.automata.Transition((StateExtension)target_state,(Model.automata.conditions.Condition)condition, (Model.automata.actions.Action)action);
+		return trans;
 	}
 
 	@Override
 	public void enter(Model.automata.ast.Automaton automaton) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		
 	}
 
 	@Override
 	public Object exit(Model.automata.ast.Automaton automaton, Object initial_state, List<Object> modes) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
-		// TODO Auto-generated method stub
+		System.out.println("Not yet implemented need help");
 		return null;
 	}
 

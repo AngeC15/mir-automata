@@ -1,9 +1,10 @@
 package Model;
 
 import Model.automata.Automaton;
+import Model.automata.creation.StateExtension;
 
 public class Entity {
-	protected int state;
+	protected StateExtension state;
 	protected Automaton automaton;
 	int id;
 	
@@ -14,10 +15,10 @@ public class Entity {
 	public int getID() {
 		return id;
 	}
-	public int getState() {
+	public StateExtension getState() {
 		return state;
 	}
-	public void setState(int state) {
+	public void setState(StateExtension state) {
 		this.state = state;
 	}
 	public boolean step(GameState gs) {

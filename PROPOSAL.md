@@ -4,6 +4,14 @@
 
 ### Besante Joan, Capet Théo, Conjard Samuel, Fodor Gergely, Pelisse-Verdoux Cyprien, Royet Julian, Viallet Camille.
 
+_**[OG]** Pour simplifier la lecture par Michael et vous assurez qu'il ne se trompe pas, une petite section résumant comment votre proposition respecte les contraintes imposées serait la bienvenue.
+Juste une liste, une phrase par contrainte._
+
+_**[OG]** la proposition du jeu de "base" est déjà très complète... il serait sage d'avoir un contrat minimum plus simple._ 
+
+_**[OG]** je vous encourage de toute façon à projeter des étapes pour la construction de votre jeu... une progression d'étape où le jeu est jouable mais n'a pas encore toutes les fonctionalités. Autrement dit, il vous manque un plan de développement et avec celui-ci vous pourrez mieux évaluer le contrat minimum qu'il est sage de proposer.
+
+
 ------------------------------------------------------
 
 ### Proposition
@@ -12,6 +20,7 @@ Notre jeu sera de type bullet hell dans une arène en tore, qui nous permettrait
 Le jeu comportera un seul joueur. Le but du jeu est de survivre les vagues ennemis jusqu'à la fin du jeu et de vaincre le
 boss final. Le joueur devient de plus en plus fort au fil des niveaux et acquiert de meilleures armes. Les deux viewports
 seront implémentés grâce à une minimap.
+_**[OG]** ??? Vous voulez dire qu'il y a une minimap associée au viewport? Pour que le joueur garde une vue globale. Car je ne vois pas comment une minimap peut implémenter un view port._
 
 La caméra est centrée sur le joueur, c'est le monde qui se déplace en dessous de son avatar. Quand le joueur arrive au bout de la carte,
 il ne voit pas le bout de la carte dans la viewport principale. Il voit directement l'autre côté de la carte.
@@ -28,7 +37,7 @@ C'est bien le monde qui évolue. Nous avons 4 idées de saison :
 
 - **Normal** : rien de spécial.
 - **Glace** : cases glissantes, stalagmites pouvant être utilisées comme projectile, rester immobile trop longtemps inflige des dégâts.
-- **Feu** : cases de lave infligeant des dégâts, météorites tombant du ciel.
+- **Feu** : cases de lave infligeant des dégâts, météorites tombant du ciel _**[OG]** comment faites vous en 2D?_.
 - **Ténèbres** : visibilité réduite.
 
 Le changement de saison sera mis en oeuvre avec une phase de transition. Par exemple, entre la saison normale et celle
@@ -48,17 +57,21 @@ seule arme de Càc et une arme à distance à la fois. Les armes de CàC n'ont p
 peuvent être utilisées jusqu'à se qu'elles soient remplacées. Les armes à distances sont limitées en munitions et donc
 doivent être utilisées de manière stratégique.
 
+_**[OG]** cela suggère que les premiers enemis soient faibles si le joueur démarre avec une arme CàC seulement type poignard_
+
 Du point de vue du `Model`, toute entité à entre 0 et 2 armes. Les éléments "non-vivant" tels que les arbres ou les flaques
 de lave ainsi que les ennemis qui foncent sur le joueur pour lui faire des dégâts n'ont aucune arme. Les ennemis classiques
-on une seule arme et les joueur en à une ou deux. Les armes tireront de manière différente (tout droit, bombe, zigzag,
+ont une seule arme et les joueur en à une ou deux. Les armes tireront de manière différente (tout droit, bombe, zigzag,
 plus ou moins rapide) et donc, selon l'arme, l'automate des balles tirées change. Changer d'arme veut dire changer l'automate
 des balles associées.
+_[OG: attention à ne pas changer l'automate de balles déjà tirées mais qui volent encore vers leur cible]_
 
 #### Hitbox
 
 Par difficulté d'implémentation :
 
 - Les hitbox sont des ronds. Il suffit de calculer des distances pour les collisions.
+  _**[OG]** note, tester si deux rectangles intersectent est plus facile et plus rapide que deux ronds... mais moins précis si vous avez beaucoup de formes en rond... mais les rectangles peuvent être utilisé pour tester si l'intersection des ronds est forcément vide, on en fait l'intersection des ronds que si les rectangles intersectent._
 - Par compositions de polygones
 - Algorithme de GJK
 
@@ -71,6 +84,7 @@ entre une entité A et B, il n'y a aucun intérêt à faire la détection de col
 
 Le jeu se jouera au clavier et à la souris. Le joueur visera avec le déplacement de la souris et tirera avec un clic de la souris.
 Lors d'un tir, un vecteur de déplacement sera calculé pour la trajectoire des balles.
+_**[OG]** pas clair pour la souris/tir... on pointe ce que l'on veut viser?_
 
 Le joueur se déplacera avec les touches du clavier donc il faudra gérer les `KeyEvent`. Nous serons confrontés à deux
 problèmes en particulier :
@@ -80,6 +94,9 @@ problèmes en particulier :
 
 Notre solution est d'avoir un objet `Clavier` dans lequel on stocke l'état des touches clés. Le `Contrôleur` modifie
 cette structure au fil des `KeyEvent` et lorsque le `Model` doit être mis à jour, il lit dans le `Clavier` directement.
+
+_**[OG]** attention, les automates peuvent lire le clavier... du coup, seul le joueur peut êre controllée par le clavier? si oui, attention quand même au fait que l'on peut donner n'importe quel automate à n'importe quelle entité._
+
 
 #### Caches d’armes :
 
@@ -101,11 +118,14 @@ Dans le `Contrôleur` il y aura une classe `Music` s'occupant de cet aspect. L'o
 et notifiera le `Contrôleur` lorsqu'une certaine action doit être effectuée. `Music` chargera les metadata des
 musiques telles que le bpm et les time stamp des moments clés de la musique.
 
+_**[OG]** c'est quelque chose de sympa, mais je le mettrais en option car cela est risqué, tant sur le fait que cela soit bien pour le game play (je trouve cela bien mais il faut essayer) et le fait que coté implémentation n'est peut-être pas encore très clair._
+
 #### Ticks
 
 Le jeu tourne à 30 fps donc un `paint` environ toutes les 40 ms. Il y a peu (ou pas) d'intérêt à mettre à jour le `Model`
 à chaque tic de 1ms et, si le `Model` devient trop grand, mettre à jour tout le `Model` en même temps (aux mêmes tics)
 prendra trop de temps.
+_**[OG]** ??? so what? je comprends le coup de la haute fréquence de mise à jour, je ne comprends pas ce qui est proposé..._
 
 #### Pathfinding
 
@@ -114,6 +134,7 @@ la génération de terrain (éviter les culs-de-sac).
 
 Ainsi, la détection du joueur se fera par la condition `Closest()` du langage GAL, implémenté de manière à avoir un
 cône de détection.
+_**[OG]** quel cône de détection? ce qui est écrit n'est pas assez précis._
 
 ### Extensions
 

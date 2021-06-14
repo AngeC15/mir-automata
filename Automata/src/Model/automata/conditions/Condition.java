@@ -12,6 +12,6 @@ public abstract class Condition {
 	 * @param s TODO NYI
 	 * @return true if the condition is true, false otherwise.
 	 */
-	public abstract boolean eval(Entity e, GameState s);
+	public abstract boolean eval(Entity e);
 
 }

@@ -20,6 +20,8 @@ import Model.automata.ast.Transition;
 import Model.automata.ast.UnaryOp;
 import Model.automata.ast.Underscore;
 import Model.automata.ast.Value;
+import Model.automata.conditions.operators.AndOperator;
+import Model.automata.conditions.operators.OrOperator;
 
 public class AstToObject implements IVisitor {
 
@@ -288,9 +290,22 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
-		operator result = null;
-		switch(operator.operator) {
-			case "":
+		Model.automata.conditions.Condition result = null;
+		switch(operator.operator) { //Récupération de l'operation, le not n'est pas pris en compte, vu
+									//que c'est un operateur unitaire
+			case "/": //Cas du ou
+				try {
+					result = new OrOperator(right, left);
+				} catch (Exception e) {
+					System.out.println("Erreur dans visit avec l'operateur ou");
+				}
+				break;
+			case "&": //cas du et
+				try {
+					result = new AndOperator(right, left);
+				} catch (Exception e) {
+					System.out.println("Erreur dans visit avec l'operateur et");
+				}
 				break;
 		}
 		return result;
@@ -298,7 +313,12 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(UnaryOp operator, Object expression) {
-		// TODO Auto-generated method stub
+		Model.automata.conditions.Condition result = null;
+		switch(operator.operator) {
+			case "!":
+				
+				break;
+		}
 		return null;
 	}
 

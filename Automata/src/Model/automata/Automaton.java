@@ -42,7 +42,6 @@ public class Automaton {
 	 * entity to take.
 	 * 
 	 * @param entity The entity using the automaton.
-	 * @param gs     TODO NYI
 	 * @return false if there is no valid transition or if the action was not
 	 *         possible to perform (i.e. something trying to move into a wall), true
 	 *         otherwise.

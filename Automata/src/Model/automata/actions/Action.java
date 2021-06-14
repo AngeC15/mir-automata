@@ -3,7 +3,7 @@ package Model.automata.actions;
 import Model.entities.Entity;
 
 /**
- * Hi
+ * Defines what an action is
  * 
  * @author Cyprien, Julian, Samuel
  *

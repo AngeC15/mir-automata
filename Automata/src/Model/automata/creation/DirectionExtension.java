@@ -9,7 +9,7 @@ package Model.automata.creation;
  */
 public enum DirectionExtension {
 	/**
-	 * On va mettre ici les différentes directions possibles (8 absolue + 4 relatives)
+	 * We're going to put here every possible direction (8 absolute + 4 relatives).
 	 */
 	F, R, B, L, N, NE, E, SE, S, SO, O, NO;
 	

@@ -16,7 +16,6 @@ public class NotOperator extends Condition{
 
 	@Override
 	public boolean eval(Entity entity) {
-		// TODO Auto-generated method stub
 		return !elm.eval(entity);
 	}
 

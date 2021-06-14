@@ -2,7 +2,6 @@ package Model.automata.creation;
 
 import java.util.List;
 
-import Model.Entity;
 import Model.automata.Automaton;
 import Model.automata.ast.AST;
 import Model.automata.ast.Action;
@@ -24,6 +23,7 @@ import Model.automata.ast.Value;
 import Model.automata.conditions.operators.AndOperator;
 import Model.automata.conditions.operators.NotOperator;
 import Model.automata.conditions.operators.OrOperator;
+import Model.entities.Entity;
 
 public class AstToObject implements IVisitor {
 

@@ -1,5 +1,6 @@
 package Model.automata.actions;
 
+
 import Model.entities.Entity;
 
 public class Get extends Action{

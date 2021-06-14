@@ -2,7 +2,6 @@ package Model.automata.actions;
 
 import Model.entities.Entity;
 
-
 public class Jump extends Action {
 	
 	@Override

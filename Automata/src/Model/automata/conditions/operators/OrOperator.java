@@ -1,7 +1,7 @@
 package Model.automata.conditions.operators;
 
-import Model.Entity;
 import Model.automata.conditions.Condition;
+import Model.entities.Entity;
 
 public class OrOperator extends Condition{
 	//on utilise des operateurs ici à gauche et à droite

@@ -2,10 +2,10 @@ package Model.automata;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
 import Model.World;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
+import Model.automata.creation.StateExtension;
 import Model.entities.Entity;
 
 /**
@@ -16,13 +16,13 @@ import Model.entities.Entity;
  *
  */
 public class Automaton {
-	private ArrayList<ArrayList<Transition>> states;
+	private ArrayList<StateExtension> states;
 
 	/**
 	 * Creates a new automaton with an empty transition list.
 	 */
 	public Automaton() {
-		states = new ArrayList<ArrayList<Transition>>();
+		states = new ArrayList<StateExtension>();
 	}
 
 	/**
@@ -30,29 +30,12 @@ public class Automaton {
 	 * 
 	 * @return the number of transitions
 	 */
-	public int addState() {
-		states.add(new ArrayList<Transition>());
+	public int addState(StateExtension s) {
+		states.add(s);
 		return states.size();
 	}
 
-	/**
-	 * Adds a new transition to the src state, with a destination, a condition and
-	 * an action.
-	 * 
-	 * @param src  The starting state.
-	 * @param dst  The final state.
-	 * @param cond The linked condition.
-	 * @param act  The linked action.
-	 * @return The number of transitions of src.
-	 */
-	public int addTransition(int src, int dst, Condition cond, Action act) {
-		/*
-		 * TODO: Check if it is pertinent to make this security check.
-		 * if(states.get(src) == null) return -1;
-		 */
-		states.get(src).add(new Transition(dst, cond, act));
-		return states.get(src).size();
-	}
+	
 	/**
 	 * Takes every transition of the current state of the entity from states. Checks
 	 * every condition of the current state in the automaton in order to create a
@@ -67,7 +50,7 @@ public class Automaton {
 	 */
 	public boolean step(Entity entity) {
 
-		ArrayList<Transition> transitions = states.get(entity.getState());
+		ArrayList<Transition> transitions = entity.getState().getTransitions();
 		ArrayList<Transition> valid = new ArrayList<Transition>();
 		for (int i = 0; i < transitions.size(); i++) {
 			Transition t = transitions.get(i);

@@ -1,7 +1,7 @@
 package Model.automata.actions;
 
-import Model.Entity;
 import Model.GameState;
+import Model.entities.Entity;
 
 public class Print extends Action{
 	private String msg;

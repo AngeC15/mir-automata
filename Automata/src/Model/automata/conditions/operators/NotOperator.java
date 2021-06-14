@@ -1,7 +1,7 @@
 package Model.automata.conditions.operators;
 
-import Model.Entity;
 import Model.automata.conditions.Condition;
+import Model.entities.Entity;
 
 public class NotOperator extends Condition{
 	public Condition elm;

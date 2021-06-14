@@ -3,10 +3,11 @@ package Model.automata;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Model.Entity;
 import Model.GameState;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
+import Model.automata.creation.StateExtension;
+import Model.entities.Entity;
 
 /**
  * An automaton is a list of states. Every state has an action, a condition and
@@ -45,7 +46,7 @@ public class Automaton {
 	 * @param act  The linked action.
 	 * @return The number of transitions of src.
 	 */
-	public int addTransition(int src, int dst, Condition cond, Action act) {
+	public int addTransition(StateExtension src, StateExtension dst, Condition cond, Action act) {
 		/*
 		 * TODO: Check if it is pertinent to make this security check.
 		 * if(states.get(src) == null) return -1;

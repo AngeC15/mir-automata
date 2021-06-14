@@ -1,7 +1,7 @@
 package Model.automata.conditions;
 
-import Model.Entity;
 import Model.GameState;
+import Model.entities.Entity;
 
 public class GotStuff extends Condition{
 

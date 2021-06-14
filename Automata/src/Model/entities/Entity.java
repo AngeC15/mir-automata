@@ -1,5 +1,6 @@
-package Model;
+package Model.entities;
 
+import Model.GameState;
 import Model.automata.Automaton;
 import Model.automata.creation.StateExtension;
 

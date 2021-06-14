@@ -1,9 +1,9 @@
 package Tests;
 
-import Model.Entity;
 import Model.automata.Automaton;
 import Model.automata.actions.Print;
 import Model.automata.conditions.True;
+import Model.entities.Entity;
 
 public class TestAutomaton {
 

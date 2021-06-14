@@ -1,12 +1,13 @@
 package Model.automata.conditions;
 
+import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 
 public class Key extends Condition{
 
-	private Object touche;
+	private KeyExtension touche;
 
-	public Key(Object touche) {
+	public Key(KeyExtension touche) {
 		this.touche = touche;
 		System.out.println("Touche vaut" + this.touche);
 
@@ -14,7 +15,7 @@ public class Key extends Condition{
 	
 	@Override
 	public boolean eval(Entity e) {
-		System.out.println("Pas encore implementé, merci de repasser");
+		e.key(touche);
 		return false;
 	}
 

@@ -1,12 +1,19 @@
 package Model.automata.actions;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
 public class Throw extends Action {
 
+	DirectionExtension dir;
+
+	public Throw(DirectionExtension directionToRet) {
+		this.dir = directionToRet;
+	}
+	
 	@Override
 	public boolean apply(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.Throw(dir);
 		return false;
 	}
 }

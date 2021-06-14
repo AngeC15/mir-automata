@@ -5,6 +5,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Model.automata.AutomatonState;
+import Model.automata.actions.Egg;
+import Model.automata.actions.Explode;
+import Model.automata.actions.Get;
+import Model.automata.actions.Hit;
+import Model.automata.actions.Jump;
+import Model.automata.actions.Move;
+import Model.automata.actions.Pick;
+import Model.automata.actions.Pop;
+import Model.automata.actions.Power;
+import Model.automata.actions.Protect;
+import Model.automata.actions.Store;
+import Model.automata.actions.Throw;
+import Model.automata.actions.Turn;
+import Model.automata.actions.Wait;
 import Model.automata.actions.Wizz;
 import Model.automata.ast.AST;
 import Model.automata.ast.Action;
@@ -22,6 +36,11 @@ import Model.automata.ast.Transition;
 import Model.automata.ast.UnaryOp;
 import Model.automata.ast.Underscore;
 import Model.automata.ast.Value;
+import Model.automata.conditions.Cell;
+import Model.automata.conditions.Closest;
+import Model.automata.conditions.GotPower;
+import Model.automata.conditions.GotStuff;
+import Model.automata.conditions.MyDir;
 import Model.automata.conditions.operators.AndOperator;
 import Model.automata.conditions.operators.NotOperator;
 import Model.automata.conditions.operators.OrOperator;
@@ -281,67 +300,77 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		// TODO
 		System.out.println("Not yet implemented need help");
 
 	}
 
 	@Override
 	public Object exit(FunCall funcall, List<Object> parameters) {
-		int numOfParams = parameters.size();
+		//reglages de paramètres
+		//il faut integrer les conditions
+		Object param1 = null,param2 = null;
+		//parameters length:
+		int longParam = parameters.size();
+		Object parametrePremier = parameters.get(0);
+		if(parametrePremier == null) {
+			
+		}else if(parametrePremier instanceof DirectionExtension || parametrePremier instanceof CategoryExtension) {
+			param1 = parameters.get(0);
+			if( longParam > 1) {
+				//on a forcément en deuxième une catégorie ou une direction, rien d'autre n'a que 2 arguments
+				param2 = parameters.get(1);
+			}
+		}else if(parametrePremier instanceof KeyExtension) {
+			param1 = parameters.get(0);
+			
+		}
 		switch (funcall.name) {
 		case "Wizz":
-			if(numOfParams == 0)
-				// TODO Cyprien return new Wizz(DirectionExtension.F);
-			break;
-
+				return new Wizz((DirectionExtension) param1);
 		case "Pop":
-			break;
-
+				return new Pop((DirectionExtension) param1);
 		case "Wait":
-			break;
-
+				return new Wait();
 		case "Move":
-			break;
-
+				return new Move((DirectionExtension) param1);
 		case "Jump":
-			break;
-
+				return new Jump((DirectionExtension) param1);
 		case "Turn":
-			break;
-
+				return new Turn((DirectionExtension) param1);
 		case "Hit":
-			break;
-
+				return new Hit((DirectionExtension) param1);
 		case "Protect":
-			break;
-
+				return new Protect((DirectionExtension) param1);
 		case "Pick":
-			break;
-
+				return new Pick((DirectionExtension) param1);
 		case "Throw":
-			break;
-
+				return new Throw((DirectionExtension) param1);
 		case "Store":
-			break;
-
+				return new Store();
 		case "Get":
-			break;
-
+				return new Get();
 		case "Power":
-			break;
-
+				return new Power();
 		case "Explode":
-			break;
-
+				return new Explode();
 		case "Egg":
-			break;
-
+				return new Egg(DirectionExtension.F);
+		case "Cell":
+				return new Cell((DirectionExtension) param1, (CategoryExtension) param2);
+		case "Closest":
+				return new Closest((DirectionExtension) param2, (CategoryExtension) param1);
+		case "GotPower":
+				return new GotPower();
+		case "GotStuff":
+				return new GotStuff();
+		case "Key":
+				return new Model.automata.conditions.Key((KeyExtension) param1);
+		case "MyDir":
+				return new MyDir((DirectionExtension) param1);
 		default:
 			throw new RuntimeException("Die");
 		}
 
-		return null;
 	}
 
 	@Override
@@ -392,7 +421,6 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		// TODO
 		System.out.println("Not yet implemented need help");
 	}
 

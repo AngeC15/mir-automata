@@ -1,9 +1,10 @@
 package Tests;
 
-import Model.Entity;
 import Model.automata.Automaton;
 import Model.automata.actions.Print;
 import Model.automata.conditions.True;
+import Model.entities.Entity;
+import Utils.Vector2;
 
 public class TestAutomaton {
 
@@ -13,11 +14,11 @@ public class TestAutomaton {
 		a.addTransition(0, 0, new True(), new Print("a"));
 		a.addTransition(0, 0, new True(), new Print("b"));
 		
-		Entity e = new Entity(0, a);
-		e.step(null);
-		e.step(null);
-		e.step(null);
-		e.step(null);
+		Entity e = new Entity(0, a, null, new Vector2(0, 0));
+		e.step();
+		e.step();
+		e.step();
+		e.step();
 	}
 
 }

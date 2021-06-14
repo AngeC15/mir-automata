@@ -1,8 +1,8 @@
 package Model.automata.conditions;
 
-import Model.Entity;
-import Model.GameState;
+import Model.World;
+import Model.entities.Entity;
 
 public abstract class Condition {
-	public abstract boolean eval(Entity e, GameState s);
+	public abstract boolean eval(Entity e);
 }

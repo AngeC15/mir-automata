@@ -3,10 +3,10 @@ package Model.automata;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Model.Entity;
-import Model.GameState;
+import Model.World;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
+import Model.entities.Entity;
 
 public class Automaton {
 	private ArrayList<ArrayList<Transition>> states;
@@ -21,17 +21,17 @@ public class Automaton {
 		states.get(src).add(new Transition(dst, cond, act));
 		return states.get(src).size();
 	}
-	public boolean step(Entity entity, GameState gs) {
+	public boolean step(Entity entity) {
 		ArrayList<Transition> transitions = states.get(entity.getState());
 		ArrayList<Transition> valid = new ArrayList<Transition>();
 		for(int i=0; i < transitions.size(); i++) {
 			Transition t = transitions.get(i);
-			if(t.condition.eval(entity, gs))
+			if(t.condition.eval(entity))
 				valid.add(t);
 		}
 		if(valid.size() > 0) {
 			int randIdx = ThreadLocalRandom.current().nextInt(0, valid.size());
-			boolean r = valid.get(randIdx).action.apply(entity, gs);
+			boolean r = valid.get(randIdx).action.apply(entity);
 			entity.setState(valid.get(randIdx).destination);
 			return r;
 		}

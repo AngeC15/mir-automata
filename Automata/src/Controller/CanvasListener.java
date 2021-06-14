@@ -25,7 +25,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import Model.Cowboy;
+import Model.entities.Cowboy;
 import Utils.Vector2;
 import View.Game;
 import View.GameCanvasListener;
@@ -33,6 +33,7 @@ import View.GameCanvasListener;
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
   Cowboy cow;
+  VirtualInput vi;
 
   public CanvasListener(Game game, Cowboy cow) {
     m_game = game;
@@ -51,6 +52,8 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse pressed: ("+e.getX()+","+e.getY()+")");
     System.out.println("   modifiers="+e.getModifiersEx());
     System.out.println("   buttons="+e.getButton());
+    
+    vi.updateKeys(-e.getButton(), true);
   }
 
   @Override
@@ -58,6 +61,8 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse released: ("+e.getX()+","+e.getY()+")");
     System.out.println("   modifiers="+e.getModifiersEx());
     System.out.println("   buttons="+e.getButton());
+    
+    vi.updateKeys(-e.getButton(), false);
   }
 
   @Override
@@ -79,6 +84,9 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse dragged: ("+e.getX()+","+e.getY()+")");
     System.out.println("   modifiers="+e.getModifiersEx());
     System.out.println("   buttons="+e.getButton());
+    
+    vi.updateMouse(e.getX(), e.getY());
+    
   }
 
   @Override
@@ -86,6 +94,8 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse moved: ("+e.getX()+","+e.getY()+")");
     System.out.println("   modifiers="+e.getModifiersEx());
     System.out.println("   buttons="+e.getButton());
+    
+    vi.updateMouse(e.getX(), e.getY());
   }
 
   @Override
@@ -96,25 +106,13 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void keyPressed(KeyEvent e) {
     System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
-    switch(e.getKeyCode()) {
-    case KeyEvent.VK_UP:
-    	cow.move(new Vector2(0, -1));
-    	break;
-    case KeyEvent.VK_DOWN:
-    	cow.move(new Vector2(0, 1));
-    	break;
-    case KeyEvent.VK_LEFT:
-    	cow.move(new Vector2(-1, 0));
-    	break;
-    case KeyEvent.VK_RIGHT:
-    	cow.move(new Vector2(1, 0));
-    	break;
-    }
+    vi.updateKeys(e.getKeyCode(), true);
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
     System.out.println("Key released: "+e.getKeyChar()+" code="+e.getKeyCode());
+    vi.updateKeys(e.getKeyCode(), false);
   }
 
   @Override

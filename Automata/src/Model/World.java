@@ -1,5 +1,27 @@
 package Model;
 
-public class World {
+import java.util.Map.Entry;
 
+import Model.entities.Entity;
+
+import java.util.TreeMap;
+
+public class World {
+	private TreeMap<Long, Entity> entities;
+	private long nextIntanceIdx;
+	
+	public World() {
+		entities = new TreeMap<Long, Entity>();
+		nextIntanceIdx = 0;
+	}
+	
+	public void tick(long elapsed) {
+		for(Entry<Long, Entity> entries : entities.entrySet()) {
+			entries.getValue().step();
+		}
+	}
+	public long addEntity(Entity entity) {
+		entities.put(nextIntanceIdx, entity);
+		return nextIntanceIdx++;
+	}
 }

@@ -1,8 +1,8 @@
 package Model.automata.actions;
 
-import Model.Entity;
-import Model.GameState;
+import Model.World;
+import Model.entities.Entity;
 
 public abstract class Action {
-	public abstract boolean apply(Entity e, GameState s);
+	public abstract boolean apply(Entity e);
 }

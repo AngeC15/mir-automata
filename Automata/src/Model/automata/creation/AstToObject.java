@@ -1,5 +1,7 @@
 package Model.automata.creation;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import Model.automata.Automaton;
@@ -350,8 +352,15 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		System.out.println("Not yet implemented need help");
-		return null;
+		List<Transition> TransitionList = new LinkedList<Transition>();
+		//Création d'un iterateur pour parcourir les transition (qui sont de type object, il faudra donc transtyper)
+		Iterator iterateur = transitions.iterator();
+		while(iterateur.hasNext()) {
+			TransitionList.add((Transition) iterateur.next());
+		}
+		//on transforme cette liste de Transitions en comportement (behaviour) et on y retourne
+		
+		return new Behaviour(TransitionList);
 	}
 
 	@Override

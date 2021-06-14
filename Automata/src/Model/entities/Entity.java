@@ -2,11 +2,11 @@ package Model.entities;
 
 import Model.World;
 import Model.automata.Automaton;
-import Model.automata.creation.StateExtension;
+import Model.automata.AutomatonState;
 import Utils.Vector2;
 
 public class Entity {
-	protected StateExtension state;
+	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
 	protected int id;
@@ -23,10 +23,10 @@ public class Entity {
 	public int getID() {
 		return id;
 	}
-	public StateExtension getState() {
+	public AutomatonState getState() {
 		return state;
 	}
-	public void setState(StateExtension state) {
+	public void setState(AutomatonState state) {
 		this.state = state;
 	}
 	public boolean step() {

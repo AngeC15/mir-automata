@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Model.automata.Automaton;
+import Model.automata.AutomatonState;
 import Model.automata.ast.AST;
 import Model.automata.ast.Action;
 import Model.automata.ast.Behaviour;
@@ -334,7 +335,7 @@ public class AstToObject implements IVisitor {
 	@Override
 	public Object visit(State state) {
 		String nom = state.name;
-		return new StateExtension(nom);
+		return new AutomatonState(nom);
 		
 	}
 
@@ -346,7 +347,7 @@ public class AstToObject implements IVisitor {
 	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
 		//quand on quitte le "noeud" on veut en obtenir un mode (CAD un comportement associer à un état)
-		return new ModeExtension((StateExtension)source_state,(BehaviourExtension)behaviour);
+		return new ModeExtension((AutomatonState)source_state,(BehaviourExtension)behaviour);
 		
 	}
 
@@ -388,7 +389,7 @@ public class AstToObject implements IVisitor {
 
 	@Override  
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
-		Model.automata.Transition trans = new Model.automata.Transition((StateExtension)target_state,(Model.automata.conditions.Condition)condition, (Model.automata.actions.Action)action);
+		Model.automata.Transition trans = new Model.automata.Transition((AutomatonState)target_state,(Model.automata.conditions.Condition)condition, (Model.automata.actions.Action)action);
 		return trans;
 	}
 

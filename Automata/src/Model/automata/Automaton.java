@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import Model.World;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
-import Model.automata.creation.StateExtension;
 import Model.entities.Entity;
 
 /**
@@ -16,13 +15,13 @@ import Model.entities.Entity;
  *
  */
 public class Automaton {
-	private ArrayList<StateExtension> states;
+	private ArrayList<AutomatonState> states;
 
 	/**
 	 * Creates a new automaton with an empty transition list.
 	 */
 	public Automaton() {
-		states = new ArrayList<StateExtension>();
+		states = new ArrayList<AutomatonState>();
 	}
 
 	/**
@@ -30,7 +29,7 @@ public class Automaton {
 	 * 
 	 * @return the number of transitions
 	 */
-	public int addState(StateExtension s) {
+	public int addState(AutomatonState s) {
 		states.add(s);
 		return states.size();
 	}

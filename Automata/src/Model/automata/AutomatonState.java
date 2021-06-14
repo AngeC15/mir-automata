@@ -1,17 +1,16 @@
-package Model.automata.creation;
+package Model.automata;
 
 import java.util.ArrayList;
 
-import Model.automata.Transition;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
 
-public class StateExtension {
+public class AutomatonState {
 		
 		ArrayList<Transition> transitions;
 		public String name;
 
-		public StateExtension(String name) {
+		public AutomatonState(String name) {
 			super();
 			this.name = name;
 		}
@@ -26,7 +25,7 @@ public class StateExtension {
 		 * @param act  The linked action.
 		 * @return The number of transitions of src.
 		 */
-		public int addTransition(StateExtension src, StateExtension dst, Condition cond, Action act) {
+		public int addTransition(AutomatonState src, AutomatonState dst, Condition cond, Action act) {
 			transitions.add(new Transition(dst, cond, act));
 			return transitions.size();
 		}

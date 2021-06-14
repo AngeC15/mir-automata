@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.automata.creation.KeyExtension;
+
 public class VirtualInput {
 	private boolean[] keys;
 	private int mouse_x;
@@ -43,8 +45,8 @@ public class VirtualInput {
 	public int getMouseY() {
 		return mouse_y;
 	}
-	public boolean getKey() {
-		//TODO
+	public boolean getKey(KeyExtension key) {
+		
 		return false;
 	}
 	

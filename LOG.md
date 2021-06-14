@@ -1,4 +1,4 @@
-# JOURNAL du Jeudi 10 juin
+# JOURNAL du Vendredi 11 juin
 
 ## Répartition des tâches
 

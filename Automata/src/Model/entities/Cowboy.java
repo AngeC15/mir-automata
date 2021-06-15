@@ -26,11 +26,11 @@ import java.io.File;
 import java.io.IOException;
 
 import Utils.Vector2;
-import View.Game;
 
 import javax.imageio.ImageIO;
 
 import Controller.CanvasListener;
+import Controller.Game;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.

@@ -21,7 +21,7 @@ public class VirtualInput {
 	
 	private static final int[] codes = {letters_code, numbers_code, special_code, space_code, enter_code, arrows_code};
 	private static final int[] sizes = {26, 5, 2, 1, 1, 4};
-	private static final int[] offsets = {letters_offset, numbers_offset, numbers_offset + 9, blank_offset, blank_offset+1, arrows_offset};
+	private static final int[] offsets = {letters_offset, numbers_offset, numbers_offset + 8, blank_offset, blank_offset+1, arrows_offset};
 	
 	public void updateKeys(int keycode, boolean value) {
 		if(keycode < 0) {
@@ -46,8 +46,7 @@ public class VirtualInput {
 		return mouse_y;
 	}
 	public boolean getKey(KeyExtension key) {
-		
-		return false;
+		return keys[key.ordinal()];
 	}
 	
 }

@@ -6,7 +6,8 @@ package Model.automata.creation;
  */
 public enum KeyExtension {
 	
-	A,Z,E,R,T,Y,U,I,O,P,Q,S,D,F,G,H,J,K,L,M,W,X,C,V,B,N,AU,
-	AR, AD, AL, SPACE, ENTER, UN, DEUX, TROIS, QUATRE, CINQ,
-	SIX, SEPT, HUIT, NEUF, ZERO; 
+	A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+	UN, DEUX, TROIS, QUATRE, CINQ, SIX, SEPT, HUIT, NEUF, ZERO,
+	SPACE, ENTER,
+	AU, AR, AD, AL; 
 }

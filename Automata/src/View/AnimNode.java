@@ -3,6 +3,8 @@ package View;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import View.AnimNode.Condition;
+
 public class AnimNode {
 
 	public enum Condition {
@@ -30,6 +32,19 @@ public class AnimNode {
 
 	public int getIndex() {
 		return this.index;
+	}
+
+	public BufferedImage getSprite() {
+		return sprite;
+	}
+
+	public AnimNode nextNode(Condition condition) throws Exception {
+		for (int i = 0; i < conditions.size(); i++) {
+			if (conditions.get(i) == condition) {
+				return nextNodes.get(i);
+			}
+		}
+		throw new Exception("State non valid");
 	}
 
 	@Override

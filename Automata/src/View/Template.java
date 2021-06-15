@@ -8,14 +8,12 @@ import java.util.Scanner;
 
 public class Template {
 	private SpriteSheet spriteSheet;
-	private AnimNode startNode;
 	private ArrayList<AnimNode> allNodes;
 
 	public Template(String fileNameSpriteSheet, String fileNameAutomata) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, 4, 6, 24);
 		allNodes = new ArrayList<AnimNode>();
 		readFile(fileNameAutomata);
-		startNode = allNodes.get(0);
 	}
 
 	/**
@@ -84,6 +82,10 @@ public class Template {
 		for(AnimNode node : allNodes) {
 			System.out.println(node);
 		}
+	}
+	
+	public AnimNode getStartNode() {
+		return allNodes.get(0);
 	}
 
 }

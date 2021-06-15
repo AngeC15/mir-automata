@@ -1,10 +1,13 @@
-package View;
+package Controller;
 
 import java.awt.BorderLayout;
 
 import Utils.Vector2;
+import View.GameCanvas;
+import View.Sound;
 import Controller.audio.*;
 import Controller.audio.info3.game.sound.RandomFileInputStream;
+import Model.World;
 import Model.entities.Cowboy;
 
 import java.awt.Color;
@@ -15,13 +18,20 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Controller.CanvasListener;
-
 
 public class Game {
 
 	static Game game;
-
+	
+	JFrame m_frame;
+	JLabel m_text;
+	GameCanvas m_canvas;
+	CanvasListener m_listener;
+	Cowboy m_cowboy;
+	Sound m_music;
+	World world;
+	
+	
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
@@ -32,24 +42,16 @@ public class Game {
 		}
 	}
 
-	JFrame m_frame;
-	JLabel m_text;
-	GameCanvas m_canvas;
-	CanvasListener m_listener;
-	Cowboy m_cowboy;
-	Sound m_music;
-
 	Game() throws Exception {
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
-		m_listener = new CanvasListener(this, m_cowboy);
+		m_listener = new CanvasListener(this);
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		
+		world = new World(m_listener.getVirtualInput());
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -118,8 +120,7 @@ public class Game {
 	 */
 	public void tick(long elapsed) {
 		
-		m_cowboy.tick(elapsed, m_listener);
-
+		world.tick(elapsed);
 		// Update every second
 		// the text on top of the frame: tick and fps
 		m_textElapsed += elapsed;

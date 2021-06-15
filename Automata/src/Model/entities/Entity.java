@@ -4,6 +4,9 @@ import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
 import Model.automata.creation.DirectionExtension;
+import Model.automata.creation.CategoryExtension;
+import Model.automata.creation.DirectionExtension;
+import Model.automata.creation.KeyExtension;
 import Utils.Vector2;
 import Utils.Functions;
 
@@ -49,4 +52,88 @@ public class Entity {
 		}
 	}
 	
+	public void Egg(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Explode() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Get() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Hit(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Jump(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Move(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Pick(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Apply(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Power() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Protect(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Store() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Throw(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Turn(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Wait() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Wizz(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Cell(DirectionExtension direction, CategoryExtension categorie) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void Closest(DirectionExtension direction, CategoryExtension categorie) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void GotPower() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void GotStuff() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void key(KeyExtension touche) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void MyDir(DirectionExtension direction) {
+		// TODO Auto-generated method stub
+		
+	}
 }

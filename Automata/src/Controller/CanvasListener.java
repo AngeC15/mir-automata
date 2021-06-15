@@ -26,20 +26,20 @@ import java.awt.event.MouseEvent;
 
 import Model.entities.Cowboy;
 import Utils.Vector2;
-import View.Game;
 import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
 
   Game m_game;
-  Cowboy cow;
   VirtualInput vi;
 
-  public CanvasListener(Game game, Cowboy cow) {
+  public CanvasListener(Game game) {
     m_game = game;
-    this.cow = cow;
+    vi = new VirtualInput();
   }
-
+  public VirtualInput getVirtualInput() {
+	  return vi;
+  }
   @Override
   public void mouseClicked(MouseEvent e) {
     System.out.println("Mouse clicked: ("+e.getX()+","+e.getY()+")");
@@ -118,6 +118,7 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
+    
   }
 
   @Override

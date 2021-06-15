@@ -1,15 +1,17 @@
 package Model.automata.conditions;
 
+import Model.automata.creation.CategoryExtension;
+import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
 public class Cell extends Condition{
 	
-	private Object direction;
-	private Object categorie;
+	private DirectionExtension direction;
+	private CategoryExtension categorie;
 	
 	
 	
-	public Cell(Object direction, Object categorie) {
+	public Cell(DirectionExtension direction, CategoryExtension categorie) {
 		this.direction = direction;
 		this.categorie = categorie;
 		System.out.println("La Direction vaut " + this.direction + " La categorie vaut " + this.categorie);
@@ -19,7 +21,7 @@ public class Cell extends Condition{
 
 	@Override
 	public boolean eval(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.Cell(direction, categorie);
 		return false;
 	}
 }

@@ -4,9 +4,12 @@ import Model.entities.Entity;
 
 public class Explode extends Action {
 
+	public Explode() {
+	}
+	
 	@Override
 	public boolean apply(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.Explode();
 		return false;
 	}
 }

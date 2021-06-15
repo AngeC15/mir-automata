@@ -7,7 +7,7 @@ public class Get extends Action{
 	
 	@Override
 	public boolean apply(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.Get();
 		return false;
 	}
 		

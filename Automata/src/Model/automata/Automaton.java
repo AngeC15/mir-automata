@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import Model.entities.Entity;
 
 /**
- * An automaton is a list of states. Every state has an action, a condition and
+ * An automaton is a list of Modes. Every state has an action, a condition and
  * a destination. Every state will had its own list.
  * 
  * @author Cyprien, Julian, Samuel
@@ -13,12 +13,28 @@ import Model.entities.Entity;
  */
 public class Automaton {
 	private ArrayList<AutomatonState> states;
+	private AutomatonState intial_state;
 
 	/**
 	 * Creates a new automaton with an empty transition list.
 	 */
 	public Automaton() {
 		states = new ArrayList<AutomatonState>();
+		intial_state = null;
+	}
+	
+	public Automaton(AutomatonState init, ArrayList<AutomatonState> list) {
+		states = list;
+		this.intial_state = init;
+	}
+
+
+	public AutomatonState getInit() {
+		return intial_state;
+	}
+
+	public void setInit(AutomatonState intial_state) {
+		this.intial_state = intial_state;
 	}
 
 	/**
@@ -39,7 +55,6 @@ public class Automaton {
 	 * entity to take.
 	 * 
 	 * @param entity The entity using the automaton.
-	 * @param gs     TODO NYI
 	 * @return false if there is no valid transition or if the action was not
 	 *         possible to perform (i.e. something trying to move into a wall), true
 	 *         otherwise.

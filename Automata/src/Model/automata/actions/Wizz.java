@@ -1,12 +1,20 @@
 package Model.automata.actions;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
 public class Wizz extends Action{
+	
+	DirectionExtension dir;
+
+	public Wizz(DirectionExtension dir) {
+		super();
+		this.dir = dir;
+	}
 
 	@Override
 	public boolean apply(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.Wizz(dir);
 		return false;
 	}
 }

@@ -1,14 +1,15 @@
 package Model.automata.conditions;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
 public class MyDir extends Condition{
 	
-	private Object direction;
+	private DirectionExtension direction;
 
 	
 	
-	public MyDir(Object direction) {
+	public MyDir(DirectionExtension direction) {
 		this.direction = direction;
 		System.out.println("Direction vaut" + this.direction);
 
@@ -18,7 +19,7 @@ public class MyDir extends Condition{
 
 	@Override
 	public boolean eval(Entity e) {
-		System.out.println("Pas encore implémenté, merci de repasser");
+		e.MyDir(direction);
 		return false;
 	}
 }

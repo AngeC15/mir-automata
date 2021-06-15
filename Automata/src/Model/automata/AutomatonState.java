@@ -7,7 +7,7 @@ import Model.automata.conditions.Condition;
 
 public class AutomatonState {
 		
-		ArrayList<Transition> transitions;
+		ArrayList<Transition> transitions; //potentiellement supprimable
 		public String name;
 
 		public AutomatonState(String name) {
@@ -28,6 +28,9 @@ public class AutomatonState {
 		public int addTransition(AutomatonState src, AutomatonState dst, Condition cond, Action act) {
 			transitions.add(new Transition(dst, cond, act));
 			return transitions.size();
+		}
+		public void setTransition(ArrayList<Transition> list) {
+			transitions = list;
 		}
 		public ArrayList<Transition> getTransitions(){
 			return transitions;

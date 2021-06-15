@@ -33,4 +33,8 @@ public class State extends Node {
 		return visitor.visit(this);
 	}
 
+	public String getName() {
+		return name;
+	}
+
 }

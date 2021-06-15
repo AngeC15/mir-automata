@@ -16,11 +16,9 @@ public class TestParseur {
 	static List<Automaton> loadAutomata(String filename) {
 	    try {
 	      AST ast = (AST) AutomataParser.from_file(filename);
-	      //...
-	      // TODO à vous de constuire les automates à partir de l'AST
-	      //...
 	      AstToObject visiteur = new AstToObject();
-	      return (List<Automaton>) ast.accept(visiteur);
+	      List<Automaton> li =  ((List<Automaton>) ast.accept(visiteur));
+	      return li;
 	    
 	    } catch (Exception ex) {
 	    	System.out.println(ex.getCause());

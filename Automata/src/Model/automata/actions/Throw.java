@@ -7,7 +7,8 @@ public class Throw extends Action {
 
 	DirectionExtension dir;
 
-	public Throw(DirectionExtension directionToRet) {
+	public Throw(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 	

@@ -9,7 +9,8 @@ public class Turn extends Action{
 
 	DirectionExtension dir;
 
-	public Turn(DirectionExtension directionToRet) {
+	public Turn(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 

@@ -7,7 +7,8 @@ public class Pick extends Action {
 
 	DirectionExtension dir;
 
-	public Pick(DirectionExtension directionToRet) {
+	public Pick(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 

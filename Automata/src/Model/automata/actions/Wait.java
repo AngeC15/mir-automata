@@ -6,7 +6,8 @@ import Model.entities.Entity;
 public class Wait extends Action{
 
 	
-	public Wait() {
+	public Wait(float weight) {
+		super(weight);
 	}
 
 	@Override

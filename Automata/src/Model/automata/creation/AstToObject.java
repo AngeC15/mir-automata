@@ -315,6 +315,7 @@ public class AstToObject implements IVisitor {
 	public Object exit(FunCall funcall, List<Object> parameters) {
 		//reglages de paramètres
 		//il faut integrer les conditions
+		float p = (float) funcall.percent/100; //we divide by 100 to get a number between 0 and 1.
 		Object param1 = null,param2 = null;
 		//parameters length:
 		int longParam = parameters.size();
@@ -333,35 +334,38 @@ public class AstToObject implements IVisitor {
 		}
 		switch (funcall.name) {
 		case "Wizz":
-				return new Wizz((DirectionExtension) param1);
+				return new Wizz((DirectionExtension) param1, p);
 		case "Pop":
-				return new Pop((DirectionExtension) param1);
+				return new Pop((DirectionExtension) param1, p);
 		case "Wait":
-				return new Wait();
+				return new Wait(p);
 		case "Move":
-				return new Move((DirectionExtension) param1);
+				return new Move((DirectionExtension) param1, p);
 		case "Jump":
-				return new Jump((DirectionExtension) param1);
+				return new Jump((DirectionExtension) param1, p);
 		case "Turn":
-				return new Turn((DirectionExtension) param1);
+				return new Turn((DirectionExtension) param1, p);
 		case "Hit":
-				return new Hit((DirectionExtension) param1);
+				return new Hit((DirectionExtension) param1, p);
 		case "Protect":
-				return new Protect((DirectionExtension) param1);
+				return new Protect((DirectionExtension) param1, p);
 		case "Pick":
-				return new Pick((DirectionExtension) param1);
+				return new Pick((DirectionExtension) param1, p);
 		case "Throw":
-				return new Throw((DirectionExtension) param1);
+				return new Throw((DirectionExtension) param1, p);
 		case "Store":
-				return new Store();
+				return new Store(p);
 		case "Get":
-				return new Get();
+				return new Get(p);
 		case "Power":
-				return new Power();
+				return new Power(p);
 		case "Explode":
-				return new Explode();
+				return new Explode(p);
 		case "Egg":
-				return new Egg(DirectionExtension.F);
+				if (param1 == null){
+					param1 = DirectionExtension.F;
+				}
+				return new Egg((DirectionExtension) param1, p);
 		case "Cell":
 				return new Cell((DirectionExtension) param1, (CategoryExtension) param2);
 		case "Closest":
@@ -458,10 +462,11 @@ public class AstToObject implements IVisitor {
 		// object, il faudra donc transtyper)
 		Iterator iterateur = transitions.iterator();
 		while (iterateur.hasNext()) {
-			transitionList.add((Model.automata.Transition) iterateur.next());
+			Object transi1 = iterateur.next();
+			Model.automata.Transition transi = (Model.automata.Transition) transi1;
+			transitionList.add(transi);
 		}
-		// on transforme cette liste de Transitions en comportement (behaviour) et on y
-		// retourne
+		
 
 		return transitionList;
 	}
@@ -473,8 +478,8 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object exit(Condition condition, Object expression) {
-		System.out.println("Not yet implemented need help");
-		return null;
+
+		return expression;
 	}
 
 	@Override
@@ -485,14 +490,22 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object exit(Action action, List<Object> funcalls) {
-		System.out.println("Not yet implemented need help");
-		return null;
+		//il faut mettre l'action de la transition
+		//System.out.println("Not yet implemented need help");
+		Model.automata.actions.ActionList actionLi = new Model.automata.actions.ActionList(0);
+		for(Object ite : funcalls) {
+			Model.automata.actions.Action a = (Model.automata.actions.Action ) ite;
+			actionLi.addAction(a);
+		}
+		return actionLi;
 	}
 
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
 		return new Model.automata.Transition((AutomatonState) target_state,
-				(Model.automata.conditions.Condition) condition, (Model.automata.actions.Action) action);
+				(Model.automata.conditions.Condition) condition, 
+				(Model.automata.actions.Action) action);
+	
 	}
 
 	@Override

@@ -5,6 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Model.entities.Entity;
 
+/**
+ * 
+ * @author Julian
+ *
+ */
 public class ActionList extends Action{
 	
 	private ArrayList<Action> weighted_actions;
@@ -13,14 +18,17 @@ public class ActionList extends Action{
 	private float total_weight;
 	private ArrayList<Float> cumulative_weights;
 	
-	public ActionList() {
+	public ActionList(float weight) {
+		super(weight);
 		total_weight = 0;
-	}
-	public void addAction(Action a) {
-		default_actions.add(a);
+		this.cumulative_weights = new ArrayList<Float>();
+		this.default_actions = new ArrayList<Action>();
+		this.weighted_actions = new ArrayList<Action>();
 	}
 	
-	public void addAction(Action a, float p) {
+	public void addAction(Action a) {
+		float p = a.getWeigth();
+		
 		total_weight += p;
 		
 		float last = 0.0f;
@@ -33,6 +41,10 @@ public class ActionList extends Action{
 	
 	@Override
 	public boolean apply(Entity e) {
+		/*
+		 * When we want to choose a random action among all available, we need to take all -1's weight
+		 *with the same percentage depending on the number of total_weight and how many action with -1's weight left
+		*/
 		float r = (float)Math.random();
 		if(r >= total_weight) {
 			int randIdx = ThreadLocalRandom.current().nextInt(0, default_actions.size());

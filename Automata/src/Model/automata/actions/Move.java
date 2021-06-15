@@ -8,7 +8,8 @@ public class Move extends Action {
 	DirectionExtension dir;
 
 	
-	public Move(DirectionExtension f) {
+	public Move(DirectionExtension f, float weight) {
+		super(weight);
 		this.dir = f;
 	}
 

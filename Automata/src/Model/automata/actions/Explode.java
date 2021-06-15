@@ -4,7 +4,8 @@ import Model.entities.Entity;
 
 public class Explode extends Action {
 
-	public Explode() {
+	public Explode(float weight) {
+		super(weight);
 	}
 	
 	@Override

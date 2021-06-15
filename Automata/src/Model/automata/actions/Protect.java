@@ -7,7 +7,8 @@ public class Protect extends Action {
 
 	DirectionExtension dir;
 
-	public Protect(DirectionExtension directionToRet) {
+	public Protect(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 	

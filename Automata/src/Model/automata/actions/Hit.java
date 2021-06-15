@@ -7,7 +7,8 @@ public class Hit extends Action{
 
 	DirectionExtension dir;
 
-	public Hit(DirectionExtension directionToRet) {
+	public Hit(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 

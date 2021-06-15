@@ -1,11 +1,13 @@
 package Model.automata.conditions;
 
-import Model.Entity;
-import Model.GameState;
+import Model.entities.Entity;
 
 public class True extends Condition{
-	public boolean eval(Entity e, GameState s) {
+	@Override
+	public boolean eval(Entity e) {
 		return true;
 	}
+	
+	
 
 }

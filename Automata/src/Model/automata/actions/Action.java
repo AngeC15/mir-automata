@@ -1,8 +1,13 @@
 package Model.automata.actions;
 
-import Model.Entity;
-import Model.GameState;
+import Model.entities.Entity;
 
+/**
+ * Hi
+ * 
+ * @author Cyprien, Julian, Samuel
+ *
+ */
 public abstract class Action {
-	public abstract boolean apply(Entity e, GameState s);
+	public abstract boolean apply(Entity e);
 }

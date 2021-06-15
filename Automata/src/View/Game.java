@@ -2,10 +2,10 @@ package View;
 
 import java.awt.BorderLayout;
 
-import Model.Cowboy;
 import Utils.Vector2;
 import Controller.audio.*;
 import Controller.audio.info3.game.sound.RandomFileInputStream;
+import Model.entities.Cowboy;
 
 import java.awt.Color;
 import java.awt.Dimension;

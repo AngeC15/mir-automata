@@ -1,7 +1,6 @@
 package Model.automata.actions;
 
-import Model.Entity;
-import Model.GameState;
+import Model.entities.Entity;
 
 public class Print extends Action{
 	private String msg;
@@ -9,7 +8,7 @@ public class Print extends Action{
 		msg = str;
 	}
 	@Override
-	public boolean apply(Entity e, GameState s) {
+	public boolean apply(Entity e) {
 		System.out.println("" + e.getID() + " : " + msg);
 		return true;
 	}

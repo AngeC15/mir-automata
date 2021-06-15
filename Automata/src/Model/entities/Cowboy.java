@@ -18,7 +18,7 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package Model;
+package Model.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

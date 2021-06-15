@@ -1,3 +1,20 @@
+# JOURNAL du Lundi 15 juin
+
+## Répartition des tâches
+
+#### *Théo + Julian* : architecture MVC et entrées clavier
+
+
+#### *Cyprien + Samuel* : représentation exécutable des automates à partir de l'AST ( branche `prototype.controller` et  `proto.ast` )
+- Refactorisation des differentes classes, modification des packages pour plus de lisibilité et de compréhension du code. Avancement sur la classe `AstToObject`
+- Test du Parseur
+
+#### *Gergely + Camille* : Animation des avatars ( branche `dev.avatar`)
+- Création des classes `Avatar`, `SpriteSheet` et `AutoAnim`
+
+#### *Joan* : Réalisation des Sprites
+
+---
 # JOURNAL du Vendredi 11 juin
 
 ## Répartition des tâches

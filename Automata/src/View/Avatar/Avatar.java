@@ -1,6 +1,8 @@
 package View.Avatar;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import Utils.Vector2;
@@ -21,15 +23,22 @@ public class Avatar {
 		this.y = y;
 	}
 
-	public void paint(Graphics g, int width, int height) {
+	public void paint(Graphics g, int angleInDegrees , int width, int height) {
 		BufferedImage sprite = state.getSprite();
-		g.drawImage(sprite, x, y, sprite.getWidth(), sprite.getHeight(), null);
+		
+		AffineTransform transform = new AffineTransform();
+		transform.translate(x, y);
+		transform.rotate(Math.toRadians(angleInDegrees));
+		
+		((Graphics2D) g).drawImage(sprite, transform, null) ;
 	}
 
 	public void moveAvatar(Vector2 movement) {
 		x += movement.x;
 		y += movement.y;
 	}
+	
+	
 	
 	public void step(Condition condition) throws Exception {
 		state = state.nextNode(condition);

@@ -2,6 +2,7 @@ package View;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -49,8 +50,9 @@ public class SpriteSheet {
 				}
 			}
 			return images;
+		}else {
+			throw new FileNotFoundException("SpriteSheet not found");
 		}
-		return null;
 	}
 
 	/**

@@ -5,18 +5,40 @@ import java.util.ArrayList;
 
 public class AnimNode {
 
-	public enum Condition {  // dans le fichier Civilite.java  
-	    MOVE, JUMP, MONSIEUR  
+	public enum Condition {
+		MOVE, FIRE, HURT, POP, WIZZ
 	}
-	
-	
+
 	private BufferedImage sprite;
+	private int index;
 	private ArrayList<Condition> conditions;
 	private ArrayList<AnimNode> nextNodes;
 
-	public AnimNode(BufferedImage sprite) {
+	public AnimNode(BufferedImage sprite, int index) {
 		this.sprite = sprite;
 		conditions = new ArrayList<Condition>();
 		nextNodes = new ArrayList<AnimNode>();
+		this.index = index;
+	}
+
+	public void addNode(String condition, AnimNode node) {
+		Condition cond = Condition.valueOf(condition);
+		conditions.add(cond);
+		nextNodes.add(node);
+
+	}
+
+	public int getIndex() {
+		return this.index;
+	}
+
+	@Override
+	public String toString() {
+		String chaine = "Etat " + index + " : \n";
+		for (int i = 0; i < conditions.size(); i++) {
+			chaine += " " + conditions.get(i) + " -> " + nextNodes.get(i).getIndex() + "\n";
+		}
+		return chaine;
+
 	}
 }

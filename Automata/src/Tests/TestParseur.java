@@ -7,7 +7,11 @@ import Model.automata.Automaton;
 import Model.automata.ast.AST;
 import Model.automata.creation.AstToObject;
 import Model.automata.parser.AutomataParser;
-
+/**
+ * 
+ * @author cyprien, Julian
+ *
+ */
 public class TestParseur {
 	static List<Automaton> loadAutomata(String filename) {
 	    try {
@@ -28,8 +32,9 @@ public class TestParseur {
 
 	public static void main(String[] args) {
 		loadAutomata("src/Tests/GalAutomaton/philosophe.gal");
-		//loadAutomata("src/Tests/GalAutomaton/twoState.gal");
+		//loadAutomata("src/Tests/GalAutomaton/twoState.gal"); //ne fonctionne pas
 		loadAutomata("src/Tests/GalAutomaton/mine.gal");
+		System.out.println("Test fini");
 
 	}
 

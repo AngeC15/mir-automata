@@ -1,0 +1,10 @@
+Philosopher(Think){
+  * (Think)
+}
+
+Mine(Banzai){
+  * (Banzai) 
+  | Cell(F,_) ? Explode  :()
+  | True ?               :(Banzai)
+  * ()
+}

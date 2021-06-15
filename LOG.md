@@ -2,6 +2,17 @@
 
 ## Répartition des tâches
 
+#### Pour l'ensemble du groupe : 
+- Réunion avec Emmanuel DUFOUR à propos de la gestion d'équipe
+- Revue de code, questions / réponses, mise en commun de l'avancement, explicitation de l'architecture
+- Avancement selon la même répartition de la veille
+
+---
+
+# JOURNAL du Lundi 15 juin
+
+## Répartition des tâches
+
 #### *Théo + Julian* : architecture MVC et entrées clavier
 
 

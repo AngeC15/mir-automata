@@ -1,9 +1,13 @@
 package Model.automata.creation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import Model.automata.Automaton;
 import Model.automata.AutomatonState;
 import Model.automata.actions.Egg;
 import Model.automata.actions.Explode;
@@ -41,11 +45,14 @@ import Model.automata.conditions.Closest;
 import Model.automata.conditions.GotPower;
 import Model.automata.conditions.GotStuff;
 import Model.automata.conditions.MyDir;
+import Model.automata.conditions.True;
 import Model.automata.conditions.operators.AndOperator;
 import Model.automata.conditions.operators.NotOperator;
 import Model.automata.conditions.operators.OrOperator;
 
 public class AstToObject implements IVisitor {
+	
+	private HashMap<String, AutomatonState> state_names;
 
 	@Override
 	public Object visit(Category cat) {
@@ -311,18 +318,18 @@ public class AstToObject implements IVisitor {
 		Object param1 = null,param2 = null;
 		//parameters length:
 		int longParam = parameters.size();
-		Object parametrePremier = parameters.get(0);
-		if(parametrePremier == null) {
-			
-		}else if(parametrePremier instanceof DirectionExtension || parametrePremier instanceof CategoryExtension) {
-			param1 = parameters.get(0);
-			if( longParam > 1) {
-				//on a forcément en deuxième une catégorie ou une direction, rien d'autre n'a que 2 arguments
-				param2 = parameters.get(1);
+		Object parametrePremier = null;;
+		if(longParam > 0) {
+			parametrePremier = parameters.get(0);
+			if(parametrePremier instanceof DirectionExtension || parametrePremier instanceof CategoryExtension) {
+				param1 = parameters.get(0);
+				if( longParam > 1) {
+					//on a forcément en deuxième une catégorie ou une direction, rien d'autre n'a que 2 arguments
+					param2 = parameters.get(1);
+				}
+			}else if(parametrePremier instanceof KeyExtension) {
+				param1 = parameters.get(0);
 			}
-		}else if(parametrePremier instanceof KeyExtension) {
-			param1 = parameters.get(0);
-			
 		}
 		switch (funcall.name) {
 		case "Wizz":
@@ -367,6 +374,8 @@ public class AstToObject implements IVisitor {
 				return new Model.automata.conditions.Key((KeyExtension) param1);
 		case "MyDir":
 				return new MyDir((DirectionExtension) param1);
+		case "True":
+				return new True();
 		default:
 			throw new RuntimeException("Die");
 		}
@@ -414,8 +423,14 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(State state) {
-		String nom = state.name;
-		return new AutomatonState(nom);
+		//Here we check if the name is already in the hashset
+		String name = state.name;
+		if(state_names.containsKey(name)) {
+			return state_names.get(name);
+		}
+		AutomatonState as = new AutomatonState(name); 
+		state_names.put(name, as);
+		return as;
 
 	}
 
@@ -428,23 +443,27 @@ public class AstToObject implements IVisitor {
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
 		// quand on quitte le "noeud" on veut en obtenir un mode (CAD un comportement
 		// associer à un état)
-		return new ModeExtension((AutomatonState) source_state, (BehaviourExtension) behaviour);
+		//return new ModeExtension((AutomatonState) source_state, (BehaviourExtension) behaviour);
+		for(Model.automata.Transition t : (ArrayList<Model.automata.Transition>) behaviour) {
+			((AutomatonState)source_state).setTransition((ArrayList<Model.automata.Transition>) behaviour);
+		}
+		return source_state;
 
 	}
 
 	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		List<Transition> TransitionList = new LinkedList<Transition>();
+		List<Model.automata.Transition> transitionList = new ArrayList<Model.automata.Transition>();
 		// Création d'un iterateur pour parcourir les transition (qui sont de type
 		// object, il faudra donc transtyper)
 		Iterator iterateur = transitions.iterator();
 		while (iterateur.hasNext()) {
-			TransitionList.add((Transition) iterateur.next());
+			transitionList.add((Model.automata.Transition) iterateur.next());
 		}
 		// on transforme cette liste de Transitions en comportement (behaviour) et on y
 		// retourne
 
-		return new Behaviour(TransitionList);
+		return transitionList;
 	}
 
 	@Override
@@ -472,27 +491,40 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
-		Model.automata.Transition trans = new Model.automata.Transition((AutomatonState) target_state,
+		return new Model.automata.Transition((AutomatonState) target_state,
 				(Model.automata.conditions.Condition) condition, (Model.automata.actions.Action) action);
-		return trans;
 	}
 
 	@Override
 	public void enter(Model.automata.ast.Automaton automaton) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
+		//TODO voir si ce n'est pas plutôt à laisser vide
+		state_names = new HashMap<String, AutomatonState>();
 
 	}
 
 	@Override
 	public Object exit(Model.automata.ast.Automaton automaton, Object initial_state, List<Object> modes) {
-		System.out.println("Not yet implemented need help");
-		return null;
+		//ArrayList<AutomatonState> li =  new ArrayList<AutomatonState>((List<AutomatonState>)modes);
+		Automaton auto = new Automaton();
+		for(Object li2 : modes) {
+			auto.addState((AutomatonState) li2);
+		}
+		auto.setInit((AutomatonState) initial_state);
+		return auto;
+		
 	}
 
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
-		System.out.println("Not yet implemented need help");
-		return null;
+		List<Automaton> listAutomaton = new LinkedList<Automaton>();
+		//on parcours les différents automates de l'AST
+		Iterator iterateurAutomate = automata.iterator();
+		while(iterateurAutomate.hasNext()) {
+			//on ajoute à notre liste l'automate recontré
+			listAutomaton.add((Automaton) iterateurAutomate.next());
+		}
+		return listAutomaton;
 	}
 
 }

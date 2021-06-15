@@ -8,7 +8,7 @@ import Model.automata.conditions.Condition;
 import Model.entities.Entity;
 
 /**
- * An automaton is a list of states. Every state has an action, a condition and
+ * An automaton is a list of Modes. Every state has an action, a condition and
  * a destination. Every state will had its own list.
  * 
  * @author Cyprien, Julian, Samuel
@@ -16,12 +16,28 @@ import Model.entities.Entity;
  */
 public class Automaton {
 	private ArrayList<AutomatonState> states;
+	private AutomatonState intial_state;
 
 	/**
 	 * Creates a new automaton with an empty transition list.
 	 */
 	public Automaton() {
 		states = new ArrayList<AutomatonState>();
+		intial_state = null;
+	}
+	
+	public Automaton(AutomatonState init, ArrayList<AutomatonState> list) {
+		states = list;
+		this.intial_state = init;
+	}
+
+
+	public AutomatonState getInit() {
+		return intial_state;
+	}
+
+	public void setInit(AutomatonState intial_state) {
+		this.intial_state = intial_state;
 	}
 
 	/**

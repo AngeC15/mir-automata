@@ -18,16 +18,18 @@ public class Entity {
 	protected World world;
 	protected int id;
 	protected AffineTransform transform;
-	protected Vector2 velocity;
+	protected float velocity = 3.0f;
 	
-	public Entity(int id, Avatar av, Automaton a, World w) {
+	public Entity(int id, Automaton a, World w) {
 		this.id = id;
-		avatar = av;
 		automaton = a;
 		world = w;
 		transform = new AffineTransform();
 		world.addEntity(this, id);
 		
+	}
+	public void setAvatar(Avatar av) {
+		avatar = av;
 	}
 	public AffineTransform getTransform() {
 		return transform;
@@ -68,8 +70,14 @@ public class Entity {
 		
 	}
 	public void Move(DirectionExtension dir) {
-		// TODO Auto-generated method stub
-		
+		final Vector2[] dirs = {
+				new Vector2(0.0f, 1.0f), new Vector2(1.0f, 1.0f),
+				new Vector2(1.0f, 0.0f), new Vector2(1.0f, -1.0f),
+				new Vector2(0.0f, -1.0f), new Vector2(-1.0f, -1.0f),
+				new Vector2(-1.0f, 0.0f), new Vector2(-1.0f, 1.0f),
+		};
+		Vector2 vect = dirs[dir.ordinal()];
+		vect.scale(world.getElapsed()*velocity/1000.0f);
 	}
 	public void Pick(DirectionExtension dir) {
 		// TODO Auto-generated method stub

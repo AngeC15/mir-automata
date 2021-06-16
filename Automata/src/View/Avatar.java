@@ -8,13 +8,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Model.entities.Entity;
+
 public class Avatar {
+	Entity entity;
 	AffineTransform transform;
 	BufferedImage[] m_images;
 	
-	public Avatar(AffineTransform tr) throws IOException{
+	public Avatar(Entity e) throws IOException{
 		m_images = loadSprite("Resources/winchester-4x6.png", 4, 6);
-		transform = tr;
+		entity = e;
+		transform = e.getTransform();
+		e.setAvatar(this);
 	}
 	void paint(Graphics2D g) {;
 		BufferedImage img = m_images[0];

@@ -13,7 +13,7 @@ public class World {
 	private TreeMap<Long, Entity> entities;
 	private long nextIntanceIdx;
 	private VirtualInput inputs;
-	
+	private long elapsed;
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new TreeMap<Long, Entity>();
@@ -21,13 +21,16 @@ public class World {
 	}
 	
 	public void tick(long elapsed) {
-		
+		this.elapsed = elapsed;
 		for(Entry<Long, Entity> entries : entities.entrySet()) {
 			entries.getValue().step();
 		}
 	}
 	public TreeMap<Long, Entity> getEntities(){
 		return entities;
+	}
+	public long getElapsed() {
+		return elapsed;
 	}
 	public boolean getKey(KeyExtension k) {
 		return inputs.getKey(k);

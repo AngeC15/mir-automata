@@ -12,33 +12,23 @@ import View.Template;
 
 public class Avatar {
 	private AnimNode state;
-	private Template template;
-	private int x;
-	private int y;
+	AffineTransform af;
 
-	public Avatar(Template template, int x, int y) {
-		this.template = template;
+	public Avatar(Template template, AffineTransform af) {
 		state = template.getStartNode();
-		this.x = x;
-		this.y = y;
+		this.af = af;
 	}
 
-	public void paint(Graphics g, int angleInDegrees , int width, int height) {
+	/**
+	 * Draws this avatar on the given Graphics.
+	 * AffineTransform af must be modified before calling this method.
+	 * @param g
+	 */
+	public void paint(Graphics g) {
 		BufferedImage sprite = state.getSprite();
 		
-		AffineTransform transform = new AffineTransform();
-		transform.translate(x, y);
-		transform.rotate(Math.toRadians(angleInDegrees));
-		
-		((Graphics2D) g).drawImage(sprite, transform, null) ;
+		((Graphics2D) g).drawImage(sprite, af, null);
 	}
-
-	public void moveAvatar(Vector2 movement) {
-		x += movement.x;
-		y += movement.y;
-	}
-	
-	
 	
 	public void step(Condition condition) throws Exception {
 		state = state.nextNode(condition);

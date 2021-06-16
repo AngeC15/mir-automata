@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import Model.automata.actions.Action;
 import Model.automata.conditions.Condition;
 
+/**
+ * 
+ * @author Julian, Cyprien
+ *
+ */
 public class AutomatonState {
 		
 		ArrayList<Transition> transitions; //potentiellement supprimable

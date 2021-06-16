@@ -8,8 +8,8 @@ public class Pop extends Action{
 	DirectionExtension dir;
 
 	
-	public Pop(DirectionExtension f) {
-		super();
+	public Pop(DirectionExtension f, float weight) {
+		super(weight);
 		this.dir = f;
 		
 	}

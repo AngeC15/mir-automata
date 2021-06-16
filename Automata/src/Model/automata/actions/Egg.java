@@ -7,7 +7,8 @@ public class Egg extends Action{
 	
 	DirectionExtension dir;
 
-	public Egg(DirectionExtension directionToRet) {
+	public Egg(DirectionExtension directionToRet, float weight) {
+		super(weight);
 		this.dir = directionToRet;
 	}
 

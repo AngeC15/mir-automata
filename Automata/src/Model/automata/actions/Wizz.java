@@ -7,8 +7,8 @@ public class Wizz extends Action{
 	
 	DirectionExtension dir;
 
-	public Wizz(DirectionExtension dir) {
-		super();
+	public Wizz(DirectionExtension dir, float weight) {
+		super(weight);
 		this.dir = dir;
 	}
 

@@ -15,8 +15,8 @@ public class TestAutomaton {
 	public static void main(String[] args) {
 		Automaton a = new Automaton();
 		AutomatonState s = new AutomatonState("default");
-		s.addTransition(s, s, new True(), new Print("a"));
-		s.addTransition(s, s, new True(), new Print("b"));
+		s.addTransition(s, s, new True(), new Print("a", 0.0f));
+		s.addTransition(s, s, new True(), new Print("b", 0.0f));
 		a.addState(s);
 		
 		

@@ -28,6 +28,10 @@ public class ActionList extends Action{
 	
 	public void addAction(Action a) {
 		float p = a.getWeigth();
+		if(p < 0) {
+			p = 1-total_weight;
+			a.setWeight(p);
+		}
 		
 		total_weight += p;
 		

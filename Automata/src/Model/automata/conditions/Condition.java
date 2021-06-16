@@ -13,4 +13,11 @@ public abstract class Condition {
 	 */
 	public abstract boolean eval(Entity e);
 
+	@Override
+	public String toString() {
+		return "Condition [" + getClass() +"]";
+	}
+	
+	
+
 }

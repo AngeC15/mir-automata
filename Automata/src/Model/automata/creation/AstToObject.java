@@ -307,7 +307,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 
 	}
 
@@ -440,7 +440,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 	}
 
 	@Override
@@ -473,7 +473,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Condition condition) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 	}
 
 	@Override
@@ -484,7 +484,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Action action) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 
 	}
 

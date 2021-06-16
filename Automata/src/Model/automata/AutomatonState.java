@@ -12,11 +12,13 @@ import Model.automata.conditions.Condition;
  */
 public class AutomatonState {
 		
+
 		ArrayList<Transition> transitions; //potentiellement supprimable
 		public String name;
 
 		public AutomatonState(String name) {
 			super();
+			this.transitions = new ArrayList<Transition>();
 			this.name = name;
 			transitions = new ArrayList<Transition>();
 		}
@@ -41,6 +43,16 @@ public class AutomatonState {
 		}
 		public ArrayList<Transition> getTransitions(){
 			return transitions;
+		}
+
+		public int length() {
+			
+			return transitions.size();
+		}
+		
+		@Override
+		public String toString() {
+			return "AutomatonState [name=" + name + "]";
 		}
 
 }

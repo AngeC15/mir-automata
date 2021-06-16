@@ -13,8 +13,9 @@ import Model.automata.actions.Move;
 public class Player extends Entity{
 
 	public Player(World w) {
-		super(new Automaton(new AutomatonState("default")), w);
-		AutomatonState def = automaton.getInit();
+		super(Tests.TestParseur.loadAutomata("Bots/Player.gal").get(0), w);
+		
+		/*AutomatonState def = automaton.getInit();
 		try {
 			def.addTransition(def, def, new AndOperator(new Key(KeyExtension.Q), new AndOperator(new NotOperator(new Key(KeyExtension.S)), new NotOperator(new Key(KeyExtension.N)))) , new Move(DirectionExtension.O, 1.0f));
 			def.addTransition(def, def, new AndOperator(new Key(KeyExtension.Z), new AndOperator(new NotOperator(new Key(KeyExtension.Q)), new NotOperator(new Key(KeyExtension.D)))) , new Move(DirectionExtension.N, 1.0f));
@@ -31,7 +32,7 @@ public class Player extends Entity{
 		}
 		automaton.addState(def);
 		automaton.setInit(def);
-		
+		*/
 		
 		// TODO Auto-generated constructor stub
 	}

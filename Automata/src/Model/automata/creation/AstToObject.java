@@ -119,19 +119,19 @@ public class AstToObject implements IVisitor {
 			orientation = DirectionExtension.E;
 			break;
 		case "SE":
-			orientation = DirectionExtension.E;
+			orientation = DirectionExtension.SE;
 			break;
 		case "S":
 			orientation = DirectionExtension.S;
 			break;
-		case "SO":
-			orientation = DirectionExtension.SO;
+		case "SW":
+			orientation = DirectionExtension.SW;
 			break;
-		case "O":
-			orientation = DirectionExtension.O;
+		case "W":
+			orientation = DirectionExtension.W;
 			break;
-		case "NO":
-			orientation = DirectionExtension.NO;
+		case "NW":
+			orientation = DirectionExtension.NW;
 			break;
 		case "F":
 			orientation = DirectionExtension.F;
@@ -307,7 +307,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 
 	}
 
@@ -393,14 +393,14 @@ public class AstToObject implements IVisitor {
 										// que c'est un operateur unitaire
 		case "/": // Cas du ou
 			try {
-				result = new OrOperator(right, left);
+				result = new OrOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur ou");
 			}
 			break;
 		case "&": // cas du et
 			try {
-				result = new AndOperator(right, left);
+				result = new AndOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur et");
 			}
@@ -440,7 +440,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 	}
 
 	@Override
@@ -473,7 +473,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Condition condition) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 	}
 
 	@Override
@@ -484,7 +484,7 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Action action) {
-		System.out.println("Not yet implemented need help");
+		//System.out.println("Not yet implemented need help");
 
 	}
 

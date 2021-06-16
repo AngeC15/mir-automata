@@ -8,16 +8,19 @@ public class OrOperator extends Condition{
 		public Condition condDroite;
 		public Condition condGauche;
 		
-		public OrOperator(Object condDroite, Object condGauche) throws Exception {
-			super();
+
+
+		public OrOperator(Condition right, Condition left) throws Exception {
 			try {
-			this.condDroite = (Condition) condDroite;
-			this.condGauche = (Condition) condGauche;
+				this.condDroite = right;
+				this.condGauche = left;
 			}catch(Exception e) {
 				System.out.println("Erreur de changement de type de variable");
 				throw new Exception("Erreur, in orOperator");
 			}
 		}
+
+
 
 		@Override
 		public boolean eval(Entity entity) {

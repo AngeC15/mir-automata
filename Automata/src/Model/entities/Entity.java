@@ -5,11 +5,13 @@ import java.awt.geom.AffineTransform;
 import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
-import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
+import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.KeyExtension;
 import Utils.Vector2;
 import View.Avatar;
+import Utils.Functions;
+
 
 public class Entity {
 	protected Avatar avatar;
@@ -18,7 +20,8 @@ public class Entity {
 	protected World world;
 	protected long id;
 	protected AffineTransform transform;
-	protected float velocity = 50.0f;
+	protected float velocity = 40.0f;
+
 	
 	public Entity(Automaton a, World w) {
 		this.id = w.getNextId();
@@ -35,21 +38,26 @@ public class Entity {
 	public AffineTransform getTransform() {
 		return transform;
 	}
+	
 	public long getID() {
 		return id;
 	}
+	
 	public AutomatonState getState() {
 		return state;
 	}
+	
 	public void setState(AutomatonState state) {
 		this.state = state;
 	}
+	
 	public boolean step() {
 		return automaton.step(this);
 	}
 	public Avatar getAvatar() {
 		return avatar;
 	}
+	
 	public void Egg(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 		
@@ -70,18 +78,20 @@ public class Entity {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	public void Move(DirectionExtension dir) {
-		final Vector2[] dirs = {
-				new Vector2(0.0f, 1.0f), new Vector2(1.0f, 1.0f),
-				new Vector2(1.0f, 0.0f), new Vector2(1.0f, -1.0f),
-				new Vector2(0.0f, -1.0f), new Vector2(-1.0f, -1.0f),
-				new Vector2(-1.0f, 0.0f), new Vector2(-1.0f, 1.0f),
-		};
-		Vector2 vect = dirs[dir.ordinal()-4];
-		vect.normalize();
+		Vector2 vect;
+		if (dir.ordinal() < 4) {
+			Vector2 direction = new Vector2((float)transform.getShearX(), (float)transform.getScaleY());
+			vect = Functions.getRelativeDir(dir, direction);
+		}
+		else {
+			vect = Functions.getAbsoluteDir(dir);
+		}
 		vect.scale(world.getElapsed()*velocity/1000.0f);
 		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
 	}
+	
 	public void Pick(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 		

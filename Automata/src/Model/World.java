@@ -18,10 +18,12 @@ public class World {
 		inputs = vi;
 		entities = new TreeMap<Long, Entity>();
 		nextIntanceIdx = 0;
+		elapsed = 0;
 	}
 	
 	public void tick(long elapsed) {
 		this.elapsed = elapsed;
+	
 		for(Entry<Long, Entity> entries : entities.entrySet()) {
 			entries.getValue().step();
 		}
@@ -42,4 +44,5 @@ public class World {
 	public long getNextId() {
 		return nextIntanceIdx;
 	}
+	
 }

@@ -20,7 +20,6 @@ package Controller;
  *      Author: Pr. Olivier Gruber
  */
 
-
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -30,6 +29,7 @@ import Utils.Vector2;
 import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
+
   Game m_game;
   VirtualInput vi;
 
@@ -107,26 +107,26 @@ public class CanvasListener implements GameCanvasListener {
   public void windowOpened() {
     //m_game.loadMusic();
 //    m_game.m_canvas.setTimer(6000);
-  }
+	}
 
-  @Override
-  public void exit() {
-  }
+	@Override
+	public void exit() {
+	}
 
 //  boolean m_expired;
-  @Override
-  public void endOfPlay(String name) {
+	@Override
+	public void endOfPlay(String name) {
 //    if (!m_expired) // only reload if it was a forced reload by timer
-     // m_game.loadMusic();
+		// m_game.loadMusic();
 //    m_expired = false;
-  }
+	}
 
-  @Override
-  public void expired() { 
-    // will force a change of music, after 6s of play
-//    System.out.println("Forcing an ealy change of music");
+	@Override
+	public void expired() {
+		// will force a change of music, after 6s of play
+//    System.out.println("Forcing an early change of music");
 //    m_expired = true;
 //    m_game.loadMusic();    
-  }
+	}
 
 }

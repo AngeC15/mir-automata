@@ -12,14 +12,22 @@ public class Vector2 {
 	public float norm() {
 		return (float) Math.sqrt(x*x + y*y);
 	}
-	public void normalize() {
-		float n = norm();
-		x /= n;
-		y /= n;
+	
+	public Vector2 normalize() {
+		Vector2 r = new Vector2(x, y);
+		float n = r.norm();
+		r.x /= n;
+		r.y /= n;
+		return r;
 	}
 	
-	public void scale(float s) {
+	public Vector2 scale(float s) {
 		x *= s;
 		y *= s;
+		return this;
+	}
+	
+	public Vector2 add(Vector2 vect) {
+		return new Vector2(x + vect.x, y + vect.y);
 	}
 }

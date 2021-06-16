@@ -34,8 +34,8 @@ public class Avatar {
 		g.drawRenderedImage(sprite, identity);
 	}
 
-	public void step() {
-		Enum_Action action = entity.getAction();
+	public void step(Enum_Action action) {
+		//Enum_Action action = entity.getAction();
 		state = state.nextNode(action);
 		
 

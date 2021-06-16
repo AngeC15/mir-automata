@@ -3,32 +3,41 @@ package View;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
+import Model.automata.actions.Enum_Action;
 import Model.entities.Entity;
-import View.AnimNode.Condition;
 
 public class Avatar {
 	private static final AffineTransform identity = new AffineTransform();
 	private AnimNode state;
 	Entity entity;
 	AffineTransform transform;
-	BufferedImage[] m_images;
-	
-	public Avatar(Entity e, Template tmp) throws IOException{
+
+	int compteur;
+
+	public Avatar(Entity e, Template tmp) throws IOException {
 		state = tmp.getStartNode();
 		entity = e;
 		transform = e.getTransform();
 		e.setAvatar(this);
+		compteur = 0;
 	}
-	void paint(Graphics2D g) {;
+
+	void paint(Graphics2D g) {
+		if (compteur == 3) { // limite la vitesse des mouvements
+			this.step();
+			compteur = 0;
+		}
+		compteur++;
 		BufferedImage sprite = state.getSprite();
 		g.drawRenderedImage(sprite, identity);
 	}
-	public void step(Condition condition) throws Exception {
-		state = state.nextNode(condition);
+
+	public void step() {
+		Enum_Action action = entity.getAction();
+		state = state.nextNode(action);
+		
+
 	}
 }

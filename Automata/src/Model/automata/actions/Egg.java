@@ -14,6 +14,7 @@ public class Egg extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
+		e.setAction(Enum_Action.EGG);
 		e.Egg(dir);
 		return true;
 	}

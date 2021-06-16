@@ -13,6 +13,7 @@ public class Get extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
+		e.setAction(Enum_Action.GET);
 		e.Get();
 		return false;
 	}

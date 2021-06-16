@@ -3,29 +3,25 @@ package View;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import View.AnimNode.Condition;
+import Model.automata.actions.Enum_Action;
 
 public class AnimNode {
 
-	public enum Condition {
-		MOVE, FIRE, HURT, POP, WIZZ
-	}
-
 	private BufferedImage sprite;
 	private int index;
-	private ArrayList<Condition> conditions;
+	private ArrayList<Enum_Action> actions;
 	private ArrayList<AnimNode> nextNodes;
 
 	public AnimNode(BufferedImage sprite, int index) {
 		this.sprite = sprite;
-		conditions = new ArrayList<Condition>();
+		actions = new ArrayList<Enum_Action>();
 		nextNodes = new ArrayList<AnimNode>();
 		this.index = index;
 	}
 
 	public void addNode(String condition, AnimNode node) {
-		Condition cond = Condition.valueOf(condition);
-		conditions.add(cond);
+		Enum_Action cond = Enum_Action.valueOf(condition);
+		actions.add(cond);
 		nextNodes.add(node);
 
 	}
@@ -38,20 +34,24 @@ public class AnimNode {
 		return sprite;
 	}
 
-	public AnimNode nextNode(Condition condition) throws Exception {
-		for (int i = 0; i < conditions.size(); i++) {
-			if (conditions.get(i) == condition) {
+	public AnimNode nextNode(Enum_Action condition) {
+		for (int i = 0; i < actions.size(); i++) {
+			if (actions.get(i) == condition) {
 				return nextNodes.get(i);
 			}
 		}
-		throw new Exception("State non valid");
+		// throw new Exception("State non valid");
+		// Pas de changement de comportement si l'action demandée n'est pas pertinente
+
+		return this;
+
 	}
 
 	@Override
 	public String toString() {
 		String chaine = "Etat " + index + " : \n";
-		for (int i = 0; i < conditions.size(); i++) {
-			chaine += " " + conditions.get(i) + " -> " + nextNodes.get(i).getIndex() + "\n";
+		for (int i = 0; i < actions.size(); i++) {
+			chaine += " " + actions.get(i) + " -> " + nextNodes.get(i).getIndex() + "\n";
 		}
 		return chaine;
 

@@ -14,6 +14,7 @@ public class Pick extends Action {
 
 	@Override
 	public boolean apply(Entity e) {
+		e.setAction(Enum_Action.PICK);
 		e.Pick(dir);
 		return false;
 	}

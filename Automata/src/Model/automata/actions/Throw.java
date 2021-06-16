@@ -14,6 +14,7 @@ public class Throw extends Action {
 	
 	@Override
 	public boolean apply(Entity e) {
+		e.setAction(Enum_Action.THROW);
 		e.Throw(dir);
 		return false;
 	}

@@ -14,6 +14,7 @@ public class World {
 	private long nextIntanceIdx;
 	private VirtualInput inputs;
 	private long elapsed;
+	
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new TreeMap<Long, Entity>();

@@ -12,6 +12,7 @@ public class Wait extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
+		e.setAction(Enum_Action.WAIT);
 		e.Wait();
 		return true;
 	}

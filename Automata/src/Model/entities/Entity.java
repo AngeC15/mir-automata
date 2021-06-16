@@ -16,13 +16,14 @@ public class Entity {
 	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
-	protected int id;
+	protected long id;
 	protected AffineTransform transform;
-	protected float velocity = 3.0f;
+	protected float velocity = 50.0f;
 	
-	public Entity(int id, Automaton a, World w) {
-		this.id = id;
+	public Entity(Automaton a, World w) {
+		this.id = w.getNextId();
 		automaton = a;
+		state = automaton.getInit();
 		world = w;
 		transform = new AffineTransform();
 		world.addEntity(this, id);
@@ -34,7 +35,7 @@ public class Entity {
 	public AffineTransform getTransform() {
 		return transform;
 	}
-	public int getID() {
+	public long getID() {
 		return id;
 	}
 	public AutomatonState getState() {
@@ -76,8 +77,10 @@ public class Entity {
 				new Vector2(0.0f, -1.0f), new Vector2(-1.0f, -1.0f),
 				new Vector2(-1.0f, 0.0f), new Vector2(-1.0f, 1.0f),
 		};
-		Vector2 vect = dirs[dir.ordinal()];
+		Vector2 vect = dirs[dir.ordinal()-4];
+		vect.normalize();
 		vect.scale(world.getElapsed()*velocity/1000.0f);
+		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
 	}
 	public void Pick(DirectionExtension dir) {
 		// TODO Auto-generated method stub
@@ -131,8 +134,8 @@ public class Entity {
 		// TODO Auto-generated method stub
 		
 	}
-	public void key(KeyExtension touche) {
-		// TODO Auto-generated method stub
+	public boolean getKey(KeyExtension key) {
+		return world.getKey(key);
 		
 	}
 	public void MyDir(DirectionExtension direction) {

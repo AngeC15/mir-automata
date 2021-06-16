@@ -22,6 +22,11 @@ public class Automaton {
 		states = new ArrayList<AutomatonState>();
 		intial_state = null;
 	}
+	public Automaton(AutomatonState init) {
+		states = new ArrayList<AutomatonState>();
+		intial_state = init;
+		states.add(init);
+	}
 	
 	public Automaton(AutomatonState init, ArrayList<AutomatonState> list) {
 		states = list;
@@ -60,7 +65,6 @@ public class Automaton {
 	 *         otherwise.
 	 */
 	public boolean step(Entity entity) {
-
 		ArrayList<Transition> transitions = entity.getState().getTransitions();
 		ArrayList<Transition> valid = new ArrayList<Transition>();
 		for (int i = 0; i < transitions.size(); i++) {

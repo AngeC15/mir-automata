@@ -23,6 +23,9 @@ public class VirtualInput {
 	private static final int[] sizes = {26, 5, 2, 1, 1, 4};
 	private static final int[] offsets = {letters_offset, numbers_offset, numbers_offset + 8, blank_offset, blank_offset+1, arrows_offset};
 	
+	public VirtualInput() {
+		keys = new boolean[42];
+	}
 	public void updateKeys(int keycode, boolean value) {
 		if(keycode < 0) {
 			keys[numbers_offset + 5 + (-keycode) - 1] = value;

@@ -2,6 +2,7 @@ package Tests;
 
 import java.io.IOException;
 
+import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
 import Model.automata.actions.Print;
@@ -21,7 +22,8 @@ public class TestAutomaton {
 		
 		
 		Entity e;
-		e = new Entity(0, a, null);
+		World w = new World(null);
+		e = new Entity(a, null);
 		e.step();
 		e.step();
 		e.step();

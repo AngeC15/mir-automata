@@ -11,7 +11,9 @@ import Model.World;
 import Model.entities.Entity;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -23,7 +25,8 @@ public class GameView {
 	private long m_textElapsed;
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
-	private double cameraDistance = 128.0;
+	private AffineTransform localTransform;
+	private double cameraDistance = 1;
 	
 	public GameView(GameCanvasListener listener) {
 		m_canvas = new GameCanvas(listener);
@@ -42,9 +45,11 @@ public class GameView {
 	 */
 	private void setupFrame() {
 		
-		canvasTransform = AffineTransform.getScaleInstance(m_frame.getWidth(), -m_frame.getHeight());
+		//canvasTransform = AffineTransform.getScaleInstance(m_frame.getWidth(), -m_frame.getHeight());
+		float canvasScaling = m_frame.getWidth()/100.0f; // 100.0 wide
+		localTransform = AffineTransform.getScaleInstance(1/6.0f, -1/6.0f);
+		canvasTransform = AffineTransform.getScaleInstance(canvasScaling, -canvasScaling);
 		cameraTransform = AffineTransform.getScaleInstance(1/cameraDistance, 1/cameraDistance);
-		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
 
@@ -94,10 +99,18 @@ public class GameView {
 		
 		AffineTransform gameTransform = g.getTransform();
 		//draw
+		
+		Ellipse2D.Float e = new Ellipse2D.Float();
+		e.height = 1.0f;
+		e.width = 1.0f;
+		g.draw(e);
 		TreeMap<Long, Entity> entities = world.getEntities();
 		
 		for(Entry<Long, Entity> entries : entities.entrySet()) {
+			g.transform(entries.getValue().getTransform());
+			g.transform(localTransform);
 			entries.getValue().getAvatar().paint(g);
+			g.setTransform(gameTransform);
 		}
 		
 		g.setTransform(gameTransform);

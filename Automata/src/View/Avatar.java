@@ -23,7 +23,7 @@ public class Avatar {
 	}
 	void paint(Graphics2D g) {;
 		BufferedImage img = m_images[0];
-		g.drawRenderedImage(img, transform);
+		g.drawRenderedImage(img, new AffineTransform());
 	}
 	
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {

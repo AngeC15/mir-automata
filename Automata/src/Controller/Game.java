@@ -1,5 +1,6 @@
 package Controller;
 
+import View.Avatar;
 import View.GameView;
 import View.Sound;
 
@@ -9,6 +10,7 @@ import java.io.RandomAccessFile;
 
 import Model.World;
 import Model.entities.Cowboy;
+import Model.entities.Player;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,7 +42,10 @@ public class Game {
 		// creating a listener for all the events
 		m_listener = new CanvasListener(this);
 		world = new World(m_listener.getVirtualInput());
+		Player player = new Player(world);
+		Avatar av = new Avatar(player);
 		view = new GameView(m_listener);
+		
 	}
 
 	

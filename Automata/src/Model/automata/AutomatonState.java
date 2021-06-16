@@ -18,6 +18,7 @@ public class AutomatonState {
 		public AutomatonState(String name) {
 			super();
 			this.name = name;
+			transitions = new ArrayList<Transition>();
 		}
 		
 		/**
@@ -31,7 +32,8 @@ public class AutomatonState {
 		 * @return The number of transitions of src.
 		 */
 		public int addTransition(AutomatonState src, AutomatonState dst, Condition cond, Action act) {
-			transitions.add(new Transition(dst, cond, act));
+			Transition t = new Transition(dst, cond, act);
+			transitions.add(t);
 			return transitions.size();
 		}
 		public void setTransition(ArrayList<Transition> list) {

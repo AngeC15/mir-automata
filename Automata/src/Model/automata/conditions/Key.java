@@ -5,18 +5,17 @@ import Model.entities.Entity;
 
 public class Key extends Condition{
 
-	private KeyExtension touche;
+	private KeyExtension key;
 
-	public Key(KeyExtension touche) {
-		this.touche = touche;
-		System.out.println("Touche vaut" + this.touche);
+	public Key(KeyExtension key) {
+		this.key = key;
+		System.out.println("Touche vaut" + this.key);
 
 	}
 	
 	@Override
 	public boolean eval(Entity e) {
-		e.key(touche);
-		return false;
+		return e.getKey(key);
 	}
 
 	

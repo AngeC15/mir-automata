@@ -11,6 +11,6 @@ public enum DirectionExtension {
 	/**
 	 * We're going to put here every possible direction (8 absolute + 4 relatives).
 	 */
-	F, R, B, L, N, NE, E, SE, S, SO, O, NO;
+	F, R, B, L, N, NE, E, SE, S, SW, W, NW;
 	
 }

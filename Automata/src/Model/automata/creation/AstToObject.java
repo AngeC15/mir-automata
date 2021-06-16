@@ -119,19 +119,19 @@ public class AstToObject implements IVisitor {
 			orientation = DirectionExtension.E;
 			break;
 		case "SE":
-			orientation = DirectionExtension.E;
+			orientation = DirectionExtension.SE;
 			break;
 		case "S":
 			orientation = DirectionExtension.S;
 			break;
 		case "SW":
-			orientation = DirectionExtension.SO;
+			orientation = DirectionExtension.SW;
 			break;
 		case "W":
-			orientation = DirectionExtension.O;
+			orientation = DirectionExtension.W;
 			break;
 		case "NW":
-			orientation = DirectionExtension.NO;
+			orientation = DirectionExtension.NW;
 			break;
 		case "F":
 			orientation = DirectionExtension.F;

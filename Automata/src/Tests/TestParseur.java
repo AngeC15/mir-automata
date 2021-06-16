@@ -16,7 +16,7 @@ import Model.automata.parser.AutomataParser;
  */
 public class TestParseur {
 	
-	static List<Automaton> loadAutomata(String filename) {
+	public static List<Automaton> loadAutomata(String filename) {
 	    try {
 	      AST ast = (AST) AutomataParser.from_file(filename);
 	      AstToObject visiteur = new AstToObject();

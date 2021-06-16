@@ -28,6 +28,10 @@ public class AutomataLoader {
 			AST ast = (AST) AutomataParser.from_file(filename);
 			AstToObject visiteur = new AstToObject();
 			List<Automaton> li = ((List<Automaton>) ast.accept(visiteur));
+			String name = null;
+			for (int k = 0 ; k < li.size() ; k ++) {
+				automata.put(name, li.get(k));
+			}
 		} catch (Exception ex) {
 			System.out.println(ex.getCause());
 			System.out.println(ex.getClass());

@@ -1,36 +1,30 @@
 package Controller;
 
-import java.awt.BorderLayout;
-
-import Utils.Vector2;
-import View.GameCanvas;
+import View.GameView;
 import View.Sound;
+
 import Controller.audio.*;
 import Controller.audio.info3.game.sound.RandomFileInputStream;
+import java.io.RandomAccessFile;
+
 import Model.World;
 import Model.entities.Cowboy;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.io.RandomAccessFile;
+import java.awt.Graphics2D;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 
 
 public class Game {
 
 	static Game game;
 	
-	JFrame m_frame;
-	JLabel m_text;
-	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
-	
+	GameView view;
 	
 	public static void main(String args[]) throws Exception {
 		try {
@@ -44,44 +38,12 @@ public class Game {
 
 	Game() throws Exception {
 		// creating a listener for all the events
-		// from the game canvas, that would be
-		// the controller in the MVC pattern
 		m_listener = new CanvasListener(this);
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		m_canvas = new GameCanvas(m_listener);
-		
 		world = new World(m_listener.getVirtualInput());
-
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(d);
-
-		System.out.println("  - setting up the frame...");
-		setupFrame();
+		view = new GameView(m_listener);
 	}
 
-	/*
-	 * Then it lays out the frame, with a border layout, adding a label to the north
-	 * and the game canvas to the center.
-	 */
-	private void setupFrame() {
-
-		m_frame.setTitle("Game");
-		m_frame.setLayout(new BorderLayout());
-
-		m_frame.add(m_canvas, BorderLayout.CENTER);
-
-		m_text = new JLabel();
-		m_text.setText("Tick: 0ms FPS=0");
-		m_frame.add(m_text, BorderLayout.NORTH);
-
-		// center the window on the screen
-		m_frame.setLocationRelativeTo(null);
-
-		// make the vindow visible
-		m_frame.setVisible(true);
-	}
+	
 
 	/*
 	 * ================================================================ All the
@@ -93,6 +55,8 @@ public class Game {
 	/*
 	 * Called from the GameCanvas listener when the frame
 	 */
+	
+	/*
 	String m_musicName;
 
 	void loadMusic() {
@@ -111,8 +75,8 @@ public class Game {
 
 	private int m_musicIndex = 0;
 	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
-
-	private long m_textElapsed;
+	*/
+	
 
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
@@ -121,20 +85,7 @@ public class Game {
 	public void tick(long elapsed) {
 		
 		world.tick(elapsed);
-		// Update every second
-		// the text on top of the frame: tick and fps
-		m_textElapsed += elapsed;
-		if (m_textElapsed > 1000) {
-			m_textElapsed = 0;
-			float period = m_canvas.getTickPeriod();
-			int fps = m_canvas.getFPS();
-
-			String txt = "Tick=" + period + "ms";
-			while (txt.length() < 15)
-				txt += " ";
-			txt = txt + fps + " fps   ";
-			m_text.setText(txt);
-		}
+		view.tick(elapsed);
 	}
 
 	/*
@@ -143,16 +94,7 @@ public class Game {
 	 */
 	public void paint(Graphics g) {
 
-		// get the size of the canvas
-		int width = m_canvas.getWidth();
-		int height = m_canvas.getHeight();
-
-		// erase background
-		g.setColor(Color.gray);
-		g.fillRect(0, 0, width, height);
-
-		// paint
-		m_cowboy.paint(g, width, height);
+		view.paint((Graphics2D)g, world);
 	}
 
 }

@@ -26,11 +26,17 @@ public class World {
 			entries.getValue().step();
 		}
 	}
+	public TreeMap<Long, Entity> getEntities(){
+		return entities;
+	}
 	public boolean getKey(KeyExtension k) {
 		return inputs.getKey(k);
 	}
-	public long addEntity(Entity entity) {
-		entities.put(nextIntanceIdx, entity);
-		return nextIntanceIdx++;
+	public void addEntity(Entity entity, long id) {
+		entities.put(id, entity);
+		nextIntanceIdx++;
+	}
+	public long getNextId() {
+		return nextIntanceIdx;
 	}
 }

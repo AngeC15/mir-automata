@@ -1,5 +1,7 @@
 package Model.entities;
 
+import java.awt.geom.AffineTransform;
+
 import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
@@ -7,21 +9,28 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
 import Utils.Vector2;
+import View.Avatar;
 
 public class Entity {
+	protected Avatar avatar;
 	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
 	protected int id;
-	protected Vector2 pos;
+	protected AffineTransform transform;
 	protected Vector2 velocity;
 	
-	public Entity(int id, Automaton a, World w, Vector2 p) {
+	public Entity(int id, Avatar av, Automaton a, World w) {
 		this.id = id;
+		avatar = av;
 		automaton = a;
 		world = w;
-		pos = p;
+		transform = new AffineTransform();
+		world.addEntity(this, id);
 		
+	}
+	public AffineTransform getTransform() {
+		return transform;
 	}
 	public int getID() {
 		return id;
@@ -34,6 +43,9 @@ public class Entity {
 	}
 	public boolean step() {
 		return automaton.step(this);
+	}
+	public Avatar getAvatar() {
+		return avatar;
 	}
 	public void Egg(DirectionExtension dir) {
 		// TODO Auto-generated method stub

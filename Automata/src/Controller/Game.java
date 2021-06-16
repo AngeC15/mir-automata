@@ -91,7 +91,7 @@ public class Game {
 	public void tick(long elapsed) {
 		
 		world.tick(elapsed);
-		view.tick(elapsed);
+		if (view != null) view.tick(elapsed);
 	}
 
 	/*
@@ -100,7 +100,7 @@ public class Game {
 	 */
 	public void paint(Graphics g) {
 
-		view.paint((Graphics2D)g, world);
+		if (view != null) view.paint((Graphics2D)g, world);
 	}
 
 }

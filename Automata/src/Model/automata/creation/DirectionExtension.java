@@ -13,5 +13,4 @@ public enum DirectionExtension {
 	 */
 	F, R, B, L, N, NE, E, SE, S, SO, O, NO;
 	
-
 }

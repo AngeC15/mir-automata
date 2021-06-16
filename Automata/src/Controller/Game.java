@@ -3,7 +3,7 @@ package Controller;
 import View.Avatar;
 import View.GameView;
 import View.Sound;
-
+import View.Template;
 import Controller.audio.*;
 import Controller.audio.info3.game.sound.RandomFileInputStream;
 import java.io.RandomAccessFile;
@@ -43,7 +43,8 @@ public class Game {
 		m_listener = new CanvasListener(this);
 		world = new World(m_listener.getVirtualInput());
 		Player player = new Player(world);
-		Avatar av = new Avatar(player);
+		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
+		Avatar av = new Avatar(player, tmp);
 		view = new GameView(m_listener);
 		
 	}

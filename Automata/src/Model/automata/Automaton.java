@@ -12,6 +12,8 @@ import Model.entities.Entity;
  *
  */
 public class Automaton {
+
+
 	private ArrayList<AutomatonState> states;
 	private AutomatonState intial_state;
 
@@ -40,6 +42,10 @@ public class Automaton {
 
 	public void setInit(AutomatonState intial_state) {
 		this.intial_state = intial_state;
+	}
+	
+	public ArrayList<AutomatonState> getStates(){
+		return this.states;
 	}
 
 	/**
@@ -91,5 +97,10 @@ public class Automaton {
 				System.out.println("(" + j + ") --> " + tr.destination.name);
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Automaton [number of states=" + states.size() + ", intial_state=" + intial_state.name + "]";
 	}
 }

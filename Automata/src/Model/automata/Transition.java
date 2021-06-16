@@ -13,4 +13,12 @@ public class Transition {
 		condition = cond;
 		action = act;
 	}
+
+	@Override
+	public String toString() {
+		return " \nTransition [destination=" + destination.toString() + 
+				"\n condition=" + condition.toString() + 
+				"\n action=" + action.toString() + "]";
+	}
+	
 }

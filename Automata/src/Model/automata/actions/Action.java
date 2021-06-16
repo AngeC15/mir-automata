@@ -21,4 +21,16 @@ public abstract class Action {
 	public Action(float weight) {
 		this.weight = weight;
 	}
+
+	public void setWeight(float p) {
+		this.weight = p;
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Action [weight=" + weight + getClass() + "]";
+	}
+	
+	
 }

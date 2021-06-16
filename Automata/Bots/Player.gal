@@ -1,0 +1,13 @@
+Player(Init){
+  * (Init):
+  | Key(Z) & !Key(S) & !Key(Q) & !Key(D) ? Move(N) :(Init)
+  | Key(D) & !Key(S) & !Key(Q) & !Key(Z) ? Move(E) :(Init)
+  | Key(S) & !Key(D) & !Key(Q) & !Key(Z) ? Move(S) :(Init)
+  | Key(Q) & !Key(S) & !Key(D) & !Key(Z) ? Move(O) :(Init)
+  | Key(Z) & Key(D) & !Key(Q) & !Key(S) ? Move(NE) :(Init)
+  | Key(D) & Key(S) & !Key(Q) & !Key(Z) ? Move(SE) :(Init)
+  | Key(S) & Key(Q) & !Key(D) & !Key(Z) ? Move(SO) :(Init)
+  | Key(Q) & Key(Z) & !Key(D) & !Key(S) ? Move(NO) :(Init)
+  | Key(6) ? Hit  :(Init)
+  | Key(SPACE) ? Jump :(Init)
+}

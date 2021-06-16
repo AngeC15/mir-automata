@@ -124,13 +124,13 @@ public class AstToObject implements IVisitor {
 		case "S":
 			orientation = DirectionExtension.S;
 			break;
-		case "SO":
+		case "SW":
 			orientation = DirectionExtension.SO;
 			break;
-		case "O":
+		case "W":
 			orientation = DirectionExtension.O;
 			break;
-		case "NO":
+		case "NW":
 			orientation = DirectionExtension.NO;
 			break;
 		case "F":
@@ -393,14 +393,14 @@ public class AstToObject implements IVisitor {
 										// que c'est un operateur unitaire
 		case "/": // Cas du ou
 			try {
-				result = new OrOperator(right, left);
+				result = new OrOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur ou");
 			}
 			break;
 		case "&": // cas du et
 			try {
-				result = new AndOperator(right, left);
+				result = new AndOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur et");
 			}

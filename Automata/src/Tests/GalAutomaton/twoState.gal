@@ -1,0 +1,4 @@
+TwoState(etat1){
+  * (etat1) : True : (etat2)
+  * (etat2) : True : (etat1)
+}

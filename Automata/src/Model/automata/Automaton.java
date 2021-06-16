@@ -2,39 +2,94 @@ package Model.automata;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import Model.entities.Entity;
 
-import Model.Entity;
-import Model.GameState;
-import Model.automata.actions.Action;
-import Model.automata.conditions.Condition;
-
+/**
+ * An automaton is a list of Modes. Every state has an action, a condition and
+ * a destination. Every state will had its own list.
+ * 
+ * @author Cyprien, Julian, Samuel
+ *
+ */
 public class Automaton {
-	private ArrayList<ArrayList<Transition>> states;
+	private ArrayList<AutomatonState> states;
+	private AutomatonState intial_state;
+
+	/**
+	 * Creates a new automaton with an empty transition list.
+	 */
 	public Automaton() {
-		states = new ArrayList<ArrayList<Transition>>();
+		states = new ArrayList<AutomatonState>();
+		intial_state = null;
 	}
-	public int addState() {
-		states.add(new ArrayList<Transition>());
+	public Automaton(AutomatonState init) {
+		states = new ArrayList<AutomatonState>();
+		intial_state = init;
+		states.add(init);
+	}
+	
+	public Automaton(AutomatonState init, ArrayList<AutomatonState> list) {
+		states = list;
+		this.intial_state = init;
+	}
+
+
+	public AutomatonState getInit() {
+		return intial_state;
+	}
+
+	public void setInit(AutomatonState intial_state) {
+		this.intial_state = intial_state;
+	}
+
+	/**
+	 * Adds a new list of transitions to a state.
+	 * 
+	 * @return the number of transitions
+	 */
+	public int addState(AutomatonState s) {
+		states.add(s);
 		return states.size();
 	}
-	public int addTransition(int src, int dst, Condition cond, Action act){
-		states.get(src).add(new Transition(dst, cond, act));
-		return states.get(src).size();
-	}
-	public boolean step(Entity entity, GameState gs) {
-		ArrayList<Transition> transitions = states.get(entity.getState());
+
+	
+	/**
+	 * Takes every transition of the current state of the entity from states. Checks
+	 * every condition of the current state in the automaton in order to create a
+	 * list of valid states. Choose one random state among every valid state for the
+	 * entity to take.
+	 * 
+	 * @param entity The entity using the automaton.
+	 * @return false if there is no valid transition or if the action was not
+	 *         possible to perform (i.e. something trying to move into a wall), true
+	 *         otherwise.
+	 */
+	public boolean step(Entity entity) {
+		ArrayList<Transition> transitions = entity.getState().getTransitions();
 		ArrayList<Transition> valid = new ArrayList<Transition>();
-		for(int i=0; i < transitions.size(); i++) {
+		for (int i = 0; i < transitions.size(); i++) {
 			Transition t = transitions.get(i);
-			if(t.condition.eval(entity, gs))
+			if(t.condition.eval(entity))
 				valid.add(t);
 		}
 		if(valid.size() > 0) {
 			int randIdx = ThreadLocalRandom.current().nextInt(0, valid.size());
-			boolean r = valid.get(randIdx).action.apply(entity, gs);
+			boolean r = valid.get(randIdx).action.apply(entity);
 			entity.setState(valid.get(randIdx).destination);
 			return r;
 		}
 		return false;
+	}
+	public void print() {
+		System.out.println("States:");
+		for(int i=0; i < states.size(); i++) {
+			AutomatonState as = states.get(i);
+			System.out.println("	[" + i + "] " + as.name);
+			
+			for(int j=0; j < as.getTransitions().size(); j++) {
+				Transition tr = as.getTransitions().get(j);
+				System.out.println("(" + j + ") --> " + tr.destination.name);
+			}
+		}
 	}
 }

@@ -20,87 +20,82 @@ package Controller;
  *      Author: Pr. Olivier Gruber
  */
 
-
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import Controller.GameCanvasListener;
+import Model.entities.Cowboy;
+import Utils.Vector2;
+import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
+
   Game m_game;
+  VirtualInput vi;
 
-  CanvasListener(Game game) {
+  public CanvasListener(Game game) {
     m_game = game;
+    vi = new VirtualInput();
   }
-
+  public VirtualInput getVirtualInput() {
+	  return vi;
+  }
   @Override
   public void mouseClicked(MouseEvent e) {
-    System.out.println("Mouse clicked: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
+
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
-    System.out.println("Mouse pressed: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
+    vi.updateKeys(-e.getButton(), true);
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    System.out.println("Mouse released: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
+    
+    vi.updateKeys(-e.getButton(), false);
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
-    System.out.println("Mouse entered: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
-    System.out.println("Mouse exited: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
   }
 
   @Override
   public void mouseDragged(MouseEvent e) {
-    System.out.println("Mouse dragged: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
+    
+    vi.updateMouse(e.getX(), e.getY());
+    
   }
 
   @Override
   public void mouseMoved(MouseEvent e) {
-    System.out.println("Mouse moved: ("+e.getX()+","+e.getY()+")");
-    System.out.println("   modifiers="+e.getModifiersEx());
-    System.out.println("   buttons="+e.getButton());
+    
+    vi.updateMouse(e.getX(), e.getY());
   }
 
   @Override
   public void keyTyped(KeyEvent e) {
-    System.out.println("Key typed: "+e.getKeyChar()+" code="+e.getKeyCode());
+
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-    System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
+    vi.updateKeys(e.getKeyCode(), true);
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-    System.out.println("Key released: "+e.getKeyChar()+" code="+e.getKeyCode());
+    vi.updateKeys(e.getKeyCode(), false);
   }
 
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
+    
   }
 
   @Override
@@ -110,28 +105,28 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void windowOpened() {
-    m_game.loadMusic();
+    //m_game.loadMusic();
 //    m_game.m_canvas.setTimer(6000);
-  }
+	}
 
-  @Override
-  public void exit() {
-  }
+	@Override
+	public void exit() {
+	}
 
 //  boolean m_expired;
-  @Override
-  public void endOfPlay(String name) {
+	@Override
+	public void endOfPlay(String name) {
 //    if (!m_expired) // only reload if it was a forced reload by timer
-      m_game.loadMusic();
+		// m_game.loadMusic();
 //    m_expired = false;
-  }
+	}
 
-  @Override
-  public void expired() { 
-    // will force a change of music, after 6s of play
-//    System.out.println("Forcing an ealy change of music");
+	@Override
+	public void expired() {
+		// will force a change of music, after 6s of play
+//    System.out.println("Forcing an early change of music");
 //    m_expired = true;
 //    m_game.loadMusic();    
-  }
+	}
 
 }

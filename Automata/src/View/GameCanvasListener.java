@@ -18,14 +18,13 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package Controller;
+package View;
 
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-//import info3.game.sound.AudioPlayer;
 
 /*
  * A single listener grouping all the callbacks from the GameCanvas.

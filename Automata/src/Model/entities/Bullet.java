@@ -18,7 +18,7 @@ public class Bullet extends Entity{
 	Vector2 vectorName;
 	
 	public Bullet(Entity e2, int damage, int vitesse, Vector2 vecteurBalle) {
-		super(AutomataLoader.get("Bullet"), e2.getWorld());
+		super(AutomataLoader.get("Bullet"), e2.getWorld(), e2.getWorld().getNextId());
 		this.damage = damage;
 		this.vitesse = vitesse;
 		this.vectorName = vecteurBalle;

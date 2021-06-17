@@ -8,6 +8,9 @@ import Model.entities.weapon.Weapon;
 import Model.entities.weapon.dagger;
 import Model.entities.weapon.gun;
 import Model.loader.AutomataLoader;
+import Model.physics.HitBox;
+import Model.physics.PhysicsBody;
+import Model.physics.primitives.Circle;
 
 
 public class Player extends Entity{
@@ -16,7 +19,11 @@ public class Player extends Entity{
 
 	
 	public Player(World w) {
-		super(AutomataLoader.get("Player"), w);
+		super(AutomataLoader.get("Player"), w, w.getNextId());
+		this.acceleration = 80.0f;
+		HitBox h = new HitBox();
+		this.body = new PhysicsBody(h, 15.0f, 40.0f);
+
 		armeCac = new dagger(500000); //to change please
 		armeDist = new gun(5000);
 
@@ -51,6 +58,7 @@ public class Player extends Entity{
 		super.Pop(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+
 	}
 	
 	

@@ -4,7 +4,7 @@ Philosopher(Think){
 
 Mine(Banzai){
   * (Banzai) 
-  | Cell(F,E) ? Explode  :()
+  | Cell(F,_) ? Explode  :()
   | True ?               :(Banzai)
   * ()
 }

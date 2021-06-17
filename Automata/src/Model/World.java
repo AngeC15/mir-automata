@@ -52,4 +52,13 @@ public class World {
 	public Entity getPlayer() {
 		return player;
 	}
+
+	public VirtualInput getInputs() {
+		return inputs;
+	}
+
+	public void setInputs(VirtualInput inputs) {
+		this.inputs = inputs;
+	}
+	
 }

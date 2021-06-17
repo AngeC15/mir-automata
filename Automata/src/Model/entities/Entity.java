@@ -47,6 +47,10 @@ public class Entity {
 		return state;
 	}
 	
+	public World getWorld() {
+		return world;
+	}
+
 	public void setState(AutomatonState state) {
 		this.state = state;
 	}
@@ -96,7 +100,7 @@ public class Entity {
 		// TODO Auto-generated method stub
 		
 	}
-	public void Apply(DirectionExtension dir) {
+	public void Pop(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 		
 	}

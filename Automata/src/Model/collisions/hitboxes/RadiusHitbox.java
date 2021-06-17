@@ -6,4 +6,6 @@ public class RadiusHitbox extends Hitbox{
 	public float getRadius() {
 		return radius;
 	}
+	
+	
 }

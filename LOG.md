@@ -1,10 +1,49 @@
+# JOURNAL du Jeudi 17 juin
+
+## Répartition des tâches
+
+#### *Cyprien + Julian* : AST ( branche `proto.ast` )
+- [x] `DONE` : *AST fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Joan + Camille + Cyprien* : Gestion des armes ( branche `shot.try`)
+- Création des classes `Bullet`, `Weapon`,`Dagger` et `Gun`
+- Modification de la classe `DirectionExtension` pour obtenir la direction relative
+- Génération des balles
+
+- [ ]  `TODO` :  *Générer des balles dans la bonne direction lors du clic souris*
+
+#### *Théo + Julian* : Loader des SpriteSheet ( branche `dev.loader` )
+- Modification de la classe `AutomataLoader` et `Automaton`
+
+- [x] `DONE` : *`AutomataLoader` terminé et testé*
+- [ ] `TODO` : *`TemplatesLoader`*
+
+#### *Julian* : GameView
+- Modification de la classe `GameView`
+- Camera suivant le joueur
+- Affichage d'une grille en fond
+
+- [x] `DONE` : *Fonctionnel et merge avec le master*
+
+
+#### *Gergely + Samuel* : Animation des avatars ( branche `dev.avatar`)
+- Refonte des fichiers .ani :modification de `AnimNode` pour Parser le fichier.
+
+- [x] `DONE` : *Fonctionnel, documenté et merge avec le master*
+
+#### *Théo + Julian* : HitBox ( branche `hitbox` )
+-  Création des classes `HitBox`, `Newton`,`PhysicsObject`,`Primitive` et `CirclePrimitive`
+- Ajout de méthodes dans `Vector2`
+
+
+
+---
+
 # JOURNAL du Mercredi 16 juin
 
 ## Répartition des tâches
 
-#### *Julian* : GameView
-- Camera suivant le joueur
-- Affichage d'une grille en fond
 
 #### *Théo* : Loader des SpriteSheet ( branche `dev.loader` )
 

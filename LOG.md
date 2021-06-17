@@ -1,4 +1,30 @@
-# JOURNAL du Lundi 15 juin
+# JOURNAL du Mercredi 16 juin
+
+## Répartition des tâches
+
+#### *Julian* : GameView
+- Camera suivant le joueur
+- Affichage d'une grille en fond
+
+#### *Théo* : Loader des SpriteSheet ( branche `dev.loader` )
+
+#### *Cyprien + Julian* : AST ( branche `proto.ast` )
+- Test de la classe `AstToObject`
+- Résolution d'erreurs et modification de `ActionList`
+
+#### *Gergely + Camille + Samuel* : Animation des avatars ( branche `dev.avatar`)
+- Test de l'animation d'un avatar avec les mouvements
+- Modification des classes `Avatar`, `Enum_Action` et `GameView`
+- Test de l'automate d'animation : langage pas optimal car ne permet pas de boucler. 
+
+- [ ]  `TODO` :  *Changer le contenu et l'interprétation du fichier .ani : nouveau langage d'automate*
+- [ ]  `TODO` :  *Hiérarchie des animations*
+
+#### *Joan* : Réalisation des Sprites
+
+---
+
+# JOURNAL du Mardi 15 juin
 
 ## Répartition des tâches
 
@@ -9,7 +35,7 @@
 
 ---
 
-# JOURNAL du Lundi 15 juin
+# JOURNAL du Lundi 14 juin
 
 ## Répartition des tâches
 

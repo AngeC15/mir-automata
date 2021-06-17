@@ -16,7 +16,7 @@ import Model.automata.parser.AutomataParser;
 public class AutomataLoader {
 
 	private static AutomataLoader instance = new AutomataLoader();
-	private static HashMap<String, Automaton> automata;
+	private HashMap<String, Automaton> automata;
 	private AstToObject visiteur;
 
 	private AutomataLoader() {
@@ -25,10 +25,10 @@ public class AutomataLoader {
 	}
 
 	public static void load(String filename) {
-		instance.specific_load(filename);
+		instance.load_(filename);
 	}
 
-	private void specific_load(String filename) {
+	private void load_(String filename) {
 		try {
 			AST ast = (AST) AutomataParser.from_file(filename);
 			List<Automaton> li = ((List<Automaton>) ast.accept(visiteur));
@@ -45,20 +45,22 @@ public class AutomataLoader {
 	}
 	
 	public static void load_all(String filename) throws IOException {
-		instance.specific_load_all(filename);
+		instance.load_all_(filename);
 	}
 	
-	private void specific_load_all(String filename) throws IOException {
+	private void load_all_(String filename) throws IOException {
 		FileReader file = new FileReader(filename);
 		BufferedReader br = new BufferedReader(file);
 		String line;
 		while((line = br.readLine()) != null) {
-			specific_load(line);
+			load_(line);
 		}
 	}
-	
-	public static HashMap<String, Automaton> get_list(){
-		return automata;
+	private Automaton get_(String name) {
+		return automata.get(name);
+	}
+	public static Automaton get(String name){
+		return instance.get_(name);
 	}
 
 }

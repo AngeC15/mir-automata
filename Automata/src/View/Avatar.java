@@ -31,4 +31,10 @@ public class Avatar {
 	public void step(Condition condition) throws Exception {
 		state = state.nextNode(condition);
 	}
+	public int getSpriteW() {
+		return state.getSprite().getWidth();
+	}
+	public int getSpriteH() {
+		return state.getSprite().getHeight();
+	}
 }

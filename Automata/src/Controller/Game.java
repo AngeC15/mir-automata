@@ -11,6 +11,7 @@ import java.io.RandomAccessFile;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
+import Model.loader.AutomataLoader;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -41,8 +42,10 @@ public class Game {
 	Game() throws Exception {
 		// creating a listener for all the events
 		m_listener = new CanvasListener(this);
+		AutomataLoader.load_all("Bots/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		Player player = new Player(world);
+		world.setPlayer(player);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
 		view = new GameView(m_listener);

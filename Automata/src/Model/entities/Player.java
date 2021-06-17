@@ -1,11 +1,12 @@
 package Model.entities;
 
 import Model.World;
+import Model.loader.AutomataLoader;
 
 public class Player extends Entity{
 
 	public Player(World w) {
-		super(Tests.TestParseur.loadAutomata("Bots/Player.gal").get(0), w);
+		super(AutomataLoader.get("Player"), w);
 	}
 
 }

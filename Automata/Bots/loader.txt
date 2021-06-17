@@ -1,0 +1,2 @@
+Bots/exemples.gal
+Bots/Player.gal

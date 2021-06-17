@@ -43,6 +43,7 @@ public class Game {
 		m_listener = new CanvasListener(this);
 		world = new World(m_listener.getVirtualInput());
 		Player player = new Player(world);
+		world.setPlayer(player);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
 		view = new GameView(m_listener);

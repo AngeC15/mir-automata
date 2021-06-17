@@ -33,9 +33,15 @@ public class Newton {
 		Vector2 vect3 = Triangle[2].invert();
 		Vector2 vectn1 = vect2.tripleCross(vect1, vect1);
 		Vector2 vectn2 = vect1.tripleCross(vect2, vect2);
-		if (vectn1.dot(vect3) > 0) {
+		if (vectn1.dot(vect3) >= 0) {
 			idx--;
 			d = vectn1;
+			return false;
+		}
+		else if (vectn2.dot(vect3) >= 0){
+			Triangle[idx] = Triangle[idx-1];
+			idx--;
+			d = vectn2;
 			return false;
 		}
 		return true;
@@ -62,7 +68,7 @@ public class Newton {
 		
 		while (true){
 			S = double_support(s1, s2, A1, A2, d);
-			if (S.dot(d) < 0)
+			if (S.dot(d) <= 0)
 				return false;
 			Triangle[idx ++] = S;
 			if (contain(Triangle, d))

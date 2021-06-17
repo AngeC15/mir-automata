@@ -39,9 +39,9 @@ public class Vector2 extends Point2D.Float{
 		return x*vec.x + y*vec.y;
 	}
 	
-	public Vector2 tripleCross(Vector2 vec) {
-		float z = x*vec.y - y*vec.x;
-		return new Vector2(y*z, -x*z);
+	public Vector2 tripleCross(Vector2 a, Vector2 b) {
+		float z = x*a.y - y*a.x;
+		return new Vector2(b.y*z, -b.x*z);
 	}
 	
 	public Vector2 transform(AffineTransform t) {

@@ -12,7 +12,7 @@ import Model.entities.Entity;
 /**
  * @author Camille, Gergely, Samuel
  *
- * 
+ * The graphical representation of an Entity. This is where the Entity paint method is.
  */
 public class Avatar {
 	private static final AffineTransform identity = new AffineTransform();
@@ -24,6 +24,13 @@ public class Avatar {
 	long compteur;
 	Template template;
 
+	/**
+	 * Creates a new Avatar linked to a Template and to an unique Entity
+	 * 
+	 * @param e Entity
+	 * @param tmp Template
+	 * @throws IOException
+	 */
 	public Avatar(Entity e, Template tmp) throws IOException {
 		state = tmp.getDefaultNode();
 		entity = e;
@@ -34,13 +41,18 @@ public class Avatar {
 		template = tmp;
 	}
 
+	/**
+	 * Paints the avatar to the screen using the informations from the entity and the current animation.
+	 * 
+	 * @param g
+	 */
 	void paint(Graphics2D g) {
 		if (System.currentTimeMillis() - compteur >= state.getTime())
 			try {
 				step();
 				compteur = System.currentTimeMillis();
 			} catch (Exception e) {
-				System.out.println("Something went wrong when painting");
+				System.out.println(e.getMessage());
 			}
 		BufferedImage sprite = state.getSprite();
 		g.drawRenderedImage(sprite, identity);
@@ -56,7 +68,7 @@ public class Avatar {
 	public void step() throws Exception {
 		ArrayList<EnumAction> actions = entity.getActions();
 		if (actions.size() == 0)
-			throw new Exception("No actions to step.");
+			return;
 
 		AnimNode node = template.changeAnimationSequence(currentAction, actions);
 		if (node == null) {

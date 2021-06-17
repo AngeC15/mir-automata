@@ -10,10 +10,23 @@ import java.util.Set;
 
 import Model.automata.actions.EnumAction;
 
+/**
+ * @author Gergely, Camille, Samuel
+ * 
+ * Specifies the animation for a single time of entity. Can be shared by multiple avatars.
+ *
+ */
 public class Template {
 	private SpriteSheet spriteSheet;
 	private HashMap<EnumAction, AnimNode> allNodes;
 
+	/**
+	 * Creates a template with an associated sprite sheet and an animation automata.
+	 * 
+	 * @param fileNameSpriteSheet
+	 * @param fileNameAutomata
+	 * @throws IOException
+	 */
 	public Template(String fileNameSpriteSheet, String fileNameAutomata) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, 4, 6, 24);
 		allNodes = new HashMap<EnumAction, AnimNode>();
@@ -25,9 +38,12 @@ public class Template {
 	 * The automaton is given in this way:
 	 * 
 	 * <pre>
-	 * {@code 0 MOVE 3 JUMP 2}
+	 * {@code MOVE 3000 4 2 7 1}
 	 * </pre>
 	 * 
+	 * MOVE being the action from EnumAction
+	 * 3000 being the total time the animation will take
+	 * 4, 2, 7 and 1 being the states the animation will follow
 	 * 
 	 * 
 	 * @param fileNameAutomata
@@ -67,9 +83,20 @@ public class Template {
 		}
 	}
 
+	/**
+	 * Checks what node have the most priority out of the given newAction array. If
+	 * none of the elements of newAction have the most priority than currentAction,
+	 * currentAction will be returned instead.
+	 * 
+	 * @param currentAction
+	 * @param newAction
+	 * @return currentAction or an element from newAction
+	 * @throws Exception
+	 */
 	public AnimNode changeAnimationSequence(EnumAction currentAction, ArrayList<EnumAction> newAction)
 			throws Exception {
-		// Il y a une boucle imbriquée, la supprimer permetterait de gagner en
+		// Il y a une boucle imbriquée (minimale), la supprimer permetterait de gagner
+		// en
 		// performance. Bonne chance.
 		Set<EnumAction> set = allNodes.keySet();
 		Iterator<EnumAction> iterator = set.iterator();
@@ -81,23 +108,24 @@ public class Template {
 				if (compareAction == action)
 					return allNodes.get(action);
 			currentAction = iterator.next();
-			/*
-			 * EnumAction toCompare = iterator.next(); if(toCompare == currentAction) //
-			 * Reversed priority, first is last return allNodes.get(newAction); if(toCompare
-			 * == newAction) return null;
-			 */
 		}
 		throw new Exception("Current action not found. Should not happen.");
 	}
 
+	/**
+	 * @return the node with the lesser priority
+	 */
 	public AnimNode getDefaultNode() {
-		AnimNode[] returnNode = (AnimNode[]) allNodes.values().toArray();
-		return returnNode[returnNode.length - 1];
+		Object[] returnNode = allNodes.values().toArray();
+		return (AnimNode) returnNode[returnNode.length - 1];
 	}
 
+	/**
+	 * @return the action with the lesser priority
+	 */
 	public EnumAction getDefaultAction() {
-		EnumAction[] returnAction = (EnumAction[]) allNodes.keySet().toArray();
-		return returnAction[returnAction.length - 1];
+		Object[] returnAction = allNodes.keySet().toArray();
+		return (EnumAction) returnAction[returnAction.length - 1];
 	}
 
 }

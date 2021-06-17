@@ -31,7 +31,7 @@ public class Entity {
 		world = w;
 		transform = new AffineTransform();
 		world.addEntity(this, id);
-
+		actions = new ArrayList<EnumAction>();
 	}
 
 	public void setAvatar(Avatar av) {

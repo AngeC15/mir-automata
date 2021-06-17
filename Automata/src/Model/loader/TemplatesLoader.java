@@ -16,49 +16,43 @@ import View.Template;
 public class TemplatesLoader {
 	
 	private static TemplatesLoader instance = new TemplatesLoader();
-	private static HashMap<String, Template> templates;
-	private AstToObject visiteur;
+	private HashMap<String, Template> templates;
 
 	private TemplatesLoader() {
 		templates = new HashMap<String, Template>();
-		visiteur = new AstToObject();
 	}
 
-	public static void load(String filename) {
-		instance.specific_load(filename);
+	public static void load(String templatename,String spritename, String automatname) throws IOException {
+		instance.load_(templatename, spritename, automatname);
 	}
 
-	private void specific_load(String filename) {
-		try {
-			AST ast = (AST) AutomataParser.from_file(filename);
-			List<Template> li = ((List<Template>) ast.accept(visiteur));
-			String name;
-			for (int k = 0 ; k < li.size() ; k ++) {
-				name = li.get(k).getName();
-				templates.put(name, li.get(k));
-			}
-		} catch (Exception ex) {
-			System.out.println(ex.getCause());
-			System.out.println(ex.getClass());
-			System.out.println(Arrays.toString(ex.getStackTrace()).replace(',', '\n'));
-		}
+	private void load_(String templatename,String spritename, String automatname) throws IOException {
+			Template template = new Template(spritename, automatname);
+			templates.put(templatename, template);
 	}
 	
 	public static void load_all(String filename) throws IOException {
-		instance.specific_load_all(filename);
+		instance.load_all_(filename);
 	}
 	
-	private void specific_load_all(String filename) throws IOException {
+	private void load_all_(String filename) throws IOException {
 		FileReader file = new FileReader(filename);
 		BufferedReader br = new BufferedReader(file);
 		String line;
 		while((line = br.readLine()) != null) {
-			specific_load(line);
+			String[] line_elems = line.split(";");
+			for (int k = 0 ; k < line_elems.length ; k ++) {
+				line_elems[k] = line_elems[k].strip();
+				System.out.println("/"+line_elems[k]+"/");
+			}
+			load_(line_elems[0], line_elems[1], line_elems[2]);
 		}
 	}
-	
-	public static HashMap<String, Template> get_list(){
-		return templates;
+	private Template get_(String name) {
+		return templates.get(name);
+	}
+	public static Template get(String name){
+		return instance.get_(name);
 	}
 	
 }

@@ -1,9 +1,9 @@
 package Utils;
 
-public class Vector2 {
-	public float x;
-	public float y;
-	
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+
+public class Vector2 extends Point2D.Float{
 	public Vector2(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -42,5 +42,11 @@ public class Vector2 {
 	public Vector2 tripleCross(Vector2 vec) {
 		float z = x*vec.y - y*vec.x;
 		return new Vector2(y*z, -x*z);
+	}
+	
+	public Vector2 transform(AffineTransform t) {
+		Vector2 r = new Vector2(0, 0);
+		t.transform(this, r);
+		return r;
 	}
 }

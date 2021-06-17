@@ -13,7 +13,7 @@ Player(Init){
   | Key(SPACE) ? Jump :(Init)
 }
 
-Balle(Avance){
+Bullet(Avance){
 	* (Avance) :
 	| Cell(F,_) ? Hit  :()
 	| True ?  Move(F)  :(Avance)

@@ -2,10 +2,13 @@ package Model.entities;
 
 import Controller.VirtualInput;
 import Model.World;
+
 import Model.automata.creation.DirectionExtension;
 import Model.automata.weapon.Weapon;
 import Model.automata.weapon.dagger;
 import Model.automata.weapon.gun;
+import Model.loader.AutomataLoader;
+
 
 public class Player extends Entity{
 	public Weapon armeCac;
@@ -13,9 +16,10 @@ public class Player extends Entity{
 
 	
 	public Player(World w) {
-		super(Tests.TestParseur.loadAutomata("Bots/Player.gal").get(0), w);
+		super(AutomataLoader.get("Player"), w);
 		armeCac = new dagger(500000); //to change please
 		armeDist = new gun(5000);
+
 	}
 
 	

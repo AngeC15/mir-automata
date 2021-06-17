@@ -14,7 +14,7 @@ public class Hit extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(Enum_Action.HIT);
+		e.setAction(EnumAction.HIT);
 		e.Hit(dir);
 		return false;
 	}

@@ -1,31 +1,33 @@
 package View;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
+
+import Model.automata.actions.EnumAction;
 
 public class Template {
 	private SpriteSheet spriteSheet;
-	private ArrayList<AnimNode> allNodes;
+	private HashMap<EnumAction, AnimNode> allNodes;
 
 	public Template(String fileNameSpriteSheet, String fileNameAutomata) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, 4, 6, 24);
-		allNodes = new ArrayList<AnimNode>();
+		allNodes = new HashMap<EnumAction, AnimNode>();
 		readFile(fileNameAutomata);
 	}
 
 	/**
 	 * Read the file at the given file name and constructs the animation automaton .
-	 * The automaton is given in this way :
+	 * The automaton is given in this way:
 	 * 
 	 * <pre>
 	 * {@code 0 MOVE 3 JUMP 2}
 	 * </pre>
 	 * 
-	 * 0 is the index of the actual state, MOVE is the condition to go on the state
-	 * 3, JUMP is the condition to go on the state 2
+	 * 
 	 * 
 	 * @param fileNameAutomata
 	 */
@@ -37,55 +39,45 @@ public class Template {
 				String data = myReader.nextLine();
 				String[] line = data.split(" ");
 
-				int index = Integer.parseInt(line[0]); // Recover the actual state
-				AnimNode node = containsNode(index);
-				if (node == null) {
-					node = new AnimNode(spriteSheet.getSprite(index), index);
-					allNodes.add(node);
+				if (line.length < 3) {
+					myReader.close();
+					throw new Exception("Too few arguments.");
 				}
-				for (int i = 1; i + 1 < line.length; i += 2) {
-					String condition = line[i]; // Recover the condition to change state
-					index = Integer.parseInt(line[i + 1]); // Recover the index of the next state
 
-					AnimNode nextNode = containsNode(index);
-					if (nextNode == null) {
-						nextNode = new AnimNode(spriteSheet.getSprite(index), index);
-						allNodes.add(nextNode); // add the node to the global list of nodes
-					}
-					node.addNode(condition, nextNode); // add the node to the list of the next nodes
-
+				EnumAction action = EnumAction.valueOf(line[0]); // Recovers the actual action
+				int time = Integer.parseInt(line[1]);
+				int dividedTime = time / line.length - 2;
+				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[2])), dividedTime);
+				AnimNode tempNode = node;
+				for (int i = 3; i < line.length; i++) {
+					AnimNode nextNode = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[i])), dividedTime);
+					tempNode.addNode(nextNode);
+					tempNode = nextNode;
 				}
+
+				// Now, let's store that to the HashMap
+				allNodes.put(action, node);
 			}
 			myReader.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
 	}
 
-	/***
-	 * Verify if an index exist in the list of nodes
-	 * 
-	 * @param index index of the sprite
-	 * @return the node if find , null otherwise
-	 */
-	private AnimNode containsNode(int index) {
-		for (AnimNode node : allNodes) {
-			if (node.getIndex() == index) {
-				return node;
-			}
+	public AnimNode getStartNode(EnumAction currentAction, EnumAction newAction) throws Exception {
+		Set<EnumAction> set = allNodes.keySet();
+		Iterator<EnumAction> iterator = set.iterator();
+		while(iterator.hasNext())
+		{
+			EnumAction toCompare = iterator.next();
+			if(toCompare == currentAction)
+				// Reversed priority, first is last
+				return allNodes.get(newAction);
+			if(toCompare == newAction)
+				return null;
 		}
-		return null;
-	}
-	
-	public void displayAllNodes() {
-		for(AnimNode node : allNodes) {
-			System.out.println(node);
-		}
-	}
-	
-	public AnimNode getStartNode() {
-		return allNodes.get(0);
+		throw new Exception("Haven't found current action");
 	}
 
 }

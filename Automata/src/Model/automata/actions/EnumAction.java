@@ -1,6 +1,6 @@
 package Model.automata.actions;
 
-public enum Enum_Action {
+public enum EnumAction {
 	EGG, EXPLODE, GET, HIT, JUMP, MOVE , PICK, POP, POWER, PRINT, PROTECT, STORE, THROW, TURN, WAIT, WIZZ
 
 }

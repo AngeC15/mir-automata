@@ -14,7 +14,7 @@ public class Protect extends Action {
 	
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(Enum_Action.PROTECT);
+		e.setAction(EnumAction.PROTECT);
 		e.Protect(dir);
 		return false;
 	}

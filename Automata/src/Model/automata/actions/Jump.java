@@ -15,7 +15,7 @@ public class Jump extends Action {
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(Enum_Action.JUMP);
+		e.setAction(EnumAction.JUMP);
 		e.Jump(dir);
 		return false;
 	}

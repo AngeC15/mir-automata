@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import Model.automata.actions.Enum_Action;
+import Model.automata.actions.EnumAction;
 import Model.entities.Entity;
 
 public class Avatar {
@@ -25,7 +25,7 @@ public class Avatar {
 	}
 
 	void paint(Graphics2D g) {
-		if (compteur == 3) { // limite la vitesse des mouvements
+		if (compteur == 3) { // Limits the movment speed
 			this.step();
 			compteur = 0;
 		}
@@ -34,10 +34,9 @@ public class Avatar {
 		g.drawRenderedImage(sprite, identity);
 	}
 
-	public void step(Enum_Action action) {
-		//Enum_Action action = entity.getAction();
+	public void step(EnumAction action) {
+		// Enum_Action action = entity.getAction();
 		state = state.nextNode(action);
-		
 
 	}
 }

@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
-import Model.automata.actions.Enum_Action;
+import Model.automata.actions.EnumAction;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.KeyExtension;
@@ -16,7 +16,7 @@ import Utils.Functions;
 public class Entity {
 	protected Avatar avatar;
 	protected AutomatonState state;
-	protected Enum_Action action;
+	protected EnumAction action;
 	protected Automaton automaton;
 	protected World world;
 	protected long id;
@@ -41,11 +41,11 @@ public class Entity {
 		return transform;
 	}
 
-	public void setAction(Enum_Action action) {
+	public void setAction(EnumAction action) {
 		this.action = action;
 	}
 
-	public Enum_Action getAction() {
+	public EnumAction getAction() {
 		return action;
 	}
 

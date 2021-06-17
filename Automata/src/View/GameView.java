@@ -100,7 +100,14 @@ public class GameView {
 		AffineTransform baseTransform = g.getTransform();
 		
 		AffineTransform cam_save = new AffineTransform(cameraTransform);
-		AffineTransform playerTransform = world.getPlayer().getTransform();
+		AffineTransform playerTransform;
+		if(world.getPlayer() != null) {
+			playerTransform = world.getPlayer().getTransform();
+		}
+		else {
+			playerTransform = new AffineTransform();
+		}
+		
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(), -playerTransform.getTranslateY()));
 		g.transform(canvasTransform);
 		g.transform(cameraTransform);

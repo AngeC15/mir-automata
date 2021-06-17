@@ -16,15 +16,15 @@ public class Vector2 extends Point2D.Float{
 	public Vector2 normalize() {
 		Vector2 r = new Vector2(x, y);
 		float n = r.norm();
+		if(n == 0.0f)
+			return r;
 		r.x /= n;
 		r.y /= n;
 		return r;
 	}
 	
 	public Vector2 scale(float s) {
-		x *= s;
-		y *= s;
-		return this;
+		return new Vector2(x*s, y*s);
 	}
 	
 	public Vector2 add(Vector2 vect) {
@@ -52,5 +52,8 @@ public class Vector2 extends Point2D.Float{
 		Vector2 r = new Vector2(0, 0);
 		t.transform(this, r);
 		return r;
+	}
+	public Vector2 lerp(Vector2 vec, float val) {
+		return new Vector2(x*(1-val) + vec.x*val, y*(1-val) + vec.y*val);
 	}
 }

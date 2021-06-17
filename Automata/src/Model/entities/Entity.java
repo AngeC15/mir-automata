@@ -8,35 +8,33 @@ import Model.automata.AutomatonState;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.KeyExtension;
+import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
 import Utils.Functions;
 
 
 public class Entity {
+	protected long id;
 	protected Avatar avatar;
 	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
-	protected long id;
-	protected AffineTransform transform;
-	protected float velocity = 40.0f;
-
+	protected PhysicsBody body;
+	protected float acceleration = 20.0f;
 	
-	public Entity(Automaton a, World w) {
-		this.id = w.getNextId();
+	public Entity(Automaton a, World w, long id) {
+		this.id = id;
 		automaton = a;
 		state = automaton.getInit();
 		world = w;
-		transform = new AffineTransform();
-		world.addEntity(this, id);
 		
 	}
 	public void setAvatar(Avatar av) {
 		avatar = av;
 	}
 	public AffineTransform getTransform() {
-		return transform;
+		return body.getTransform();
 	}
 	
 	public long getID() {
@@ -56,6 +54,9 @@ public class Entity {
 	}
 	public Avatar getAvatar() {
 		return avatar;
+	}
+	public PhysicsBody getBody() {
+		return body;
 	}
 	
 	public void Egg(DirectionExtension dir) {
@@ -82,14 +83,14 @@ public class Entity {
 	public void Move(DirectionExtension dir) {
 		Vector2 vect;
 		if (dir.ordinal() < 4) {
-			Vector2 direction = new Vector2((float)transform.getShearX(), (float)transform.getScaleY());
+			Vector2 direction = new Vector2((float)body.getTransform().getShearX(), (float)body.getTransform().getScaleY());
 			vect = Functions.getRelativeDir(dir, direction);
 		}
 		else {
 			vect = Functions.getAbsoluteDir(dir);
 		}
-		vect.scale(world.getElapsed()*velocity/1000.0f);
-		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
+		body.accelerate(world.getElapsed(), vect.scale(acceleration));
+		
 	}
 	
 	public void Pick(DirectionExtension dir) {

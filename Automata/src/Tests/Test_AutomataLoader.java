@@ -8,9 +8,9 @@ import Model.loader.AutomataLoader;
 
 public class Test_AutomataLoader {
 	
-	public static HashMap<String, Automaton> loader(String filename) throws IOException {
+	public static Automaton loader(String filename) throws IOException {
 		AutomataLoader.load_all(filename);
-		HashMap<String, Automaton> automata = AutomataLoader.get_list();
+		Automaton automata = AutomataLoader.get("Mine");
 		return automata;
 	}
 	

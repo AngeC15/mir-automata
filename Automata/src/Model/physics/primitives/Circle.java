@@ -1,6 +1,6 @@
 package Model.physics.primitives;
 
-public class CirclePrimitive extends Primitive{
+public class Circle extends Primitive{
 	private float radius;
 	
 	public float getRadius() {

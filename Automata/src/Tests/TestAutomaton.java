@@ -14,7 +14,7 @@ import View.Avatar;
 public class TestAutomaton {
 
 	public static void main(String[] args) {
-		Automaton a = new Automaton();
+		Automaton a = new Automaton("test");
 		AutomatonState s = new AutomatonState("default");
 		s.addTransition(s, s, new True(), new Print("a", 0.0f));
 		s.addTransition(s, s, new True(), new Print("b", 0.0f));

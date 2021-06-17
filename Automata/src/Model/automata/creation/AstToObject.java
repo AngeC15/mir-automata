@@ -519,7 +519,7 @@ public class AstToObject implements IVisitor {
 	@Override
 	public Object exit(Model.automata.ast.Automaton automaton, Object initial_state, List<Object> modes) {
 		//ArrayList<AutomatonState> li =  new ArrayList<AutomatonState>((List<AutomatonState>)modes);
-		Automaton auto = new Automaton();
+		Automaton auto = new Automaton(automaton.name);
 		for(Object li2 : modes) {
 			auto.addState((AutomatonState) li2);
 		}

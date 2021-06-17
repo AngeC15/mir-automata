@@ -30,4 +30,18 @@ public class Vector2 {
 	public Vector2 add(Vector2 vect) {
 		return new Vector2(x + vect.x, y + vect.y);
 	}
+	
+	public Vector2 invert() {
+		return new Vector2(-x, -y);
+	}
+	
+	public float dot(Vector2 vec) {
+		return x*vec.x + y*vec.y;
+	}
+	
+	public Vector2 tripleCross(Vector2 vec) {
+		float tz = x*vec.y - y*vec.x;
+		
+		return new Vector2(0, 0);
+	}
 }

@@ -11,6 +11,7 @@ import Controller.VirtualInput;
 
 public class World {
 	private TreeMap<Long, Entity> entities;
+	private Entity player;
 	private long nextIntanceIdx;
 	private VirtualInput inputs;
 	private long elapsed;
@@ -45,5 +46,10 @@ public class World {
 	public long getNextId() {
 		return nextIntanceIdx;
 	}
-	
+	public void setPlayer(Entity p) {
+		player = p;
+	}
+	public Entity getPlayer() {
+		return player;
+	}
 }

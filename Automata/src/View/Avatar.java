@@ -12,7 +12,8 @@ import Model.entities.Entity;
 /**
  * @author Camille, Gergely, Samuel
  *
- * The graphical representation of an Entity. This is where the Entity paint method is.
+ *         The graphical representation of an Entity. This is where the Entity
+ *         paint method is.
  */
 public class Avatar {
 	private static final AffineTransform identity = new AffineTransform();
@@ -27,7 +28,7 @@ public class Avatar {
 	/**
 	 * Creates a new Avatar linked to a Template and to an unique Entity
 	 * 
-	 * @param e Entity
+	 * @param e   Entity
 	 * @param tmp Template
 	 * @throws IOException
 	 */
@@ -42,7 +43,8 @@ public class Avatar {
 	}
 
 	/**
-	 * Paints the avatar to the screen using the informations from the entity and the current animation.
+	 * Paints the avatar to the screen using the informations from the entity and
+	 * the current animation.
 	 * 
 	 * @param g
 	 */
@@ -84,5 +86,13 @@ public class Avatar {
 			currentAction = node.getAction();
 			state = node;
 		}
+	}
+
+	public int getSpriteW() {
+		return state.getSprite().getWidth();
+	}
+
+	public int getSpriteH() {
+		return state.getSprite().getHeight();
 	}
 }

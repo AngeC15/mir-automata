@@ -9,8 +9,6 @@ public class Key extends Condition{
 
 	public Key(KeyExtension key) {
 		this.key = key;
-		System.out.println("Touche vaut" + this.key);
-
 	}
 	
 	@Override

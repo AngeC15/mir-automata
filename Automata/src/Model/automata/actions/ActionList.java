@@ -28,6 +28,10 @@ public class ActionList extends Action{
 	
 	public void addAction(Action a) {
 		float p = a.getWeigth();
+		if(p < 0) {
+			default_actions.add(a);
+			return;
+		}
 		
 		total_weight += p;
 		
@@ -51,7 +55,7 @@ public class ActionList extends Action{
 			return default_actions.get(randIdx).apply(e);
 		}
 		else {
-			for(int i=weighted_actions.size(); i >= 0 ; i--) {
+			for(int i=weighted_actions.size()-1; i >= 0 ; i--) {
 				if(cumulative_weights.get(i) < r)
 					return weighted_actions.get(i).apply(e);
 			}

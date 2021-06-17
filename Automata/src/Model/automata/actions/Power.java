@@ -11,7 +11,7 @@ public class Power extends Action{
 	
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.POWER);
+		e.addAction(EnumAction.POWER);
 		e.Power();
 		return false;
 	}

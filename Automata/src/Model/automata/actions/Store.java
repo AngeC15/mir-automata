@@ -13,7 +13,7 @@ public class Store extends Action {
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.STORE);
+		e.addAction(EnumAction.STORE);
 		e.Store();
 		return false;
 	}

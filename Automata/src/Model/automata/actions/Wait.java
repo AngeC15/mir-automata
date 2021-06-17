@@ -12,7 +12,7 @@ public class Wait extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.WAIT);
+		e.addAction(EnumAction.WAIT);
 		e.Wait();
 		return true;
 	}

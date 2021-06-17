@@ -10,7 +10,7 @@ public class Explode extends Action {
 	
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.EXPLODE);
+		e.addAction(EnumAction.EXPLODE);
 		e.Explode();
 		return false;
 	}

@@ -16,7 +16,7 @@ public class Pop extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.POP);
+		e.addAction(EnumAction.POP);
 		e.Apply(dir);
 		return false;
 	}

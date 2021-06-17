@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Model.automata.actions.EnumAction;
 import Model.entities.Entity;
@@ -19,32 +20,57 @@ public class Avatar {
 	Entity entity;
 	AffineTransform transform;
 	EnumAction currentAction;
-	// ms
-	int compteur;
+	// Time in ms.
+	long compteur;
+	Template template;
 
 	public Avatar(Entity e, Template tmp) throws IOException {
 		state = tmp.getDefaultNode();
 		entity = e;
 		transform = e.getTransform();
 		e.setAvatar(this);
-		compteur = 0;
+		compteur = System.currentTimeMillis();
 		currentAction = tmp.getDefaultAction();
+		template = tmp;
 	}
 
 	void paint(Graphics2D g) {
+		if (System.currentTimeMillis() - compteur >= state.getTime())
+			try {
+				step();
+				compteur = System.currentTimeMillis();
+			} catch (Exception e) {
+				System.out.println("Something went wrong when painting");
+			}
 		BufferedImage sprite = state.getSprite();
 		g.drawRenderedImage(sprite, identity);
+
 	}
-	
+
 	/**
-	 * Checks if the avatar must change its animation, 
+	 * Checks if the avatar must change its animation. If it does, the avatar will
+	 * change nodes based on the priority.
+	 * 
+	 * @throws Exception
 	 */
-	public void step() {
-		
-	}
+	public void step() throws Exception {
+		ArrayList<EnumAction> actions = entity.getActions();
+		if (actions.size() == 0)
+			throw new Exception("No actions to step.");
 
-	public void changeCurrentAction(EnumAction action) {
-		state = state.nextNode(action);
-
+		AnimNode node = template.changeAnimationSequence(currentAction, actions);
+		if (node == null) {
+			if (state.nextNode() == null) {
+				// When the current animation is finished, the avatar will take back its default
+				// behaviour.
+				node = template.getDefaultNode();
+				currentAction = node.getAction();
+			} else {
+				state = state.nextNode();
+			}
+		} else {
+			currentAction = node.getAction();
+			state = node;
+		}
 	}
 }

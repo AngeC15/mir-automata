@@ -1,27 +1,28 @@
 package Model.entities;
 
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import Model.World;
 import Model.automata.Automaton;
 import Model.automata.AutomatonState;
 import Model.automata.actions.EnumAction;
-import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.CategoryExtension;
+import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
+import Utils.Functions;
 import Utils.Vector2;
 import View.Avatar;
-import Utils.Functions;
 
 public class Entity {
 	protected Avatar avatar;
 	protected AutomatonState state;
-	protected EnumAction action;
 	protected Automaton automaton;
 	protected World world;
 	protected long id;
 	protected AffineTransform transform;
 	protected float velocity = 40.0f;
+	protected ArrayList<EnumAction> actions;
 
 	public Entity(Automaton a, World w) {
 		this.id = w.getNextId();
@@ -41,12 +42,15 @@ public class Entity {
 		return transform;
 	}
 
-	public void setAction(EnumAction action) {
-		this.action = action;
+	public void addAction(EnumAction action) {
+		actions.add(action);
 	}
 
-	public EnumAction getAction() {
-		return action;
+	public ArrayList<EnumAction> getActions() {
+		@SuppressWarnings("unchecked")
+		ArrayList<EnumAction> returnList = (ArrayList<EnumAction>) actions.clone();
+		actions.clear();
+		return returnList;
 	}
 
 	public long getID() {

@@ -11,7 +11,7 @@ public class Print extends Action{
 	}
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.PRINT);
+		e.addAction(EnumAction.PRINT);
 		System.out.println("" + e.getID() + " : " + msg);
 		return true;
 	}

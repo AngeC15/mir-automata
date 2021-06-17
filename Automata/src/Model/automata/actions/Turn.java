@@ -16,7 +16,7 @@ public class Turn extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.TURN);
+		e.addAction(EnumAction.TURN);
 		e.Turn(dir);
 		return false;
 	}

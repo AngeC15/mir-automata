@@ -2,6 +2,7 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -46,11 +47,12 @@ public class Template {
 
 				EnumAction action = EnumAction.valueOf(line[0]); // Recovers the actual action
 				int time = Integer.parseInt(line[1]);
-				int dividedTime = time / line.length - 2;
-				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[2])), dividedTime);
+				int dividedTime = time / (line.length - 2);
+				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[2])), dividedTime, action);
 				AnimNode tempNode = node;
 				for (int i = 3; i < line.length; i++) {
-					AnimNode nextNode = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[i])), dividedTime);
+					AnimNode nextNode = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[i])), dividedTime,
+							action);
 					tempNode.addNode(nextNode);
 					tempNode = nextNode;
 				}
@@ -65,27 +67,37 @@ public class Template {
 		}
 	}
 
-	public AnimNode changeAnimationSequence(EnumAction currentAction, EnumAction newAction) throws Exception {
+	public AnimNode changeAnimationSequence(EnumAction currentAction, ArrayList<EnumAction> newAction)
+			throws Exception {
+		// Il y a une boucle imbriquée, la supprimer permetterait de gagner en
+		// performance. Bonne chance.
 		Set<EnumAction> set = allNodes.keySet();
 		Iterator<EnumAction> iterator = set.iterator();
-		while(iterator.hasNext())
-		{
-			EnumAction toCompare = iterator.next();
-			if(toCompare == currentAction)
-				// Reversed priority, first is last
-				return allNodes.get(newAction);
-			if(toCompare == newAction)
+		EnumAction compareAction = iterator.next();
+		while (iterator.hasNext()) {
+			if (compareAction == currentAction)
 				return null;
+			for (EnumAction action : newAction)
+				if (compareAction == action)
+					return allNodes.get(action);
+			currentAction = iterator.next();
+			/*
+			 * EnumAction toCompare = iterator.next(); if(toCompare == currentAction) //
+			 * Reversed priority, first is last return allNodes.get(newAction); if(toCompare
+			 * == newAction) return null;
+			 */
 		}
-		throw new Exception("Haven't found current action");
+		throw new Exception("Current action not found. Should not happen.");
 	}
 
 	public AnimNode getDefaultNode() {
-		return allNodes.values().iterator().next();
+		AnimNode[] returnNode = (AnimNode[]) allNodes.values().toArray();
+		return returnNode[returnNode.length - 1];
 	}
-	
+
 	public EnumAction getDefaultAction() {
-		return allNodes.keySet().iterator().next();
+		EnumAction[] returnAction = (EnumAction[]) allNodes.keySet().toArray();
+		return returnAction[returnAction.length - 1];
 	}
 
 }

@@ -15,7 +15,7 @@ public class Move extends Action {
 
 	@Override
 	public boolean apply(Entity e) {
-		e.setAction(EnumAction.MOVE);
+		e.addAction(EnumAction.MOVE);
 		e.Move(dir);
 		return false;
 	}

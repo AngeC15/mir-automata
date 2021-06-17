@@ -30,5 +30,9 @@ public class Vector2 {
 	public Vector2 add(Vector2 vect) {
 		return new Vector2(x + vect.x, y + vect.y);
 	}
+	
+	public Vector2 sub(Vector2 vect) {
+		return new Vector2(x - vect.x, y - vect.y);
+	}
 
 }

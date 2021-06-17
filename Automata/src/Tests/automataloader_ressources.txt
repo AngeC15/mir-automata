@@ -1,0 +1,2 @@
+src/Tests/GalAutomaton/mine.gal
+src/Tests/GalAutomaton/philosophe.gal

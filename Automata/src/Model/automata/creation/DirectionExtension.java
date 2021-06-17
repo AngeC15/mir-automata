@@ -14,7 +14,7 @@ public enum DirectionExtension {
 	F, R, B, L, N, NE, E, SE, S, SW, W, NW;
 	
 	public static DirectionExtension RelToAbsolute(DirectionExtension directionCourante, DirectionExtension directionAction) {
-		System.out.println("Direction courante = " + directionCourante + "directionAction :" + directionAction);
+		//System.out.println("Direction courante = " + directionCourante + "directionAction :" + directionAction);
 		if(directionAction == null) {
 			return E;
 		}
@@ -91,11 +91,10 @@ public enum DirectionExtension {
 					break;
 				}
 		default:
-			System.out.println("Default Direction Action enum Direction");
 			break;
 		
 		}
-		return null;
+		return directionAction;
 		
 	}
 }

@@ -2,6 +2,7 @@ package Model.entities.weapon;
 
 import java.util.Vector;
 
+import Model.World;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Bullet;
 import Model.entities.Entity;
@@ -10,6 +11,7 @@ import Utils.Vector2;
 public class gun extends Weapon{
 
 	final int VITESSEBALLE = 1;
+	long id = 0;
 	
 	public gun(int damage) {
 		super(damage, false);
@@ -20,9 +22,11 @@ public class gun extends Weapon{
 	public void attack(Entity e, int x, int y) {
 		System.out.println("x= "+ x + " y = "+y);
 		Vector2 vecteurBalle = new Vector2(x, y);
-		Bullet bul = new Bullet(e.getWorld(), damage, VITESSEBALLE, vecteurBalle);
+		Bullet bul = new Bullet(e, damage, VITESSEBALLE, vecteurBalle);
 		DirectionExtension di = vectToDir(vecteurBalle);
-		bul.Move(di);
+		World w = e.getWorld();
+		w.addEntity(e, id++);
+		
 		
 		
 		

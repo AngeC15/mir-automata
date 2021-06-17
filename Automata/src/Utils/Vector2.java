@@ -32,6 +32,6 @@ public class Vector2 {
 	}
 	
 	static public double argument(Vector2 vect) {
-		return Math.toDegrees(Math.atan(vect.y/vect.x));
+		return (400-vect.y)/(510-vect.x);
 	}
 }

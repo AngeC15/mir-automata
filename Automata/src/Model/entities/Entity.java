@@ -86,18 +86,18 @@ public class Entity {
 	
 	public void Move(DirectionExtension dir) {
 		Vector2 vect;
-		DirectionExtension dir2 = DirectionExtension.RelToAbsolute(this.directionEntite, dir);
-		directionEntite = dir2;
-		if (dir2.ordinal() < 4) {
+		//DirectionExtension dir2 = DirectionExtension.RelToAbsolute(this.directionEntite, dir);
+		if (dir.ordinal() < 4) {
 			Vector2 direction = new Vector2((float)transform.getShearX(), (float)transform.getScaleY());
-			vect = Functions.getRelativeDir(dir2, direction);
+			vect = Functions.getRelativeDir(dir, direction);
 		}
 		else {
-			vect = Functions.getAbsoluteDir(dir2);
+			directionEntite = dir;
+			vect = Functions.getAbsoluteDir(dir);
 		}
 		vect.scale(world.getElapsed()*velocity/1000.0f);
 		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
-		System.out.println("BOuge vers " + dir2);
+		//System.out.println("BOuge vers " + dir2);
 	}
 	
 	public void Pick(DirectionExtension dir) {

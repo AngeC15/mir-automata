@@ -23,7 +23,6 @@ public class gun extends Weapon{
 		System.out.println("x= "+ x + " y = "+y);
 		Vector2 vecteurBalle = new Vector2(x, y);
 		Bullet bul = new Bullet(e, damage, VITESSEBALLE, vecteurBalle);
-		DirectionExtension di = vectToDir(vecteurBalle);
 		World w = e.getWorld();
 		w.addEntity(e, id++);
 		

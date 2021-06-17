@@ -30,13 +30,33 @@ public class Bullet extends Entity{
 			Avatar av = new Avatar(this, BulletTemplate);
 			this.setAvatar(av);
 			//this.Move(DirectionExtension.F);
-
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void Move(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		this.deplacement(this.vectorName, dir);
+	}
+
+	private void deplacement(Vector2 vect, DirectionExtension dir) {
+		if (dir.ordinal() < 4) {
+			//Vector2 direction = new Vector2((float)transform.getShearX(), (float)transform.getScaleY());
+			Vector2 direction = new Vector2(vect.x, vect.y);
+			vect = Functions.getRelativeDir(dir, direction);
+		}
+		else {
+			this.directionEntite = dir;
+			vect = Functions.getAbsoluteDir(dir);
+		}
+		vect.scale(world.getElapsed()*velocity/1000.0f);
+		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));		
+	}
+	
 
 	
 

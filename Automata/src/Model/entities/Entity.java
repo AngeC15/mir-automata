@@ -22,6 +22,7 @@ public class Entity {
 	protected AffineTransform transform;
 	protected float velocity = 40.0f;
 	DirectionExtension directionEntite;
+	double lastshot;
 
 	
 	public Entity(Automaton a, World w) {
@@ -31,7 +32,7 @@ public class Entity {
 		world = w;
 		transform = new AffineTransform();
 		world.addEntity(this, id);
-		
+		lastshot = System.currentTimeMillis();
 	}
 	public void setAvatar(Avatar av) {
 		avatar = av;
@@ -144,8 +145,13 @@ public class Entity {
 		// TODO Auto-generated method stub
 		
 	}
-	public void GotPower() {
-		// TODO Auto-generated method stub
+	public boolean GotPower() {
+		double now = System.currentTimeMillis();
+		if(now - lastshot > 100) {
+			lastshot = now;
+			return false;
+		}
+		return true;
 		
 	}
 	public void GotStuff() {

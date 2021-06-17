@@ -4,9 +4,9 @@ import Controller.VirtualInput;
 import Model.World;
 
 import Model.automata.creation.DirectionExtension;
-import Model.automata.weapon.Weapon;
-import Model.automata.weapon.dagger;
-import Model.automata.weapon.gun;
+import Model.entities.weapon.Weapon;
+import Model.entities.weapon.dagger;
+import Model.entities.weapon.gun;
 import Model.loader.AutomataLoader;
 
 

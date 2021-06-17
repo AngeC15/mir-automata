@@ -30,4 +30,8 @@ public class Vector2 {
 	public Vector2 add(Vector2 vect) {
 		return new Vector2(x + vect.x, y + vect.y);
 	}
+	
+	static public double argument(Vector2 vect) {
+		return Math.toDegrees(Math.atan(vect.y/vect.x));
+	}
 }

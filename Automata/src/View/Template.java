@@ -65,7 +65,7 @@ public class Template {
 		}
 	}
 
-	public AnimNode getStartNode(EnumAction currentAction, EnumAction newAction) throws Exception {
+	public AnimNode changeAnimationSequence(EnumAction currentAction, EnumAction newAction) throws Exception {
 		Set<EnumAction> set = allNodes.keySet();
 		Iterator<EnumAction> iterator = set.iterator();
 		while(iterator.hasNext())
@@ -78,6 +78,14 @@ public class Template {
 				return null;
 		}
 		throw new Exception("Haven't found current action");
+	}
+
+	public AnimNode getDefaultNode() {
+		return allNodes.values().iterator().next();
+	}
+	
+	public EnumAction getDefaultAction() {
+		return allNodes.keySet().iterator().next();
 	}
 
 }

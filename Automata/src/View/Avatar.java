@@ -8,34 +8,42 @@ import java.io.IOException;
 import Model.automata.actions.EnumAction;
 import Model.entities.Entity;
 
+/**
+ * @author Camille, Gergely, Samuel
+ *
+ * 
+ */
 public class Avatar {
 	private static final AffineTransform identity = new AffineTransform();
 	private AnimNode state;
 	Entity entity;
 	AffineTransform transform;
-
+	EnumAction currentAction;
+	// ms
 	int compteur;
 
 	public Avatar(Entity e, Template tmp) throws IOException {
-		state = tmp.getStartNode();
+		state = tmp.getDefaultNode();
 		entity = e;
 		transform = e.getTransform();
 		e.setAvatar(this);
 		compteur = 0;
+		currentAction = tmp.getDefaultAction();
 	}
 
 	void paint(Graphics2D g) {
-		if (compteur == 3) { // Limits the movment speed
-			this.step();
-			compteur = 0;
-		}
-		compteur++;
 		BufferedImage sprite = state.getSprite();
 		g.drawRenderedImage(sprite, identity);
 	}
+	
+	/**
+	 * Checks if the avatar must change its animation, 
+	 */
+	public void step() {
+		
+	}
 
-	public void step(EnumAction action) {
-		// Enum_Action action = entity.getAction();
+	public void changeCurrentAction(EnumAction action) {
 		state = state.nextNode(action);
 
 	}

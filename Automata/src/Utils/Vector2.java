@@ -40,8 +40,7 @@ public class Vector2 {
 	}
 	
 	public Vector2 tripleCross(Vector2 vec) {
-		float tz = x*vec.y - y*vec.x;
-		
-		return new Vector2(0, 0);
+		float z = x*vec.y - y*vec.x;
+		return new Vector2(y*z, -x*z);
 	}
 }

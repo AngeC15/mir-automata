@@ -22,6 +22,7 @@ public class VirtualInput {
 	private static final int[] codes = {letters_code, numbers_code, special_code, space_code, enter_code, arrows_code};
 	private static final int[] sizes = {26, 5, 2, 1, 1, 4};
 	private static final int[] offsets = {letters_offset, numbers_offset, numbers_offset + 8, blank_offset, blank_offset+1, arrows_offset};
+	double lastclic;
 	
 	public VirtualInput() {
 		keys = new boolean[42];

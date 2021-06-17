@@ -23,13 +23,16 @@ public class Entity {
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
 	
+	double lastshot;
+	
 	public Entity(Automaton a, World w, long id) {
 		this.id = id;
 		automaton = a;
 		state = automaton.getInit();
 		world = w;
-		
+		lastshot = System.currentTimeMillis();
 	}
+	
 	public void setAvatar(Avatar av) {
 		avatar = av;
 	}
@@ -137,8 +140,13 @@ public class Entity {
 		// TODO Auto-generated method stub
 		
 	}
-	public void GotPower() {
-		// TODO Auto-generated method stub
+	public boolean GotPower() {
+		double now = System.currentTimeMillis();
+		if(now - lastshot > 100) {
+			lastshot = now;
+			return true;
+		}
+		return false;
 		
 	}
 	public void GotStuff() {

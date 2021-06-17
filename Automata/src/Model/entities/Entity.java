@@ -142,11 +142,11 @@ public class Entity {
 	}
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 100) {
+		if(now - lastshot > 0.1) {
 			lastshot = now;
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 		
 	}
 	public void GotStuff() {

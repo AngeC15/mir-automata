@@ -12,7 +12,6 @@ public class Test_TemplateLoader {
 	public static void loader(String filename) throws IOException {
 		TemplatesLoader.load_all(filename);
 		Template template = TemplatesLoader.get("test");
-		template.displayAllNodes();
 	}
 	
 	public static void main(String[] args) throws IOException {

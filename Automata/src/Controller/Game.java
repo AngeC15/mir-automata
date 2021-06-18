@@ -1,20 +1,16 @@
 package Controller;
 
-import View.Avatar;
-import View.GameView;
-import View.Sound;
-import View.Template;
-import Controller.audio.*;
-import Controller.audio.info3.game.sound.RandomFileInputStream;
-import java.io.RandomAccessFile;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
 import Model.loader.AutomataLoader;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import View.Avatar;
+import View.GameView;
+import View.Sound;
+import View.Template;
 
 
 
@@ -45,9 +41,11 @@ public class Game {
 		AutomataLoader.load_all("Bots/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		Player player = new Player(world);
+		Model.entities.Tank tank = new Model.entities.Tank(world);
 		world.setPlayer(player);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
+		Avatar tav = new Avatar(tank, tmp);
 		view = new GameView(m_listener);
 		
 	}

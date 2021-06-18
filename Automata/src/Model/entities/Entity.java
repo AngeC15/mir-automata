@@ -155,22 +155,26 @@ public class Entity {
 
 	}
 
-	public void Cell(DirectionExtension direction, CategoryExtension categorie) {
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
-	public void Closest(DirectionExtension direction, CategoryExtension categorie) {
+	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
-	public void GotPower() {
+	public boolean GotPower() {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
-	public void GotStuff() {
+	public boolean GotStuff() {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
@@ -180,7 +184,8 @@ public class Entity {
 
 	}
 
-	public void MyDir(DirectionExtension direction) {
+	public boolean MyDir(DirectionExtension direction) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}

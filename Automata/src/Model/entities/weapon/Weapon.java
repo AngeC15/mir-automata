@@ -1,7 +1,6 @@
 package Model.entities.weapon;
 
 import Model.entities.Entity;
-import Model.entities.Player;
 
 public abstract class Weapon {
 

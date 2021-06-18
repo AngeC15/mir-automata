@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
+import Model.physics.Newton;
 
 import java.util.TreeMap;
 
@@ -15,12 +16,14 @@ public class World {
 	private long nextIntanceIdx;
 	private VirtualInput inputs;
 	private long elapsed;
+	private Newton newton;
 	
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new TreeMap<Long, Entity>();
 		nextIntanceIdx = 0;
 		elapsed = 0;
+		newton = new Newton();
 	}
 	
 	public void tick(long elapsed) {
@@ -29,6 +32,7 @@ public class World {
 		for(Entry<Long, Entity> entries : entities.entrySet()) {
 			entries.getValue().step();
 		}
+		newton.tick(elapsed);
 	}
 	public TreeMap<Long, Entity> getEntities(){
 		return entities;
@@ -42,6 +46,7 @@ public class World {
 	public void addEntity(Entity entity, long id) {
 		entities.put(id, entity);
 		nextIntanceIdx++;
+		newton.add(entity.getBody());
 	}
 	public long getNextId() {
 		return nextIntanceIdx;

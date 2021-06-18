@@ -7,7 +7,11 @@ import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
+
 import Model.loader.AutomataLoader;
+import Model.physics.HitBox;
+import Model.physics.PhysicsBody;
+import Model.physics.primitives.Circle;
 
 
 public class Player extends Entity{
@@ -51,6 +55,7 @@ public class Player extends Entity{
 		super.Pop(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+
 	}
 	
 	

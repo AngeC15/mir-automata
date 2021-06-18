@@ -9,10 +9,8 @@ Mine(Banzai){
   * ()
 }
 
-Poule(Pondre){
-  * (Pondre)
-  | Cell(F,V) ? Egg(F)  :(Couver)
 
+<<<<<<< HEAD
   * (Couver)
   | Cell(F,T) ? Move    :(Attendre)
 
@@ -41,6 +39,8 @@ Egyptologue(Explore){
 
  * (Paint): True ? Pop(B) :(Explore)
 }
+=======
+>>>>>>> bc043851dbeace7801792f70a0dd9efc889da62b
 
 PopOrWizz1(Init){
   * (Init): True ? 49%Pop / 49% Wizz / Power :(Init)

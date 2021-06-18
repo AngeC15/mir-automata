@@ -40,15 +40,17 @@ public class Game {
 	}
 
 	Game() throws Exception {
+		
+		AutomataLoader.load_all("Bots/loader.txt");
 		// creating a listener for all the events
 		m_listener = new CanvasListener(this);
-		AutomataLoader.load_all("Bots/loader.txt");
+		view = new GameView(m_listener);
 		world = new World(m_listener.getVirtualInput());
 		Player player = new Player(world);
-		world.setPlayer(player);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
-		view = new GameView(m_listener);
+		world.addEntity(player, world.getNextId());
+		world.setPlayer(player);
 		
 	}
 
@@ -93,6 +95,8 @@ public class Game {
 	 */
 	public void tick(long elapsed) {
 		
+		if (world == null) 
+			return;
 		world.tick(elapsed);
 		if (view != null) view.tick(elapsed);
 	}

@@ -20,31 +20,19 @@ public class Entity {
 	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
-	protected AffineTransform transform;
 	protected float velocity = 40.0f;
-	Vector2 directionEntite;
 	double lastshot;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
 
 
 	
-	public Entity(Automaton a, World w, long id) {
+	public Entity(Automaton a) {
 		System.out.println("new entity");
-		this.id = id;
+		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
-		world = w;
-		transform = new AffineTransform();
 	}
-	public Entity(Automaton a, World w) {
-		this.id = w.getNextId();
-		automaton = a;
-		state = automaton.getInit();
-		world = w;
-		transform = new AffineTransform();
-	}
-	
 	public void setAvatar(Avatar av) {
 		avatar = av;
 	}
@@ -55,13 +43,18 @@ public class Entity {
 	public long getID() {
 		return id;
 	}
-	
+	public void setID(long id) {
+		this.id = id;
+	}
 	public AutomatonState getState() {
 		return state;
 	}
 	
 	public World getWorld() {
 		return world;
+	}
+	public void setWorld(World w) {
+		world = w;
 	}
 
 	public void setState(AutomatonState state) {
@@ -109,7 +102,6 @@ public class Entity {
 		else {
 			vect = Functions.getAbsoluteDir(dir);
 		}
-		this.directionEntite = vect;
 		//2 next lines commented during the merge phase
 		//vect.scale(world.getElapsed()*velocity/1000.0f);
 		//transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));

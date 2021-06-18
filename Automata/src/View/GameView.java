@@ -108,17 +108,18 @@ public class GameView {
 		world = w;
 	}
 	public Vector2 getMouseWorld(int x, int y) throws NoninvertibleTransformException {
-		Vector2 r = new Vector2(0, 0);
-		canvasTransform.inverseTransform(new Vector2(x, y), r);
-		return r;
-	}
-	public Vector2 getMousePlayer(int x, int y) throws NoninvertibleTransformException {
-		Vector2 m = getMouseWorld(x, y);
+		Vector2 m = getMousePlayer(x, y);
 		Vector2 r = new Vector2(0, 0);
 		AffineTransform playerTransform = world.getPlayer().getTransform();
 		AffineTransform playerTranslate = AffineTransform.getTranslateInstance(playerTransform.getTranslateX(), playerTransform.getTranslateY());
 		playerTranslate.transform(m, r);
 		return r;
+	}
+	public Vector2 getMousePlayer(int x, int y) throws NoninvertibleTransformException {
+		Vector2 r = new Vector2(0, 0);
+		canvasTransform.inverseTransform(new Vector2(x, y), r);
+		return r;
+		
 	}
 	public void paint(Graphics2D g) {
 		// get the size of the canvas
@@ -157,11 +158,10 @@ public class GameView {
 		g.setColor(Color.darkGray);
 		g.setStroke(new BasicStroke(0.2f));
 		
+		
 		for(int i=-100; i < 100; i+=5) {
-			for(int j=-100; j < 100; j+=5) {
-				g.draw(new Line2D.Float((float)i, -100.0f, (float)i, 100.0f));
-				g.draw(new Line2D.Float(-100.0f, (float)i, 100.0f, (float)i));
-			}
+			g.draw(new Line2D.Float((float)i, -100.0f, (float)i, 100.0f));
+			g.draw(new Line2D.Float(-100.0f, (float)i, 100.0f, (float)i));
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
@@ -169,6 +169,7 @@ public class GameView {
 			Entity et = entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
+			//et.getBody().debug(g);
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW()/2.0f, -av.getSpriteH()/2.0f)); //center the object
 			av.paint(g);

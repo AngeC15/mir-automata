@@ -1,6 +1,9 @@
 package Model.physics;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 
 import Utils.Vector2;
 
@@ -50,5 +53,13 @@ public class PhysicsBody {
 	}
 	public AffineTransform getTransform() {
 		return transform;
+	}
+	public void setTransform(AffineTransform t) {
+		transform = t;
+	}
+	public void debug(Graphics2D g) {
+		AffineTransform save = g.getTransform();
+		hitbox.debug(g);
+		g.setTransform(save);
 	}
 }

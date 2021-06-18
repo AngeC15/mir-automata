@@ -20,7 +20,8 @@ public class Gun extends Weapon{
 		//on crée la bullet
 		Bullet bul = new Bullet(e, vect);
 		World w = e.getWorld();
-		w.addEntity(bul, w.getNextId());
+		w.addEntity(bul);
+		Vector2 direction = new Vector2((float)bul.getTransform().getShearX(), (float)bul.getTransform().getScaleY());
 		
 	}
 

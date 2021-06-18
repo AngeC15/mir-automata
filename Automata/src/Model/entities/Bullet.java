@@ -19,24 +19,22 @@ public class Bullet extends Entity {
 	
 	
 	public Bullet(Entity e, Vector2 vect) {
-		super(AutomataLoader.get("Bullet"), e.getWorld());
+		super(AutomataLoader.get("Bullet"));
 		//on créer tout le nécessaire pour gerer les physics body
-		this.acceleration = 80.0f;
+		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3, 3)));
-		this.body = new PhysicsBody(h, 0.0f, 40.0f);
+		this.body = new PhysicsBody(h, 0.0f, 60.0f);
 		
-		
-		//on récupère les coordonnées de celui qui tire:
-		double xOwner = e.getTransform().getTranslateX();
-		double yOwner = e.getTransform().getTranslateY();
-		this.directionEntite = vect;
 		vect = vect.normalize();
 		
-		this.getTransform().concatenate(AffineTransform.getTranslateInstance(xOwner+ vect.x, yOwner +4+vect.y));
-		this.getTransform().rotate(Math.atan(vect.y/vect.x));
-		try {
+		float angle = (float) Math.atan2(-vect.x, vect.y);
 
+		this.getBody().setTransform(new AffineTransform(e.getTransform()));
+		
+		this.getTransform().rotate(angle);
+		this.getTransform().translate(0, 5);
+		try {
 			Template BulletTemplate = new View.Template("Resources/winchester-4x6.png", "Resources/example.ani");
 			Avatar avatarBullet = new Avatar(this, BulletTemplate);
 			this.setAvatar(avatarBullet);

@@ -52,6 +52,8 @@ public class VirtualInput {
 		try {
 			mouseWorld = view.getMouseWorld(x, y);
 			mousePlayer = view.getMousePlayer(x, y);
+			
+			//System.out.println("mp " + mouseWorld.x + " " + mouseWorld.y);
 		} catch (NoninvertibleTransformException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

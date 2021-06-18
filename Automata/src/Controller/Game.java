@@ -2,6 +2,7 @@ package Controller;
 
 import View.Avatar;
 import View.GameView;
+import View.MiniMap;
 import View.Sound;
 import View.Template;
 import Controller.audio.*;
@@ -27,7 +28,7 @@ public class Game {
 	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
-	GameView view;
+	GameView view ;
 	
 	public static void main(String args[]) throws Exception {
 		try {

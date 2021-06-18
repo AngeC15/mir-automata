@@ -1,7 +1,10 @@
 package Model.entities.weapon;
 
+import Model.World;
+import Model.entities.Bullet;
 import Model.entities.Entity;
 import Model.entities.Player;
+import Utils.Vector2;
 
 public class Gun extends Weapon{
 
@@ -11,11 +14,16 @@ public class Gun extends Weapon{
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
-	public void attack(Entity e, int mouseX, int mouseY) {
-		// TODO Auto-generated method stub
+	public void attack(Entity e, Vector2 vect) {
+		
+		//on crée la bullet
+		Bullet bul = new Bullet(e, vect);
+		World w = e.getWorld();
+		w.addEntity(bul, w.getNextId());
 		
 	}
 
+
+	
 }

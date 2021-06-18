@@ -1,6 +1,7 @@
 package Model.entities.weapon;
 
 import Model.entities.Entity;
+import Utils.Vector2;
 
 public abstract class Weapon {
 
@@ -13,7 +14,7 @@ public abstract class Weapon {
 	}
 
 
-	public abstract void attack(Entity e, int mouseX, int mouseY);
+	public abstract void attack(Entity e, Vector2 vect);
 	
 
 }

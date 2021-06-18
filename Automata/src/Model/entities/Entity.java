@@ -22,7 +22,7 @@ public class Entity {
 	protected World world;
 	protected AffineTransform transform;
 	protected float velocity = 40.0f;
-	DirectionExtension directionEntite;
+	Vector2 directionEntite;
 	double lastshot;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
@@ -107,9 +107,9 @@ public class Entity {
 			vect = Functions.getRelativeDir(dir, direction);
 		}
 		else {
-			directionEntite = dir;
 			vect = Functions.getAbsoluteDir(dir);
 		}
+		this.directionEntite = vect;
 		//2 next lines commented during the merge phase
 		//vect.scale(world.getElapsed()*velocity/1000.0f);
 		//transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
@@ -164,11 +164,11 @@ public class Entity {
 	}
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 0.1) {
+		if(now - lastshot > 500) {
 			lastshot = now;
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 		
 	}
 	public void GotStuff() {

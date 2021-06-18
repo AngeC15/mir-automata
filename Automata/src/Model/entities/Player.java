@@ -52,6 +52,7 @@ public class Player extends Entity{
 		VirtualInput christianClavier = this.world.getInputs();
 		
 		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+		armeCac.attack(this, christianClavier.getMousePlayer());
 		
 	}
 
@@ -63,6 +64,7 @@ public class Player extends Entity{
 		super.Pop(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		//armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+		armeDist.attack(this, christianClavier.getMousePlayer());
 	}
 	
 	

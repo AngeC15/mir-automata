@@ -2,6 +2,7 @@ package Model.entities.weapon;
 
 import Model.entities.Entity;
 import Model.entities.Player;
+import Utils.Vector2;
 
 public class Dagger extends Weapon{
 
@@ -11,11 +12,15 @@ public class Dagger extends Weapon{
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	@Override
-	public void attack(Entity e, int mouseX, int mouseY) {
+	public void attack(Entity e,Vector2 vect) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 
 }

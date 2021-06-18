@@ -67,24 +67,32 @@ public class MiniMap {
 
 		AffineTransform cam_save = new AffineTransform(cameraTransform);
 		AffineTransform playerTransform = world.getPlayer().getTransform();
-		cameraTransform.concatenate(AffineTransform.getTranslateInstance(playerTransform.getTranslateX(),
-				playerTransform.getTranslateY()));
-		g.transform(canvasTransform);
-		g.transform(cameraTransform);
+		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
+				-playerTransform.getTranslateY()));
+		g.transform(canvasTransform); // pixel au coordonées du monde
+		g.transform(cameraTransform); // vu de la caméra par rapport au monde
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
 		
 		TreeMap<Long, Entity> entities = world.getEntities();
-
+		g.setColor(Color.white);
+		g.fillRect(-100, -100, 200, 200);
+		g.setColor(Color.red);
+		g.fillOval(-1, 1, 3, 3);
+		
 		for (Entry<Long, Entity> entries : entities.entrySet()) {
 			Entity et = entries.getValue();
 			Avatar av = et.getAvatar();
-
-			g.transform(localTransform);
-
+			
+			g.transform(et.getTransform());
+			g.transform(localTransform); // Pour centrer le 0.0 au milieu
+			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // set
+																													// 0,0																									// the
+																													// object
 			av.paint(g);
 
+			g.setTransform(gameTransform);
 
 		}
 

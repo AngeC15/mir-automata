@@ -8,6 +8,7 @@ import Utils.Vector2;
 public class GJK {
 	private static int idx = 0;
 	private static Vector2 origin = new Vector2(0, 0);
+	private Vector2 n;
 	
 	protected static Vector2 double_support(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2, Vector2 d) {
 		Vector2 vect1 = (s1.support(d)).transform(A1);
@@ -77,5 +78,9 @@ public class GJK {
 			if (contain(triangle, d))
 				return true;
 		}
+	}
+	
+	public Vector2 get() {
+		return n;
 	}
 }

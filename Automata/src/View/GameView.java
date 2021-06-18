@@ -169,6 +169,7 @@ public class GameView {
 			Entity et = entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
+			//et.getBody().debug(g);
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW()/2.0f, -av.getSpriteH()/2.0f)); //center the object
 			av.paint(g);

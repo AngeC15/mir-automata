@@ -15,7 +15,7 @@ public class Player extends Entity{
 		super(AutomataLoader.get("Player"), w, w.getNextId());
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(5, 5)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 15.0f, 40.0f);
 	}
 

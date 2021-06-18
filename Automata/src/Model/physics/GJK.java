@@ -58,8 +58,10 @@ public class GJK {
 	}
 	
 	public static boolean collide(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2) {
-		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateX());
-		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateX());
+		idx = 0;
+		n = new Vector2(0, 0);
+		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateY());
+		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateY());
 		
 		Vector2 d = (vect1.sub(vect2)).normalize();
 		
@@ -81,7 +83,7 @@ public class GJK {
 		}
 	}
 	
-	public Vector2 get_normal() {
+	public static Vector2 get_normal() {
 		return n;
 	}
 }

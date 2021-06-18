@@ -27,24 +27,27 @@ public class Newton {
 			AffineTransform translate = AffineTransform.getTranslateInstance(delta.x, delta.y);
 			
 			t.concatenate(translate);
-			if(collideAll(body)) {
+			Vector2 normal = new Vector2(0, 0);
+			if(collideAll(body, normal)) {
 				body.transform = save;
-				body.velocity = new Vector2(0, 0);
-				System.out.println("collision");
+				normal = normal.normalize().scale(0.05f);
+				float dot = velocity.dot(normal);
+				velocity.sub(normal.scale(dot*3));
+				body.transform.concatenate(AffineTransform.getTranslateInstance(-normal.x, -normal.y));
 			}
 		}
 	}
-	public boolean collideAll(PhysicsBody b) {
+	public boolean collideAll(PhysicsBody b, Vector2 normal) {
 		for(PhysicsBody body : bodies) {
 			if(body == b)
 				continue;
-			if(collide(b, body))
+			if(collide(b, body, normal))
 				return true;
 		}
 		return false;
 	}
 	
-	public boolean collide(PhysicsBody b1, PhysicsBody b2) {
+	public boolean collide(PhysicsBody b1, PhysicsBody b2, Vector2 normal) {
 		HitBox h1 = b1.getHitBox();
 		HitBox h2 = b1.getHitBox();
 		for(PrimitiveInstance p1: h1.shapes) {
@@ -54,6 +57,8 @@ public class Newton {
 				t1.concatenate(p1.transform);
 				t2.concatenate(p2.transform);
 				if(GJK.collide(p1.prim, p2.prim, t1, t2)) {
+					normal.x = GJK.get_normal().x;
+					normal.y = GJK.get_normal().y;
 					return true;
 				}
 			}

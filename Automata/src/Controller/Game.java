@@ -127,7 +127,6 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-
 		view.paint((Graphics2D)g, world);
 	}
 

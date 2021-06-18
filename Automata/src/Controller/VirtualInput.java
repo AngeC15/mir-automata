@@ -1,11 +1,16 @@
 package Controller;
 
+import java.awt.geom.NoninvertibleTransformException;
+
 import Model.automata.creation.KeyExtension;
+import Utils.Vector2;
+import View.GameView;
 
 public class VirtualInput {
 	private boolean[] keys;
-	private int mouse_x;
-	private int mouse_y;
+	private Vector2 mouseWorld;
+	private Vector2 mousePlayer;
+	private GameView view;
 	
 	private static final int letters_code = 65;
 	private static final int numbers_code = 48;
@@ -26,6 +31,9 @@ public class VirtualInput {
 	public VirtualInput() {
 		keys = new boolean[42];
 	}
+	public void setView(GameView v) {
+		view = v;
+	}
 	public void updateKeys(int keycode, boolean value) {
 		if(keycode < 0) {
 			keys[numbers_offset + 5 + (-keycode) - 1] = value;
@@ -40,14 +48,20 @@ public class VirtualInput {
 		}
 	}
 	public void updateMouse(int x, int y) {
-		mouse_x = x;
-		mouse_y = y;
+		
+		try {
+			mouseWorld = view.getMouseWorld(x, y);
+			mousePlayer = view.getMousePlayer(x, y);
+		} catch (NoninvertibleTransformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public int getMouseX() {
-		return mouse_x;
+	public Vector2 getMouseWorld() {
+		return mouseWorld;
 	}
-	public int getMouseY() {
-		return mouse_y;
+	public Vector2 getMousePlayer() {
+		return mousePlayer;
 	}
 	public boolean getKey(KeyExtension key) {
 		return keys[key.ordinal()];

@@ -18,7 +18,9 @@ public class HitBox {
 	}
 	
 	public PrimitiveInstance get(int k) {
-		return (PrimitiveInstance)shapes.get(k); 
+		return shapes.get(k); 
 	}
+	
+	
 	
 }

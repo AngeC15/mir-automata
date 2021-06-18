@@ -2,10 +2,6 @@ package Model.physics.primitives;
 
 import Utils.Vector2;
 
-public class Primitive {
-
-	public Vector2 support(Vector2 d) {
-		return null;
-	}
-	
+public abstract class Primitive {
+	public abstract Vector2 support(Vector2 d);
 }

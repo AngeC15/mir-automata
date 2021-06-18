@@ -1,6 +1,7 @@
 package Model.entities;
 
 import Controller.VirtualInput;
+import java.awt.geom.AffineTransform;
 import Model.World;
 
 import Model.automata.creation.DirectionExtension;
@@ -11,6 +12,7 @@ import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
+import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 
 
@@ -20,7 +22,12 @@ public class Player extends Entity{
 
 	
 	public Player(World w) {
-		super(AutomataLoader.get("Player"), w);
+		super(AutomataLoader.get("Player"), w, w.getNextId());
+		this.acceleration = 80.0f;
+		HitBox h = new HitBox();
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(5, 5)));
+		this.body = new PhysicsBody(h, 15.0f, 40.0f);
+		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
 
@@ -43,7 +50,8 @@ public class Player extends Entity{
 		System.out.println("Hit");
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
-		armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+		
+		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
 		
 	}
 
@@ -54,8 +62,7 @@ public class Player extends Entity{
 		System.out.println("Pop" + dir);
 		super.Pop(dir);
 		VirtualInput christianClavier = this.world.getInputs();
-		armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-
+		//armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
 	}
 	
 	

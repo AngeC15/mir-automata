@@ -13,9 +13,12 @@ Player(Init){
   | Key(SPACE) ? Jump :(Init)
 }
 
-Bullet(Avance){
-	* (Avance) :
+Bullet(Forward){
+	* (Forward) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Move(F)  :(Avance)
+	| True ?  Move(F)  :(Forward)
   	* ()
+}
+Wall(Dead){
+  * (Dead)
 }

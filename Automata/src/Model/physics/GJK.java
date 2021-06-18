@@ -32,12 +32,14 @@ public class GJK {
 		Vector2 vect3 = triangle[2].invert();
 		Vector2 vectn1 = vect2.tripleCross(vect1, vect1);
 		Vector2 vectn2 = vect1.tripleCross(vect2, vect2);
-		if (vectn1.dot(vect3) >= 0) {
+		if (vectn1.dot(vect3) > 0) {
 			idx--;
+			triangle[idx-2] = triangle[idx-1];
+			triangle[idx-1] = triangle[idx];
 			d = vectn1;
 			return false;
 		}
-		else if (vectn2.dot(vect3) >= 0){
+		else if (vectn2.dot(vect3) > 0){
 			triangle[idx-1] = triangle[idx];
 			idx--;
 			d = vectn2;
@@ -58,7 +60,8 @@ public class GJK {
 		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateX());
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateX());
 		
-		Vector2 d = vect1.sub(vect2);
+		Vector2 d = (vect1.sub(vect2)).normalize();
+		idx = 0;
 		
 		Vector2[] triangle = new Vector2[3];
 		triangle[idx ++] = double_support(s1, s2, A1, A2, d);
@@ -68,7 +71,7 @@ public class GJK {
 		
 		while (true){
 			S = double_support(s1, s2, A1, A2, d);
-			if (S.dot(d) <= 0)
+			if (S.dot(d) < 0)
 				return false;
 			triangle[idx ++] = S;
 			if (contain(triangle, d))

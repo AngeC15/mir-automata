@@ -1,17 +1,18 @@
 package Tests;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import Model.automata.Automaton;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
+import View.Template;
 
-public class Test_AutomataLoader {
-	
-	public static Automaton loader(String filename) throws IOException {
-		AutomataLoader.load_all(filename);
-		Automaton automata = AutomataLoader.get("Mine");
-		return automata;
+public class Test_TemplateLoader {
+
+	public static void loader(String filename) throws IOException {
+		TemplatesLoader.load_all(filename);
+		Template template = TemplatesLoader.get("test");
+		template.displayAllNodes();
 	}
 	
 	public static void main(String[] args) throws IOException {

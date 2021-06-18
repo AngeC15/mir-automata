@@ -15,3 +15,15 @@ Player(Init){
 Wall(Dead){
   * (Dead)
 }
+
+Gen(Init){
+	* (Init):
+	| True : (Dead)
+	| True : (Alive)
+	*(Dead):
+	Throw(F,O) : (Alive)
+	*(Alive):
+	Throw(F,V) : (Dead)
+	
+	
+}

@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
+import Model.map.Map;
 import Model.physics.Newton;
 
 import java.util.TreeMap;
@@ -57,4 +58,5 @@ public class World {
 	public Entity getPlayer() {
 		return player;
 	}
+	
 }

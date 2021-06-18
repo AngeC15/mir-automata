@@ -14,6 +14,7 @@ import Model.entities.Cowboy;
 import Model.entities.Player;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
+import Model.map.Map;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -61,10 +62,12 @@ public class Game {
 		Avatar av = new Avatar(player, tmp);
 		world.addEntity(player, world.getNextId());
 		world.setPlayer(player);
-		Wall wall = new Wall(world);
-		Avatar av2 = new Avatar(wall, tmp);
-		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-		world.addEntity(wall, world.getNextId());
+//		Wall wall = new Wall(world, true);
+//		Avatar av2 = new Avatar(wall, tmp);
+//		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
+//		world.addEntity(wall, world.getNextId());
+		
+		Map map = new Map(world, 1000, 1000, 5);
 	}
 	private static class Init implements Runnable{
 

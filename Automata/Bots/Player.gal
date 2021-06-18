@@ -13,17 +13,11 @@ Player(Init){
 }
 
 Wall(Dead){
-  * (Dead)
-}
-
-Gen(Init){
-	* (Init):
+  	* (Init):
 	| True : (Dead)
 	| True : (Alive)
 	*(Dead):
-	Throw(F,O) : (Alive)
+	| GotPower ? Throw(H,O) : (Alive)
 	*(Alive):
-	Throw(F,V) : (Dead)
-	
-	
+	| (!GotPower) ? Throw(H,V) : (Dead)
 }

@@ -15,6 +15,7 @@ public class AnimNode {
 	private AnimNode nextNode;
 	private int time;
 	private EnumAction action;
+	private AnimInterrupt interruptable;
 
 	/**
 	 * Creates a node with a sprite, a duration and a linked action
@@ -23,10 +24,11 @@ public class AnimNode {
 	 * @param time
 	 * @param action
 	 */
-	public AnimNode(BufferedImage sprite, int time, EnumAction action) {
+	public AnimNode(BufferedImage sprite, int time, EnumAction action, AnimInterrupt inter) {
 		this.sprite = sprite;
 		this.time = time;
 		this.action = action;
+		interruptable = inter;
 	}
 
 	/**
@@ -64,5 +66,13 @@ public class AnimNode {
 	 */
 	public int getTime() {
 		return time;
+	}
+	
+	public boolean isInterruptable() throws Exception {
+		if(interruptable == AnimInterrupt.INTERRUPT)
+			return true;
+		if(interruptable == AnimInterrupt.NON_INTERRUPT)
+			return false;
+		throw new Exception("This is not interruptable, nor not not interruptable");
 	}
 }

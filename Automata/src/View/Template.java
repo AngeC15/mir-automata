@@ -13,7 +13,8 @@ import Model.automata.actions.EnumAction;
 /**
  * @author Gergely, Camille, Samuel
  * 
- * Specifies the animation for a single time of entity. Can be shared by multiple avatars.
+ *         Specifies the animation for a single time of entity. Can be shared by
+ *         multiple avatars.
  *
  */
 public class Template {
@@ -41,9 +42,8 @@ public class Template {
 	 * {@code MOVE 3000 4 2 7 1}
 	 * </pre>
 	 * 
-	 * MOVE being the action from EnumAction
-	 * 3000 being the total time the animation will take
-	 * 4, 2, 7 and 1 being the states the animation will follow
+	 * MOVE being the action from EnumAction 3000 being the total time the animation
+	 * will take 4, 2, 7 and 1 being the states the animation will follow
 	 * 
 	 * 
 	 * @param fileNameAutomata
@@ -63,12 +63,14 @@ public class Template {
 
 				EnumAction action = EnumAction.valueOf(line[0]); // Recovers the actual action
 				int time = Integer.parseInt(line[1]);
-				int dividedTime = time / (line.length - 2);
-				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[2])), dividedTime, action);
+				int dividedTime = time / (line.length - 3);
+				AnimInterrupt inter = AnimInterrupt.valueOf(line[2]);
+				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[3])), dividedTime, action,
+						inter);
 				AnimNode tempNode = node;
-				for (int i = 3; i < line.length; i++) {
+				for (int i = 4; i < line.length; i++) {
 					AnimNode nextNode = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[i])), dividedTime,
-							action);
+							action, inter);
 					tempNode.addNode(nextNode);
 					tempNode = nextNode;
 				}
@@ -100,14 +102,14 @@ public class Template {
 		// performance. Bonne chance.
 		Set<EnumAction> set = allNodes.keySet();
 		Iterator<EnumAction> iterator = set.iterator();
-		EnumAction compareAction = iterator.next();
+		EnumAction compareAction;
 		while (iterator.hasNext()) {
+			compareAction = iterator.next();
 			if (compareAction == currentAction)
 				return null;
 			for (EnumAction action : newAction)
 				if (compareAction == action)
 					return allNodes.get(action);
-			currentAction = iterator.next();
 		}
 		throw new Exception("Current action not found. Should not happen.");
 	}

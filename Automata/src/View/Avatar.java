@@ -69,7 +69,7 @@ public class Avatar {
 	 */
 	public void step() throws Exception {
 		ArrayList<EnumAction> actions = entity.getActions();
-		if (actions.size() == 0)
+		if (actions.size() == 0 && state.isInterruptable())
 			return;
 
 		AnimNode node = template.changeAnimationSequence(currentAction, actions);
@@ -77,8 +77,8 @@ public class Avatar {
 			if (state.nextNode() == null) {
 				// When the current animation is finished, the avatar will take back its default
 				// behaviour.
-				node = template.getDefaultNode();
-				currentAction = node.getAction();
+				state = template.getDefaultNode();
+				currentAction = state.getAction();
 			} else {
 				state = state.nextNode();
 			}

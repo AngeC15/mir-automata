@@ -107,7 +107,7 @@ public class Game {
 	 */
 	public void paint(Graphics g) {
 
-		if (view != null) view.paint((Graphics2D)g, world);
+		if (view != null && world != null) view.paint((Graphics2D)g, world);
 	}
 
 }

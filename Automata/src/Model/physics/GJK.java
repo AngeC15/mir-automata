@@ -58,6 +58,7 @@ public class GJK {
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateX());
 		
 		Vector2 d = vect1.sub(vect2);
+		idx = 0;
 		
 		Vector2[] triangle = new Vector2[3];
 		triangle[idx ++] = double_support(s1, s2, A1, A2, d);
@@ -67,7 +68,7 @@ public class GJK {
 		
 		while (true){
 			S = double_support(s1, s2, A1, A2, d);
-			if (S.dot(d) <= 0)
+			if (S.dot(d) < 0)
 				return false;
 			triangle[idx ++] = S;
 			if (contain(triangle, d))

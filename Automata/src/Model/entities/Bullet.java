@@ -29,7 +29,7 @@ public class Bullet extends Entity{
 			BulletTemplate = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 			Avatar av = new Avatar(this, BulletTemplate);
 			this.setAvatar(av);
-			//this.Move(DirectionExtension.F);
+			//this.Move(DirectionExtension.F); //pas d'utilisation du move, ce sont les ticks qui le feront
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

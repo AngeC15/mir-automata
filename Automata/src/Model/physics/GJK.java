@@ -32,12 +32,14 @@ public class GJK {
 		Vector2 vect3 = triangle[2].invert();
 		Vector2 vectn1 = vect2.tripleCross(vect1, vect1);
 		Vector2 vectn2 = vect1.tripleCross(vect2, vect2);
-		if (vectn1.dot(vect3) >= 0) {
+		if (vectn1.dot(vect3) > 0) {
 			idx--;
+			triangle[idx-2] = triangle[idx-1];
+			triangle[idx-1] = triangle[idx];
 			d = vectn1;
 			return false;
 		}
-		else if (vectn2.dot(vect3) >= 0){
+		else if (vectn2.dot(vect3) > 0){
 			triangle[idx-1] = triangle[idx];
 			idx--;
 			d = vectn2;
@@ -47,7 +49,7 @@ public class GJK {
 	}
 	
 	protected static boolean contain(Vector2[] triangle, Vector2 d) {
-		if (idx+1 == 2) {
+		if (idx == 2) {
 			return lineCase(triangle, d);
 		}
 		return triangleCase(triangle, d);
@@ -57,7 +59,7 @@ public class GJK {
 		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateX());
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateX());
 		
-		Vector2 d = vect1.sub(vect2);
+		Vector2 d = (vect1.sub(vect2)).normalize();
 		idx = 0;
 		
 		Vector2[] triangle = new Vector2[3];

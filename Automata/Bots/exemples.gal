@@ -4,36 +4,34 @@ Philosopher(Think){
 
 Mine(Banzai){
   * (Banzai) 
-  | Cell(F,E) ? Explode  :()
+  | Cell(F,_) ? Explode  :()
   | True ?               :(Banzai)
   * ()
 }
 
-Poule(Pondre){
-  * (Pondre)
-  | Cell(F,V) ? Egg(F)  :(Couver)
 
+<<<<<<< HEAD
   * (Couver)
   | Cell(F,T) ? Move    :(Attendre)
 
   * (Attendre)
-  | Cell(H,V) ?          :(Pondre) 
+  | Cell(F,V) ?          :(Pondre) 
 }
 
 Fire(Forward){
  * (Forward)
  | Cell(F,V) ? Move(F)    :(Copy)
- | Cell(F,O) ? Explode(H) :()
+ | Cell(F,O) ? Explode(F) :()
  | True      ?            :()
 
  * (Copy)
- | Cell(F,O) ? Explode(H) :()
+ | Cell(F,O) ? Explode(F) :()
  | Cell(B,V) ? Egg(B)     :(Forward) 
 }
 
 Egyptologue(Explore){
  * (Explore)
- | Cell(H,C) ?          :()
+ | Cell(F,C) ?          :()
  | Cell(F,V) ? Move(F)  :(Paint)
  | Cell(L,V) ? Turn(L)  :(Explore)
  | Cell(R,V) ? Turn(R)  :(Explore)
@@ -41,6 +39,8 @@ Egyptologue(Explore){
 
  * (Paint): True ? Pop(B) :(Explore)
 }
+=======
+>>>>>>> bc043851dbeace7801792f70a0dd9efc889da62b
 
 PopOrWizz1(Init){
   * (Init): True ? 49%Pop / 49% Wizz / Power :(Init)
@@ -68,7 +68,7 @@ Blocker(Go){
 
 Escape(Init){
 * (Init):
-  | Cell(N,V) & Cell(S,V) & Cell(E,V) & Cell(O,V) ? :(Init)
+  | Cell(N,V) & Cell(S,V) & Cell(E,V) & Cell(W,V) ? :(Init)
   | Cell(F,V) ? Move(F) :(Init)
   | Cell(L,V) ? Turn(L) :(Init)
   | Cell(R,V) ? Turn(R) :(Init)

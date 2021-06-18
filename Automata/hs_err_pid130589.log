@@ -1,0 +1,31 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007ff3d6e7a0ad, pid=130589, tid=130604
+#
+# JRE version: OpenJDK Runtime Environment (11.0.11+9) (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x30ad]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/cyprien/Projet_PLA/pla/Automata/core.130589)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-lts
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:39737 -javaagent:/home/cyprien/.eclipse/360744286_linux_gtk_x86_64/configuration/org.eclipse.osgi/222/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 Tests.TestParseur
+
+Host: Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz, 3 cores, 3G, Ubuntu 20.04.2 LTS
+Time: Tue Jun 15 17:45:10 2021 CEST elapsed time: 40.667373 seconds (0d 0h 0m 40s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007ff3d0125000):  JavaThread "Signal Dispatcher" daemon [_thread_in_vm, id=130604, stack(0x00007ff3a938d000,0x00007ff3a948e000)]
+
+Stack: [0x00007ff3a938d000,0x00007ff3a948e000],  sp=0x00007ff3a948b1f0,  free space=1016k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x30ad]
+C  [libjimage.so+0x3da2]

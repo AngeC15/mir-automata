@@ -18,6 +18,7 @@ public class Pop extends Action{
 	public boolean apply(Entity e) {
 		e.addAction(EnumAction.POP);
 		e.Apply(dir);
+		e.Pop(dir);
 		return false;
 	}
 }

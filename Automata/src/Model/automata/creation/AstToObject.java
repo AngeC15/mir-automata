@@ -96,7 +96,7 @@ public class AstToObject implements IVisitor {
 			categorie = CategoryExtension.ENTITY;
 			break;
 		default:
-			System.out.println("Should never happen, category not recognized");
+			System.out.println("Should never happen, category" + cat.terminal.content+ " not recognized");
 			System.out.println("By default, void value used");
 			categorie = CategoryExtension.V;
 			break;
@@ -149,7 +149,7 @@ public class AstToObject implements IVisitor {
 			orientation = DirectionExtension.H;
 			break;
 		default:
-			System.out.println("Should never happen, direction not recognized");
+			System.out.println("Should never happen, direction" +dir.terminal.content + " not recognized");
 			System.out.println("By default, Est value used");
 			orientation = DirectionExtension.E;
 			break;
@@ -288,7 +288,7 @@ public class AstToObject implements IVisitor {
 			cle = KeyExtension.AL;
 			break;
 		default:
-			System.out.println("Should never happen, Key not recognized");
+			System.out.println("Should never happen, Key" + key.terminal.content + " not recognized");
 			System.out.println("By default, ENTER value used");
 			cle = KeyExtension.ENTER;
 			break;
@@ -343,6 +343,9 @@ public class AstToObject implements IVisitor {
 		case "Wait":
 				return new Wait(p);
 		case "Move":
+			if (param1 == null){
+				param1 = DirectionExtension.F;
+			}
 				return new Move((DirectionExtension) param1, p);
 		case "Jump":
 				return new Jump((DirectionExtension) param1, p);

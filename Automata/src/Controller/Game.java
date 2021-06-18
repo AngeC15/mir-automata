@@ -60,7 +60,8 @@ public class Game {
 		world.addEntity(player, world.getNextId());
 		world.setPlayer(player);
 		Wall wall = new Wall(world);
-		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 5));
+		Avatar av2 = new Avatar(wall, tmp);
+		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		world.addEntity(wall, world.getNextId());
 	}
 	private static class Init implements Runnable{

@@ -23,7 +23,7 @@ public class TestAutomaton {
 		
 		Entity e;
 		World w = new World(null);
-		e = new Entity(a, null);
+		e = new Entity(a, w, w.getNextId());
 		e.step();
 		e.step();
 		e.step();

@@ -4,9 +4,9 @@ import Controller.VirtualInput;
 import Model.World;
 
 import Model.automata.creation.DirectionExtension;
-import Model.automata.weapon.Weapon;
-import Model.automata.weapon.dagger;
-import Model.automata.weapon.gun;
+import Model.entities.weapon.Dagger;
+import Model.entities.weapon.Gun;
+import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
 
 
@@ -17,8 +17,8 @@ public class Player extends Entity{
 	
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), w);
-		armeCac = new dagger(500000); //to change please
-		armeDist = new gun(5000);
+		armeCac = new Dagger(); //to change please
+		armeDist = new Gun();
 
 	}
 

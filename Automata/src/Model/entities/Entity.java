@@ -21,6 +21,7 @@ public class Entity {
 	protected long id;
 	protected AffineTransform transform;
 	protected float velocity = 40.0f;
+	DirectionExtension directionEntite;
 
 	
 	public Entity(Automaton a, World w) {
@@ -30,6 +31,7 @@ public class Entity {
 		world = w;
 		transform = new AffineTransform();
 		world.addEntity(this, id);
+		
 		
 	}
 	public void setAvatar(Avatar av) {

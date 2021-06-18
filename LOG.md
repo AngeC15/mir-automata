@@ -32,6 +32,25 @@
 
 - [x] `DONE` : *Fonctionnel, documenté et merge avec le master*
 
+**Format des fichiers d'animation .ani** :
+
+```
+<Action> <Temps> <Interrompable> <SEQUENCE D'ANIM>
+```
+
+- `Action` est une action de l'automate de type MOVE, HIT,... définie dans `EnumAction`
+- `Temps` est le temps en millisecondes que prendra la séquence d'animation
+- `Interrompable` définie si la séquence d'animation doit être interompue lorque l'entité ne fait rien
+- `SEQUENCE D'ANIM` est la suite des index des sprites représentant la séquence d'animation
+
+```
+HIT 500 NON_INTERRUPT 12 13 14 13 12
+MOVE 1000 INTERRUPT 0 1 2 1 0
+```
+
+Ci-dessus, un exemple de `.ani`. Les séquences sont dans **L'ordre décroissant de priorité** ce qui veut dire que 
+l'animation du HIT intérrompra l'animation du MOVE. 
+
 #### *Théo + Julian* : HitBox ( branche `hitbox` )
 -  Création des classes `HitBox`, `Newton`,`PhysicsObject`,`Primitive` et `CirclePrimitive`
 - Ajout de méthodes dans `Vector2`

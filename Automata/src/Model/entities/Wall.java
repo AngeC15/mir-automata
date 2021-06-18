@@ -16,7 +16,7 @@ public class Wall extends Entity{
 		super(AutomataLoader.get("Wall"), w, w.getNextId());
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(2, 2)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3, 3)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
 	}
 

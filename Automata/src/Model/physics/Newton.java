@@ -19,6 +19,7 @@ public class Newton {
 	public void tick(long elapsed) {
 		for(PhysicsBody body : bodies) {
 			body.tick(elapsed);
+			
 			AffineTransform save = new AffineTransform(body.getTransform());
 			AffineTransform t = body.getTransform();
 			Vector2 velocity = body.getVelocity();

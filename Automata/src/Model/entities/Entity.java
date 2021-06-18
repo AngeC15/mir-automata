@@ -30,12 +30,12 @@ public class Entity {
 
 	
 	public Entity(Automaton a, World w, long id) {
+		System.out.println("new entity");
 		this.id = id;
 		automaton = a;
 		state = automaton.getInit();
 		world = w;
 		transform = new AffineTransform();
-		world.addEntity(this, id);
 	}
 	public Entity(Automaton a, World w) {
 		this.id = w.getNextId();
@@ -43,7 +43,6 @@ public class Entity {
 		state = automaton.getInit();
 		world = w;
 		transform = new AffineTransform();
-		world.addEntity(this, id);
 	}
 	
 	public void setAvatar(Avatar av) {

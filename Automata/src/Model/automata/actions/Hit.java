@@ -14,6 +14,7 @@ public class Hit extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
+		e.addAction(EnumAction.HIT);
 		e.Hit(dir);
 		return false;
 	}

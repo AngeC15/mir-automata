@@ -25,9 +25,11 @@ public class Newton {
 			Vector2 delta = velocity.scale(elapsed/1000.0f);
 			
 			AffineTransform translate = AffineTransform.getTranslateInstance(delta.x, delta.y);
+			
 			t.concatenate(translate);
 			if(collideAll(body)) {
 				body.transform = save;
+				body.velocity = new Vector2(0, 0);
 				System.out.println("collision");
 			}
 		}

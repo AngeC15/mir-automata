@@ -145,6 +145,9 @@ public class AstToObject implements IVisitor {
 		case "L":
 			orientation = DirectionExtension.L;
 			break;
+		case "H":
+			orientation = DirectionExtension.H;
+			break;
 		default:
 			System.out.println("Should never happen, direction not recognized");
 			System.out.println("By default, Est value used");

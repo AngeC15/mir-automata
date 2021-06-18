@@ -11,3 +11,7 @@ Player(Init){
   | Key(6) ? Hit  :(Init)
   | Key(SPACE) ? Jump :(Init)
 }
+
+Wall(Dead){
+  * (Dead)
+}

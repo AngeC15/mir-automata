@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Controller.VirtualInput;
 import Model.World;
 import Model.entities.Entity;
 
@@ -37,16 +38,16 @@ public class GameView {
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
 		m_frame = m_canvas.createFrame(d);
-
-		System.out.println("  - setting up the frame...");
-		setupFrame();
 	}
-	
+	public void post(Runnable r) {
+		m_canvas.post(r);
+	}
 	/*
 	 * Then it lays out the frame, with a border layout, adding a label to the north
 	 * and the game canvas to the center.
 	 */
-	private void setupFrame() {
+	public void setupFrame() {
+		System.out.println("  - setting up the frame...");
 		float units_per_width = 100.0f;
 		float sprite_pixels_per_unit = 6.0f;
 		
@@ -135,7 +136,7 @@ public class GameView {
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
 			g.transform(localTransform);
-			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW()/2.0f, -av.getSpriteH()/2.0f)); //set 0,0 to the center of the object
+			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW()/2.0f, -av.getSpriteH()/2.0f)); //center the object
 			av.paint(g);
 			
 			g.setTransform(gameTransform);

@@ -6,20 +6,20 @@ import Model.physics.primitives.Primitive;
 
 public class PrimitiveInstance {
 
-	Primitive prim;
-	AffineTransform T;
+	public Primitive prim;
+	public AffineTransform transform;
 	
-	public PrimitiveInstance(Primitive p, AffineTransform T) {
+	public PrimitiveInstance(Primitive p, AffineTransform t) {
 		prim = p;
-		this.T = T;
+		this.transform = t;
 	}
 	
 	public Primitive get_prim() {
 		return prim;
 	}
 	
-	public AffineTransform get_instance() {
-		return T;
+	public AffineTransform get_transform() {
+		return transform;
 	}
 	
 }

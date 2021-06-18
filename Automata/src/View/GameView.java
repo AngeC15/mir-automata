@@ -38,14 +38,15 @@ public class GameView {
 	private AffineTransform localTransform;
 	private double cameraDistance = 1;
 	private MiniMap miniMap;
-	private Dimension FrameSize;
+	private Dimension frameSize;
 
 	public GameView(GameCanvasListener listener) {
 		m_canvas = new GameCanvas(listener);
-
+		
 		System.out.println("  - creating frame...");
-		FrameSize = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(FrameSize);
+		frameSize = new Dimension(1024, 768);
+		miniMap = new MiniMap(frameSize);
+		m_frame = m_canvas.createFrame(frameSize);
 		// miniMap = new MiniMap(listener, m_frame);
 
 		System.out.println("  - setting up the frame...");
@@ -73,19 +74,14 @@ public class GameView {
 		m_text.setText("Tick: 0ms FPS=0");
 		m_frame.add(m_text, BorderLayout.NORTH);
 
-		// Création du carré correspondant à la miniMap
-		JPanel miniMap = new JPanel();
-		miniMap.setSize(500, 1000);
-		miniMap.setBackground(Color.RED);
-		miniMap.setVisible(true);
-		miniMap.setBounds(5, 5, this.FrameSize.width / 5, this.FrameSize.height / 5);
+		
 
 		// LayeredPane permet la superposition du canvas et du panel
 		JLayeredPane pane = new JLayeredPane();
 
 		m_canvas.setBounds(0, 0, m_frame.getWidth(), m_frame.getHeight());
 		// adding buttons on pane
-		pane.add(miniMap, 1);
+		pane.add(miniMap.getPanel(), 1);
 		pane.add(m_canvas, 2);
 
 		m_frame.add(pane, BorderLayout.CENTER);
@@ -115,15 +111,16 @@ public class GameView {
 
 	public void paint(Graphics2D g, World world) {
 		// get the size of the canvas
-		
-		this.FrameSize.width = m_frame.getWidth();
-		this.FrameSize.height = m_frame.getHeight();
-		
-		m_canvas.setSize(FrameSize.width, FrameSize.height);
+
+		this.frameSize.width = m_frame.getWidth();
+		this.frameSize.height = m_frame.getHeight();
+
+		m_canvas.setSize(frameSize.width, frameSize.height);
+		miniMap.paint(g, world, frameSize);
 
 		// erase background
 		g.setColor(Color.gray);
-		g.fillRect(0, 0, FrameSize.width, FrameSize.height);
+		g.fillRect(0, 0, frameSize.width, frameSize.height);
 
 		AffineTransform baseTransform = g.getTransform();
 
@@ -157,12 +154,7 @@ public class GameView {
 			g.transform(et.getTransform());
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // set
-																													// 0,0
-																													// to
-																													// the
-																													// center
-																													// of
-																													// the
+																													// 0,0																									// the
 																													// object
 			av.paint(g);
 

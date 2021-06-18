@@ -51,9 +51,11 @@ public class Game {
 	}
 	public void init_game() throws Exception {
 		System.out.println("init game");
+		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
 		AutomataLoader.load_all("Bots/loader.txt");
 		world = new World(m_listener.getVirtualInput());
+		view.setWorld(world);
 		Player player = new Player(world);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
@@ -128,7 +130,7 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-		view.paint((Graphics2D)g, world);
+		view.paint((Graphics2D)g);
 	}
 
 }

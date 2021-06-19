@@ -31,6 +31,9 @@ public class Vector2 extends Point2D.Float{
 		return new Vector2(x + vect.x, y + vect.y);
 	}
 	
+	static public double argument(Vector2 vect) {
+		return (400-vect.y)/(510-vect.x);
+	}
 	public Vector2 sub(Vector2 vect) {
 		return new Vector2(x - vect.x, y - vect.y);
 	}

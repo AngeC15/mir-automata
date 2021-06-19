@@ -60,16 +60,15 @@ public class Game {
 		Player player = new Player(world);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
-		world.addEntity(player, world.getNextId());
+		world.addEntity(player);
 		world.setPlayer(player);
-//		Wall wall = new Wall(world, true);
-//		Avatar av2 = new Avatar(wall, tmp);
-//		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-//		world.addEntity(wall, world.getNextId());
-		int cmpt_tick = 0;
-		Map map = new Map(world, 1000, 1000, 5);
-		
-		
+
+		Map map = new Map(1000, 1000, 5);
+/*
+		Wall wall = new Wall();
+		Avatar av2 = new Avatar(wall, tmp);
+		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
+		world.addEntity(wall);*/
 	}
 	private static class Init implements Runnable{
 

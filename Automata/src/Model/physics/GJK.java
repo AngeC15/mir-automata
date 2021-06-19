@@ -8,10 +8,9 @@ import Utils.Vector2;
 public class GJK {
 	private static int idx = 0;
 	private static Vector2 origin = new Vector2(0, 0);
-	private Vector2 n;
-
-	protected static Vector2 double_support(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2,
-			Vector2 d) {
+	private static Vector2 n = new Vector2(0, 0);
+	
+	protected static Vector2 double_support(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2, Vector2 d) {
 		Vector2 vect1 = (s1.support(d)).transform(A1);
 		Vector2 vect2 = (s2.support(d.invert())).transform(A2);
 		return vect1.sub(vect2);
@@ -43,6 +42,7 @@ public class GJK {
 			d = vectn2;
 			return false;
 		}
+		n = d;
 		return true;
 	}
 
@@ -54,12 +54,13 @@ public class GJK {
 	}
 
 	public static boolean collide(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2) {
-		Vector2 vect1 = new Vector2((float) A1.getTranslateX(), (float) A1.getTranslateY());
-		Vector2 vect2 = new Vector2((float) A2.getTranslateX(), (float) A2.getTranslateY());
-
-		Vector2 d = (vect1.sub(vect2)).normalize();
 		idx = 0;
-
+		n = new Vector2(0, 0);
+		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateY());
+		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateY());
+		
+		Vector2 d = (vect1.sub(vect2)).normalize();
+		
 		Vector2[] triangle = new Vector2[3];
 		triangle[idx++] = double_support(s1, s2, A1, A2, d);
 		d = origin.sub(triangle[0]);
@@ -70,13 +71,14 @@ public class GJK {
 			S = double_support(s1, s2, A1, A2, d);
 			if (S.dot(d) < 0)
 				return false;
-			triangle[idx++] = S;
-			if (contain(triangle, d))
+			triangle[idx ++] = S;
+			if (contain(triangle, d)) {
+				n = d;
 				return true;
+			}
 		}
 	}
-
-	public Vector2 get() {
+	public static Vector2 get_normal() {
 		return n;
 	}
 }

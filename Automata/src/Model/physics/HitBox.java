@@ -1,5 +1,6 @@
 package Model.physics;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import Model.physics.primitives.Primitive;
@@ -19,6 +20,13 @@ public class HitBox {
 	
 	public PrimitiveInstance get(int k) {
 		return shapes.get(k); 
+	}
+
+	public void debug(Graphics2D g) {
+		for(PrimitiveInstance p : shapes) {
+			p.debug(g);
+		}
+		
 	}
 	
 	

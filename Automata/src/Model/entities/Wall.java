@@ -17,11 +17,11 @@ public class Wall extends Entity{
 	
 	private boolean alive;
 
-	public Wall(World w) {
-		super(AutomataLoader.get("Wall"), w, w.getNextId());
-		this.acceleration = 0.0f;
+	public Wall() {
+		super(AutomataLoader.get("Wall"));
+		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(2, 2)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
 	}
 	

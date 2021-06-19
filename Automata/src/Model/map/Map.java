@@ -9,11 +9,11 @@ public class Map {
 	private Entity[][] map;
 	private float dimension;
 
-	public Map(World world, int n, int p, float dimension) {
+	public Map(int n, int p, float dimension) {
 		map = new Entity[n][p];
 		for (int i = 0 ; i < n ; i++) {
 			for (int j = 0 ; j < p ; j ++) {
-					map[i][j] = new Wall(world);
+					map[i][j] = new Wall();
 			}
 		}
 		this.dimension = dimension;

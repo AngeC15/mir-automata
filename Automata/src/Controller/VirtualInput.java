@@ -38,6 +38,7 @@ public class VirtualInput {
 		if(keycode < 0) {
 			keys[numbers_offset + 5 + (-keycode) - 1] = value;
 			return;
+		
 		}
 		for(int i=0; i < codes.length; i++) {
 			if(keycode >= codes[i] && keycode < codes[i] + sizes[i]) {
@@ -51,6 +52,8 @@ public class VirtualInput {
 		try {
 			mouseWorld = view.getMouseWorld(x, y);
 			mousePlayer = view.getMousePlayer(x, y);
+			
+			//System.out.println("mp " + mouseWorld.x + " " + mouseWorld.y);
 		} catch (NoninvertibleTransformException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

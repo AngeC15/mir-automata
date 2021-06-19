@@ -63,12 +63,12 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 
-		Map map = new Map(1000, 1000, 5);
-/*
+//		Map map = new Map(1000, 1000, 5);
+
 		Wall wall = new Wall();
 		Avatar av2 = new Avatar(wall, tmp);
 		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-		world.addEntity(wall);*/
+		world.addEntity(wall);
 	}
 	private static class Init implements Runnable{
 

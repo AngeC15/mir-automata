@@ -11,7 +11,7 @@ public class Tank extends Entity {
 		super(AutomataLoader.get("Tank"), w);
 		velocity = 20;
 	}
-	
+
 	@Override
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
 		Entity closestEntity;
@@ -19,15 +19,13 @@ public class Tank extends Entity {
 		double percentage = 12.5;
 		if (categorie == CategoryExtension.A) {
 			closestEntity = super.world.getPlayer();
-		}
-		else
-		{
+		} else {
 			System.out.println("Not supported Entity type");
 			return false;
 		}
 		switch (direction) {
 		case E:
-			startAngle = 337.5;
+			startAngle = -22.5;
 			break;
 
 		case NE:
@@ -47,30 +45,32 @@ public class Tank extends Entity {
 			break;
 
 		case SW:
-			startAngle = 202.5;
+			startAngle = -157.5;
 			break;
 
 		case S:
-			startAngle = 247.5;
+			startAngle = -112.5;
 			break;
 
 		case SE:
-			startAngle = 292.5;
+			startAngle = -67.5;
 			break;
-			
+
 		default:
 			System.out.println("Non-existing direction");
 			return false;
 		}
-		
-		double endAngle = 360/percentage+startAngle;
+		double endAngle = 360 / percentage + startAngle;
 		double relativeX = closestEntity.transform.getTranslateX() - transform.getTranslateX();
 		double relativeY = closestEntity.transform.getTranslateY() - transform.getTranslateY();
-		
+
 		// Marouflage
-		if(relativeX == 0)
+		if (relativeX == 0)
 			relativeX = 1;
-		double relativeAngle = Math.atan(relativeY/relativeX);
-		return (relativeAngle>=startAngle && relativeAngle <= endAngle);
+		double relativeAngle = Math.toDegrees(Math.atan(relativeY / relativeX));
+
+		System.out.println("Direction:" + direction.toString() + "start angle: " + startAngle + ", end angle: "
+				+ endAngle + ", relative angle: " + relativeAngle);
+		return (relativeAngle >= startAngle && relativeAngle <= endAngle);
 	}
 }

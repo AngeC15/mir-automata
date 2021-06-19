@@ -116,7 +116,7 @@ public class GameView {
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-		miniMap.paint(g, world, frameSize);
+		miniMap.paint( world);
 
 		// erase background
 		g.setColor(Color.gray);

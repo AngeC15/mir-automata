@@ -14,7 +14,8 @@ import Controller.VirtualInput;
 
 public class World {
 	private TreeMap<Long, Entity> entities;
-	private ArrayDeque<Entity> entityQueue;
+	private ArrayDeque<Entity> addQueue;
+	private ArrayDeque<Long> rmQueue;
 	private Entity player;
 	private long nextIntanceIdx;
 	private VirtualInput inputs;
@@ -27,12 +28,13 @@ public class World {
 		nextIntanceIdx = 0;
 		elapsed = 0;
 		newton = new Newton();
-		entityQueue = new ArrayDeque<Entity>();
+		addQueue = new ArrayDeque<Entity>();
+		rmQueue = new ArrayDeque<Long>();
 	}
 	
 	public void tick(long elapsed) {
 		this.elapsed = elapsed;
-		addEntityInternal();
+		manageEntity();
 	
 		for(Entry<Long, Entity> entries : entities.entrySet()) {
 			entries.getValue().step();
@@ -49,17 +51,25 @@ public class World {
 		return inputs.getKey(k);
 	}
 	public void addEntity(Entity entity) {
-		entityQueue.push(entity);
+		addQueue.push(entity);
 	}
-	private void addEntityInternal() {
+	public void removeEntity(long id) {
+		rmQueue.push(id);
+	}
+	private void manageEntity() {
 		long id;
-		while(entityQueue.size() > 0) {
+		while(addQueue.size() > 0) {
 			id = nextIntanceIdx++;
-			Entity entity = entityQueue.pop();
+			Entity entity = addQueue.pop();
 			entity.setWorld(this);
 			entity.setID(id);
 			entities.put(id, entity);
 			newton.add(entity.getBody());
+		}
+		while(rmQueue.size() > 0) {
+			id = (long)rmQueue.pop();
+			entities.remove(id);
+			newton.remove(entity.getBody());
 		}
 	}
 	public void setPlayer(Entity p) {

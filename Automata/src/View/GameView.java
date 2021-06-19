@@ -146,9 +146,8 @@ public class GameView {
 		}
 		
 		float angle = (float)Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)*0.2f;
-		System.out.println("angle " + System.currentTimeMillis());
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(), -playerTransform.getTranslateY()));
-		cameraTransform.concatenate(AffineTransform.getRotateInstance(angle));
+		//cameraTransform.concatenate(AffineTransform.getRotateInstance(angle)); // lol
 		g.transform(canvasTransform);
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;

@@ -19,19 +19,10 @@ public class Wall extends Entity{
 
 	public Wall(World w) {
 		super(AutomataLoader.get("Wall"), w, w.getNextId());
-		this.acceleration = 80.0f;
+		this.acceleration = 0.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(2, 2)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
-	}
-	
-	public Wall(World w, boolean state) {
-		super(AutomataLoader.get("Wall"), w, w.getNextId());
-		this.acceleration = 80.0f;
-		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(2, 2)));
-		this.body = new PhysicsBody(h, 0.0f, 0.0f);
-		this.alive = state;
 	}
 	
 	public boolean getAlive() {
@@ -40,34 +31,14 @@ public class Wall extends Entity{
 	
 	public boolean GotPower(Map map, int i, int j) {
 		int cmpt = 0;
-		if (((Wall) map.get(i, j+1)).getAlive()) {
-			cmpt ++;
-		}
-		if (((Wall) map.get(i+1, j+1)).getAlive()) {
-			cmpt ++;
-		}
-		if (((Wall) map.get(i+1, j)).getAlive()) {
-			cmpt ++;
-		}
-		if (((Wall) map.get(i+1, j-1)).getAlive()) {
-			cmpt ++;
-			if (cmpt == 4) return true;
-		}
-		if (((Wall) map.get(i, j-1)).getAlive()) {
-			cmpt ++;
-			if (cmpt == 4) return true;
-		}
-		if (((Wall) map.get(i-1, j-1)).getAlive()) {
-			cmpt ++;
-			if (cmpt == 4) return true;
-		}
-		if (((Wall) map.get(i-1, j)).getAlive()) {
-			cmpt ++;
-			if (cmpt == 4) return true;
-		}
-		if (((Wall) map.get(i-1, j+1)).getAlive()) {
-			cmpt ++;
-			if (cmpt == 4) return true;
+
+		for (int k = -1 ; k <= 1 ; k++) {
+			for (int l = -1 ; l <= 1 ; l ++) {
+				if (k==0 && l==0 && ((Wall)map.get(i+k, j+l)).getAlive()) {
+					if (++cmpt == 4) 
+						return true;
+				}
+			}
 		}
 		return false;
 	}

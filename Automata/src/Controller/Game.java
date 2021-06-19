@@ -66,8 +66,10 @@ public class Game {
 //		Avatar av2 = new Avatar(wall, tmp);
 //		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 //		world.addEntity(wall, world.getNextId());
-		
+		int cmpt_tick = 0;
 		Map map = new Map(world, 1000, 1000, 5);
+		
+		
 	}
 	private static class Init implements Runnable{
 

@@ -16,7 +16,7 @@ import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 
 
-public class Player extends Entity{
+public class Player extends LivingEntity{
 	public Weapon armeCac;
 	public Weapon armeDist;
 	public Weapon currentWeapon;
@@ -33,8 +33,9 @@ public class Player extends Entity{
 		armeDist = new Gun();
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
-
+		this.life = 100;
 	}
+	
 
 	public void switchWeapon() {
 		//you need to wait 1s between 2 switch of weapon

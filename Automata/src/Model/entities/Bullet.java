@@ -14,13 +14,22 @@ import Utils.Vector2;
 import View.Avatar;
 import View.Template;
 
-public class Bullet extends Entity {
+/**
+ * 
+ * @author Cyprien, Camille, Samuel, Joan
+ *
+ */
+public class Bullet extends DamagingEntity {
 	
-	
-	
+	/**
+	 * 
+	 * @param e = entity who launch the bullet (not the weapon)
+	 * @param vect  = vector of direction of the bullet
+	 */
 	public Bullet(Entity e, Vector2 vect) {
-		super(AutomataLoader.get("Bullet"), 3);
+		super(AutomataLoader.get("Bullet"), e.getEquipe()); //on mets la balle dans la même équipe que le joueur
 		//on créer tout le nécessaire pour gerer les physics body
+		this.damage = 20;
 		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3, 3)));

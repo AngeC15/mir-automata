@@ -11,6 +11,7 @@ import java.io.RandomAccessFile;
 
 import Model.World;
 import Model.entities.Cowboy;
+import Model.entities.EnemyPlayer;
 import Model.entities.Player;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
@@ -65,6 +66,10 @@ public class Game {
 		Avatar av2 = new Avatar(wall, tmp);
 		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		world.addEntity(wall);
+		EnemyPlayer enemy = new EnemyPlayer(world);
+		Avatar av3 = new Avatar(enemy, tmp);
+		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
+		world.addEntity(enemy);
 	}
 	private static class Init implements Runnable{
 

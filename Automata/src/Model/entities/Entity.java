@@ -24,7 +24,7 @@ public class Entity {
 	double lastshot;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
-	public int equipe;	//équipe: 1  = joueur
+	public int team;	//équipe: 1  = joueur
 						//équipe: 2 = ennemis
 						//équipe: 3 = neutre
 
@@ -35,7 +35,7 @@ public class Entity {
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
-		this.equipe = equipe;
+		this.team = equipe;
 	}
 	public void setAvatar(Avatar av) {
 		avatar = av;
@@ -65,6 +65,12 @@ public class Entity {
 		this.state = state;
 	}
 	
+	public int getEquipe() {
+		return team;
+	}
+	public void setEquipe(int equipe) {
+		this.team = equipe;
+	}
 	public boolean step() {
 		return automaton.step(this);
 	}

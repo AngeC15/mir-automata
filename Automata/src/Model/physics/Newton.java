@@ -45,8 +45,10 @@ public class Newton {
 		for(PhysicsBody body : bodies) {
 			if(body == b)
 				continue;
-			if(collide(b, body, normal))
+			if(collide(b, body, normal)) {
+				System.out.println("Colision");
 				return true;
+			}
 		}
 		return false;
 	}

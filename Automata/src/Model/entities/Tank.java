@@ -11,12 +11,16 @@ public class Tank extends Entity {
 		super(AutomataLoader.get("Tank"), w);
 		velocity = 20;
 	}
-	
+	/**
+	 * Function takes a category and a direction and returns true if the closest entity
+	 * of said category is in said direction.
+	 * Only implemented to detect player
+	 */
 	@Override
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
 		Entity closestEntity;
 		double startAngle;
-		double percentage = 12.5;
+		double percentage = 7; // hand calibrated
 		
 		if (categorie == CategoryExtension.A) {
 			closestEntity = super.world.getPlayer();
@@ -65,17 +69,25 @@ public class Tank extends Entity {
 		
 		double endAngle = 360 / percentage + startAngle;
 		
+		// entity coordinates relative to this
 		double relativeX = closestEntity.transform.getTranslateX() - transform.getTranslateX();
 		double relativeY = closestEntity.transform.getTranslateY() - transform.getTranslateY();
 
-		// Marouflage
+		// Avoiding 0 division
 		if (relativeX == 0)
 			relativeX = 1;
-		
+	
 		double relativeAngle = Math.toDegrees((Math.atan2(relativeY , relativeX)));
 		
-		System.out.println("relativeAngle : " + relativeAngle);
+		if (direction == DirectionExtension.W) {
+			// Need special treatment for West as we can't loop between 180° and -180°
+			return (relativeAngle >= startAngle && relativeAngle <= 180)
+					|| (relativeAngle <= -157.5 && relativeAngle >= -180);
+			
+		} else {
+			return (relativeAngle >= startAngle && relativeAngle <= endAngle);
+		}
 		
-		return (relativeAngle >= startAngle && relativeAngle <= endAngle);
+		
 	}
 }

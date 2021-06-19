@@ -13,7 +13,6 @@ import java.awt.geom.Line2D;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-
 import javax.swing.JPanel;
 
 import Model.World;
@@ -37,12 +36,15 @@ public class MiniMap {
 		conteneur.add(canvas, BorderLayout.CENTER);
 		conteneur.setVisible(true);
 		conteneur.setBounds(5, 5, 200, 200);
+
 		setupFrame();
 	}
 	
 	public void setupFrame() {
+
 		float units_per_width = 300.0f;
 		float sprite_pixels_per_unit = 1.5f;
+
 		
 		float canvasScaling = conteneur.getWidth() / units_per_width; // 100.0 wide
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
@@ -57,6 +59,7 @@ public class MiniMap {
 		return conteneur;
 	}
 
+
 	public void paint(World world) {
 		conteneur.setBounds(5, 5, 200,200);
 		Graphics g2 = canvas.getGraphics();
@@ -66,11 +69,13 @@ public class MiniMap {
 
 		AffineTransform baseTransform = g.getTransform();
 
+
 		AffineTransform cam_save = new AffineTransform(cameraTransform);
 		AffineTransform playerTransform = world.getPlayer().getTransform();
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
 				-playerTransform.getTranslateY()));
 		g.transform(canvasTransform); // pixel au coordonées du monde
+
 		//g.transform(cameraTransform); // vu de la caméra par rapport au monde
 		cameraTransform = cam_save;
 
@@ -84,6 +89,7 @@ public class MiniMap {
 		g.fillOval(-1, 1, 5, 5);
 		
 
+
 		
 		for (Entry<Long, Entity> entries : entities.entrySet()) {
 			Entity et = entries.getValue();
@@ -94,6 +100,7 @@ public class MiniMap {
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // set
 																													// 0,0																									// the
 																													// object
+
 			
 			g.drawRenderedImage(av.getDefaultSprite(), new AffineTransform());
 	//av.paint(g);
@@ -102,6 +109,9 @@ public class MiniMap {
 			g.setColor(Color.black);
 			g.drawOval(2, 2, 15, 15);*/
 			
+
+			av.paint(g);
+
 			g.setTransform(gameTransform);
 
 		}

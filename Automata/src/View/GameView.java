@@ -67,6 +67,7 @@ public class GameView {
 		canvasTransform.concatenate(AffineTransform.getTranslateInstance(units_per_width / 2.0f,
 				-(units_per_width / 2.0f) * (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()))));
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
+		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
 
@@ -117,6 +118,7 @@ public class GameView {
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
 		miniMap.paint( world);
+
 
 		// erase background
 		g.setColor(Color.gray);

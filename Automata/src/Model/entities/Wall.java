@@ -13,7 +13,7 @@ import Model.physics.primitives.Circle;
 public class Wall extends Entity{
 
 	public Wall(World w) {
-		super(AutomataLoader.get("Wall"));
+		super(AutomataLoader.get("Wall"), 3);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));

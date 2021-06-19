@@ -19,10 +19,11 @@ import Model.physics.primitives.Circle;
 public class Player extends Entity{
 	public Weapon armeCac;
 	public Weapon armeDist;
-
+	public Weapon currentWeapon;
+	private double waitingSwitch;
 	
 	public Player(World w) {
-		super(AutomataLoader.get("Player"));
+		super(AutomataLoader.get("Player"), 1);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
@@ -30,9 +31,24 @@ public class Player extends Entity{
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
+		currentWeapon = armeDist;
+		waitingSwitch = System.currentTimeMillis();
 
 	}
 
+	public void switchWeapon() {
+		//you need to wait 1s between 2 switch of weapon
+		double now = System.currentTimeMillis();
+		if( now - waitingSwitch > 1000) {
+			waitingSwitch = now;
+			if(currentWeapon == armeDist) {
+				currentWeapon = armeCac;
+			}else {
+				currentWeapon = armeDist;
+			}
+			System.out.println("Weapon switched");
+		}
+	}
 	
 	public void setArmeCac(Weapon armeCac) {
 		this.armeCac = armeCac;
@@ -47,24 +63,21 @@ public class Player extends Entity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		System.out.println("Hit");
+		System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		
 		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		armeCac.attack(this, christianClavier.getMousePlayer());
+		currentWeapon.attack(this, christianClavier.getMousePlayer());
 		
 	}
 
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		// tir arme distance
-		System.out.println("Pop" + dir);
-		super.Pop(dir);
-		VirtualInput christianClavier = this.world.getInputs();
-		//armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		armeDist.attack(this, christianClavier.getMousePlayer());
+		//changement d'arme
+		this.switchWeapon();
+		
 	}
 	
 	

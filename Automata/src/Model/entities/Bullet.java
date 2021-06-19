@@ -19,7 +19,7 @@ public class Bullet extends Entity {
 	
 	
 	public Bullet(Entity e, Vector2 vect) {
-		super(AutomataLoader.get("Bullet"));
+		super(AutomataLoader.get("Bullet"), 3);
 		//on créer tout le nécessaire pour gerer les physics body
 		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();

@@ -24,14 +24,18 @@ public class Entity {
 	double lastshot;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
+	public int equipe;	//équipe: 1  = joueur
+						//équipe: 2 = ennemis
+						//équipe: 3 = neutre
 
 
 	
-	public Entity(Automaton a) {
+	public Entity(Automaton a, int equipe) {
 		System.out.println("new entity");
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
+		this.equipe = equipe;
 	}
 	public void setAvatar(Avatar av) {
 		avatar = av;

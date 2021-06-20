@@ -66,7 +66,7 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 
-		Map map = new Map(20, 20, 5.3f, world);
+		Map map = new Map(15, 15, 5.3f, world);
 		world.setMap(map);
 	}
 	

@@ -24,10 +24,13 @@ Wall(Init){
   	* (Init):
 	| True ? :(Dead)
 	| True ? :(Alive)
+	* (Idle):
+	| GotStuff && !GotPower ? :(Dead)
+	| GotStuff && GotPower ? :(Alive)
+	| !GotStuff ? :(Wall)
 	* (Dead):
-	| GotPower ? Throw(N,O) :(Alive)
-	| (!GotPower) ? :(Dead)
+	| True ? Throw(H,V) :(Idle)
 	* (Alive):
-	| GotPower ? :(Alive)
-	| (!GotPower) ? Throw(N,V) :(Dead)
+	| True ? Throw(H,O) :(Idle)
+	*(Wall)
 }

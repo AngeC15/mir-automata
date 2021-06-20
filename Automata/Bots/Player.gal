@@ -19,12 +19,15 @@ Bullet(Forward){
 	| True ?  Move(F)  :(Forward)
   	* ()
 }
-Wall(Dead){
+
+Wall(Init){
   	* (Init):
-	| True : (Dead)
-	| True : (Alive)
-	*(Dead):
-	| GotPower ? Throw(H,O) : (Alive)
-	*(Alive):
-	| (!GotPower) ? Throw(H,V) : (Dead)
+	| True ? :(Dead)
+	| True ? :(Alive)
+	* (Dead):
+	| GotPower ? Throw(N,O) :(Alive)
+	| (!GotPower) ? :(Dead)
+	* (Alive):
+	| GotPower ? :(Alive)
+	| (!GotPower) ? Throw(N,V) :(Dead)
 }

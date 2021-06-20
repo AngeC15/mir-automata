@@ -50,6 +50,7 @@ public class Game {
 		m_listener = new CanvasListener(this);
 		view = new GameView(m_listener);
 	}
+	
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
@@ -70,6 +71,7 @@ public class Game {
 		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		world.addEntity(wall);
 	}
+	
 	private static class Init implements Runnable{
 
 		@Override
@@ -81,7 +83,6 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	

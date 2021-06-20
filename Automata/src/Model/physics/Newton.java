@@ -13,6 +13,7 @@ import Utils.Vector2;
 public class Newton {
 	private SafeMap bodies;
 	
+	
 	public Newton() {
 		bodies = new SafeMap();
 	}

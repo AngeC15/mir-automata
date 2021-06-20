@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import Model.automata.actions.EnumAction;
  */
 public class Template {
 	private SpriteSheet spriteSheet;
-	private HashMap<EnumAction, AnimNode> allNodes;
+	private LinkedHashMap<EnumAction, AnimNode> allNodes;
 
 	/**
 	 * Creates a template with an associated sprite sheet and an animation automata.
@@ -30,7 +31,7 @@ public class Template {
 	 */
 	public Template(String fileNameSpriteSheet, String fileNameAutomata) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, 4, 6, 24);
-		allNodes = new HashMap<EnumAction, AnimNode>();
+		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		readFile(fileNameAutomata);
 	}
 

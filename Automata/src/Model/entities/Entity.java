@@ -11,27 +11,28 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
 import Utils.Functions;
+import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
 
 public class Entity {
+	protected long id;
 	protected Avatar avatar;
 	protected AutomatonState state;
 	protected Automaton automaton;
 	protected World world;
-	protected long id;
-	protected AffineTransform transform;
-	protected float velocity = 40.0f;
 	protected ArrayList<EnumAction> actions;
-
-	public Entity(Automaton a, World w) {
-		this.id = w.getNextId();
+	protected PhysicsBody body;
+	protected float acceleration = 20.0f;
+	double lastshot;
+	
+	
+	public Entity(Automaton a) {
+		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
-		world = w;
-		transform = new AffineTransform();
-		world.addEntity(this, id);
 		actions = new ArrayList<EnumAction>();
+		lastshot = System.currentTimeMillis();
 	}
 
 	public void setAvatar(Avatar av) {
@@ -39,7 +40,7 @@ public class Entity {
 	}
 
 	public AffineTransform getTransform() {
-		return transform;
+		return body.getTransform();
 	}
 
 	public void addAction(EnumAction action) {
@@ -57,8 +58,19 @@ public class Entity {
 		return id;
 	}
 
+	public void setID(long id) {
+		this.id = id;
+	}
 	public AutomatonState getState() {
 		return state;
+	}
+	
+	public World getWorld() {
+		return world;
+	}
+	
+	public void setWorld(World w) {
+		world = w;
 	}
 
 	public void setState(AutomatonState state) {
@@ -71,6 +83,10 @@ public class Entity {
 
 	public Avatar getAvatar() {
 		return avatar;
+	}
+
+	public PhysicsBody getBody() {
+		return body;
 	}
 
 	public void Egg(DirectionExtension dir) {
@@ -100,14 +116,18 @@ public class Entity {
 
 	public void Move(DirectionExtension dir) {
 		Vector2 vect;
+		//DirectionExtension dir2 = DirectionExtension.RelToAbsolute(this.directionEntite, dir);
 		if (dir.ordinal() < 4) {
-			Vector2 direction = new Vector2((float) transform.getShearX(), (float) transform.getScaleY());
+			Vector2 direction = new Vector2((float)body.getTransform().getShearX(), (float)body.getTransform().getScaleY());
 			vect = Functions.getRelativeDir(dir, direction);
 		} else {
 			vect = Functions.getAbsoluteDir(dir);
 		}
-		vect.scale(world.getElapsed() * velocity / 1000.0f);
-		transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
+		//2 next lines commented during the merge phase
+		//vect.scale(world.getElapsed()*velocity/1000.0f);
+		//transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
+		//System.out.println("BOuge vers " + dir2);
+		body.accelerate(world.getElapsed(), vect.scale(acceleration));
 	}
 
 	public void Pick(DirectionExtension dir) {
@@ -116,6 +136,9 @@ public class Entity {
 	}
 
 	public void Apply(DirectionExtension dir) {
+	
+	}
+	public void Pop(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 
 	}
@@ -164,10 +187,13 @@ public class Entity {
 		// TODO Auto-generated method stub
 
 	}
-
-	public void GotPower() {
-		// TODO Auto-generated method stub
-
+	public boolean GotPower() {
+		double now = System.currentTimeMillis();
+		if(now - lastshot > 500) {
+			lastshot = now;
+			return true;
+		}
+		return false;
 	}
 
 	public void GotStuff() {

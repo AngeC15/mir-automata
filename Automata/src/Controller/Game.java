@@ -1,6 +1,7 @@
 package Controller;
 
 import View.Avatar;
+import View.GameCanvas;
 import View.GameView;
 import View.MiniMap;
 import View.Sound;
@@ -12,10 +13,12 @@ import java.io.RandomAccessFile;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
+import Model.entities.Wall;
 import Model.loader.AutomataLoader;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 
 
@@ -30,10 +33,12 @@ public class Game {
 	World world;
 	GameView view ;
 	
+	
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
+			game.view.post(new Init());
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -43,13 +48,36 @@ public class Game {
 	Game() throws Exception {
 		// creating a listener for all the events
 		m_listener = new CanvasListener(this);
+		view = new GameView(m_listener);
+	}
+	public void init_game() throws Exception {
+		System.out.println("init game");
+		m_listener.getVirtualInput().setView(view);
+		view.setupFrame();
 		AutomataLoader.load_all("Bots/loader.txt");
 		world = new World(m_listener.getVirtualInput());
+		view.setWorld(world);
 		Player player = new Player(world);
-		world.setPlayer(player);
 		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
 		Avatar av = new Avatar(player, tmp);
-		view = new GameView(m_listener);
+		world.addEntity(player);
+		world.setPlayer(player);
+		Wall wall = new Wall(world);
+		Avatar av2 = new Avatar(wall, tmp);
+		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
+		world.addEntity(wall);
+	}
+	private static class Init implements Runnable{
+
+		@Override
+		public void run() {
+			try {
+				game.init_game();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -95,7 +123,7 @@ public class Game {
 	public void tick(long elapsed) {
 		
 		world.tick(elapsed);
-		if (view != null) view.tick(elapsed);
+		view.tick(elapsed);
 	}
 
 	/*
@@ -103,8 +131,7 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-
-		if (view != null) view.paint((Graphics2D)g, world);
+		view.paint((Graphics2D)g);
 	}
 
 }

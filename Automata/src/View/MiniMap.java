@@ -43,7 +43,7 @@ public class MiniMap {
 	public void setupFrame() {
 
 		float units_per_width = 225.0f;
-		float sprite_pixels_per_unit = 2f;
+		float sprite_pixels_per_unit = 1.5f;
 
 		
 		float canvasScaling = conteneur.getWidth() / units_per_width; // 100.0 wide
@@ -101,16 +101,8 @@ public class MiniMap {
 																													// 0,0																									// the
 																													// object
 
-			
-			g.drawRenderedImage(av.getDefaultSprite(), new AffineTransform());
-	//av.paint(g);
-			/*g.setColor(Color.green);
-			g.fillOval(2, 2, 15, 15);
-			g.setColor(Color.black);
-			g.drawOval(2, 2, 15, 15);*/
-			
+			g.drawRenderedImage(av.getDefaultSprite(), new AffineTransform());	
 
-			av.paint(g);
 
 			g.setTransform(gameTransform);
 

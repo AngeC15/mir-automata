@@ -6,7 +6,6 @@ public class GotPower extends Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		e.GotPower();
-		return false;
+		return e.GotPower();
 	}
 }

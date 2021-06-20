@@ -8,6 +8,17 @@ Player(Init){
   | Key(d) & Key(s) & (!Key(q)) & (!Key(z)) ? Move(SE) :(Init)
   | Key(s) & Key(q) & (!Key(d)) & (!Key(z)) ? Move(SW) :(Init)
   | Key(q) & Key(z) & (!Key(d)) & (!Key(s)) ? Move(NW) :(Init)
-  | Key(6) ? Hit  :(Init)
+  | Key(8) ? Hit  :(Init)
+  | Key(6) & GotPower ? Pop  :(Init)
   | Key(SPACE) ? Jump :(Init)
+}
+
+Bullet(Forward){
+	* (Forward) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(F)  :(Forward)
+  	* ()
+}
+Wall(Dead){
+  * (Dead)
 }

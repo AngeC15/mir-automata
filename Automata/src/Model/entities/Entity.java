@@ -73,6 +73,9 @@ public class Entity implements SafeMapElement {
 		return world;
 	}
 
+	public Automaton getAutomaton() {
+		return automaton;
+	}
 	public void setWorld(World w) {
 		world = w;
 	}
@@ -204,8 +207,8 @@ public class Entity implements SafeMapElement {
 		return false;
 	}
 
-	public void GotStuff() {
-		// TODO Auto-generated method stub
+	public boolean GotStuff() {
+		return false;
 
 	}
 

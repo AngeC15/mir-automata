@@ -24,8 +24,10 @@ public class Newton {
 	public void remove(long id) {
 		bodies.remove(id);
 	}
-	public void tick(long elapsed) {
+	public void update() {
 		bodies.update();
+	}
+	public void tick(long elapsed) {
 		for(Entry<Long,SafeMapElement>  body_e : bodies) {
 			PhysicsBody body = (PhysicsBody) body_e.getValue();
 			body.tick(elapsed);

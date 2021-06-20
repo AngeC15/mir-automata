@@ -15,6 +15,8 @@ import Model.entities.Cowboy;
 import Model.entities.Player;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
+import Model.map.Map;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -51,23 +53,25 @@ public class Game {
 		m_listener = new CanvasListener(this);
 		view = new GameView(m_listener);
 	}
+	
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
 		AutomataLoader.load_all("Bots/loader.txt");
+		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 		Player player = new Player(world);
-		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
+		Template tmp = TemplatesLoader.get("Cowboy");
 		Avatar av = new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		Wall wall = new Wall(world);
-		Avatar av2 = new Avatar(wall, tmp);
-		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-		world.addEntity(wall);
+
+		Map map = new Map(20, 20, 5.3f, world);
+		world.setMap(map);
 	}
+	
 	private static class Init implements Runnable{
 
 		@Override
@@ -79,7 +83,6 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	

@@ -10,14 +10,6 @@ Mine(Banzai){
 }
 
 
-<<<<<<< HEAD
-  * (Couver)
-  | Cell(F,T) ? Move    :(Attendre)
-
-  * (Attendre)
-  | Cell(F,V) ?          :(Pondre) 
-}
-
 Fire(Forward){
  * (Forward)
  | Cell(F,V) ? Move(F)    :(Copy)
@@ -39,8 +31,6 @@ Egyptologue(Explore){
 
  * (Paint): True ? Pop(B) :(Explore)
 }
-=======
->>>>>>> bc043851dbeace7801792f70a0dd9efc889da62b
 
 PopOrWizz1(Init){
   * (Init): True ? 49%Pop / 49% Wizz / Power :(Init)

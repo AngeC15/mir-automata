@@ -1,5 +1,7 @@
 package Model.map;
 
+import java.io.IOException;
+
 import Model.World;
 import Model.entities.Entity;
 import Model.entities.Wall;
@@ -13,12 +15,12 @@ public class Map {
 	private final int max_tick = 20;
 	private int tick_counter;
 	
-	public Map(int n, int p, float dimension) {
+	public Map(int n, int p, float dimension) throws IOException {
 		tick_counter = 0;
 		map = new Entity[n][p];
 		for (int i = 0 ; i < n ; i++) {
 			for (int j = 0 ; j < p ; j ++) {
-				Wall w = new Wall();
+				Wall w = new Wall(this, i, j);
 				map[i][j] = w;
 				new Avatar(w, TemplatesLoader.get("GenCell"));
 			}

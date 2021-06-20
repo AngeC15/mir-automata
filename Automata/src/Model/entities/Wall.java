@@ -16,10 +16,14 @@ import Model.physics.primitives.Circle;
 public class Wall extends Entity{
 	
 	private boolean alive;
-
-	public Wall() {
+	private int x;
+	private int y;
+	private Map map;
+	public Wall(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"));
-		this.acceleration = 80.0f;
+		map = m;
+		x = px;
+		y = py;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
@@ -29,18 +33,22 @@ public class Wall extends Entity{
 		return alive;
 	}
 	
-	public boolean GotPower(Map map, int i, int j) {
+	public boolean GotPower() {
 		int cmpt = 0;
 
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
-				if (k==0 && l==0 && ((Wall)map.get(i+k, j+l)).getAlive()) {
+				if (k==0 && l==0 && ((Wall)map.get(x+k, y+l)).getAlive()) {
 					if (++cmpt == 4) 
 						return true;
 				}
 			}
 		}
 		return false;
+	}
+	
+	public boolean GotStuff() {
+		return !map.generationOver();
 	}
 	
 	public void Throw(DirectionExtension dir, CategoryExtension categorie) {

@@ -196,8 +196,8 @@ public class Entity {
 		return false;
 	}
 
-	public void GotStuff() {
-		// TODO Auto-generated method stub
+	public boolean GotStuff() {
+		return false;
 
 	}
 

@@ -22,7 +22,7 @@ public class World {
 	private VirtualInput inputs;
 	private long elapsed;
 	private Newton newton;
-	
+	private Map map;
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new TreeMap<Long, Entity>();
@@ -41,6 +41,7 @@ public class World {
 			entries.getValue().step();
 		}
 		newton.tick(elapsed);
+		map.tick(elapsed);
 	}
 	public TreeMap<Long, Entity> getEntities(){
 		return entities;
@@ -79,7 +80,9 @@ public class World {
 	public Entity getPlayer() {
 		return player;
 	}
-
+	public void setMap(Map m) {
+		map = m;
+	}
 	public VirtualInput getInputs() {
 		return inputs;
 	}

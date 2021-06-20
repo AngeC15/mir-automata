@@ -11,11 +11,12 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
 import Utils.Functions;
+import Utils.SafeMapElement;
 import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
 
-public class Entity {
+public class Entity implements SafeMapElement{
 	protected long id;
 	protected Avatar avatar;
 	protected AutomatonState state;

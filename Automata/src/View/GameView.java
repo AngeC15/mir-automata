@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import Controller.VirtualInput;
 import Model.World;
 import Model.entities.Entity;
+import Utils.SafeMap;
+import Utils.SafeMapElement;
 import Utils.Vector2;
 
 import java.awt.Graphics2D;
@@ -156,7 +158,7 @@ public class GameView {
 		AffineTransform gameTransform = g.getTransform();
 		//draw
 		
-		TreeMap<Long, Entity> entities = world.getEntities();
+		SafeMap entities = world.getEntities();
 		
 		g.setColor(Color.darkGray);
 		g.setStroke(new BasicStroke(0.2f));
@@ -167,8 +169,8 @@ public class GameView {
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
-		for(Entry<Long, Entity> entries : entities.entrySet()) {
-			Entity et = entries.getValue();
+		for(Entry<Long,SafeMapElement> entries : entities) {
+			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
 			//et.getBody().debug(g);

@@ -1,5 +1,44 @@
 package Utils;
 
-public class SafeMap {
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
+public class SafeMap implements Iterable<Entry<Long,SafeMapElement>>{
+	long idx;
+	TreeMap<Long, SafeMapElement> contents;
+	ArrayDeque<SafeMapElement> addQueue;
+	ArrayDeque<Long> rmQueue;
+	
+	public SafeMap() {
+		idx = 0;
+		contents = new TreeMap<Long, SafeMapElement>();
+		addQueue = new ArrayDeque<SafeMapElement>();
+		rmQueue = new ArrayDeque<Long>();
+	}
+	
+	public void update() {
+		long id = idx - addQueue.size();
+		for(int i=0; i < addQueue.size(); i++) {
+			contents.put(id, addQueue.pop());
+			id++;
+		}
+		for(int i=0; i < rmQueue.size(); i++) {
+			contents.remove(rmQueue.pop());
+		}
+	}
+	public long add(SafeMapElement elem) {
+		addQueue.push(elem);
+		return idx++;
+	}
+	public void remove(long id) {
+		rmQueue.push(id);
+	}
+	public SafeMapElement get(Long id) {
+		return contents.get(id);
+	}
+	public Iterator<Entry<Long,SafeMapElement>> iterator() {
+		return (Iterator<Entry<Long,SafeMapElement>>) contents.entrySet().iterator();
+	}
 }

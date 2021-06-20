@@ -14,6 +14,7 @@ import Model.entities.Cowboy;
 import Model.entities.Player;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
 import Model.map.Map;
 
 import java.awt.Graphics;
@@ -56,16 +57,17 @@ public class Game {
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
 		AutomataLoader.load_all("Bots/loader.txt");
+		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 		Player player = new Player(world);
-		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
+		Template tmp = TemplatesLoader.get("Cowboy");
 		Avatar av = new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
 
-		Map map = new Map(1000, 1000, 5);
-		World.setMap(map);
+		Map map = new Map(20, 20, 5.3f, world);
+		world.setMap(map);
 	}
 	
 	private static class Init implements Runnable{

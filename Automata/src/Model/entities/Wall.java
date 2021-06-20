@@ -24,6 +24,7 @@ public class Wall extends Entity{
 		map = m;
 		x = px;
 		y = py;
+		alive = true;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
@@ -38,7 +39,7 @@ public class Wall extends Entity{
 
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
-				if (k==0 && l==0 && ((Wall)map.get(x+k, y+l)).getAlive()) {
+				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
 					if (++cmpt == 4) 
 						return true;
 				}
@@ -51,8 +52,9 @@ public class Wall extends Entity{
 		return !map.generationOver();
 	}
 	
-	public void Throw(DirectionExtension dir, CategoryExtension categorie) {
-		if (categorie == CategoryExtension.O) {
+	@Override
+	public void Throw(DirectionExtension dir) {
+		if (dir == DirectionExtension.F) {
 			setAlive(true);
 		}
 		else setAlive(false);
@@ -62,5 +64,9 @@ public class Wall extends Entity{
 		alive = state;
 	}
 	
+	public void Explode() {
+		if(!alive)
+			map.remove(x, y);
+	}
 	
 }

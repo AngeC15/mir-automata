@@ -23,14 +23,24 @@ Bullet(Forward){
 Wall(Init){
   	* (Init):
 	| True ? :(Dead)
+	| True ? :(Dead)
+	| True ? :(Dead)
+	| True ? :(Dead)
+	| True ? :(Dead)
+	| True ? :(Dead)
+	| True ? :(Alive)
+	| True ? :(Alive)
+	| True ? :(Alive)
 	| True ? :(Alive)
 	* (Idle):
-	| GotStuff && !GotPower ? :(Dead)
-	| GotStuff && GotPower ? :(Alive)
-	| !GotStuff ? :(Wall)
+	| GotStuff & !GotPower ? :(Dead)
+	| GotStuff & GotPower ? :(Alive)
+	| !GotStuff ? :(End)
 	* (Dead):
-	| True ? Throw(H,V) :(Idle)
+	| True ? Throw(B) :(Idle)
 	* (Alive):
-	| True ? Throw(H,O) :(Idle)
+	| True ? Throw(F) :(Idle)
+	*(End):
+	| True ? Explode :(Wall)
 	*(Wall)
 }

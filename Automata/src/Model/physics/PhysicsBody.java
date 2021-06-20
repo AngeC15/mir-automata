@@ -5,16 +5,18 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
+import Utils.SafeMapElement;
 import Utils.Vector2;
 
 //Hitbox + other properties
-public class PhysicsBody {
+public class PhysicsBody implements SafeMapElement{
 	private HitBox hitbox;
 	private float friction;
 	private float max_speed;
 	Vector2 velocity;
 	AffineTransform transform;
 	private boolean accelerating;
+	private long id;
 	
 	public PhysicsBody(HitBox hb, float friction, float max_speed) {
 		this.hitbox = hb;
@@ -61,5 +63,16 @@ public class PhysicsBody {
 		AffineTransform save = g.getTransform();
 		hitbox.debug(g);
 		g.setTransform(save);
+	}
+
+	@Override
+	public void setID(long id) {
+		this.id = id;
+		
+	}
+
+	@Override
+	public long getID() {
+		return id;
 	}
 }

@@ -14,6 +14,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Vector2;
 
 
 public class Player extends Entity{
@@ -27,10 +28,20 @@ public class Player extends Entity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 15.0f, 40.0f);
+//		body.getTransform().rotate(Math.PI/2);
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
-
+//		AffineTransform t1 = new AffineTransform(body.getTransform());
+//		t1.concatenate(body.getHitBox().get(0).get_transform());
+//		for (int k = 0 ; k < 8 ; k ++) {
+//			Vector2 vect = new Vector2((float)Math.cos(k*Math.PI/4.0f), (float)Math.sin(k*Math.PI/4.0f));
+////			System.out.println("vect "+ vect.x + " "+vect.y);
+//			vect = (vect).transform(t1);
+//			System.out.println("vect "+ vect.x + " "+vect.y);
+//			
+//		}
+		
 	}
 
 	

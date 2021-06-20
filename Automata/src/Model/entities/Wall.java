@@ -28,6 +28,7 @@ public class Wall extends Entity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, 0.0f, 0.0f);
+//		body.getTransform().rotate(Math.PI);
 	}
 	
 	public boolean getAlive() {

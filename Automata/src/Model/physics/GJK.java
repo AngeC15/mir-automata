@@ -1,6 +1,7 @@
 package Model.physics;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 
 import Model.physics.primitives.Primitive;
 import Utils.Vector2;
@@ -11,8 +12,15 @@ public class GJK {
 	private static Vector2 n = new Vector2(0, 0);
 	
 	protected static Vector2 double_support(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2, Vector2 d) {
-		Vector2 vect1 = (s1.support(d)).transform(A1);
-		Vector2 vect2 = (s2.support(d.invert())).transform(A2);
+		Vector2 d1 = new Vector2(0,0);
+		Vector2 d2 = new Vector2(0,0);
+		float angle1 = (float) Math.atan2(A1.getShearY(), A1.getScaleY());
+		float angle2 = (float) Math.atan2(A2.getShearY(), A2.getScaleY());
+		d1 = d.transform(AffineTransform.getRotateInstance(-angle1));
+		d2 = d.transform(AffineTransform.getRotateInstance(-angle2));
+
+		Vector2 vect1 = (s1.support(d1)).transform(A1);
+		Vector2 vect2 = (s2.support(d2.invert())).transform(A2);
 		return vect1.sub(vect2);
 	}
 
@@ -30,6 +38,7 @@ public class GJK {
 		Vector2 vect3 = triangle[2].invert();
 		Vector2 vectn1 = vect2.tripleCross(vect1, vect1);
 		Vector2 vectn2 = vect1.tripleCross(vect2, vect2);
+		System.out.println(idx);
 		if (vectn1.dot(vect3) > 0) {
 			idx--;
 			triangle[idx - 2] = triangle[idx - 1];
@@ -37,7 +46,7 @@ public class GJK {
 			d = vectn1;
 			return false;
 		} else if (vectn2.dot(vect3) > 0) {
-			triangle[idx - 1] = triangle[idx];
+			triangle[idx-2] = triangle[idx-1];
 			idx--;
 			d = vectn2;
 			return false;

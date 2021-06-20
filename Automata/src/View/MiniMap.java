@@ -42,8 +42,8 @@ public class MiniMap {
 	
 	public void setupFrame() {
 
-		float units_per_width = 300.0f;
-		float sprite_pixels_per_unit = 1.5f;
+		float units_per_width = 225.0f;
+		float sprite_pixels_per_unit = 2f;
 
 		
 		float canvasScaling = conteneur.getWidth() / units_per_width; // 100.0 wide

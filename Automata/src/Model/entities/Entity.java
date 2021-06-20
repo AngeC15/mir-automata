@@ -11,11 +11,15 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
 import Utils.Functions;
+
+import Utils.SafeMapElement;
+
 import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
 
-public class Entity {
+public class Entity implements SafeMapElement {
+
 	protected long id;
 	protected Avatar avatar;
 	protected AutomatonState state;
@@ -25,8 +29,7 @@ public class Entity {
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
 	double lastshot;
-	
-	
+
 	public Entity(Automaton a) {
 		this.id = -1;
 		automaton = a;
@@ -61,14 +64,15 @@ public class Entity {
 	public void setID(long id) {
 		this.id = id;
 	}
+
 	public AutomatonState getState() {
 		return state;
 	}
-	
+
 	public World getWorld() {
 		return world;
 	}
-	
+
 	public void setWorld(World w) {
 		world = w;
 	}
@@ -116,17 +120,19 @@ public class Entity {
 
 	public void Move(DirectionExtension dir) {
 		Vector2 vect;
-		//DirectionExtension dir2 = DirectionExtension.RelToAbsolute(this.directionEntite, dir);
+		// DirectionExtension dir2 =
+		// DirectionExtension.RelToAbsolute(this.directionEntite, dir);
 		if (dir.ordinal() < 4) {
-			Vector2 direction = new Vector2((float)body.getTransform().getShearX(), (float)body.getTransform().getScaleY());
+			Vector2 direction = new Vector2((float) body.getTransform().getShearX(),
+					(float) body.getTransform().getScaleY());
 			vect = Functions.getRelativeDir(dir, direction);
 		} else {
 			vect = Functions.getAbsoluteDir(dir);
 		}
-		//2 next lines commented during the merge phase
-		//vect.scale(world.getElapsed()*velocity/1000.0f);
-		//transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
-		//System.out.println("BOuge vers " + dir2);
+		// 2 next lines commented during the merge phase
+		// vect.scale(world.getElapsed()*velocity/1000.0f);
+		// transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
+		// System.out.println("BOuge vers " + dir2);
 		body.accelerate(world.getElapsed(), vect.scale(acceleration));
 	}
 
@@ -136,8 +142,9 @@ public class Entity {
 	}
 
 	public void Apply(DirectionExtension dir) {
-	
+
 	}
+
 	public void Pop(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 
@@ -187,9 +194,10 @@ public class Entity {
 		// TODO Auto-generated method stub
 
 	}
+
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 500) {
+		if (now - lastshot > 500) {
 			lastshot = now;
 			return true;
 		}

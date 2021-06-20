@@ -16,6 +16,9 @@ import javax.swing.JSplitPane;
 import Controller.VirtualInput;
 import Model.World;
 import Model.entities.Entity;
+
+import Utils.SafeMap;
+import Utils.SafeMapElement;
 import Utils.Vector2;
 
 import java.awt.Graphics2D;
@@ -43,7 +46,7 @@ public class GameView {
 	private AffineTransform cameraTransform;
 	private AffineTransform localTransform;
 
-	private double cameraDistance = 1;
+	private double cameraDistance = 1.5f;
 	private MiniMap miniMap;
 	private Dimension frameSize;
 
@@ -59,6 +62,7 @@ public class GameView {
 		miniMap = new MiniMap(frameSize);
 
 		m_frame = m_canvas.createFrame(frameSize);
+
 		m_frame.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent ev) {
 				System.out.println("resized");
@@ -89,7 +93,6 @@ public class GameView {
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
-
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
 
@@ -138,6 +141,7 @@ public class GameView {
 		Vector2 m = getMousePlayer(x, y);
 		Vector2 r = new Vector2(0, 0);
 		AffineTransform playerTransform = world.getPlayer().getTransform();
+
 		AffineTransform playerTranslate = AffineTransform.getTranslateInstance(playerTransform.getTranslateX(),
 				playerTransform.getTranslateY());
 		playerTranslate.transform(m, r);
@@ -148,7 +152,6 @@ public class GameView {
 		Vector2 r = new Vector2(0, 0);
 		canvasTransform.inverseTransform(new Vector2(x, y), r);
 		return r;
-
 	}
 
 	public void paint(Graphics2D g) {
@@ -162,6 +165,7 @@ public class GameView {
 
 		// erase background
 		g.setColor(Color.gray);
+
 		g.fillRect(0, 0, frameSize.width, frameSize.height);
 
 		if (world == null)
@@ -178,20 +182,22 @@ public class GameView {
 			playerTransform = new AffineTransform();
 		}
 
-		//float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f) * 0.2f;
-		//System.out.println("angle " + System.currentTimeMillis());
+		// float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)
+		// * 0.2f;
+		// System.out.println("angle " + System.currentTimeMillis());
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
 				-playerTransform.getTranslateY()));
-		//.concatenate(AffineTransform.getRotateInstance(angle));
+		// .concatenate(AffineTransform.getRotateInstance(angle));
 
 		g.transform(canvasTransform);
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
+
 		// draw
 
-		TreeMap<Long, Entity> entities = world.getEntities();
+		SafeMap entities = world.getEntities();
 
 		g.setColor(Color.darkGray);
 		g.setStroke(new BasicStroke(0.2f));
@@ -202,16 +208,16 @@ public class GameView {
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
-		for (Entry<Long, Entity> entries : entities.entrySet()) {
-			Entity et = entries.getValue();
+		for (Entry<Long, SafeMapElement> entries : entities) {
+			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
 			// et.getBody().debug(g);
 			g.transform(localTransform);
-
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
 																													// the
-																												// object
+																													// object
+
 			av.paint(g);
 			g.setTransform(gameTransform);
 

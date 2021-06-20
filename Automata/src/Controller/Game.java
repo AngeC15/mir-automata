@@ -34,6 +34,7 @@ public class Game {
 	GameView view ;
 	
 	
+	
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");

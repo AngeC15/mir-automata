@@ -1,6 +1,6 @@
 package View;
 
-import java.awt.BasicStroke;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -8,15 +8,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 
 import Model.World;
 import Model.entities.Entity;
+import Utils.SafeMap;
+import Utils.SafeMapElement;
 
 public class MiniMap {
 
@@ -71,39 +70,37 @@ public class MiniMap {
 
 
 		AffineTransform cam_save = new AffineTransform(cameraTransform);
-		AffineTransform playerTransform = world.getPlayer().getTransform();
+		AffineTransform playerTransform;
+		if (world.getPlayer() != null) {
+			playerTransform = world.getPlayer().getTransform();
+		} else {
+			playerTransform = new AffineTransform();
+		}
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
 				-playerTransform.getTranslateY()));
 		g.transform(canvasTransform); // pixel au coordonées du monde
 
-		//g.transform(cameraTransform); // vu de la caméra par rapport au monde
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
 		
-		TreeMap<Long, Entity> entities = world.getEntities();
+		SafeMap entities = world.getEntities();
 		g.setColor(Color.lightGray);
 		g.fillRect(-100, -100, 200, 200);
 		
 		g.setColor(Color.red);
 		g.fillOval(-1, 1, 5, 5);
 		
-
-
-		
-		for (Entry<Long, Entity> entries : entities.entrySet()) {
-			Entity et = entries.getValue();
+		for (Entry<Long, SafeMapElement> entries : entities) {
+			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
-			
 			g.transform(et.getTransform());
-			g.transform(localTransform); // Pour centrer le 0.0 au milieu
-			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // set
-																													// 0,0																									// the
+			// et.getBody().debug(g);
+			g.transform(localTransform);
+			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
+																													// the
 																													// object
-
 			g.drawRenderedImage(av.getDefaultSprite(), new AffineTransform());	
-
-
 			g.setTransform(gameTransform);
 
 		}

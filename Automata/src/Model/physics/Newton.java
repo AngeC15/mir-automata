@@ -3,22 +3,31 @@ package Model.physics;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
+import java.util.Map.Entry;
+
 import Model.physics.primitives.Primitive;
+import Utils.SafeMap;
+import Utils.SafeMapElement;
 import Utils.Vector2;
 
 public class Newton {
-	private ArrayList<PhysicsBody> bodies;
+	private SafeMap bodies;
 	
 	public Newton() {
-		bodies = new ArrayList<PhysicsBody>();
+		bodies = new SafeMap();
 	}
 	
 	public void add(PhysicsBody body) {
-		bodies.add(body);
+		long id = bodies.add(body);
+		body.setID(id);
+	}
+	public void remove(long id) {
+		bodies.remove(id);
 	}
 	public void tick(long elapsed) {
-		for(PhysicsBody body : bodies) {
-			
+		bodies.update();
+		for(Entry<Long,SafeMapElement>  body_e : bodies) {
+			PhysicsBody body = (PhysicsBody) body_e.getValue();
 			body.tick(elapsed);
 			AffineTransform t = body.getTransform();
 			AffineTransform save = new AffineTransform(t);
@@ -42,7 +51,10 @@ public class Newton {
 		}
 	}
 	public boolean collideAll(PhysicsBody b, Vector2 normal) {
-		for(PhysicsBody body : bodies) {
+
+		for(Entry<Long,SafeMapElement> body_e : bodies) {
+			PhysicsBody body = (PhysicsBody)body_e.getValue();
+
 			if(body == b)
 				continue;
 			if(collide(b, body, normal))

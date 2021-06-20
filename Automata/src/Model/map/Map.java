@@ -13,7 +13,7 @@ public class Map {
 	
 	private Entity[][] map;
 	private float dimension;
-	private final int max_tick = 30;
+	private final int max_tick = 50;
 	private int tick_counter;
 	private World world;
 	

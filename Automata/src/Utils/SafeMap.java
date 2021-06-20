@@ -20,11 +20,14 @@ public class SafeMap implements Iterable<Entry<Long,SafeMapElement>>{
 	
 	public void update() {
 		long id = idx - addQueue.size();
-		for(int i=0; i < addQueue.size(); i++) {
+		
+		int s = addQueue.size();
+		for(int i=0; i < s; i++) {
 			contents.put(id, addQueue.poll());
 			id++;
 		}
-		for(int i=0; i < rmQueue.size(); i++) {
+		s = rmQueue.size();
+		for(int i=0; i < s; i++) {
 			contents.remove(rmQueue.poll());
 		}
 	}
@@ -40,5 +43,8 @@ public class SafeMap implements Iterable<Entry<Long,SafeMapElement>>{
 	}
 	public Iterator<Entry<Long,SafeMapElement>> iterator() {
 		return (Iterator<Entry<Long,SafeMapElement>>) contents.entrySet().iterator();
+	}
+	public int size() {
+		return contents.size() + addQueue.size() - rmQueue.size();
 	}
 }

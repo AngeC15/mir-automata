@@ -34,6 +34,7 @@ public class World {
 		this.elapsed = elapsed;
 		entities.update();
 		newton.update();
+
 		for(Entry<Long, SafeMapElement> e : entities) {
 			((Entity)e.getValue()).step();
 		}

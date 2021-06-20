@@ -69,7 +69,9 @@ public class Entity implements SafeMapElement{
 	public World getWorld() {
 		return world;
 	}
-	
+	public Automaton getAutomaton() {
+		return automaton;
+	}
 	public void setWorld(World w) {
 		world = w;
 	}

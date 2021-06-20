@@ -36,7 +36,7 @@ public class Wall extends Entity{
 	
 	public boolean GotPower() {
 		int cmpt = 0;
-
+		try {
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
 				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
@@ -44,6 +44,11 @@ public class Wall extends Entity{
 						return true;
 				}
 			}
+		}
+		return false;
+		}
+		catch(Exception e){
+			System.exit(0);
 		}
 		return false;
 	}

@@ -1,5 +1,7 @@
 package Model.entities.enemies;
 
+import java.awt.geom.AffineTransform;
+
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
@@ -14,9 +16,20 @@ public abstract class Enemy extends Entity {
 	protected double shootDistance;
 	protected float friction;
 	protected float maxSpeed;
-	
+
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton));
+	}
+
+	protected void rotate() {
+		Entity player = world.getPlayer();
+
+		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
+		double relativeAngle = Math.atan2(relativeY, relativeX);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle - Math.toRadians(90));
 	}
 
 	/**
@@ -97,29 +110,29 @@ public abstract class Enemy extends Entity {
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		float relativeX = (float) (world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX());
-		float relativeY = (float) (world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY());
-		Vector2 vector = new Vector2(relativeX, relativeY);
-		
+		Vector2 vector = new Vector2(0, 1);
 		weapon.attack(this, vector);
 	}
-	
+
 	@Override
 	public void Hit(DirectionExtension dir) {
-		float relativeX = (float) (world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX());
-		float relativeY = (float) (world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY());
-		Vector2 vector = new Vector2(relativeX, relativeY);
-		
+		Vector2 vector = new Vector2(0, 1);
+
 		weapon.attack(this, vector);
 	}
-	
+
 	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > cooldown) {
+		if (now - lastshot > cooldown) {
 			lastshot = now;
 			return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
 		return false;
 	}
 }

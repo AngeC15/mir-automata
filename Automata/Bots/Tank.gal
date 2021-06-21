@@ -1,5 +1,6 @@
 Tank(Follow){
   * (Follow):
+  | Cell(F,O) ? Turn(R) :(GetAround)
   | Closest(A,N) ? Move(N) :(Follow)
   | Closest(A,S) ? Move(S) :(Follow)
   | Closest(A,E) ? Move(E) :(Follow)
@@ -9,4 +10,7 @@ Tank(Follow){
   | Closest(A,SE) ? Move(SE) :(Follow)
   | Closest(A,SW) ? Move(SW) :(Follow)
   | GotPower ? Pop :(Follow)
+  * (GetAround):
+  | Cell(L,O) ? Move(F) :(GetAround)
+  | True ? :(Follow)
 }

@@ -43,6 +43,19 @@ public class Player extends Entity{
 		this.armeDist = armeDist;
 	}
 
+	@Override
+	public boolean step() {
+		rotate();
+		return super.step();
+	}
+	
+	protected void rotate() {
+		VirtualInput keyboard = this.world.getInputs();
+		double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle + Math.toRadians(90));
+	}
 	
 
 	@Override
@@ -50,10 +63,7 @@ public class Player extends Entity{
 		// attaque corp à corps
 		System.out.println("Hit");
 		super.Hit(dir);
-		VirtualInput christianClavier = this.world.getInputs();
-		
-		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		armeCac.attack(this, christianClavier.getMousePlayer());
+		armeCac.attack(this, new Vector2(0, -1));
 	}
 
 
@@ -61,9 +71,7 @@ public class Player extends Entity{
 	public void Pop(DirectionExtension dir) {
 		// tir arme distance
 		super.Pop(dir);
-		VirtualInput christianClavier = this.world.getInputs();
-		//armeDist.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		armeDist.attack(this, christianClavier.getMousePlayer());
+		armeDist.attack(this, new Vector2(0, -1));
 	}
 	
 	

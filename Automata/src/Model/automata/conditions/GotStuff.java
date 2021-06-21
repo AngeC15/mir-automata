@@ -6,7 +6,6 @@ public class GotStuff extends Condition{
 
 	@Override
 	public boolean eval(Entity e) {
-		e.GotStuff();
-		return false;
+		return e.GotStuff();
 	}
 }

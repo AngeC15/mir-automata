@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
+import Model.entities.Entity;
 import Utils.SafeMapElement;
 import Utils.Vector2;
 
@@ -18,10 +19,10 @@ public class PhysicsBody implements SafeMapElement {
 	AffineTransform transform;
 	private boolean accelerating;
 	private ColliderType type;
-
+	private Entity entity;
 	private long id;
 
-	public PhysicsBody(HitBox hb, ColliderType t, float friction, float max_speed) {
+	public PhysicsBody(HitBox hb, ColliderType t, float friction, float max_speed, Entity e) {
 		this.hitbox = hb;
 		this.type = t;
 		this.friction = friction;
@@ -29,6 +30,7 @@ public class PhysicsBody implements SafeMapElement {
 		transform = new AffineTransform();
 		velocity = new Vector2(0, 0);
 		accelerating = false;
+		this.entity = e;
 	}
 
 	public void accelerate(long elapsed, Vector2 a) {
@@ -85,4 +87,11 @@ public class PhysicsBody implements SafeMapElement {
 		return id;
 	}
 
+	public Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
 }

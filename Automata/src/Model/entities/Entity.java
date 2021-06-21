@@ -13,7 +13,7 @@ import Model.automata.creation.KeyExtension;
 import Utils.Functions;
 
 import Utils.SafeMapElement;
-
+import Model.physics.ColliderType;
 import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
@@ -188,9 +188,8 @@ public class Entity implements SafeMapElement {
 
 	}
 
-	public void Cell(DirectionExtension direction, CategoryExtension categorie) {
-		// TODO Auto-generated method stub
-
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 	}
 
 	public void Closest(DirectionExtension direction, CategoryExtension categorie) {
@@ -200,7 +199,7 @@ public class Entity implements SafeMapElement {
 
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if (now - lastshot > 500) {
+		if(now - lastshot > 250) {
 			lastshot = now;
 			return true;
 		}
@@ -221,4 +220,9 @@ public class Entity implements SafeMapElement {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void colisionHappened(Entity other, ColliderType c ) {
+		
+	}
+	
 }

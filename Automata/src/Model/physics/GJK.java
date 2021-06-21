@@ -38,7 +38,6 @@ public class GJK {
 		Vector2 vect3 = triangle[2].invert();
 		Vector2 vectn1 = vect2.tripleCross(vect1, vect1);
 		Vector2 vectn2 = vect1.tripleCross(vect2, vect2);
-		System.out.println(idx);
 		if (vectn1.dot(vect3) > 0) {
 			idx--;
 			triangle[idx - 2] = triangle[idx - 1];

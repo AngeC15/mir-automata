@@ -6,6 +6,7 @@ import java.io.IOException;
 import Model.World;
 import Model.automata.Automaton;
 import Model.loader.AutomataLoader;
+import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
@@ -23,8 +24,9 @@ public class Bullet extends Entity {
 		//on créer tout le nécessaire pour gerer les physics body
 		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3, 3)));
-		this.body = new PhysicsBody(h, 0.0f, 60.0f);
+
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
+		this.body = new PhysicsBody(h, ColliderType.Projectile, 0.0f, 60.0f, this);
 		
 		vect = vect.normalize();
 		

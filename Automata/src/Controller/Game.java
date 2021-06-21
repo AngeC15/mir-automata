@@ -13,8 +13,11 @@ import java.io.RandomAccessFile;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
+import Model.entities.Tank;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
+import Model.map.Map;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -51,23 +54,27 @@ public class Game {
 		m_listener = new CanvasListener(this);
 		view = new GameView(m_listener);
 	}
+	
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
 		AutomataLoader.load_all("Bots/loader.txt");
+		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
+
+		Map map = new Map(100, 100, 5.3f, world);
+		world.setMap(map);
+		
 		Player player = new Player(world);
-		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
-		Avatar av = new Avatar(player, tmp);
+		Template tmp = TemplatesLoader.get("Cowboy");
+		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		Wall wall = new Wall(world);
-		Avatar av2 = new Avatar(wall, tmp);
-		wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-		world.addEntity(wall);
+		
 	}
+	
 	private static class Init implements Runnable{
 
 		@Override
@@ -75,17 +82,16 @@ public class Game {
 			try {
 				game.init_game();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	
 
 	/*
-	 * ================================================================ All the
+	 * ================================================================ 
+	 * All the
 	 * methods below are invoked from the GameCanvas listener, once the window is
 	 * visible on the screen.
 	 * ==============================================================

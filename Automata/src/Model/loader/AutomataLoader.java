@@ -56,9 +56,11 @@ public class AutomataLoader {
 			load_(line);
 		}
 	}
+	
 	private Automaton get_(String name) {
 		return automata.get(name);
 	}
+	
 	public static Automaton get(String name){
 		return instance.get_(name);
 	}

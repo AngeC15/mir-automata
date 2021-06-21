@@ -21,7 +21,6 @@ public class Cell extends Condition{
 
 	@Override
 	public boolean eval(Entity e) {
-		e.Cell(direction, categorie);
-		return false;
+		return e.Cell(direction, categorie);
 	}
 }

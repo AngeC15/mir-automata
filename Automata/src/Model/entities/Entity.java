@@ -13,7 +13,7 @@ import Model.automata.creation.KeyExtension;
 import Utils.Functions;
 
 import Utils.SafeMapElement;
-
+import Model.physics.ColliderType;
 import Model.physics.PhysicsBody;
 import Utils.Vector2;
 import View.Avatar;
@@ -73,6 +73,9 @@ public class Entity implements SafeMapElement {
 		return world;
 	}
 
+	public Automaton getAutomaton() {
+		return automaton;
+	}
 	public void setWorld(World w) {
 		world = w;
 	}
@@ -185,27 +188,27 @@ public class Entity implements SafeMapElement {
 
 	}
 
-	public void Cell(DirectionExtension direction, CategoryExtension categorie) {
-		// TODO Auto-generated method stub
-
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 	}
 
-	public void Closest(DirectionExtension direction, CategoryExtension categorie) {
+	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if (now - lastshot > 500) {
+		if(now - lastshot > 250) {
 			lastshot = now;
 			return true;
 		}
 		return false;
 	}
 
-	public void GotStuff() {
-		// TODO Auto-generated method stub
+	public boolean GotStuff() {
+		return false;
 
 	}
 
@@ -214,8 +217,14 @@ public class Entity implements SafeMapElement {
 
 	}
 
-	public void MyDir(DirectionExtension direction) {
+	public boolean MyDir(DirectionExtension direction) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void colisionHappened(Entity other, ColliderType c ) {
+		
+	}
+	
 }

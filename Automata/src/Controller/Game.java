@@ -73,10 +73,6 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 		
-		Tank tank = new Tank();
-		new Avatar(tank, tmp);
-		world.addEntity(tank);
-		
 	}
 	
 	private static class Init implements Runnable{

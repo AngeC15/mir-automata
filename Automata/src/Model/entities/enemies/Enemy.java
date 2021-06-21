@@ -1,30 +1,22 @@
-package Model.entities;
-
-import java.awt.geom.AffineTransform;
+package Model.entities.enemies;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
-import Model.physics.ColliderType;
-import Model.physics.HitBox;
-import Model.physics.PhysicsBody;
-import Model.physics.PrimitiveInstance;
-import Model.physics.primitives.Circle;
 import Utils.Vector2;
-import Model.entities.weapon.Dagger;
+import Model.entities.Entity;
+import Model.entities.weapon.Weapon;
 
-public class Snake extends Entity {
+public abstract class Enemy extends Entity {
 
-	private Dagger weapon;
-	public Snake() {
-		super(AutomataLoader.get("Snake"));
-		acceleration = 40.f;
-
-		// copied from players
-		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
-		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 20.0f, this);
-		weapon = new Dagger();
+	protected Weapon weapon;
+	protected int cooldown;
+	protected double shootDistance;
+	protected float friction;
+	protected float maxSpeed;
+	
+	public Enemy(String automaton) {
+		super(AutomataLoader.get(automaton));
 	}
 
 	/**
@@ -49,7 +41,7 @@ public class Snake extends Entity {
 		double relativeY = closestEntity.getTransform().getTranslateY() - getTransform().getTranslateY();
 		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
 
-		if (distance < 1)
+		if (distance < shootDistance)
 			return false;
 
 		switch (direction) {
@@ -104,6 +96,15 @@ public class Snake extends Entity {
 	}
 
 	@Override
+	public void Pop(DirectionExtension dir) {
+		float relativeX = (float) (world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX());
+		float relativeY = (float) (world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY());
+		Vector2 vector = new Vector2(relativeX, relativeY);
+		
+		weapon.attack(this, vector);
+	}
+	
+	@Override
 	public void Hit(DirectionExtension dir) {
 		float relativeX = (float) (world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX());
 		float relativeY = (float) (world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY());
@@ -115,11 +116,10 @@ public class Snake extends Entity {
 	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 900) {
+		if(now - lastshot > cooldown) {
 			lastshot = now;
 			return true;
 		}
 		return false;
 	}
-
 }

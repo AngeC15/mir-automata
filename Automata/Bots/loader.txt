@@ -1,3 +1,5 @@
 Bots/Player.gal
 Bots/Tank.gal
 Bots/Snake.gal
+Bots/Duck.gal
+Bots/Plane.gal

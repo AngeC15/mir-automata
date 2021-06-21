@@ -6,7 +6,10 @@ import java.awt.Graphics2D;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
-import Model.entities.Tank;
+import Model.entities.enemies.Duck;
+import Model.entities.enemies.Plane;
+import Model.entities.enemies.Snake;
+import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -14,7 +17,6 @@ import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
-import Model.entities.Snake;
 
 
 
@@ -66,15 +68,25 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 		
-		Tank tank = new Tank();
+		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
 		world.addEntity(tank);
 		
-		Snake snake = new Snake();
+		Snake snake = new Snake("Snake");
 		Template tmpSnake = TemplatesLoader.get("Snake");
 		new Avatar(snake, tmpSnake);
 		world.addEntity(snake);
+		
+		Duck duck = new Duck("Duck");
+		Template tmpDuck = TemplatesLoader.get("Duck");
+		new Avatar(duck, tmpDuck);
+		world.addEntity(duck);
+		
+		Plane plane = new Plane("Plane");
+		Template tmpPlane = TemplatesLoader.get("Plane");
+		new Avatar(plane, tmpPlane);
+		world.addEntity(plane);
 	}
 	
 	private static class Init implements Runnable{

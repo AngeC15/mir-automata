@@ -28,7 +28,7 @@ public class Entity implements SafeMapElement {
 	protected ArrayList<EnumAction> actions;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
-	double lastshot;
+	protected double lastshot;
 
 	public Entity(Automaton a) {
 		this.id = -1;

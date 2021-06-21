@@ -24,7 +24,7 @@ public class Bullet extends Entity {
 		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3, 3)));
-		this.body = new PhysicsBody(h, 0.0f, 60.0f);
+		this.body = new PhysicsBody(h, 0.0f, 60.0f, this);
 		
 		vect = vect.normalize();
 		

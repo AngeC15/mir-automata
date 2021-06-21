@@ -212,4 +212,7 @@ public class Entity implements SafeMapElement{
 		// TODO Auto-generated method stub
 
 	}
+	
+	public abstract void colisionHappened(Entity e1, ColliderType c );
+	
 }

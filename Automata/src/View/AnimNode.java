@@ -1,59 +1,78 @@
 package View;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-import View.AnimNode.Condition;
+import Model.automata.actions.EnumAction;
 
+/**
+ * @author Gergely, camille, Samuel
+ *
+ * Represents one step in an animation. Contains a sprite and the following step
+ */
 public class AnimNode {
 
-	public enum Condition {
-		MOVE, FIRE, HURT, POP, WIZZ
-	}
-
 	private BufferedImage sprite;
-	private int index;
-	private ArrayList<Condition> conditions;
-	private ArrayList<AnimNode> nextNodes;
+	private AnimNode nextNode;
+	private int time;
+	private EnumAction action;
+	private AnimInterrupt interruptable;
 
-	public AnimNode(BufferedImage sprite, int index) {
+	/**
+	 * Creates a node with a sprite, a duration and a linked action
+	 * 
+	 * @param sprite
+	 * @param time
+	 * @param action
+	 */
+	public AnimNode(BufferedImage sprite, int time, EnumAction action, AnimInterrupt inter) {
 		this.sprite = sprite;
-		conditions = new ArrayList<Condition>();
-		nextNodes = new ArrayList<AnimNode>();
-		this.index = index;
+		this.time = time;
+		this.action = action;
+		interruptable = inter;
 	}
 
-	public void addNode(String condition, AnimNode node) {
-		Condition cond = Condition.valueOf(condition);
-		conditions.add(cond);
-		nextNodes.add(node);
-
+	/**
+	 * Gives to this node a following node
+	 * 
+	 * @param node
+	 */
+	public void addNode(AnimNode node) {
+		nextNode = node;
 	}
 
-	public int getIndex() {
-		return this.index;
-	}
-
+	/**
+	 * @return the sprite linked to this node
+	 */
 	public BufferedImage getSprite() {
 		return sprite;
 	}
 
-	public AnimNode nextNode(Condition condition) throws Exception {
-		for (int i = 0; i < conditions.size(); i++) {
-			if (conditions.get(i) == condition) {
-				return nextNodes.get(i);
-			}
-		}
-		throw new Exception("State non valid");
+	/**
+	 * @return the following node
+	 */
+	public AnimNode nextNode() {
+		return nextNode;
 	}
 
-	@Override
-	public String toString() {
-		String chaine = "Etat " + index + " : \n";
-		for (int i = 0; i < conditions.size(); i++) {
-			chaine += " " + conditions.get(i) + " -> " + nextNodes.get(i).getIndex() + "\n";
-		}
-		return chaine;
+	/**
+	 * @return the linked action of this node
+	 */
+	public EnumAction getAction() {
+		return action;
+	}
 
+	/**
+	 * @return the duration the avatar should show the sprite of this node
+	 */
+	public int getTime() {
+		return time;
+	}
+	
+	public boolean isInterruptable() throws Exception {
+		if(interruptable == AnimInterrupt.INTERRUPT)
+			return true;
+		if(interruptable == AnimInterrupt.NON_INTERRUPT)
+			return false;
+		throw new Exception("This is not interruptable, nor not not interruptable");
 	}
 }

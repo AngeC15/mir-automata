@@ -14,6 +14,7 @@ public class Wizz extends Action{
 
 	@Override
 	public boolean apply(Entity e) {
+		e.addAction(EnumAction.WIZZ);
 		e.Wizz(dir);
 		return false;
 	}

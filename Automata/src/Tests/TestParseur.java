@@ -57,7 +57,7 @@ public class TestParseur {
 	}
 
 	public static void main(String[] args) throws Exception {
-		List<Automaton> li = loadAutomata("src/Tests/GalAutomaton/philosophe.gal");
+		List<Automaton> li = loadAutomata("Bots/Player.gal");
 		testDeAutomaton(li);
 		System.out.println("Test fini");
 

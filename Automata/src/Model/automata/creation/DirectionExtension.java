@@ -11,7 +11,7 @@ public enum DirectionExtension {
 	/**
 	 * We're going to put here every possible direction (8 absolute + 4 relatives).
 	 */
-	F, R, B, L, N, NE, E, SE, S, SW, W, NW;
+	F, R, B, L, N, NE, E, SE, S, SW, W, NW, H;
 	
 	public static DirectionExtension RelToAbsolute(DirectionExtension directionCourante, DirectionExtension directionAction) {
 		//System.out.println("Direction courante = " + directionCourante + "directionAction :" + directionAction);

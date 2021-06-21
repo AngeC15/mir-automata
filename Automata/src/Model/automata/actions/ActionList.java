@@ -49,6 +49,8 @@ public class ActionList extends Action{
 		 * When we want to choose a random action among all available, we need to take all -1's weight
 		 *with the same percentage depending on the number of total_weight and how many action with -1's weight left
 		*/
+		if(weighted_actions.size() + default_actions.size() == 0)
+			return false;
 		float r = (float)Math.random();
 		if(r >= total_weight) {
 			int randIdx = ThreadLocalRandom.current().nextInt(0, default_actions.size());

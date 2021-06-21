@@ -10,10 +10,12 @@ import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
 
 import Model.loader.AutomataLoader;
+import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Vector2;
 
 
 public class Player extends LivingEntity{
@@ -27,13 +29,15 @@ public class Player extends LivingEntity{
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, 15.0f, 40.0f);
+		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
+
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
 		this.life = 100;
+
 	}
 	
 
@@ -78,7 +82,6 @@ public class Player extends LivingEntity{
 	public void Pop(DirectionExtension dir) {
 		//changement d'arme
 		this.switchWeapon();
-		
 	}
 	
 	

@@ -1,10 +1,119 @@
+# JOURNAL du week end 18 & 19 juin
+#### *Gergely + Samuel* : Entité suivant un joueur ( branche `dev.tank`)
+- [x] `DONE` : *L'entité suit le joueur*
+
+#### *Camille* : MiniMap ( branche `dev.MiniMap` )
+- Minimap représantant la carte dans la globalité avec les entités.
+- [x] `DONE` : *Minimap fonctionnelle et merge avec le master*
+- [ ] `TODO` : *Voir si on affiche toute les entitées*
+- [ ] `TODO` : *Verifier scintillement*
+
+#### *Théo + Julian + Cyprien* : Génération du sol ( branche `dev.ground` )
+- [x] `DONE` : *Génération aléatoire d'éléments sur la carte*
+
+#### *Cyprien* : Gestion des armes ( branche `shot.try`)
+- [x] `DONE` : *Changement d'armes fonctionnel*
+- [x] `DONE` : *Amélioration des dommages*
+
+
+---
+
+# JOURNAL du Vendredi 18 juin
+
+## Répartition des tâches
+
+#### *Théo + Julian* : HitBox ( branche `hitbox` )
+- [x] `DONE` : *HitBox fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Théo + Julian* : Loader des SpriteSheet ( branche `dev.loader` )
+- [x] `DONE` : *Loader fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Julian* : Moteur physique 
+
+#### *Théo* : Génération d'éléments sur la Map ( branche `dev.ground` )
+
+#### *Gergely + Samuel* : Animation des avatars ( branche `dev.avatar`)
+- Correctifs divers
+- [x] `DONE` : *Avatar fonctionnel*
+- [x] `DONE` : *Merge et documenté avec la branche master*
+
+#### *Joan + Cyprien* : Gestion des armes ( branche `shot.try`)
+- Avancement sur la classe `Bullet`
+
+#### *Camille* : MiniMap ( branche `dev.MiniMap` )
+- Génération d'une miniMap avec l'avatar qui bouge.
+- [x] `DONE` : *Affichage de la miniMap avec l'avatar qui bouge*
+- [ ] `TODO` : *Ajuster la map affichée*
+
+#### *Joan* : Réalisation des Sprites
+--- 
+# JOURNAL du Jeudi 17 juin
+
+## Répartition des tâches
+
+#### *Cyprien + Julian* : AST ( branche `proto.ast` )
+- [x] `DONE` : *AST fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Joan + Camille + Cyprien* : Gestion des armes ( branche `shot.try`)
+- Création des classes `Bullet`, `Weapon`,`Dagger` et `Gun`
+- Modification de la classe `DirectionExtension` pour obtenir la direction relative
+- Génération des balles
+
+- [ ]  `TODO` :  *Générer des balles dans la bonne direction lors du clic souris*
+
+#### *Théo + Julian* : Loader des SpriteSheet ( branche `dev.loader` )
+- Modification de la classe `AutomataLoader` et `Automaton`
+
+- [x] `DONE` : *`AutomataLoader` terminé et testé*
+- [ ] `TODO` : *`TemplatesLoader`*
+
+#### *Julian* : GameView
+- Modification de la classe `GameView`
+- Camera suivant le joueur
+- Affichage d'une grille en fond
+
+- [x] `DONE` : *Fonctionnel et merge avec le master*
+
+
+#### *Gergely + Samuel* : Animation des avatars ( branche `dev.avatar`)
+- Refonte des fichiers .ani :modification de `AnimNode` pour Parser le fichier.
+
+- [x] `DONE` : *Fonctionnel, documenté et merge avec le master*
+
+**Format des fichiers d'animation .ani** :
+
+```
+<Action> <Temps> <Interrompable> <SEQUENCE D'ANIM>
+```
+
+- `Action` est une action de l'automate de type MOVE, HIT,... définie dans `EnumAction`
+- `Temps` est le temps en millisecondes que prendra la séquence d'animation
+- `Interrompable` définie si la séquence d'animation doit être interompue lorque l'entité ne fait rien
+- `SEQUENCE D'ANIM` est la suite des index des sprites représentant la séquence d'animation
+
+```
+HIT 500 NON_INTERRUPT 12 13 14 13 12
+MOVE 1000 INTERRUPT 0 1 2 1 0
+```
+
+Ci-dessus, un exemple de `.ani`. Les séquences sont dans **L'ordre décroissant de priorité** ce qui veut dire que 
+l'animation du HIT intérrompra l'animation du MOVE. 
+
+#### *Théo + Julian* : HitBox ( branche `hitbox` )
+-  Création des classes `HitBox`, `Newton`,`PhysicsObject`,`Primitive` et `CirclePrimitive`
+- Ajout de méthodes dans `Vector2`
+
+
+
+---
+
 # JOURNAL du Mercredi 16 juin
 
 ## Répartition des tâches
 
-#### *Julian* : GameView
-- Camera suivant le joueur
-- Affichage d'une grille en fond
 
 #### *Théo* : Loader des SpriteSheet ( branche `dev.loader` )
 

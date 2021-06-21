@@ -9,6 +9,8 @@ import Model.automata.Automaton;
  */
 public class LivingEntity extends Entity{
 		float life;
+		float damage;
+
 
 	
 		public LivingEntity(Automaton a, int equipe) {
@@ -33,6 +35,16 @@ public class LivingEntity extends Entity{
 		public void damage(float damage) {
 			//negative damage will heal
 			this.life -= damage;
+		}
+
+
+		public float getDamage() {
+			return damage;
+		}
+
+
+		public void setDamage(float damage) {
+			this.damage = damage;
 		}
 		
 		

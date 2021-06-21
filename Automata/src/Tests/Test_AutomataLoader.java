@@ -16,7 +16,7 @@ public class Test_AutomataLoader {
 	
 	public static void main(String[] args) throws IOException {
 		System.out.println("Test Start");
-		loader("src/Tests/automataloader_ressources.txt");
+		loader("src/Tests/templateloader_resources.txt");
 		System.out.println("Test End");
 	}
 	

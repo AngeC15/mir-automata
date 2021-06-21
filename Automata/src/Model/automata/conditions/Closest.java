@@ -17,7 +17,6 @@ public class Closest extends Condition{
 	
 	@Override
 	public boolean eval(Entity e) {
-		e.Closest(direction, categorie);
-		return false;
+		return e.Closest(direction, categorie);
 	}
 }

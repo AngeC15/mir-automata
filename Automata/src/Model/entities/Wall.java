@@ -43,14 +43,16 @@ public class Wall extends Entity{
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
 				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
-					if (++cmpt == 4 && !alive) 
-						return true;
-					else if (++cmpt == 4 && alive)
-						return true;
+					cmpt++;
 				}
 			}
 		}
-		return false;
+		
+		if(alive) 
+			return cmpt >= 3;
+		else 
+			return cmpt >= 5;
+		
 		}
 		catch(Exception e){
 			System.exit(0);

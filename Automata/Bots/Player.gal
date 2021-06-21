@@ -30,6 +30,7 @@ Wall(Init){
 	| True ? :(Dead)
 	| True ? :(Alive)
 	| True ? :(Alive)
+	| True ? :(Alive)
 	* (Idle):
 	| GotStuff & !GotPower ? :(Dead)
 	| GotStuff & GotPower ? :(Alive)

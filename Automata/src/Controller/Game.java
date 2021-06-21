@@ -79,8 +79,9 @@ public class Game {
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		 * world.addEntity(wall);
 		 */
+		Template tmp2 = TemplatesLoader.get("Dead");
 		EnemyPlayer enemy = new EnemyPlayer(world);
-		Avatar av3 = new Avatar(enemy, tmp);
+		Avatar av3 = new Avatar(enemy, tmp2);
 		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
 		world.addEntity(enemy);
 

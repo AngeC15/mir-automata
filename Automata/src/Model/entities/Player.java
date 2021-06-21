@@ -37,6 +37,7 @@ public class Player extends LivingEntity{
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
 		this.life = 100;
+		this.damage = 20;
 
 	}
 	

@@ -11,16 +11,18 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 
-public class Tank extends Entity {
+public class Tank extends LivingEntity {
 
 	public Tank() {
-		super(AutomataLoader.get("Tank"));
+		super(AutomataLoader.get("Tank"), 2);
 		acceleration = 40.f;
 		
 		// copied from players
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 20.0f, this);
+		this.life = 100;
+		this.damage = 10;
 	}
 	/**
 	 * Function takes a category and a direction and returns true if the closest entity

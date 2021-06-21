@@ -65,7 +65,7 @@ public class Newton {
 		int l = ColliderType.values().length;
 		AffineTransform save = simulateTranslation(elapsed, b1);
 		for(int i=0; i < l; i++) {
-			int col = collisionMatrix[b1.getType().ordinal()][i];
+			int col = collisionMatrix[b_idx][i];
 			if(col > 0) {
 				int j=0;
 				for(Entry<Long,SafeMapElement> b2_e : bodies[i]) {
@@ -83,14 +83,15 @@ public class Newton {
 								normals[i][j] = normal;
 							}
 						}
-						j++;
 					}
+					j++;
 				}
 			}
 		}
 		if(collisions[b_idx][bt_idx] != null)
 			resetPosition(elapsed, b1, save, normals[b_idx][bt_idx]);
 	}
+
 	public void tick(long elapsed) {
 		
 		int l = ColliderType.values().length;
@@ -117,6 +118,7 @@ public class Newton {
 				PhysicsBody body = (PhysicsBody) body_e.getValue();
 				handleCollision(elapsed, body, body_e.getKey(), i, j, collisions, normals);
 				j++;
+
 			}
 		}
 	}

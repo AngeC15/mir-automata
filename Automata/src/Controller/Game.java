@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 
 import Model.World;
 import Model.entities.Cowboy;
+import Model.entities.EnemyPlayer;
 import Model.entities.Player;
 import Model.entities.Tank;
 import Model.entities.Wall;
@@ -72,7 +73,18 @@ public class Game {
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		
+//
+		/*
+		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
+		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
+		 * world.addEntity(wall);
+		 */
+		Template tmp2 = TemplatesLoader.get("Dead");
+		EnemyPlayer enemy = new EnemyPlayer(world);
+		Avatar av3 = new Avatar(enemy, tmp2);
+		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
+		world.addEntity(enemy);
+
 	}
 	
 	private static class Init implements Runnable{

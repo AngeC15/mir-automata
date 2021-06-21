@@ -89,7 +89,7 @@ public class GameView {
 
 	public void setupFrame() {
 		System.out.println("  - setting up the frame...");
-
+		
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
@@ -105,7 +105,7 @@ public class GameView {
 
 		m_canvas.setBounds(0, 0, m_frame.getWidth(), m_frame.getHeight());
 		// adding buttons on pane
-		pane.add(miniMap.getPanel(), 1);
+		pane.add(miniMap, 1);
 		pane.add(m_canvas, 2);
 
 		m_frame.add(pane, BorderLayout.CENTER);
@@ -161,8 +161,10 @@ public class GameView {
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-		miniMap.paint(world);
-
+		this.miniMap.setWorld(world); //Met a jour le monde dans la miniMap
+		miniMap.repaint(); //Refait l'affichage
+		
+		
 		// erase background
 		g.setColor(Color.gray);
 
@@ -223,7 +225,6 @@ public class GameView {
 
 		}
 
-		// g.setTransform(baseTransform);
 
 	}
 

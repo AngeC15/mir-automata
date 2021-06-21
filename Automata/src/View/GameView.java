@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ import Utils.Vector2;
 
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Shape;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -31,6 +33,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Float;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -111,7 +116,6 @@ public class GameView {
 		m_frame.add(pane, BorderLayout.CENTER);
 		// center the window on the screen
 		m_frame.setLocationRelativeTo(null);
-
 		// make the window visible
 		m_frame.setVisible(true);
 	}
@@ -208,6 +212,35 @@ public class GameView {
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
+		//drawing background
+		
+		File imageFile = new File("Resources/sprite_sheet_decor.png");
+		
+		if(imageFile.exists()) {
+			BufferedImage image;
+			try {
+				image = ImageIO.read(imageFile);
+				int width  = m_frame.getWidth();
+				int heigth = m_frame.getHeight();
+				System.out.println("width " + width + " height" + heigth);
+				int imwidth = image.getWidth();
+				int imHeigth = image.getHeight();
+				for(int x = -width; x < width; x+=imwidth) {
+						for(int z = - heigth; z < heigth ; z+=imHeigth) {
+							g.drawImage(image, x,z, m_canvas);
+						}
+					
+				}
+			
+			}catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Erreur GameView");
+			}
+		
+		
+		
+		
+		
 		for (Entry<Long, SafeMapElement> entries : entities) {
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
@@ -224,7 +257,9 @@ public class GameView {
 		}
 
 		// g.setTransform(baseTransform);
-
+		
+		}
+		
 	}
 
 }

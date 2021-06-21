@@ -130,9 +130,4 @@ public abstract class Enemy extends Entity {
 		}
 		return false;
 	}
-
-	@Override
-	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
-		return false;
-	}
 }

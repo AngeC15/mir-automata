@@ -76,6 +76,7 @@ public class Entity implements SafeMapElement {
 	public Automaton getAutomaton() {
 		return automaton;
 	}
+
 	public void setWorld(World w) {
 		world = w;
 	}
@@ -174,8 +175,24 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Turn(DirectionExtension dir) {
-		// TODO Auto-generated method stub
-
+		double angle;
+		switch (dir) {
+		case F:
+			angle = Math.toRadians(0);
+			break;
+		case B:
+			angle = Math.toRadians(180);
+			break;
+		case L:
+			angle = Math.toRadians(90);
+			break;
+		case R:
+			angle = Math.toRadians(-90);
+			break;
+		default:
+			return;
+		}
+		getTransform().rotate(angle);
 	}
 
 	public void Wait() {
@@ -189,6 +206,32 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		switch (direction) {
+		case F:
+			angle += Math.toRadians(0);
+			break;
+		case B:
+			angle += Math.toRadians(180);
+			break;
+		case L:
+			angle += Math.toRadians(90);
+			break;
+		case R:
+			angle += Math.toRadians(-90);
+			break;
+		default:
+			return false;
+		}
+		
+		int x = (int) (Math.cos(angle) + getTransform().getTranslateX());
+		int y = (int) (Math.sin(angle) + getTransform().getTranslateY());
+		Entity closestEntity = world.map.get(x, y);
+		if (closestEntity != null)
+			System.out.println("Mettaton");
+		
+		// Vector2 vector = new Vector2((float) (Math.cos(angle)), (float)
+		// (Math.sin(angle)));
 		return false;
 	}
 
@@ -200,7 +243,7 @@ public class Entity implements SafeMapElement {
 
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 250) {
+		if (now - lastshot > 250) {
 			lastshot = now;
 			return true;
 		}
@@ -222,9 +265,9 @@ public class Entity implements SafeMapElement {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void colisionHappened(Entity other, ColliderType c ) {
-		
+
+	public void colisionHappened(Entity other, ColliderType c) {
+
 	}
-	
+
 }

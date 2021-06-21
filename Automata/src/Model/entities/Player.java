@@ -29,7 +29,7 @@ public class Player extends Entity{
 		this.body = new PhysicsBody(h, 15.0f, 40.0f);
 		
 		armeCac = new Dagger(); //to change please
-		armeDist = new Gun();
+		armeDist = new Gun(); 
 
 	}
 

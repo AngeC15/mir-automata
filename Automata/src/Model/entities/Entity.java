@@ -181,9 +181,8 @@ public class Entity implements SafeMapElement{
 
 	}
 
-	public void Cell(DirectionExtension direction, CategoryExtension categorie) {
-		// TODO Auto-generated method stub
-
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 	}
 
 	public void Closest(DirectionExtension direction, CategoryExtension categorie) {

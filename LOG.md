@@ -2,6 +2,37 @@
 
 ## Répartition des tâches
 
+#### *Théo + Julian* : HitBox ( branche `hitbox` )
+- [x] `DONE` : *HitBox fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Théo + Julian* : Loader des SpriteSheet ( branche `dev.loader` )
+- [x] `DONE` : *Loader fonctionnel*
+- [x] `DONE` : *Merge avec la branche master*
+
+#### *Julian* : Moteur physique
+
+#### *Théo* : Génération d'éléments sur la Map
+
+#### *Gergely + Samuel* : Animation des avatars ( branche `dev.avatar`)
+- Correctifs divers
+- [x] `DONE` : *Avatar fonctionnel*
+- [x] `DONE` : *Merge et documenté avec la branche master*
+
+#### *Joan + Cyprien* : Gestion des armes ( branche `shot.try`)
+- Avancement sur la classe `Bullet`
+
+#### *Camille* : MiniMap ( branche `dev.MiniMap` )
+- Génération d'une miniMap avec l'avatar qui bouge.
+- [x] `DONE` : *Affichage de la miniMap avec l'avatar qui bouge*
+- [ ] `TODO` : *Ajuster la map affichée*
+
+
+--- 
+# JOURNAL du Jeudi 17 juin
+
+## Répartition des tâches
+
 #### *Cyprien + Julian* : AST ( branche `proto.ast` )
 - [x] `DONE` : *AST fonctionnel*
 - [x] `DONE` : *Merge avec la branche master*

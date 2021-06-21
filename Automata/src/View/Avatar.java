@@ -95,4 +95,8 @@ public class Avatar {
 	public int getSpriteH() {
 		return state.getSprite().getHeight();
 	}
+	
+	public BufferedImage getDefaultSprite() {
+		return template.getDefaultNode().getSprite();
+	}
 }

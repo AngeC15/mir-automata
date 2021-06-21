@@ -1,16 +1,27 @@
 package Controller;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import View.Avatar;
+import View.GameCanvas;
+import View.GameView;
+import View.MiniMap;
+import View.Sound;
+import View.Template;
+import Controller.audio.*;
+import Controller.audio.info3.game.sound.RandomFileInputStream;
+import java.io.RandomAccessFile;
 
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
+import Model.entities.Tank;
+import Model.entities.Wall;
 import Model.loader.AutomataLoader;
-import View.Avatar;
-import View.GameView;
-import View.Sound;
-import View.Template;
+import Model.loader.TemplatesLoader;
+import Model.map.Map;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 
 
@@ -23,12 +34,15 @@ public class Game {
 	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
-	GameView view;
+	GameView view ;
+	
+	
 	
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
+			game.view.post(new Init());
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -38,22 +52,50 @@ public class Game {
 	Game() throws Exception {
 		// creating a listener for all the events
 		m_listener = new CanvasListener(this);
-		AutomataLoader.load_all("Bots/loader.txt");
-		world = new World(m_listener.getVirtualInput());
-		Player player = new Player(world);
-		Model.entities.Tank tank = new Model.entities.Tank(world);
-		world.setPlayer(player);
-		Template tmp = new Template("Resources/winchester-4x6.png", "Resources/example.ani");
-		Avatar av = new Avatar(player, tmp);
-		Avatar tav = new Avatar(tank, tmp);
 		view = new GameView(m_listener);
+	}
+	
+	public void init_game() throws Exception {
+		System.out.println("init game");
+		m_listener.getVirtualInput().setView(view);
+		view.setupFrame();
+		AutomataLoader.load_all("Bots/loader.txt");
+		TemplatesLoader.load_all("Resources/loader.txt");
+		world = new World(m_listener.getVirtualInput());
+		view.setWorld(world);
+
+		Map map = new Map(100, 100, 5.3f, world);
+		world.setMap(map);
 		
+		Player player = new Player(world);
+		Template tmp = TemplatesLoader.get("Cowboy");
+		new Avatar(player, tmp);
+		world.addEntity(player);
+		world.setPlayer(player);
+		
+		Tank tank = new Tank();
+		new Avatar(tank, tmp);
+		world.addEntity(tank);
+		
+	}
+	
+	private static class Init implements Runnable{
+
+		@Override
+		public void run() {
+			try {
+				game.init_game();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	
 
 	/*
-	 * ================================================================ All the
+	 * ================================================================ 
+	 * All the
 	 * methods below are invoked from the GameCanvas listener, once the window is
 	 * visible on the screen.
 	 * ==============================================================
@@ -92,7 +134,7 @@ public class Game {
 	public void tick(long elapsed) {
 		
 		world.tick(elapsed);
-		if (view != null) view.tick(elapsed);
+		view.tick(elapsed);
 	}
 
 	/*
@@ -100,8 +142,7 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-
-		if (view != null) view.paint((Graphics2D)g, world);
+		view.paint((Graphics2D)g);
 	}
 
 }

@@ -1,15 +1,26 @@
 package Model.entities;
 
-import Model.World;
+import java.awt.geom.AffineTransform;
+
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
+import Model.physics.ColliderType;
+import Model.physics.HitBox;
+import Model.physics.PhysicsBody;
+import Model.physics.PrimitiveInstance;
+import Model.physics.primitives.Circle;
 
 public class Tank extends Entity {
 
-	public Tank(World w) {
-		super(AutomataLoader.get("Tank"), w);
-		velocity = 20;
+	public Tank() {
+		super(AutomataLoader.get("Tank"));
+		acceleration = 40.f;
+		
+		// copied from players
+		HitBox h = new HitBox();
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
+		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 20.0f, this);
 	}
 	/**
 	 * Function takes a category and a direction and returns true if the closest entity
@@ -70,8 +81,8 @@ public class Tank extends Entity {
 		double endAngle = 360 / percentage + startAngle;
 		
 		// entity coordinates relative to this
-		double relativeX = closestEntity.transform.getTranslateX() - transform.getTranslateX();
-		double relativeY = closestEntity.transform.getTranslateY() - transform.getTranslateY();
+		double relativeX = closestEntity.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = closestEntity.getTransform().getTranslateY() - getTransform().getTranslateY();
 
 		// Avoiding 0 division
 		if (relativeX == 0)

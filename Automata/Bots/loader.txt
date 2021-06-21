@@ -1,2 +1,2 @@
-Bots/exemples.gal
 Bots/Player.gal
+Bots/Tank.gal

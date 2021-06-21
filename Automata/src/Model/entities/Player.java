@@ -23,6 +23,7 @@ public class Player extends LivingEntity{
 	public Weapon armeDist;
 	public Weapon currentWeapon;
 	private double waitingSwitch;
+	private double lastshot;
 	
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
@@ -36,6 +37,7 @@ public class Player extends LivingEntity{
 
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
+		lastshot = System.currentTimeMillis();
 		this.life = 100;
 		this.damage = 20;
 
@@ -69,6 +71,8 @@ public class Player extends LivingEntity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
+		double now = System.currentTimeMillis();
+
 		System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
@@ -84,6 +88,19 @@ public class Player extends LivingEntity{
 		//changement d'arme
 		this.switchWeapon();
 	}
+
+
+	@Override
+	public boolean GotPower() {
+		// TODO Auto-generated method stub
+		double now = System.currentTimeMillis();
+		if(now - lastshot > 500) {
+			lastshot = now;
+			return true;
+		}
+		return false;
+	}
+	
 	
 	
 	

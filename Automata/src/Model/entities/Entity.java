@@ -34,7 +34,6 @@ public class Entity implements SafeMapElement {
 						//équipe: 3 = neutre
 
 
-	double lastshot;
 	
 	public Entity(Automaton a, int equipe) {
 		System.out.println("new entity");
@@ -42,7 +41,6 @@ public class Entity implements SafeMapElement {
 		automaton = a;
 		state = automaton.getInit();
 		actions = new ArrayList<EnumAction>();
-		lastshot = System.currentTimeMillis();
 
 		this.team = equipe;
 
@@ -217,11 +215,6 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean GotPower() {
-		double now = System.currentTimeMillis();
-		if(now - lastshot > 250) {
-			lastshot = now;
-			return true;
-		}
 		return false;
 	}
 
@@ -242,7 +235,27 @@ public class Entity implements SafeMapElement {
 	}
 	
 	public void colisionHappened(Entity other, ColliderType c ) {
-		
+		System.out.println("Collision de type " + c.toString()+ " entre l'entité " + this+ " et " + other.getClass());
+		//if the bullet meet a wall, destroy it
+		if((this instanceof Bullet && other instanceof Wall) ) {
+			((LivingEntity)this).death();
+		}
+		//we check if both have life and enventually damages
+		if((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
+			//on regarde les teams:
+			if(!(this.team == other.team)) {
+				//we apply the damage on the life
+				float damageEntity1 = ((LivingEntity)this).getDamage();
+				float damageEntity2 = ((LivingEntity)other).getDamage();
+				((LivingEntity)this).damage(damageEntity2);
+				((LivingEntity)other).damage(damageEntity1);
+				((LivingEntity)this).checkDeath();
+				((LivingEntity)other).checkDeath();
+			}
+		}
 	}
+
+	
+
 	
 }

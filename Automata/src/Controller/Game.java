@@ -65,7 +65,7 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		Map map = new Map(100, 100, 5.3f, world);
+		Map map = new Map(50, 50, 5.3f, world);
 		world.setMap(map);
 		
 		Player player = new Player(world);

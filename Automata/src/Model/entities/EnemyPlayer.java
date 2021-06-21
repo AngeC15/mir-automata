@@ -31,7 +31,7 @@ public class EnemyPlayer extends LivingEntity{
 		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10f, 10f)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		//this.body = new PhysicsBody(h, 15.0f, 40.0f);
 		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		

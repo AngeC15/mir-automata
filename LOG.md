@@ -1,4 +1,24 @@
-# JOURNAL du Jeudi 17 juin
+# JOURNAL du week end 18 & 19 juin
+#### *Gergely + Samuel* : Entité suivant un joueur ( branche `dev.tank`)
+- [x] `DONE` : *L'entité suit le joueur*
+
+#### *Camille* : MiniMap ( branche `dev.MiniMap` )
+- Minimap représantant la carte dans la globalité avec les entités.
+- [x] `DONE` : *Minimap fonctionnelle et merge avec le master*
+- [ ] `TODO` : *Voir si on affiche toute les entitées*
+- [ ] `TODO` : *Verifier scintillement*
+
+#### *Théo + Julian + Cyprien* : Génération du sol ( branche `dev.ground` )
+- [x] `DONE` : *Génération aléatoire d'éléments sur la carte*
+
+#### *Cyprien* : Gestion des armes ( branche `shot.try`)
+- [x] `DONE` : *Changement d'armes fonctionnel*
+- [x] `DONE` : *Amélioration des dommages*
+
+
+---
+
+# JOURNAL du Vendredi 18 juin
 
 ## Répartition des tâches
 
@@ -10,9 +30,9 @@
 - [x] `DONE` : *Loader fonctionnel*
 - [x] `DONE` : *Merge avec la branche master*
 
-#### *Julian* : Moteur physique
+#### *Julian* : Moteur physique 
 
-#### *Théo* : Génération d'éléments sur la Map
+#### *Théo* : Génération d'éléments sur la Map ( branche `dev.ground` )
 
 #### *Gergely + Samuel* : Animation des avatars ( branche `dev.avatar`)
 - Correctifs divers
@@ -27,7 +47,7 @@
 - [x] `DONE` : *Affichage de la miniMap avec l'avatar qui bouge*
 - [ ] `TODO` : *Ajuster la map affichée*
 
-
+#### *Joan* : Réalisation des Sprites
 --- 
 # JOURNAL du Jeudi 17 juin
 

@@ -13,6 +13,7 @@ import java.io.RandomAccessFile;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
+import Model.entities.Tank;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
@@ -68,9 +69,10 @@ public class Game {
 		
 		Player player = new Player(world);
 		Template tmp = TemplatesLoader.get("Cowboy");
-		Avatar av = new Avatar(player, tmp);
+		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
+		
 	}
 	
 	private static class Init implements Runnable{

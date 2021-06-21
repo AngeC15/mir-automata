@@ -19,7 +19,6 @@ public class MyDir extends Condition{
 
 	@Override
 	public boolean eval(Entity e) {
-		e.MyDir(direction);
-		return false;
+		return e.MyDir(direction);
 	}
 }

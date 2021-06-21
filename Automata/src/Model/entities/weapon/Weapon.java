@@ -16,5 +16,9 @@ public abstract class Weapon {
 
 	public abstract void attack(Entity e, Vector2 vect);
 	
+	@Override
+	public String toString() {
+		return "Weapon";
+	}
 
 }

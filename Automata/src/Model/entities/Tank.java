@@ -101,4 +101,8 @@ public class Tank extends Entity {
 		
 		
 	}
+	@Override
+	public String toString() {
+		return "Tank";
+	}
 }

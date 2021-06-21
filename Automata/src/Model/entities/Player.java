@@ -66,6 +66,10 @@ public class Player extends Entity{
 		armeDist.attack(this, christianClavier.getMousePlayer());
 	}
 	
+	@Override
+	public String toString() {
+		return "Player";
+	}
 	
 	
 

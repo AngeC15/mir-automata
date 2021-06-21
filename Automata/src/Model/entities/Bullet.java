@@ -48,6 +48,11 @@ public class Bullet extends Entity {
 	
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Bullet";
+	}
 
 
 

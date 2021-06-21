@@ -192,7 +192,8 @@ public class Entity implements SafeMapElement {
 		return false;
 	}
 
-	public void Closest(DirectionExtension direction, CategoryExtension categorie) {
+	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
@@ -216,7 +217,8 @@ public class Entity implements SafeMapElement {
 
 	}
 
-	public void MyDir(DirectionExtension direction) {
+	public boolean MyDir(DirectionExtension direction) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}

@@ -22,12 +22,12 @@ public class TemplatesLoader {
 		templates = new HashMap<String, Template>();
 	}
 
-	public static void load(String templatename,String spritename, String automatname) throws IOException {
-		instance.load_(templatename, spritename, automatname);
+	public static void load(String templatename,String spritename, String automatname, int rows, int lines, int totalSprites) throws IOException {
+		instance.load_(templatename, spritename, automatname, rows, lines, totalSprites);
 	}
 
-	private void load_(String templatename,String spritename, String automatname) throws IOException {
-			Template template = new Template(spritename, automatname);
+	private void load_(String templatename,String spritename, String automatname, int rows, int lines, int totalSprites) throws IOException {
+			Template template = new Template(spritename, automatname, rows, lines, totalSprites);
 			templates.put(templatename, template);
 	}
 	
@@ -45,7 +45,7 @@ public class TemplatesLoader {
 				line_elems[k] = line_elems[k].strip();
 				System.out.println("/"+line_elems[k]+"/");
 			}
-			load_(line_elems[0], line_elems[1], line_elems[2]);
+			load_(line_elems[0], line_elems[1], line_elems[2], Integer.parseInt(line_elems[3]), Integer.parseInt(line_elems[4]), Integer.parseInt(line_elems[5]));
 		}
 	}
 	private Template get_(String name) {

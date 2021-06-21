@@ -8,5 +8,5 @@ Tank(Follow){
   | Closest(A,NW) ? Move(NW) :(Follow)
   | Closest(A,SE) ? Move(SE) :(Follow)
   | Closest(A,SW) ? Move(SW) :(Follow)
-  
+  | GotPower ? Pop :(Follow)
 }

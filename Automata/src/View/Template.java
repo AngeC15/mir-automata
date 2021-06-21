@@ -29,8 +29,8 @@ public class Template {
 	 * @param fileNameAutomata
 	 * @throws IOException
 	 */
-	public Template(String fileNameSpriteSheet, String fileNameAutomata) throws IOException {
-		spriteSheet = new SpriteSheet(fileNameSpriteSheet, 4, 6, 24);
+	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites) throws IOException {
+		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		readFile(fileNameAutomata);
 	}

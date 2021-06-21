@@ -3,9 +3,8 @@ package Model.entities;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
-import Model.World;
-import Model.automata.Automaton;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
@@ -13,7 +12,6 @@ import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import Utils.Vector2;
 import View.Avatar;
-import View.Template;
 
 public class Bullet extends Entity {
 	
@@ -37,8 +35,7 @@ public class Bullet extends Entity {
 		this.getTransform().rotate(angle);
 		this.getTransform().translate(0, 5);
 		try {
-			Template BulletTemplate = new View.Template("Resources/winchester-4x6.png", "Resources/example.ani");
-			Avatar avatarBullet = new Avatar(this, BulletTemplate);
+			Avatar avatarBullet = new Avatar(this, TemplatesLoader.get("Bullet"));
 			this.setAvatar(avatarBullet);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

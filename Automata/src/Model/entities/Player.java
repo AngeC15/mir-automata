@@ -94,7 +94,7 @@ public class Player extends LivingEntity{
 	public boolean GotPower() {
 		// TODO Auto-generated method stub
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 500) {
+		if(now - lastshot > currentWeapon.getShot_frequency()) {
 			lastshot = now;
 			return true;
 		}

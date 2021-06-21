@@ -11,7 +11,7 @@ public class Gun extends Weapon{
 	
 	public Gun() {
 		super(false);
-		// TODO Auto-generated constructor stub
+		this.shot_frequency = 500;
 	}
 
 	@Override

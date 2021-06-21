@@ -25,6 +25,7 @@ public class Map {
 		AffineTransform xt = AffineTransform.getTranslateInstance(dimension, 0);
 		AffineTransform yt = AffineTransform.getTranslateInstance(0, dimension);
 		AffineTransform lineCurrent = new AffineTransform();
+		lineCurrent.translate(-n/2*dimension, -p/2*dimension);
 		
 		for (int i = 0 ; i < n ; i++) {
 			AffineTransform cellCurrent = new AffineTransform(lineCurrent);
@@ -56,6 +57,12 @@ public class Map {
 	public void remove(int x, int y) {
 		world.removeEntity(map[x][y].getID());
 		map[x][y] = null;
-		
+	}
+	
+	public int getX() {
+		return map.length;
+	}
+	public int getY() {
+		return map[0].length;
 	}
 }

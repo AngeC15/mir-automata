@@ -60,14 +60,15 @@ public class Game {
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
+
+		Map map = new Map(30, 30, 5.3f, world);
+		world.setMap(map);
+		
 		Player player = new Player(world);
 		Template tmp = TemplatesLoader.get("Cowboy");
 		Avatar av = new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-
-		Map map = new Map(30, 30, 5.3f, world);
-		world.setMap(map);
 	}
 	
 	private static class Init implements Runnable{
@@ -77,7 +78,6 @@ public class Game {
 			try {
 				game.init_game();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -86,7 +86,8 @@ public class Game {
 	
 
 	/*
-	 * ================================================================ All the
+	 * ================================================================ 
+	 * All the
 	 * methods below are invoked from the GameCanvas listener, once the window is
 	 * visible on the screen.
 	 * ==============================================================

@@ -191,7 +191,7 @@ public class Entity implements SafeMapElement{
 	}
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 500) {
+		if(now - lastshot > 250) {
 			lastshot = now;
 			return true;
 		}

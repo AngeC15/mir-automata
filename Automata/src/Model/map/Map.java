@@ -53,6 +53,7 @@ public class Map {
 	public boolean generationOver() {
 		return tick_counter >= max_tick;
 	}
+	//test
 	
 	public void remove(int x, int y) {
 		world.removeEntity(map[x][y].getID());

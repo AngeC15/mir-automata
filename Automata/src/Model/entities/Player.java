@@ -15,6 +15,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Vector2;
 
 
 public class Player extends Entity{
@@ -31,7 +32,6 @@ public class Player extends Entity{
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
-
 	}
 
 	
@@ -54,7 +54,6 @@ public class Player extends Entity{
 		
 		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
 		armeCac.attack(this, christianClavier.getMousePlayer());
-		
 	}
 
 

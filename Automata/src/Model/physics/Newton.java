@@ -121,7 +121,7 @@ public class Newton {
 	
 	public boolean collide(PhysicsBody b1, PhysicsBody b2, Vector2 normal) {
 		HitBox h1 = b1.getHitBox();
-		HitBox h2 = b1.getHitBox();
+		HitBox h2 = b2.getHitBox();
 		for(PrimitiveInstance p1: h1.shapes) {
 			for(PrimitiveInstance p2: h2.shapes) {
 				AffineTransform t1 = new AffineTransform(b1.transform);

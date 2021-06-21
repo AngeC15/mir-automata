@@ -8,6 +8,7 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
 import Model.map.Map;
+import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
@@ -27,7 +28,7 @@ public class Wall extends Entity{
 		alive = true;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, 0.0f, 0.0f);
+		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f);
 	}
 	
 	public boolean getAlive() {

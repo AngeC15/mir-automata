@@ -45,6 +45,6 @@ public class SafeMap implements Iterable<Entry<Long,SafeMapElement>>{
 		return (Iterator<Entry<Long,SafeMapElement>>) contents.entrySet().iterator();
 	}
 	public int size() {
-		return contents.size() + addQueue.size() - rmQueue.size();
+		return contents.size();
 	}
 }

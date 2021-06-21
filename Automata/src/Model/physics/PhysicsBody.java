@@ -17,11 +17,13 @@ public class PhysicsBody implements SafeMapElement {
 	Vector2 velocity;
 	AffineTransform transform;
 	private boolean accelerating;
+	private ColliderType type;
 
 	private long id;
 
-	public PhysicsBody(HitBox hb, float friction, float max_speed) {
+	public PhysicsBody(HitBox hb, ColliderType t, float friction, float max_speed) {
 		this.hitbox = hb;
+		this.type = t;
 		this.friction = friction;
 		this.max_speed = max_speed;
 		transform = new AffineTransform();
@@ -69,7 +71,9 @@ public class PhysicsBody implements SafeMapElement {
 		hitbox.debug(g);
 		g.setTransform(save);
 	}
-
+	public ColliderType getType() {
+		return type;
+	}
 	@Override
 	public void setID(long id) {
 		this.id = id;

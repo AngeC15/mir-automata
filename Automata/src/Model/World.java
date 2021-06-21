@@ -65,7 +65,7 @@ public class World {
 	}
 	public void removeEntity(long id) {
 		Entity pb = ((Entity)entities.get(id));
-		newton.remove(pb.getBody().getID());
+		newton.remove(pb.getBody());
 		entities.remove(id);
 	}
 	

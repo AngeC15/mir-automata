@@ -33,6 +33,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Float;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -218,6 +219,13 @@ public class GameView {
 		try {
 			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
 				image = sp.getSprite(0);
+				
+				//pour retourner l'image
+				AffineTransform aT = AffineTransform.getScaleInstance(1, -1);
+				aT.translate(0, -image.getHeight());
+				AffineTransformOp op = new AffineTransformOp(aT, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+				image = op.filter(image, null);
+				
 				int width  = m_frame.getWidth();
 				int heigth = m_frame.getHeight();
 				//System.out.println("width " + width + " height" + heigth);

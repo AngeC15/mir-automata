@@ -1,7 +1,6 @@
 package Model.physics;
 
 import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 
 import Model.physics.primitives.Primitive;
 import Utils.Vector2;

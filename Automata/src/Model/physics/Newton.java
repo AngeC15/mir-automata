@@ -73,6 +73,8 @@ public class Newton {
 						PhysicsBody b2 = (PhysicsBody) b2_e.getValue();
 						Vector2 normal = new Vector2(0, 0);
 						if(collide(b1, b2, normal)){
+							b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
+							b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
 							if(col == 2) {
 								normal = normal.normalize().scale(elapsed/1000.0f*10f);
 								collisions[b_idx][bt_idx] = b2;

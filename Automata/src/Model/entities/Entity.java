@@ -213,6 +213,6 @@ public class Entity implements SafeMapElement{
 
 	}
 	
-	public abstract void colisionHappened(Entity e1, ColliderType c );
+	public void colisionHappened(Entity e1, ColliderType c );
 	
 }

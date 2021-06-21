@@ -213,29 +213,27 @@ public class GameView {
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
 		//drawing background
-		
-		File imageFile = new File("Resources/sprite_sheet_decor.png");
-		
-		if(imageFile.exists()) {
-			BufferedImage image;
-			try {
-				image = ImageIO.read(imageFile);
+		SpriteSheet sp = null;
+		BufferedImage image = null;
+		try {
+			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
+				image = sp.getSprite(0);
 				int width  = m_frame.getWidth();
 				int heigth = m_frame.getHeight();
-				System.out.println("width " + width + " height" + heigth);
+				//System.out.println("width " + width + " height" + heigth);
 				int imwidth = image.getWidth();
 				int imHeigth = image.getHeight();
 				for(int x = -width; x < width; x+=imwidth) {
 						for(int z = - heigth; z < heigth ; z+=imHeigth) {
 							g.drawImage(image, x,z, m_canvas);
 						}
-					
 				}
-			
-			}catch (Exception e) {
-				System.out.println(e);
-				System.out.println("Erreur GameView");
-			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 		
 		
@@ -258,7 +256,7 @@ public class GameView {
 
 		// g.setTransform(baseTransform);
 		
-		}
+	
 		
 	}
 

@@ -1,27 +1,20 @@
 package Controller;
 
-import View.Avatar;
-import View.GameCanvas;
-import View.GameView;
-import View.MiniMap;
-import View.Sound;
-import View.Template;
-import Controller.audio.*;
-import Controller.audio.info3.game.sound.RandomFileInputStream;
-import java.io.RandomAccessFile;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
 import Model.entities.Tank;
-import Model.entities.Wall;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import View.Avatar;
+import View.GameView;
+import View.Sound;
+import View.Template;
+import Model.entities.Snake;
 
 
 
@@ -78,6 +71,10 @@ public class Game {
 		new Avatar(tank, tmpTank);
 		world.addEntity(tank);
 		
+		Snake snake = new Snake();
+		Template tmpSnake = TemplatesLoader.get("Snake");
+		new Avatar(snake, tmpSnake);
+		world.addEntity(snake);
 	}
 	
 	private static class Init implements Runnable{

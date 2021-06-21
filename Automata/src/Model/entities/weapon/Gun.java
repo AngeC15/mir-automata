@@ -8,9 +8,11 @@ import Utils.Vector2;
 
 public class Gun extends Weapon{
 
+	String bulletSkin;
 	
-	public Gun() {
+	public Gun(String bulletSkin) {
 		super(false);
+		this.bulletSkin = bulletSkin;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,7 +20,7 @@ public class Gun extends Weapon{
 	public void attack(Entity e, Vector2 vect) {
 		
 		//on crée la bullet
-		Bullet bul = new Bullet(e, vect);
+		Bullet bul = new Bullet(e, vect, bulletSkin);
 		World w = e.getWorld();
 		w.addEntity(bul);
 		Vector2 direction = new Vector2((float)bul.getTransform().getShearX(), (float)bul.getTransform().getScaleY());

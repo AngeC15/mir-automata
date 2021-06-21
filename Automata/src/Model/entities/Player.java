@@ -31,7 +31,7 @@ public class Player extends Entity{
 		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
-		armeDist = new Gun();
+		armeDist = new Gun("Bullet");
 	}
 
 	

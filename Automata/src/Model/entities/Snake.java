@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
-import Model.entities.weapon.Gun;
 import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
@@ -12,20 +11,20 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import Utils.Vector2;
+import Model.entities.weapon.Dagger;
 
-public class Tank extends Entity {
+public class Snake extends Entity {
 
-	private Gun weapon;
-	
-	public Tank() {
-		super(AutomataLoader.get("Tank"));
+	private Dagger weapon;
+	public Snake() {
+		super(AutomataLoader.get("Snake"));
 		acceleration = 40.f;
 
 		// copied from players
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
 		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 20.0f, this);
-		weapon = new Gun("Missile");
+		weapon = new Dagger();
 	}
 
 	/**
@@ -50,7 +49,7 @@ public class Tank extends Entity {
 		double relativeY = closestEntity.getTransform().getTranslateY() - getTransform().getTranslateY();
 		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
 
-		if (distance < 40)
+		if (distance < 1)
 			return false;
 
 		switch (direction) {
@@ -105,7 +104,7 @@ public class Tank extends Entity {
 	}
 
 	@Override
-	public void Pop(DirectionExtension dir) {
+	public void Hit(DirectionExtension dir) {
 		float relativeX = (float) (world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX());
 		float relativeY = (float) (world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY());
 		Vector2 vector = new Vector2(relativeX, relativeY);
@@ -116,10 +115,11 @@ public class Tank extends Entity {
 	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastshot > 1900) {
+		if(now - lastshot > 900) {
 			lastshot = now;
 			return true;
 		}
 		return false;
 	}
+
 }

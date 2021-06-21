@@ -17,7 +17,7 @@ public class Bullet extends Entity {
 	
 	
 	
-	public Bullet(Entity e, Vector2 vect) {
+	public Bullet(Entity e, Vector2 vect, String bulletSkin) {
 		super(AutomataLoader.get("Bullet"));
 		//on créer tout le nécessaire pour gerer les physics body
 		this.acceleration = 2000.0f;
@@ -35,7 +35,7 @@ public class Bullet extends Entity {
 		this.getTransform().rotate(angle);
 		this.getTransform().translate(0, 5);
 		try {
-			Avatar avatarBullet = new Avatar(this, TemplatesLoader.get("Bullet"));
+			Avatar avatarBullet = new Avatar(this, TemplatesLoader.get(bulletSkin));
 			this.setAvatar(avatarBullet);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

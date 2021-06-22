@@ -102,6 +102,10 @@ public class Player extends LivingEntity{
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "Player";
+	}
 	
 	
 

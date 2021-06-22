@@ -103,4 +103,8 @@ public class Tank extends LivingEntity {
 		
 		
 	}
+	@Override
+	public String toString() {
+		return "Tank";
+	}
 }

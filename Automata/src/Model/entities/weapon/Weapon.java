@@ -50,5 +50,9 @@ public abstract class Weapon {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "Weapon";
+	}
 
 }

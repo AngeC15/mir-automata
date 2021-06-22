@@ -61,6 +61,13 @@ public class Newton {
 		b.transform.translate(normal.x, normal.y);
 	}
 	
+	private boolean circleTest(PhysicsBody b1, PhysicsBody b2) {
+		Vector2 v1 = new Vector2((float)b1.getTransform().getTranslateX(), (float)b1.getTransform().getTranslateY());
+		Vector2 v2 = new Vector2((float)b2.getTransform().getTranslateX(), (float)b2.getTransform().getTranslateY());
+		Vector2 d = v1.sub(v2);
+		float min_d = b1.getHitBox().extRadius() + b2.getHitBox().extRadius();
+		return d.norm() <= min_d;
+	}
 	private void handleCollision(long elapsed, PhysicsBody b1, long idx, int b_idx, int bt_idx, PhysicsBody[][] collisions, Vector2[][] normals) {
 		int l = ColliderType.values().length;
 		AffineTransform save = simulateTranslation(elapsed, b1);
@@ -71,16 +78,19 @@ public class Newton {
 				for(Entry<Long,SafeMapElement> b2_e : bodies[i]) {
 					if(b_idx != i || j > bt_idx) {
 						PhysicsBody b2 = (PhysicsBody) b2_e.getValue();
+						
 						Vector2 normal = new Vector2(0, 0);
-						if(collide(b1, b2, normal)){
-							b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
-							b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
-							if(col == 2) {
-								normal = normal.normalize().scale(elapsed/1000.0f*10f);
-								collisions[b_idx][bt_idx] = b2;
-								collisions[i][j] = b1;
-								normals[b_idx][bt_idx] = normal.invert();
-								normals[i][j] = normal;
+						if(circleTest(b1, b2)) {
+							if(collide(b1, b2, normal)){
+								b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
+								b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
+								if(col == 2) {
+									normal = normal.normalize().scale(elapsed/1000.0f*10f);
+									collisions[b_idx][bt_idx] = b2;
+									collisions[i][j] = b1;
+									normals[b_idx][bt_idx] = normal.invert();
+									normals[i][j] = normal;
+								}
 							}
 						}
 					}

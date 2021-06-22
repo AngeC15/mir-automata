@@ -1,3 +1,13 @@
+# JOURNAL du mardi 22 juin
+
+#### *Camille* : Menu de demarrage ( branche `dev.menu`)
+- Implémentation du meneu de démarrage avec uniquement un bouton play pour le moment (à voir si on implémente les settings)
+- (avec *Cyprien* ) résolution du bug d'affichage ( lié au .PNG qui était en majuscule)
+
+- [x] `DONE` : *Merge avec le master*
+
+
+---
 # JOURNAL du lundi 21 juin 
 
 #### *Théo* : HitBox ( branche `hitbox` )
@@ -38,9 +48,7 @@
 
 #### *Camille* : Menu de demarrage ( branche `dev.menu`)
 - Implémentation du meneu de démarrage avec uniquement un bouton play pour le moment (à voir si on implémente les settings)
-- (avec *Cyprien* ) résolution du bug d'affichage ( lié au .PNG qui était en majuscule)
 
-- [x] `DONE` : *Merge avec le master*
 
 ---
 

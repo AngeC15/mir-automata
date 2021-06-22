@@ -30,13 +30,23 @@ public class Entity implements SafeMapElement {
 	protected float acceleration = 20.0f;
 	protected double lastshot;
 
-	public Entity(Automaton a) {
+	public int team;	//équipe: 1  = joueur
+						//équipe: 2 = ennemis
+						//équipe: 3 = neutre
+	
+	public Entity(Automaton a, int equipe) {
+		System.out.println("new entity");
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
 		actions = new ArrayList<EnumAction>();
 		lastshot = System.currentTimeMillis();
+
+		this.team = equipe;
+
+
 	}
+
 
 	public void setAvatar(Avatar av) {
 		avatar = av;
@@ -83,6 +93,13 @@ public class Entity implements SafeMapElement {
 
 	public void setState(AutomatonState state) {
 		this.state = state;
+	}
+	
+	public int getEquipe() {
+		return team;
+	}
+	public void setEquipe(int equipe) {
+		this.team = equipe;
 	}
 
 	public boolean step() {

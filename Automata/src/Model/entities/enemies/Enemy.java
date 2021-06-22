@@ -7,9 +7,10 @@ import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
 import Utils.Vector2;
 import Model.entities.Entity;
+import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
 
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends LivingEntity {
 
 	protected Weapon weapon;
 	protected int cooldown;
@@ -18,7 +19,7 @@ public abstract class Enemy extends Entity {
 	protected float maxSpeed;
 
 	public Enemy(String automaton) {
-		super(AutomataLoader.get(automaton));
+		super(AutomataLoader.get(automaton), 2);
 	}
 
 	protected void rotate() {

@@ -4,16 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
-import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 
-import Controller.VirtualInput;
 import Model.World;
 import Model.entities.Entity;
 
@@ -22,17 +18,16 @@ import Utils.SafeMapElement;
 import Utils.Vector2;
 
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Shape;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Ellipse2D.Float;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
-import java.util.TreeMap;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map.Entry;
 
 public class GameView {
@@ -48,6 +43,7 @@ public class GameView {
 
 	private double cameraDistance = 1.5f;
 	private MiniMap miniMap;
+	private Menu menu;
 	private Dimension frameSize;
 
 	private float units_per_width = 100.0f;
@@ -59,7 +55,9 @@ public class GameView {
 		System.out.println("  - creating frame...");
 
 		frameSize = new Dimension(1024, 768);
-		miniMap = new MiniMap(frameSize);
+		miniMap = new MiniMap();
+		
+		menu = new Menu(frameSize, this);
 
 		m_frame = m_canvas.createFrame(frameSize);
 
@@ -69,6 +67,8 @@ public class GameView {
 				updateCanvasTransform();
 			}
 		});
+
+		m_frame.add(menu, BorderLayout.CENTER);
 	}
 
 	public void post(Runnable r) {
@@ -88,14 +88,26 @@ public class GameView {
 	}
 
 	public void setupFrame() {
+		m_frame.setTitle("Game");
+		m_frame.setLayout(new BorderLayout());
+		m_frame.add(menu, BorderLayout.CENTER);
+		// center the window on the screen
+		m_frame.setLocationRelativeTo(null);
+
+		// make the window visible
+		m_frame.setVisible(true);
+	}
+
+	public void setupGame() {
+		//menu.setVisible(false);
+		
 		System.out.println("  - setting up the frame...");
 
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
-		m_frame.setTitle("Game");
-		m_frame.setLayout(new BorderLayout());
-
+		
+		
 		m_text = new JLabel();
 		m_text.setText("Tick: 0ms FPS=0");
 		m_frame.add(m_text, BorderLayout.NORTH);
@@ -104,16 +116,14 @@ public class GameView {
 		JLayeredPane pane = new JLayeredPane();
 
 		m_canvas.setBounds(0, 0, m_frame.getWidth(), m_frame.getHeight());
+		
 		// adding buttons on pane
-		pane.add(miniMap.getPanel(), 1);
+		pane.add(miniMap, 1);
 		pane.add(m_canvas, 2);
-
+		
+	
 		m_frame.add(pane, BorderLayout.CENTER);
-		// center the window on the screen
-		m_frame.setLocationRelativeTo(null);
-
-		// make the window visible
-		m_frame.setVisible(true);
+		m_frame.remove(menu);
 	}
 
 	public void tick(long elapsed) {
@@ -135,6 +145,7 @@ public class GameView {
 
 	public void setWorld(World w) {
 		world = w;
+		miniMap.setWorld(world);
 	}
 
 	public Vector2 getMouseWorld(int x, int y) throws NoninvertibleTransformException {
@@ -161,12 +172,14 @@ public class GameView {
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-		miniMap.paint(world);
+		
+		miniMap.repaint(); // Refait l'affichage
 
 		// erase background
 		g.setColor(Color.gray);
 
 		g.fillRect(0, 0, frameSize.width, frameSize.height);
+		
 
 		if (world == null)
 			return;
@@ -212,7 +225,7 @@ public class GameView {
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
-			//et.getBody().debug(g);
+			// et.getBody().debug(g);
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
 																													// the
@@ -222,8 +235,6 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-
-		// g.setTransform(baseTransform);
 
 	}
 

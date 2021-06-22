@@ -15,31 +15,32 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+/**
+ * A Java class for having a enemy with life
+ * @author cyprien
+ *
+ */
+public class EnemyPlayer extends LivingEntity{
 	public Weapon armeCac;
 	public Weapon armeDist;
 	public Weapon currentWeapon;
 	private double waitingSwitch;
 	
-	public Player(World w) {
-		super(AutomataLoader.get("Player"), 1);
+	public EnemyPlayer(World w) {
+		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10f, 10f)));
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
-		armeDist = new Gun("Bullet");
-
+		armeDist = new Gun("EnemyBullet");
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
 		this.life = 100;
-		this.damage = 20;
+		this.damage = 10;
 	}
-	
 
 	public void switchWeapon() {
 		//you need to wait 1s between 2 switch of weapon
@@ -63,27 +64,7 @@ public class Player extends LivingEntity{
 		this.armeDist = armeDist;
 	}
 
-	@Override
-	public boolean step() {
-		rotate();
-		return super.step();
-	}
 	
-	protected void rotate() {
-		VirtualInput keyboard = this.world.getInputs();
-		
-		try {
-			// mouse angle relative to the player
-			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
-
-			// substract the players current angle and rotate
-			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-			getTransform().rotate(relativeAngle + Math.toRadians(90));
-			
-		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
-		}
-	}
 	
 
 	@Override
@@ -91,7 +72,11 @@ public class Player extends LivingEntity{
 		// attaque corp à corps
 		System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
-		currentWeapon.attack(this, new Vector2(0, -1));
+		VirtualInput christianClavier = this.world.getInputs();
+		
+		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
+		currentWeapon.attack(this, christianClavier.getMousePlayer());
+		
 	}
 
 
@@ -99,12 +84,9 @@ public class Player extends LivingEntity{
 	public void Pop(DirectionExtension dir) {
 		//changement d'arme
 		this.switchWeapon();
+		
 	}
 	
-	@Override
-	public String toString() {
-		return "Player";
-	}
 	
 	
 

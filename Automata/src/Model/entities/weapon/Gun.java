@@ -6,7 +6,7 @@ import Model.entities.Entity;
 import Model.entities.Player;
 import Utils.Vector2;
 
-public class Gun extends Weapon{
+public class Gun extends Weapon {
 
 	String bulletSkin;
 	
@@ -23,10 +23,13 @@ public class Gun extends Weapon{
 		Bullet bul = new Bullet(e, vect, bulletSkin);
 		World w = e.getWorld();
 		w.addEntity(bul);
-		Vector2 direction = new Vector2((float)bul.getTransform().getShearX(), (float)bul.getTransform().getScaleY());
-		
+		Vector2 direction = new Vector2((float) bul.getTransform().getShearX(), (float) bul.getTransform().getScaleY());
+
 	}
 
+	@Override
+	public String toString() {
+		return "Gun";
+	}
 
-	
 }

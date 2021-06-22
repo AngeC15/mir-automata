@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.DirectionExtension;
@@ -88,6 +89,10 @@ public class Wall extends Entity{
 	@Override
 	public String toString() {
 		return "Wall";
+	}
+	
+	public Color getColor() {
+		return Color.gray;
 	}
 
 }

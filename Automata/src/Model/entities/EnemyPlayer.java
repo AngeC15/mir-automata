@@ -1,6 +1,8 @@
 package Model.entities;
 
 import Controller.VirtualInput;
+
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import Model.World;
 
@@ -85,6 +87,10 @@ public class EnemyPlayer extends LivingEntity{
 		//changement d'arme
 		this.switchWeapon();
 		
+	}
+	
+	public Color getColor() {
+		return Color.red;
 	}
 	
 	

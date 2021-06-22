@@ -1,5 +1,7 @@
 package Model.entities;
 
+import java.awt.Color;
+
 import Model.automata.Automaton;
 
 /**
@@ -62,6 +64,10 @@ public class LivingEntity extends Entity{
 		
 		public void death() {
 			this.getWorld().removeEntity(getID());
+		}
+		
+		public Color getColor() {
+			return null;
 		}
 		
 

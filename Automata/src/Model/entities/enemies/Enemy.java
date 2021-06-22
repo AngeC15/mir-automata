@@ -1,5 +1,6 @@
 package Model.entities.enemies;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.CategoryExtension;
@@ -130,5 +131,9 @@ public abstract class Enemy extends LivingEntity {
 			return true;
 		}
 		return false;
+	}
+	
+	public Color getColor() {
+		return Color.red;
 	}
 }

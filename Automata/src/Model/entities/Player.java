@@ -1,6 +1,8 @@
 package Model.entities;
 
 import Controller.VirtualInput;
+
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import Model.World;
 
@@ -107,6 +109,9 @@ public class Player extends LivingEntity{
 		return "Player";
 	}
 	
+	public Color getColor() {
+		return Color.green;
+	}
 	
 
 }

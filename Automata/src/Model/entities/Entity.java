@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
@@ -295,5 +296,9 @@ public class Entity implements SafeMapElement {
 				((LivingEntity)other).checkDeath();
 			}
 		}
+	}
+	
+	public Color getColor() {
+		return Color.gray;
 	}
 }

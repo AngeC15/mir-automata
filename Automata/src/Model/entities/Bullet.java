@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
@@ -61,6 +62,10 @@ public class Bullet extends LivingEntity {
 	@Override
 	public String toString() {
 		return "Bullet";
+	}
+	
+	public Color getColor() {
+		return null;
 	}
 
 

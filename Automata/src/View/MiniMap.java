@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.Map.Entry;
 
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 
 import Model.World;
 import Model.entities.Entity;
+import Model.physics.primitives.Circle;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 
@@ -23,13 +25,14 @@ public class MiniMap extends JPanel {
 	private AffineTransform cameraTransform;
 	private AffineTransform localTransform;
 	private double cameraDistance = 3;
+	private float size;
 
 	public MiniMap() {
 
 		super(new BorderLayout());
 		this.setVisible(true);
 		this.setBounds(5, 5, 200, 200);
-
+		size = 12;
 		setupFrame();
 	}
 
@@ -78,25 +81,28 @@ public class MiniMap extends JPanel {
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
-		g.setColor(Color.lightGray);
+		g.setColor(Color.white);
 		g.fillRect(-100, -100, 200, 200);
-
-		g.setColor(Color.red);
-		g.fillOval(-1, 1, 5, 5);
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
+
 			g.transform(et.getTransform());
-			// et.getBody().debug(g);
 			g.transform(localTransform);
-			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
-																													// the
-																													// object
-			g.drawRenderedImage(av.getDefaultSprite(), new AffineTransform());
+			g.transform(AffineTransform.getTranslateInstance(-size / 2f, -size / 2f)); // center
+																						// the
+
+			
+			Color c = et.getColor();
+			if (c != null) {
+				g.setColor(c);
+				g.fillOval(-1, 1, (int) size, (int) size);
+			}
 			g.setTransform(gameTransform);
 
 		}
 
 	}
+
 }

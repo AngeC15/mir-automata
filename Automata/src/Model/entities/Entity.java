@@ -37,7 +37,7 @@ public class Entity implements SafeMapElement {
 	double lastshot;
 	
 	public Entity(Automaton a, int equipe) {
-		System.out.println("new entity");
+		//System.out.println("new entity");
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();

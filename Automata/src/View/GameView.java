@@ -213,6 +213,7 @@ public class GameView {
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
+		
 		//drawing background
 		SpriteSheet sp = null;
 		BufferedImage image = null;
@@ -220,14 +221,22 @@ public class GameView {
 			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
 				image = sp.getSprite(0);
 				
+
+				
 				//pour retourner l'image
 				AffineTransform aT = AffineTransform.getScaleInstance(1, -1);
+				//aT.scale(image.getWidth(), image.getHeight());
 				aT.translate(0, -image.getHeight());
+				
 				AffineTransformOp op = new AffineTransformOp(aT, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+				
 				image = op.filter(image, null);
 				
-				int width  = m_frame.getWidth();
-				int heigth = m_frame.getHeight();
+				//int width  = m_frame.getWidth();
+				int width  = 50;
+				//int heigth = m_frame.getHeight();
+				int heigth = 50;
+
 				//System.out.println("width " + width + " height" + heigth);
 				int imwidth = image.getWidth();
 				int imHeigth = image.getHeight();

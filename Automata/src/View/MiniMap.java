@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 
+
 import Model.World;
 import Model.entities.Entity;
 import Model.physics.primitives.Circle;
@@ -81,7 +82,7 @@ public class MiniMap extends JPanel {
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
-		g.setColor(Color.white);
+		g.setColor(new Color(220,220,220));
 		g.fillRect(-100, -100, 200, 200);
 
 		for (Entry<Long, SafeMapElement> entries : entities) {

@@ -34,7 +34,8 @@ public class LivingEntity extends Entity{
 		 */
 		public void damage(float damage) {
 			//negative damage will heal
-			this.life -= damage;
+			//because 2 colisions are detected
+			this.life -= damage/2;
 		}
 
 
@@ -46,7 +47,22 @@ public class LivingEntity extends Entity{
 		public void setDamage(float damage) {
 			this.damage = damage;
 		}
+	
+		public void checkDeath() {
+			//if entity is dead, we delete it
+			//System.out.println("Santé de l'entité " + this + " à " + this.life);
+			if(this.life <= 0 || this instanceof Bullet) {
+				//deletion
+				//System.out.println("Entité supprimé");
+				this.death();
+			}
+			
+			
+		}
 		
+		public void death() {
+			this.getWorld().removeEntity(getID());
+		}
 		
 
 }

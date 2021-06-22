@@ -31,7 +31,7 @@ public class EnemyPlayer extends LivingEntity{
 		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10f, 10f)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
@@ -70,7 +70,7 @@ public class EnemyPlayer extends LivingEntity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		System.out.println("Hit with " + currentWeapon.getClass().toString());
+		//System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		

@@ -8,7 +8,7 @@ public class Dagger extends Weapon {
 
 	public Dagger() {
 		super(true);
-		// TODO Auto-generated constructor stub
+		this.shot_frequency = 500;
 	}
 
 	@Override

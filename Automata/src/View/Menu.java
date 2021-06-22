@@ -35,12 +35,13 @@ public class Menu extends JPanel implements ActionListener {
 
 		this.gameView = gameView;
 
-		ImageIcon img = new ImageIcon("Resources/Menu/Title.PNG");
+		ImageIcon img = new ImageIcon("Resources/Menu/Title.png");
 		titre = new JLabel(img, JLabel.CENTER);
 
 		this.add(titre);
-		initButtonPlay();
 		
+		initButtonPlay();
+
 		this.setVisible(true);
 		this.repaint();
 
@@ -51,19 +52,24 @@ public class Menu extends JPanel implements ActionListener {
 
 		panel.setOpaque(false);
 		play = new JButton();
+
 		play.setOpaque(false);
 		play.setContentAreaFilled(false);
 		play.setBorderPainted(false);
 
-		ImageIcon img = new ImageIcon("Resources/Menu/Play.PNG");
+
+		ImageIcon img = new ImageIcon("Resources/Menu/Play.png");
 		play.setIcon(img);
 		play.setName("buttonPlay");
 
+		//this.add(play);
 		panel.add(play);
+		
 		play.addActionListener(this);
 		play.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		play.setBounds(100, 100, 100, 100);
 		this.add(panel);
+		panel.setVisible(true);
 
 	}
 
@@ -77,9 +83,10 @@ public class Menu extends JPanel implements ActionListener {
 			// pageSettings.initSettings();
 		}
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g) {
+	
 		super.paintComponent(g);
 		File imageFile = new File("Resources/Menu/fond.jpg");
 
@@ -94,6 +101,6 @@ public class Menu extends JPanel implements ActionListener {
 			}
 
 		}
-	}
 
+	}
 }

@@ -145,6 +145,7 @@ public class Newton {
 				if(GJK.collide(p1.prim, p2.prim, t1, t2)) {
 					normal.x = GJK.get_normal().x;
 					normal.y = GJK.get_normal().y;
+					//System.out.println("Colision");
 					return true;
 				}
 			}

@@ -21,9 +21,8 @@ import Utils.Vector2;
 public class Player extends LivingEntity{
 	public Weapon armeCac;
 	public Weapon armeDist;
-	public Weapon currentWeapon;
-	private double waitingSwitch;
-	private double lastshot;
+	private double lastAttack;
+	private double lastAttackFrequency;
 	
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
@@ -35,26 +34,10 @@ public class Player extends LivingEntity{
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun("Bullet");
 
-		currentWeapon = armeDist;
-		waitingSwitch = System.currentTimeMillis();
-		lastshot = System.currentTimeMillis();
+		lastAttack = System.currentTimeMillis();
+		
 		this.life = 100;
 		this.damage = 20;
-	}
-	
-
-	public void switchWeapon() {
-		//you need to wait 1s between 2 switch of weapon
-		double now = System.currentTimeMillis();
-		if( now - waitingSwitch > 1000) {
-			waitingSwitch = now;
-			if(currentWeapon == armeDist) {
-				currentWeapon = armeCac;
-			}else {
-				currentWeapon = armeDist;
-			}
-			System.out.println("Weapon switched");
-		}
 	}
 	
 	public void setArmeCac(Weapon armeCac) {
@@ -91,27 +74,28 @@ public class Player extends LivingEntity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		double now = System.currentTimeMillis();
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeCac.getShot_frequency();
 
-		//System.out.println("Hit with " + currentWeapon.getClass().toString());
-		super.Hit(dir);
-		currentWeapon.attack(this, new Vector2(0, -1));
+		armeCac.attack(this, new Vector2(0, -1));
 	}
 
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		//changement d'arme
-		this.switchWeapon();
+		// attaque à distance
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeDist.getShot_frequency();
+		
+		armeDist.attack(this, new Vector2(0, -1));
 	}
 
 
 	@Override
 	public boolean GotPower() {
-		// TODO Auto-generated method stub
 		double now = System.currentTimeMillis();
-		if(now - lastshot > currentWeapon.getShot_frequency()) {
-			lastshot = now;
+		if(now - lastAttack > lastAttackFrequency) {
+			lastAttack = now;
 			return true;
 		}
 		return false;

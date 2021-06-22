@@ -58,6 +58,8 @@ public class GameView {
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
+	private BufferedImage bg;
+	private static final AffineTransform identity = new AffineTransform();
 
 	public GameView(GameCanvasListener listener) {
 		m_canvas = new GameCanvas(listener);
@@ -88,17 +90,21 @@ public class GameView {
 	public void updateCanvasTransform() {
 		float canvasScaling = m_frame.getWidth() / units_per_width; // 100.0 wide
 		canvasTransform = AffineTransform.getScaleInstance(canvasScaling, -canvasScaling);
-		canvasTransform.concatenate(AffineTransform.getTranslateInstance(units_per_width / 2.0f,
-				-(units_per_width / 2.0f) * (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()))));
+		float ratio = (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()));
+		canvasTransform.translate(units_per_width / 2.0f, -(units_per_width / 2.0f) * ratio);
 
 	}
 
-	public void setupFrame() {
+	public void setupFrame() throws IOException {
 		System.out.println("  - setting up the frame...");
 
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
+		
+		SpriteSheet sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
+		bg = sp.getSprite(0);
+		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
 
@@ -190,20 +196,53 @@ public class GameView {
 		// float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)
 		// * 0.2f;
 		// System.out.println("angle " + System.currentTimeMillis());
-		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
-				-playerTransform.getTranslateY()));
+		cameraTransform.translate(-playerTransform.getTranslateX(),-playerTransform.getTranslateY());
 		// .concatenate(AffineTransform.getRotateInstance(angle));
 
+		
+		
 		g.transform(canvasTransform);
+		
+		AffineTransform screeSpace = new AffineTransform(g.getTransform());
+		
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
-		AffineTransform gameTransform = g.getTransform();
-
-		// draw
-
+		AffineTransform gameTransform = new AffineTransform(g.getTransform());
+		
+		
+		int imWidth = bg.getWidth();
+		int imHeight = bg.getHeight();
+		float bgw = imWidth/sprite_pixels_per_unit;
+		float bgh = imHeight/sprite_pixels_per_unit;
+		
+		
+		//int width  = m_frame.getWidth();
+		int width  = 30;
+		//int heigth = m_frame.getHeight();
+		int height = 30;
+		g.translate(-bgw*width/2.0f , -bgh*height/2.0f);
+		AffineTransform backgroundTransform = new AffineTransform(g.getTransform());
+		//System.out.println("width " + width + " height" + heigth);
+		AffineTransform lineTransform = new AffineTransform();
+		AffineTransform tileTransform = null;
+		for(int y = 0; y < height; y++) {
+			tileTransform = new AffineTransform(lineTransform);
+			for(int x = 0; x < width ; x++) {
+				tileTransform.translate(bgw, 0);
+				g.transform(tileTransform);
+				g.transform(localTransform);
+				g.translate(-imWidth / 2.0f, -imHeight / 2.0f);
+				g.drawRenderedImage(bg, identity);
+				g.setTransform(backgroundTransform);
+			}
+			lineTransform.translate(0, bgh);
+		}
+		
+		g.setTransform(gameTransform);
 		SafeMap entities = world.getEntities();
-
+		
+		/*
 		g.setColor(Color.darkGray);
 		g.setStroke(new BasicStroke(0.2f));
 
@@ -213,46 +252,7 @@ public class GameView {
 		}
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
-		
-		//drawing background
-		SpriteSheet sp = null;
-		BufferedImage image = null;
-		try {
-			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
-				image = sp.getSprite(0);
-				
-
-				
-				//pour retourner l'image
-				AffineTransform aT = AffineTransform.getScaleInstance(1, -1);
-				//aT.scale(image.getWidth(), image.getHeight());
-				aT.translate(0, -image.getHeight());
-				
-				AffineTransformOp op = new AffineTransformOp(aT, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-				
-				image = op.filter(image, null);
-				
-				//int width  = m_frame.getWidth();
-				int width  = 50;
-				//int heigth = m_frame.getHeight();
-				int heigth = 50;
-
-				//System.out.println("width " + width + " height" + heigth);
-				int imwidth = image.getWidth();
-				int imHeigth = image.getHeight();
-				for(int x = -width; x < width; x+=imwidth) {
-						for(int z = - heigth; z < heigth ; z+=imHeigth) {
-							g.drawImage(image, x,z, m_canvas);
-						}
-				}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		
+		*/		
 		
 		
 		

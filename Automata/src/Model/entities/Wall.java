@@ -12,7 +12,6 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 
-
 public class Wall extends Entity{
 	
 	private boolean alive;
@@ -21,11 +20,12 @@ public class Wall extends Entity{
 	private Map map;
 	
 	public Wall(Map m, int px, int py) {
-		super(AutomataLoader.get("Wall"));
+		super(AutomataLoader.get("Wall"), 3);
 		map = m;
 		x = px;
 		y = py;
 		alive = true;
+
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.0f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
@@ -43,14 +43,16 @@ public class Wall extends Entity{
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
 				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
-					if (++cmpt == 4 && !alive) 
-						return true;
-					else if (++cmpt == 4 && alive)
-						return true;
+					cmpt++;
 				}
 			}
 		}
-		return false;
+		
+		if(alive) 
+			return cmpt >= 3;
+		else 
+			return cmpt >= 5;
+		
 		}
 		catch(Exception e){
 			System.exit(0);

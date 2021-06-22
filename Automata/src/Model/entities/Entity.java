@@ -36,7 +36,7 @@ public class Entity implements SafeMapElement {
 
 	
 	public Entity(Automaton a, int equipe) {
-		System.out.println("new entity");
+		//System.out.println("new entity");
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();

@@ -94,6 +94,7 @@ public class Menu extends JPanel implements ActionListener {
 			}
 
 		}
+		
 	}
 
 }

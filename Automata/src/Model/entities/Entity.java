@@ -206,6 +206,9 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		
+		// PROTOTYPE
+		/*
 		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
 		switch (direction) {
 		case F:
@@ -226,12 +229,8 @@ public class Entity implements SafeMapElement {
 		
 		int x = (int) (Math.cos(angle) + getTransform().getTranslateX());
 		int y = (int) (Math.sin(angle) + getTransform().getTranslateY());
-		Entity closestEntity = world.map.get(x, y);
-		if (closestEntity != null)
-			System.out.println("Mettaton");
+		*/
 		
-		// Vector2 vector = new Vector2((float) (Math.cos(angle)), (float)
-		// (Math.sin(angle)));
 		return false;
 	}
 

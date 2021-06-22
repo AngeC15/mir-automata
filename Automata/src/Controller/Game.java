@@ -68,6 +68,8 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 		
+		// uncomment if you want enemies
+		/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
@@ -87,6 +89,7 @@ public class Game {
 		Template tmpPlane = TemplatesLoader.get("Plane");
 		new Avatar(plane, tmpPlane);
 		world.addEntity(plane);
+		*/
 	}
 	
 	private static class Init implements Runnable{

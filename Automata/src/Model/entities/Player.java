@@ -5,6 +5,7 @@ import java.awt.geom.AffineTransform;
 import Model.World;
 
 import Model.automata.creation.DirectionExtension;
+import Model.entities.enemies.Tank;
 import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
@@ -51,10 +52,18 @@ public class Player extends Entity{
 	
 	protected void rotate() {
 		VirtualInput keyboard = this.world.getInputs();
-		double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
+		
+		try {
+			// mouse angle relative to the player
+			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
 
-		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		getTransform().rotate(relativeAngle + Math.toRadians(90));
+			// substract the players current angle and rotate
+			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+			getTransform().rotate(relativeAngle + Math.toRadians(90));
+			
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 
@@ -63,7 +72,7 @@ public class Player extends Entity{
 		// attaque corp à corps
 		System.out.println("Hit");
 		super.Hit(dir);
-		armeCac.attack(this, new Vector2(0, -1));
+		armeCac.attack(this, new Vector2(0, -1)); // attack in front
 	}
 
 
@@ -71,7 +80,7 @@ public class Player extends Entity{
 	public void Pop(DirectionExtension dir) {
 		// tir arme distance
 		super.Pop(dir);
-		armeDist.attack(this, new Vector2(0, -1));
+		armeDist.attack(this, new Vector2(0, -1)); // attack in front
 	}
 	
 	

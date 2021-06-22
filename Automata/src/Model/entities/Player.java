@@ -73,7 +73,7 @@ public class Player extends LivingEntity{
 		// attaque corp à corps
 		double now = System.currentTimeMillis();
 
-		System.out.println("Hit with " + currentWeapon.getClass().toString());
+		//System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		

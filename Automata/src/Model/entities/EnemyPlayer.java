@@ -71,7 +71,7 @@ public class EnemyPlayer extends LivingEntity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		System.out.println("Hit with " + currentWeapon.getClass().toString());
+		//System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		

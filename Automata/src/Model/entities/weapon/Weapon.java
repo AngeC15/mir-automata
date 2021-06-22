@@ -6,6 +6,7 @@ import Utils.Vector2;
 public abstract class Weapon {
 
 	boolean cac;
+	float damage;
 	
 	
 	public Weapon(boolean cac) {

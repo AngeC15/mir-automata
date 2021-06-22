@@ -15,32 +15,33 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+/**
+ * A Java class for having a enemy with life
+ * @author cyprien
+ *
+ */
+public class EnemyPlayer extends LivingEntity{
 	public Weapon armeCac;
 	public Weapon armeDist;
 	public Weapon currentWeapon;
 	private double waitingSwitch;
 	
-	public Player(World w) {
-		super(AutomataLoader.get("Player"), 1);
+	public EnemyPlayer(World w) {
+		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10f, 10f)));
+		//this.body = new PhysicsBody(h, 15.0f, 40.0f);
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
-
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
 		this.life = 100;
-		this.damage = 20;
-
+		this.damage = 10;
 	}
-	
 
 	public void switchWeapon() {
 		//you need to wait 1s between 2 switch of weapon
@@ -65,6 +66,7 @@ public class Player extends LivingEntity{
 	}
 
 	
+	
 
 	@Override
 	public void Hit(DirectionExtension dir) {
@@ -83,12 +85,9 @@ public class Player extends LivingEntity{
 	public void Pop(DirectionExtension dir) {
 		//changement d'arme
 		this.switchWeapon();
+		
 	}
 	
-	@Override
-	public String toString() {
-		return "Player";
-	}
 	
 	
 

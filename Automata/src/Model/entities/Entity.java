@@ -49,6 +49,7 @@ public class Entity implements SafeMapElement {
 
 	}
 
+
 	public void setAvatar(Avatar av) {
 		avatar = av;
 	}

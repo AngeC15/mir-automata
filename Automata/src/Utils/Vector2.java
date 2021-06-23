@@ -49,7 +49,7 @@ public class Vector2 extends Point2D.Float{
 	public Vector2 tripleCross(Vector2 a, Vector2 b) {
 //		float z = x*a.y - y*a.x;
 //		return new Vector2(b.y*z, -b.x*z);
-		float z = +x*a.y - y*a.x;
+		float z = x*a.y - y*a.x;
 		return new Vector2(-b.y*z, b.x*z);
 	}
 	

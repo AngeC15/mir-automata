@@ -37,7 +37,7 @@ public class Player extends LivingEntity {
 
 		lastAttack = System.currentTimeMillis();
 
-		this.life = 100;
+		this.life = 50;
 		this.damage = 20;
 	}
 
@@ -104,6 +104,12 @@ public class Player extends LivingEntity {
 
 	public Color getColor() {
 		return Color.green;
+	}
+	
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadDust");
+		this.getWorld().removeEntity(getID());
 	}
 
 }

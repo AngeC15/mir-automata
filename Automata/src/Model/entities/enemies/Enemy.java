@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
-import Model.loader.AutomataLoader;
-import Utils.Vector2;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
+import Model.loader.AutomataLoader;
+import Utils.Vector2;
 
 public abstract class Enemy extends LivingEntity {
 
@@ -126,12 +126,18 @@ public abstract class Enemy extends LivingEntity {
 
 	@Override
 	public boolean GotPower() {
+		// Remove this if cache d'armes
+		double relativeX = super.world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = super.world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY();
+		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
+		if (distance >= shootDistance)
+			return false;
 		double now = System.currentTimeMillis();
 		if (now - lastAttack > cooldown)
 			return true;
 		return false;
 	}
-
+	
 	public Color getColor() {
 		return Color.red;
 	}

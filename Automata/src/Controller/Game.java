@@ -5,11 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import Model.World;
-import Model.entities.Cowboy;
-import Model.entities.EnemyPlayer;
 import Model.entities.Player;
-import Model.entities.enemies.Duck;
-import Model.entities.enemies.Plane;
 import Model.entities.enemies.Snake;
 import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
@@ -20,6 +16,8 @@ import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
+import Model.entities.enemies.Duck;
+import Model.entities.enemies.Plane;
 
 
 
@@ -30,7 +28,6 @@ public class Game {
 	static Game game;
 	
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
 	GameView view ;
@@ -58,7 +55,7 @@ public class Game {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt");
+		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
@@ -72,21 +69,21 @@ public class Game {
 		world.addEntity(player);
 		world.setPlayer(player);
 		Generator g= new Generator(world, 100, 1);
-		g.new_wave(10);
 
 		
 		// uncomment if you want enemies
+		
 		/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		world.addEntity(tank);
 		
 		Snake snake = new Snake("Snake");
 		Template tmpSnake = TemplatesLoader.get("Snake");
 		new Avatar(snake, tmpSnake);
-		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
 		world.addEntity(snake);
 		
 		Duck duck = new Duck("Duck");
@@ -114,6 +111,7 @@ public class Game {
 //		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
 //		world.addEntity(enemy);
 //		
+
 
 
 	}

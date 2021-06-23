@@ -66,7 +66,6 @@ public class GJK {
 
 	public static boolean collide(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2, String db) {
 		idx = 0;
-		n = new Vector2(0, 0);
 		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateY());
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateY());
 		Vector2 d = vect2.sub(vect1);

@@ -37,7 +37,7 @@ public class Wall extends Entity{
 		alive = true;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(5f, 5f)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(5f, 5f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
 		time = System.currentTimeMillis();
 	}

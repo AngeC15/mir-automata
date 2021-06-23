@@ -31,6 +31,7 @@ public class Player extends LivingEntity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
+		this.body.getTransform().rotate(Math.PI/2);
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();

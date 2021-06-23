@@ -5,11 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import Model.World;
-import Model.entities.Cowboy;
-import Model.entities.EnemyPlayer;
 import Model.entities.Player;
-import Model.entities.enemies.Duck;
-import Model.entities.enemies.Plane;
 import Model.entities.enemies.Snake;
 import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
@@ -28,7 +24,6 @@ public class Game {
 	static Game game;
 	
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
 	GameView view ;
@@ -102,12 +97,6 @@ public class Game {
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		 * world.addEntity(wall);
 		 */
-		
-		Template tmp2 = TemplatesLoader.get("Dead");
-		EnemyPlayer enemy = new EnemyPlayer(world);
-		Avatar av3 = new Avatar(enemy, tmp2);
-		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
-		world.addEntity(enemy);
 	}
 	
 	private static class Init implements Runnable{

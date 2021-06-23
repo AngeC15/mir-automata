@@ -26,7 +26,7 @@ public class World {
 	private VirtualInput inputs;
 	private long elapsed;
 	private Newton newton;
-	private Map map;
+	public Map map;
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new SafeMap();

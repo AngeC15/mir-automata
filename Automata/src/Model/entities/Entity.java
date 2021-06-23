@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
@@ -189,8 +190,24 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Turn(DirectionExtension dir) {
-		// TODO Auto-generated method stub
-
+		double angle;
+		switch (dir) {
+		case F:
+			angle = Math.toRadians(0);
+			break;
+		case B:
+			angle = Math.toRadians(180);
+			break;
+		case L:
+			angle = Math.toRadians(90);
+			break;
+		case R:
+			angle = Math.toRadians(-90);
+			break;
+		default:
+			return;
+		}
+		getTransform().rotate(angle);
 	}
 
 	public void Wait() {
@@ -204,6 +221,19 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+
+		// PROTOTYPE
+		/*
+		 * double angle = Math.atan2(getTransform().getShearY(),
+		 * getTransform().getScaleY()); switch (direction) { case F: angle +=
+		 * Math.toRadians(0); break; case B: angle += Math.toRadians(180); break; case
+		 * L: angle += Math.toRadians(90); break; case R: angle += Math.toRadians(-90);
+		 * break; default: return false; }
+		 * 
+		 * int x = (int) (Math.cos(angle) + getTransform().getTranslateX()); int y =
+		 * (int) (Math.sin(angle) + getTransform().getTranslateY());
+		 */
+
 		return false;
 	}
 
@@ -253,6 +283,10 @@ public class Entity implements SafeMapElement {
 				((LivingEntity) other).checkDeath();
 			}
 		}
+	}
+
+	public Color getColor() {
+		return Color.gray;
 	}
 
 }

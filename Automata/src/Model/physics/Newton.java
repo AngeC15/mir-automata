@@ -12,7 +12,7 @@ import Utils.Vector2;
 
 public class Newton {
 	private SafeMap[] bodies;
-	
+	private static final int l = ColliderType.values().length;
 	//0: no collision, 1: detect collision, 2: detect and block
 	private static int collisionMatrix[][] = {
 					/*Wall  Projectile  Character  Area*/
@@ -23,7 +23,6 @@ public class Newton {
 	};
 	
 	public Newton() {
-		int l = ColliderType.values().length;
 		bodies = new SafeMap[l];
 		for(int i=0; i < l; i++) {
 			bodies[i] = new SafeMap();
@@ -38,16 +37,19 @@ public class Newton {
 		bodies[body.getType().ordinal()].remove(body.getID());
 	}
 	public void update() {
-		int l = ColliderType.values().length;
 		for(int i=0; i < l; i++) {
 			bodies[i].update();
 		}
 	}
 	
 	private AffineTransform simulateTranslation(long elapsed, PhysicsBody b) {
-		AffineTransform t = b.getTransform();
-		AffineTransform save = new AffineTransform(t);
 		Vector2 velo = b.getVelocity();
+		AffineTransform t = b.getTransform();
+		if(velo.x == 0.0f && velo.y == 0.0f)
+			return t;
+		
+		AffineTransform save = new AffineTransform(t);
+		
 		Vector2 delta = velo.scale(elapsed/1000.0f);
 		AffineTransform trans = AffineTransform.getTranslateInstance(delta.x, delta.y);
 		trans.concatenate(t);
@@ -76,14 +78,13 @@ public class Newton {
 	}
 	
 	private boolean circleTest(PhysicsBody b1, PhysicsBody b2) {
-		Vector2 v1 = new Vector2((float)b1.getTransform().getTranslateX(), (float)b1.getTransform().getTranslateY());
-		Vector2 v2 = new Vector2((float)b2.getTransform().getTranslateX(), (float)b2.getTransform().getTranslateY());
-		Vector2 d = v1.sub(v2);
+		float dx = (float)b1.getTransform().getTranslateX() - (float)b2.getTransform().getTranslateX();
+		float dy = (float)b1.getTransform().getTranslateY() - (float)b2.getTransform().getTranslateY();
+		Vector2 d = new Vector2(dx, dy);
 		float min_d = b1.getHitBox().extRadius() + b2.getHitBox().extRadius();
 		return d.norm() <= min_d;
 	}
 	private void handleCollision(long elapsed, PhysicsBody b1, long idx, int b_idx, int bt_idx, PhysicsBody[][] collisions, Vector2[][] normals) {
-		int l = ColliderType.values().length;
 		AffineTransform save = simulateTranslation(elapsed, b1);
 		for(int i=0; i < l; i++) {
 			int col = collisionMatrix[b_idx][i];
@@ -117,8 +118,6 @@ public class Newton {
 	}
 
 	public void tick(long elapsed) {
-		
-		int l = ColliderType.values().length;
 		PhysicsBody[][] collisions = new PhysicsBody[l][];
 		Vector2[][] normals = new Vector2[l][];
 		for(int i=0; i < l; i++) {

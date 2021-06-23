@@ -19,8 +19,8 @@ public class Snake extends Enemy {
 		weapon = new Dagger();
 		cooldown = 900;
 		shootDistance = 3;
-		life = 10;
-		//damage = 20;
+		life = 30;
+		damage = 20;
 		
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));

@@ -21,6 +21,8 @@ public class Duck extends Enemy {
 		shootDistance = 3;
 		acceleration = 90;
 		damage = 1;
+		life = 10;
+		damage = 10;
 		
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));

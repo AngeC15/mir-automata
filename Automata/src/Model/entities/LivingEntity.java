@@ -3,13 +3,14 @@ package Model.entities;
 import java.awt.Color;
 
 import Model.automata.Automaton;
+import Model.automata.actions.EnumAction;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
 
 /**
  * add life for entities,
  * 
- * @author cyprien
+ * @author cyprien, Samuel, Greg
  *
  */
 public class LivingEntity extends Entity {
@@ -41,6 +42,7 @@ public class LivingEntity extends Entity {
 			return;
 		// negative damage will heal
 		// because 2 collisions are detected
+		this.addAction(EnumAction.HURT);
 		life -= damage / 2;
 		invTime = 100;
 		remainingInv = System.currentTimeMillis();

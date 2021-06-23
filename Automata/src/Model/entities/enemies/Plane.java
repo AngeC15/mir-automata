@@ -21,6 +21,8 @@ public class Plane extends Enemy {
 		cooldown = 1900;
 		shootDistance = 40;
 		acceleration = 18;
+		life = 200;
+		damage = 50;
 		
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));

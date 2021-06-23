@@ -278,6 +278,8 @@ public class Entity implements SafeMapElement {
 	
 	public void colisionHappened(Entity other, ColliderType c ) {
 		System.out.println("Collision de type " + c.toString()+ " entre l'entité " + this+ " et " + other.getClass());
+		
+		
 		//if the bullet meet a wall, destroy it
 		if((this instanceof Bullet && other instanceof Wall) ) {
 			((LivingEntity)this).death();

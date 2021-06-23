@@ -24,6 +24,7 @@ public class Player extends LivingEntity {
 	public Weapon armeDist;
 	private double lastAttack;
 	private double lastAttackFrequency;
+	private Entity daggerStrick;
 
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
@@ -50,6 +51,12 @@ public class Player extends LivingEntity {
 
 	@Override
 	public boolean step() {
+		//Check to destroy dagger strick
+		double now = System.currentTimeMillis();
+		if(daggerStrick != null && now - lastAttack >150) {
+			this.world.removeEntity(daggerStrick.getID());
+			daggerStrick = null;
+		}
 		rotate();
 		return super.step();
 	}
@@ -76,7 +83,8 @@ public class Player extends LivingEntity {
 		lastAttack = System.currentTimeMillis();
 		lastAttackFrequency = armeCac.getShot_frequency();
 
-		armeCac.attack(this, new Vector2(0, -1));
+		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+		
 	}
 
 	@Override

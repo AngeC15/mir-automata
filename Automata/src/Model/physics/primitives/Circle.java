@@ -25,4 +25,8 @@ public class Circle extends Primitive{
 	public float extRadius() {
 		return 0.5f;
 	}
+	
+	public String toString() {
+		return "Circle";
+	}
 }

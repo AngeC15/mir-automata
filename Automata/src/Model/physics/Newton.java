@@ -93,10 +93,13 @@ public class Newton {
 				for(Entry<Long,SafeMapElement> b2_e : bodies[i]) {
 					if(b_idx != i || j > bt_idx) {
 						PhysicsBody b2 = (PhysicsBody) b2_e.getValue();
-						
+						String debug = new String();
+						debug = debug + "e1: " + b1.getEntity().toString() + "\n";
+						debug = debug + "e2: " + b2.getEntity().toString() + "\n";
 						Vector2 normal = new Vector2(0, 0);
 						if(circleTest(b1, b2)) {
-							if(collide(b1, b2, normal)){
+
+							if(collide(b1, b2, normal, debug)){
 								b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
 								b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
 								if(col == 2) {
@@ -146,7 +149,7 @@ public class Newton {
 		}
 	}
 	
-	public boolean collide(PhysicsBody b1, PhysicsBody b2, Vector2 normal) {
+	public boolean collide(PhysicsBody b1, PhysicsBody b2, Vector2 normal, String debug) {
 		HitBox h1 = b1.getHitBox();
 		HitBox h2 = b2.getHitBox();
 		for(PrimitiveInstance p1: h1.shapes) {
@@ -155,7 +158,7 @@ public class Newton {
 				AffineTransform t2 = new AffineTransform(b2.transform);
 				t1.concatenate(p1.transform);
 				t2.concatenate(p2.transform);
-				if(GJK.collide(p1.prim, p2.prim, t1, t2)) {
+				if(GJK.collide(p1.prim, p2.prim, t1, t2, debug)) {
 					normal.x = GJK.get_normal().x;
 					normal.y = GJK.get_normal().y;
 					//System.out.println("Colision");

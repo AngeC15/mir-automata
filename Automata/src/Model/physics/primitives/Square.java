@@ -37,5 +37,8 @@ public class Square extends Primitive{
 		g.draw(new Rectangle.Float(-0.5f, -0.5f, 1, 1));
 		
 	}
+	public String toString() {
+		return "Square";
+	}
 
 }

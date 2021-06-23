@@ -20,8 +20,7 @@ public class Square extends Primitive{
 	public Vector2 support(Vector2 d) {
 		d = d.normalize();
 		int x = (int)(1.999f - (d.x + 1)); // 1:0 -> -1:2
-		int y = (int)(1.999f - (d.y + 1)); 
-		
+		int y = (int)(1.999f - (d.y + 1));
 		return points[2*x + y];
 		
 	}

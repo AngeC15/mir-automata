@@ -6,25 +6,27 @@ import Model.entities.Entity;
 import Model.entities.Player;
 import Utils.Vector2;
 
-public class Gun extends Weapon{
+public class Gun extends Weapon {
 
-	
 	public Gun() {
 		super(false);
-		// TODO Auto-generated constructor stub
+		this.shot_frequency = 500;
 	}
 
 	@Override
 	public void attack(Entity e, Vector2 vect) {
-		
-		//on crée la bullet
+
+		// on crée la bullet
 		Bullet bul = new Bullet(e, vect);
 		World w = e.getWorld();
 		w.addEntity(bul);
-		Vector2 direction = new Vector2((float)bul.getTransform().getShearX(), (float)bul.getTransform().getScaleY());
-		
+		Vector2 direction = new Vector2((float) bul.getTransform().getShearX(), (float) bul.getTransform().getScaleY());
+
 	}
 
+	@Override
+	public String toString() {
+		return "Gun";
+	}
 
-	
 }

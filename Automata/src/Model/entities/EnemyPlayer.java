@@ -15,34 +15,33 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+/**
+ * A Java class for having a enemy with life
+ * @author cyprien
+ *
+ */
+public class EnemyPlayer extends LivingEntity{
 	public Weapon armeCac;
 	public Weapon armeDist;
 	public Weapon currentWeapon;
 	private double waitingSwitch;
-	private double lastshot;
 	
-	public Player(World w) {
-		super(AutomataLoader.get("Player"), 1);
+	public EnemyPlayer(World w) {
+		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
+		//this.body = new PhysicsBody(h, 15.0f, 40.0f);
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
-
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
-		lastshot = System.currentTimeMillis();
 		this.life = 100;
-		this.damage = 20;
-
+		this.damage = 10;
 	}
-	
 
 	public void switchWeapon() {
 		//you need to wait 1s between 2 switch of weapon
@@ -67,12 +66,11 @@ public class Player extends LivingEntity{
 	}
 
 	
+	
 
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		double now = System.currentTimeMillis();
-
 		//System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
@@ -87,25 +85,9 @@ public class Player extends LivingEntity{
 	public void Pop(DirectionExtension dir) {
 		//changement d'arme
 		this.switchWeapon();
-	}
-
-
-	@Override
-	public boolean GotPower() {
-		// TODO Auto-generated method stub
-		double now = System.currentTimeMillis();
-		if(now - lastshot > currentWeapon.getShot_frequency()) {
-			lastshot = now;
-			return true;
-		}
-		return false;
+		
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "Player";
-	}
 	
 	
 

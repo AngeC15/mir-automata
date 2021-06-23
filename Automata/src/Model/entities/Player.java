@@ -37,7 +37,7 @@ public class Player extends LivingEntity {
 
 		lastAttack = System.currentTimeMillis();
 
-		this.life = 10000;
+		this.life = 50;
 		this.damage = 20;
 	}
 

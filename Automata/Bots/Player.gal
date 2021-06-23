@@ -9,7 +9,7 @@ Player(Init){
   | Key(s) & Key(q) & (!Key(d)) & (!Key(z)) ? Move(SW) :(Init)
   | Key(q) & Key(z) & (!Key(d)) & (!Key(s)) ? Move(NW) :(Init)
   | Key(8) & GotPower ? Hit :(Init)
-  | Key(6) ? Pop :(Init)
+  | Key(6) & GotPower ? Pop :(Init)
   | Key(SPACE) ? Jump :(Init)
 }
 

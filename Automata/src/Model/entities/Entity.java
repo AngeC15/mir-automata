@@ -29,7 +29,6 @@ public class Entity implements SafeMapElement {
 	protected ArrayList<EnumAction> actions;
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
-	protected double lastshot;
 
 	public int team;	//équipe: 1  = joueur
 						//équipe: 2 = ennemis

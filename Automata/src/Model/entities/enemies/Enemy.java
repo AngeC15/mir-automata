@@ -1,7 +1,6 @@
 package Model.entities.enemies;
 
 import java.awt.Color;
-import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
@@ -18,6 +17,7 @@ public abstract class Enemy extends LivingEntity {
 	protected double shootDistance;
 	protected float friction;
 	protected float maxSpeed;
+	protected double lastAttack;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
@@ -112,27 +112,26 @@ public abstract class Enemy extends LivingEntity {
 
 	@Override
 	public void Pop(DirectionExtension dir) {
+		lastAttack = System.currentTimeMillis();
 		Vector2 vector = new Vector2(0, 1);
 		weapon.attack(this, vector);
 	}
 
 	@Override
 	public void Hit(DirectionExtension dir) {
+		lastAttack = System.currentTimeMillis();
 		Vector2 vector = new Vector2(0, 1);
-
 		weapon.attack(this, vector);
 	}
 
 	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if (now - lastshot > cooldown) {
-			lastshot = now;
+		if (now - lastAttack > cooldown)
 			return true;
-		}
 		return false;
 	}
-	
+
 	public Color getColor() {
 		return Color.red;
 	}

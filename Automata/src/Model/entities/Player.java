@@ -19,29 +19,28 @@ import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+public class Player extends LivingEntity {
 	public Weapon armeCac;
 	public Weapon armeDist;
 	private double lastAttack;
 	private double lastAttackFrequency;
-	
+
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
-		
-		armeCac = new Dagger(); //to change please
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
+
+		armeCac = new Dagger(); // to change please
 		armeDist = new Gun("Bullet");
 
 		lastAttack = System.currentTimeMillis();
-		
+
 		this.life = 100;
 		this.damage = 20;
 	}
-	
+
 	public void setArmeCac(Weapon armeCac) {
 		this.armeCac = armeCac;
 	}
@@ -55,10 +54,10 @@ public class Player extends LivingEntity{
 		rotate();
 		return super.step();
 	}
-	
+
 	protected void rotate() {
 		VirtualInput keyboard = this.world.getInputs();
-		
+
 		try {
 			// mouse angle relative to the player
 			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
@@ -66,52 +65,45 @@ public class Player extends LivingEntity{
 			// substract the players current angle and rotate
 			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
 			getTransform().rotate(relativeAngle + Math.toRadians(90));
-			
+
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
 
 	@Override
 	public void Hit(DirectionExtension dir) {
-		// attaque corp à corps
+		// Meelee attack
 		lastAttack = System.currentTimeMillis();
 		lastAttackFrequency = armeCac.getShot_frequency();
 
 		armeCac.attack(this, new Vector2(0, -1));
 	}
 
-
 	@Override
 	public void Pop(DirectionExtension dir) {
-		// attaque à distance
+		// Distance attack
 		lastAttack = System.currentTimeMillis();
 		lastAttackFrequency = armeDist.getShot_frequency();
-		
+
 		armeDist.attack(this, new Vector2(0, -1));
 	}
-
 
 	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
-		if(now - lastAttack > lastAttackFrequency) {
-			lastAttack = now;
+		if (now - lastAttack > lastAttackFrequency)
 			return true;
-		}
 		return false;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Player";
 	}
-	
+
 	public Color getColor() {
 		return Color.green;
 	}
-	
 
 }

@@ -15,7 +15,7 @@ import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
-
+import Model.monster_generator.Generator;
 import View.Avatar;
 import View.GameView;
 import View.Sound;
@@ -71,6 +71,8 @@ public class Game {
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
+		Generator g= new Generator(world, 100, 1);
+		g.new_wave(10);
 
 		
 		// uncomment if you want enemies

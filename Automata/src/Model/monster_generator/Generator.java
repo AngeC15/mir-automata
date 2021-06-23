@@ -5,6 +5,10 @@ import java.io.IOException;
 
 import Model.World;
 import Model.entities.EnemyPlayer;
+import Model.entities.enemies.Duck;
+import Model.entities.enemies.Plane;
+import Model.entities.enemies.Snake;
+import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
 import View.Avatar;
 import View.Template;
@@ -21,49 +25,64 @@ public class Generator {
 	
 	public void new_wave(int level) throws IOException {
 		int nb_monster=this.difficulty*level*level+level+5;
-
+		double x,y;
+		double x_p=w.getPlayer().getTransform().getTranslateX();
+		double y_p=w.getPlayer().getTransform().getTranslateY();
+		
 		while(nb_monster>0) {
 			//get a random coordinate 
-			double x =Math.random()*2*dim-dim;
-			double y =Math.random()*2*dim-dim;
+			do {
+				x =Math.random()*2*dim-dim;
+				y =Math.random()*2*dim-dim;
+			}
+			//not spawn if it's to close
+			while( !(x<x_p+30 && x>x_p-30)||(y<y_p+30 && y>y_p-30) );
 			//spawn a ennemy her
-			spawn(x,y);
+			spawn(x,y,level);
 			nb_monster--;
 
 		}
 		
 
 	}
-	public void spawn(double x, double y) throws IOException {
+	public void spawn(double x, double y,int level) throws IOException {
 		//spawn probability of each enemy 
-		double p_tank=0.25;
-		double p_plane=0.25;
-		double p_snake=0.25;
-		double p_oie=0.25;
+		double p_plane=Math.log(level)*0.1;
+		double p_tank=0.3*(1-p_plane);
+		double p_snake=0.4*(1-p_plane);
+		double p_oie=0.3*(1-p_plane);
+		//somme proba=1
 		double b1=p_tank;
 		double b2=b1+p_plane;
 		double b3=b2+p_snake;
 		double random_enemy=Math.random();
 
 		if(random_enemy<b1) {
-			System.out.print("tank pop"); 
-		}
+			Tank tank = new Tank("Tank");
+			Template tmpTank = TemplatesLoader.get("Tank");
+			new Avatar(tank, tmpTank);
+			tank.getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
+			w.addEntity(tank);		}
 		else if(random_enemy>b1 && random_enemy<b2) {
-			System.out.print("plane pop") ;
-		}
+			Plane plane = new Plane("Plane");
+			Template tmpPlane = TemplatesLoader.get("Plane");
+			new Avatar(plane, tmpPlane);
+			plane.getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
+			w.addEntity(plane);
+				}
 		else if(random_enemy>b2 && random_enemy<b3) {
-			System.out.print("snake pop") ;
-		}
+			Snake snake = new Snake("Snake");
+			Template tmpSnake = TemplatesLoader.get("Snake");
+			new Avatar(snake, tmpSnake);
+			snake.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
+			w.addEntity(snake);		}
 		else if(random_enemy>b3) {
-			System.out.print("oie pop") ;
-		}
+			Duck duck = new Duck("Duck");
+			Template tmpDuck = TemplatesLoader.get("Duck");
+			new Avatar(duck, tmpDuck);
+			duck.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
+			w.addEntity(duck);		}
 		
-		
-		Template tmp2 = TemplatesLoader.get("Dead");
-		EnemyPlayer enemy = new EnemyPlayer(this.w);
-		Avatar av3 = new Avatar(enemy, tmp2);
-		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
-		this.w.addEntity(enemy);
 	}
 	
 	

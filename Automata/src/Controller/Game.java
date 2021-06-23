@@ -35,6 +35,7 @@ public class Game {
 	Sound m_music;
 	World world;
 	GameView view ;
+	int state; // 1 = starting, 2 = end of start, 3 = play
 	
 	
 	
@@ -64,14 +65,18 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		Map map = new Map(30, 30, 5.3f, world);
+		int n, p; 
+		n = 20;
+		p = 20;
+		state = 1;
+		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 		
-		Player player = new Player(world);
-		Template tmp = TemplatesLoader.get("Cowboy");
-		new Avatar(player, tmp);
-		world.addEntity(player);
-		world.setPlayer(player);
+//		Player player = new Player(world);
+//		Template tmp = TemplatesLoader.get("Cowboy");
+//		new Avatar(player, tmp);
+//		world.addEntity(player);
+//		world.setPlayer(player);
 	}
 	
 	private static class Init implements Runnable{
@@ -130,6 +135,7 @@ public class Game {
 		
 		world.tick(elapsed);
 		view.tick(elapsed);
+		
 	}
 
 	/*

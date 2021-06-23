@@ -73,7 +73,7 @@ public class Wall extends Entity{
 	}
 	
 	public boolean generationOver() {
-		return step_counter >= max_step;
+		return step_counter >= map.getMaxStep();
 	}
 	
 	@Override

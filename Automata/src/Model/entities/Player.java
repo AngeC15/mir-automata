@@ -67,7 +67,7 @@ public class Player extends LivingEntity {
 			getTransform().rotate(relativeAngle + Math.toRadians(90));
 
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			getTransform().rotate(Math.toRadians(0));
 		}
 	}
 

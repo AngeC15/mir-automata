@@ -87,6 +87,11 @@ public class Avatar {
 			state = node;
 		}
 	}
+	
+	public void setTemplate(Template t){
+		this.template = t;
+		this.state = t.getDefaultNode();
+	}
 
 	public int getSpriteW() {
 		return state.getSprite().getWidth();

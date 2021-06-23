@@ -5,12 +5,14 @@ import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
 import Model.map.Map;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import View.Template;
 
 
 public class Wall extends Entity{
@@ -20,12 +22,15 @@ public class Wall extends Entity{
 	private int y;
 	private Map map;
 	private double time;
-	private final int max_step = 30;
+	private final int max_step = 12;
 	private int step_counter;
+	private Template[] templates;
 	
 	public Wall(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"));
-		AutomataLoader.get("Dead");
+		templates = new Template[2]; 
+		templates[0] = TemplatesLoader.get("GenCell");
+		templates[1] = TemplatesLoader.get("Dead");
 		map = m;
 		x = px;
 		y = py;
@@ -79,9 +84,11 @@ public class Wall extends Entity{
 	@Override
 	public void Throw(DirectionExtension dir) {
 		if (dir == DirectionExtension.F) {
+			this.avatar.setTemplate(templates[0]);
 			setAlive(true);
 		}
 		else {
+			this.avatar.setTemplate(templates[1]);
 			setAlive(false);
 		}
 	}

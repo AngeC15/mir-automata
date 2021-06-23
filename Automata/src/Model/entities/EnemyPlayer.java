@@ -1,6 +1,8 @@
 package Model.entities;
 
 import Controller.VirtualInput;
+
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import Model.World;
 
@@ -31,12 +33,11 @@ public class EnemyPlayer extends LivingEntity{
 		super(AutomataLoader.get("Wall"), 2);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10f, 10f)));
-		//this.body = new PhysicsBody(h, 15.0f, 40.0f);
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 		
 		armeCac = new Dagger(); //to change please
-		armeDist = new Gun();
+		armeDist = new Gun("EnemyBullet");
 		currentWeapon = armeDist;
 		waitingSwitch = System.currentTimeMillis();
 		this.life = 100;
@@ -71,7 +72,7 @@ public class EnemyPlayer extends LivingEntity{
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// attaque corp à corps
-		System.out.println("Hit with " + currentWeapon.getClass().toString());
+		//System.out.println("Hit with " + currentWeapon.getClass().toString());
 		super.Hit(dir);
 		VirtualInput christianClavier = this.world.getInputs();
 		
@@ -86,6 +87,10 @@ public class EnemyPlayer extends LivingEntity{
 		//changement d'arme
 		this.switchWeapon();
 		
+	}
+	
+	public Color getColor() {
+		return Color.red;
 	}
 	
 	

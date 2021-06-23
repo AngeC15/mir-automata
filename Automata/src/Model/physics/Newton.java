@@ -55,10 +55,24 @@ public class Newton {
 		return save;
 	}
 	private void resetPosition(long elapsed, PhysicsBody b, AffineTransform saved, Vector2 normal) {
-		float dot = b.getVelocity().dot(normal);
+		//float dot = b.getVelocity().dot(normal);
 		b.transform = saved;
 		//b.velocity = b.getVelocity().sub(normal.scale(dot));
-		b.transform.translate(normal.x, normal.y);
+		//b.transform.translate(normal.x, normal.y);
+		//Vector2 dir = new Vector2(-normal.y, -normal.x);
+		//Vector2 v = b.getVelocity();
+		//Vector2 delta = v.scale(elapsed/1000.0f);
+		//Vector2 nv = dir.normalize().scale(delta.norm());
+		/*System.out.println("----------");
+		System.out.println("normal is " + normal.x + " " + normal.y);
+		System.out.println("dir is " + dir.x + " " + dir.y);
+		System.out.println("v is " + v.x + " " + v.y);
+		System.out.println("nv is " + nv.x + " " + nv.y);*/
+		//v.x = nv.x;
+		//v.y = nv.y;
+		Vector2 n = normal.scale(0.05f);
+		b.transform.translate(n.x, n.y);
+		
 	}
 	
 	private boolean circleTest(PhysicsBody b1, PhysicsBody b2) {
@@ -85,7 +99,7 @@ public class Newton {
 								b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
 								b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
 								if(col == 2) {
-									normal = normal.normalize().scale(elapsed/1000.0f*10f);
+									normal = normal.normalize();//.scale(elapsed/1000.0f*10f);
 									collisions[b_idx][bt_idx] = b2;
 									collisions[i][j] = b1;
 									normals[b_idx][bt_idx] = normal.invert();
@@ -145,6 +159,7 @@ public class Newton {
 				if(GJK.collide(p1.prim, p2.prim, t1, t2)) {
 					normal.x = GJK.get_normal().x;
 					normal.y = GJK.get_normal().y;
+					//System.out.println("Colision");
 					return true;
 				}
 			}

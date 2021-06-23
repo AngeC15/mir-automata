@@ -19,9 +19,13 @@ public class Wall extends Entity{
 	private int x;
 	private int y;
 	private Map map;
+	private double time;
+	private final int max_step = 30;
+	private int step_counter;
 	
 	public Wall(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"));
+		AutomataLoader.get("Dead");
 		map = m;
 		x = px;
 		y = py;
@@ -29,7 +33,8 @@ public class Wall extends Entity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.0f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
-	}
+		time = System.currentTimeMillis();
+		}
 	
 	public boolean getAlive() {
 		return alive;
@@ -37,11 +42,13 @@ public class Wall extends Entity{
 	
 	public boolean GotPower() {
 		int cmpt = 0;
-		if (x == map.getX()/2 && y == map.getY()/2)
-			return false;
+		int tmpx = (int)Math.floor((double)map.getX()/2);
+		int tmpy = (int)Math.floor((double)map.getY()/2);
 		try {
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
+				if (x == tmpx+k && y == tmpy+l)
+					return false;
 				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
 					cmpt++;
 				}
@@ -60,9 +67,13 @@ public class Wall extends Entity{
 		return false;
 	}
 	
+	public boolean generationOver() {
+		return step_counter >= max_step;
+	}
+	
 	@Override
 	public boolean GotStuff() {
-		return !map.generationOver();
+		return !generationOver();
 	}
 	
 	@Override
@@ -70,7 +81,9 @@ public class Wall extends Entity{
 		if (dir == DirectionExtension.F) {
 			setAlive(true);
 		}
-		else setAlive(false);
+		else {
+			setAlive(false);
+		}
 	}
 	
 	public void setAlive(boolean state) {
@@ -83,7 +96,12 @@ public class Wall extends Entity{
 	}
 	
 	public boolean step() {
-		return automaton.step(this);
+		if (System.currentTimeMillis()-time > 500) {
+			time = System.currentTimeMillis();
+			step_counter ++;
+			return automaton.step(this);
+		}
+		return true;
 	}
 	
 }

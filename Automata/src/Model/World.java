@@ -45,7 +45,7 @@ public class World {
 			((Entity)e.getValue()).step();
 		}
 		newton.tick(elapsed);
-		if(map!=null) map.tick(elapsed);
+//		if(map!=null) map.tick(elapsed);
 	}
 	public SafeMap getEntities(){
 		return entities;

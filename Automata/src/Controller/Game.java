@@ -13,7 +13,7 @@ import java.io.RandomAccessFile;
 import Model.World;
 import Model.entities.Cowboy;
 import Model.entities.Player;
-import Model.entities.Tank;
+//import Model.entities.Tank;
 import Model.entities.Wall;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
@@ -64,7 +64,7 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		Map map = new Map(100, 100, 5.3f, world);
+		Map map = new Map(30, 30, 5.3f, world);
 		world.setMap(map);
 		
 		Player player = new Player(world);

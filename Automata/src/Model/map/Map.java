@@ -13,12 +13,12 @@ public class Map {
 	
 	private Entity[][] map;
 	private float dimension;
-	private final int max_tick = 30;
-	private int tick_counter;
+//	private final int max_tick = 30;
+//	private int tick_counter;
 	private World world;
 	
 	public Map(int n, int p, float dimension, World world) throws IOException {
-		tick_counter = 0;
+//		tick_counter = 0;
 		this.world = world;
 		map = new Entity[n][p];
 		
@@ -31,7 +31,7 @@ public class Map {
 			AffineTransform cellCurrent = new AffineTransform(lineCurrent);
 			for (int j = 0 ; j < p ; j ++) {
 				Wall w = new Wall(this, i, j);
-				map[i][j] = w;
+				map[i][j] = w; 
 				new Avatar(w, TemplatesLoader.get("GenCell"));
 				w.getBody().getTransform().concatenate(cellCurrent);
 				world.addEntity(w);
@@ -47,13 +47,14 @@ public class Map {
 		j = (j + map[0].length) % map[0].length;
 		return map[i][j];
 	}
-	public void tick(long elapsed) {
-		tick_counter++;
-	}
-	public boolean generationOver() {
-		return tick_counter >= max_tick;
-	}
-	//test
+	
+//	public void tick(long elapsed) {
+//		tick_counter++;
+//	}
+	
+//	public boolean generationOver() {
+//		return tick_counter >= max_tick;
+//	}
 	
 	public void remove(int x, int y) {
 		world.removeEntity(map[x][y].getID());

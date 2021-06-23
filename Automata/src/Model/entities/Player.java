@@ -25,7 +25,7 @@ public class Player extends LivingEntity {
 	private double lastAttack;
 	private double lastAttackFrequency;
 
-	public Player(World w) {
+	public Player() {
 		super(AutomataLoader.get("Player"), 1);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();

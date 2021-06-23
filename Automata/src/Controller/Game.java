@@ -61,12 +61,13 @@ public class Game {
 		Map map = new Map(25, 25, 5.3f, world);
 		world.setMap(map);
 		
-		Player player = new Player(world);
+		Player player = new Player();
 		Template tmp = TemplatesLoader.get("Hero");
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
 		
+
 		// uncomment if you want enemies
 		
 		/*
@@ -93,8 +94,8 @@ public class Game {
 		new Avatar(plane, tmpPlane);
 		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
 		world.addEntity(plane);
-		*/
 		
+		*/
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));

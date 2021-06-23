@@ -45,3 +45,4 @@ Wall(Init){
 	| True ? Explode :(Wall)
 	* (Wall)
 }
+

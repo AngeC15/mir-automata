@@ -20,4 +20,9 @@ public class Circle extends Primitive{
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
 		
 	}
+
+	@Override
+	public float extRadius() {
+		return 0.5f;
+	}
 }

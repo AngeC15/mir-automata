@@ -28,7 +28,7 @@ public class Map {
 		AffineTransform lineCurrent = new AffineTransform();
 		lineCurrent.translate(-n/2*dimension, -p/2*dimension);
 		
-		for (int i = 0 ; i < n ; i++) {
+		for (int i = 0 ; i < n ; i++) { 
 			AffineTransform cellCurrent = new AffineTransform(lineCurrent);
 			for (int j = 0 ; j < p ; j ++) {
 				Wall w = new Wall(this, i, j);

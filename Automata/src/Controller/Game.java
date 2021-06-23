@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 
 import Model.World;
 import Model.entities.Cowboy;
+import Model.entities.EnemyPlayer;
 import Model.entities.Player;
 //import Model.entities.Tank;
 import Model.entities.Wall;
@@ -77,6 +78,7 @@ public class Game {
 //		new Avatar(player, tmp);
 //		world.addEntity(player);
 //		world.setPlayer(player);
+
 	}
 	
 	private static class Init implements Runnable{

@@ -60,7 +60,7 @@ public class Game {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt");
+		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);

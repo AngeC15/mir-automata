@@ -74,8 +74,7 @@ public class Game {
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		Generator g=new Generator(world, 100, 1);
-		g.new_wave(1);
+
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));

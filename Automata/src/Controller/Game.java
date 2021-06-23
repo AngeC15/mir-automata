@@ -72,7 +72,6 @@ public class Game {
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		
 	}
 	
 	private static class Init implements Runnable{

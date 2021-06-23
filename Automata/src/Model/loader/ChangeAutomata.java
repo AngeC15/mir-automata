@@ -3,16 +3,8 @@ package Model.loader;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Map.Entry;
 
-import Model.World;
 import Model.automata.Automaton;
-import Model.automata.actions.EnumAction;
-import Model.entities.Entity;
-import Utils.SafeMap;
-import Utils.SafeMapElement;
-import View.AnimInterrupt;
-import View.AnimNode;
 
 /**
  * This class allows an entity to be assigned an automaton
@@ -74,7 +66,7 @@ public class ChangeAutomata {
 	}
 
 	/**
-	 * Retrieves the automaton associated with the name 
+	 * Retrieves the automaton associated with the name
 	 * 
 	 * @param name Name of the entity from which we wish to retrieve the automaton
 	 * @return the automaton

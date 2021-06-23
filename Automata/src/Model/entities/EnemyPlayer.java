@@ -1,4 +1,4 @@
-package Model.entities;
+ package Model.entities;
 
 import Controller.VirtualInput;
 

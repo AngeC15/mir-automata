@@ -11,6 +11,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Model.physics.primitives.Square;
 
 
 public class Wall extends Entity{
@@ -28,7 +29,7 @@ public class Wall extends Entity{
 		alive = true;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.0f, 5.2f)));
+		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(1.0f, 1.0f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
 	}
 

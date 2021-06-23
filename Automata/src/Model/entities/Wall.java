@@ -22,7 +22,6 @@ public class Wall extends Entity{
 	private int y;
 	private Map map;
 	private double time;
-	private final int max_step = 12;
 	private int step_counter;
 	private Template[] templates;
 	
@@ -37,10 +36,11 @@ public class Wall extends Entity{
 		alive = true;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(20f, 20f)));
+		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(4f, 4f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
 		time = System.currentTimeMillis();
 	}
+	
 	public boolean getAlive() {
 		return alive;
 	}

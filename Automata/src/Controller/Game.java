@@ -36,7 +36,6 @@ public class Game {
 	Sound m_music;
 	World world;
 	GameView view ;
-	int state; // 1 = starting, 2 = end of start, 3 = play
 	
 	
 	
@@ -67,9 +66,8 @@ public class Game {
 		view.setWorld(world);
 
 		int n, p; 
-		n = 20;
-		p = 20;
-		state = 1;
+		n = 15;
+		p = 15;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 		

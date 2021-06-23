@@ -6,9 +6,9 @@ Wall ; Resources/sprite_sheet_decor.png ; Resources/wall.ani ; 3 ; 5 ; 15
 Bullet ; Resources/sprite_sheet_effect.png ; Resources/bullet.ani ; 2 ; 4 ; 7
 EnemyBullet ; Resources/sprite_sheet_effect.png ; Resources/enemy_bullet.ani ; 2 ; 4 ; 7
 Missile ; Resources/sprite_sheet_effect.png ; Resources/missile.ani ; 3 ; 4 ; 22
-Tank ; Resources/sprite_sheet_enemy.png ; Resources/tank.ani ; 6 ; 4 ; 22
-Snake ; Resources/sprite_sheet_enemy.png ; Resources/snake.ani ; 6 ; 4 ; 22
-Duck ; Resources/sprite_sheet_enemy.png ; Resources/duck.ani ; 6 ; 4 ; 22
-Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 6 ; 4 ; 22
-DeadDust ; Resources/sprite_sheet_enemy.png ; Resources/dead_dust.ani ; 6 ; 4 ; 22
-DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 6 ; 4 ; 22
+Tank ; Resources/sprite_sheet_enemy.png ; Resources/tank.ani ; 7 ; 4 ; 25
+Snake ; Resources/sprite_sheet_enemy.png ; Resources/snake.ani ; 7 ; 4 ; 25
+Duck ; Resources/sprite_sheet_enemy.png ; Resources/duck.ani ; 7 ; 4 ; 25
+Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 7 ; 4 ; 25
+DeadDust ; Resources/sprite_sheet_enemy.png ; Resources/dead_dust.ani ; 7 ; 4 ; 25
+DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 7 ; 4 ; 25

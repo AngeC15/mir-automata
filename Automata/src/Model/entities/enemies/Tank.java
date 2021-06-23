@@ -21,7 +21,7 @@ public class Tank extends Enemy {
 		cooldown = 1900;
 		shootDistance = 60;
 		acceleration = 18;
-		life = 200;
+		life = 100;
 		damage = 50;
 		
 		HitBox h = new HitBox();

@@ -15,6 +15,8 @@ import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
+import Model.entities.enemies.Duck;
+import Model.entities.enemies.Plane;
 
 
 
@@ -51,7 +53,7 @@ public class Game {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt");
+		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
@@ -67,6 +69,7 @@ public class Game {
 		
 		// uncomment if you want enemies
 		
+		/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
@@ -78,7 +81,7 @@ public class Game {
 		new Avatar(snake, tmpSnake);
 		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
 		world.addEntity(snake);
-		/*
+		
 		Duck duck = new Duck("Duck");
 		Template tmpDuck = TemplatesLoader.get("Duck");
 		new Avatar(duck, tmpDuck);

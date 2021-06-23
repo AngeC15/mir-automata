@@ -17,6 +17,7 @@ public class Map {
 	private double start;
 	private int max_step = 12;
 	private boolean player_generated;
+	private int cmpt_step;
 	
 	public Map(int n, int p, float dimension, World world) throws IOException {
 //		tick_counter = 0;
@@ -43,6 +44,7 @@ public class Map {
 		this.dimension = dimension;
 		this.start = System.currentTimeMillis();
 		this.player_generated = false;
+		this.cmpt_step = 0;
 	}
 	
 	public Entity get(int i, int j) {
@@ -52,9 +54,13 @@ public class Map {
 	}
 	
 	public void tick(long elapsed) throws IOException {
-		if (System.currentTimeMillis()-start > max_step*600 && !player_generated) {
+		if (cmpt_step > max_step+1 && !player_generated) {
 			player_generated = true;
-			world.player(); 
+			world.generationDone(); 
+		}
+		if (System.currentTimeMillis()-start > 500) {
+			start = System.currentTimeMillis();
+			cmpt_step ++;
 		}
 	}
 	
@@ -66,7 +72,7 @@ public class Map {
 	public void remove(int x, int y) {
 		world.removeEntity(map[x][y].getID());
 		map[x][y] = null;
-	}
+	} 
 	
 	public int getX() {
 		return map.length;

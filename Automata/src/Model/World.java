@@ -51,7 +51,13 @@ public class World {
 			((Entity)e.getValue()).step();
 		}
 		newton.tick(elapsed);
-//		if(map!=null) map.tick(elapsed);
+		if(map!=null)
+			try {
+				map.tick(elapsed);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	}
 	public SafeMap getEntities(){
 		return entities;
@@ -92,11 +98,11 @@ public class World {
 		this.inputs = inputs;
 	}	
 	
-	public void player() throws IOException {
+	public void generationDone() throws IOException {
 		Player player = new Player(this);
 		Template tmp = TemplatesLoader.get("Cowboy");
 		new Avatar(player, tmp);
 		this.addEntity(player);
-		this.setPlayer(player);
+		this.setPlayer(player); 
 	}
 }

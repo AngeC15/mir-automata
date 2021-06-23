@@ -4,7 +4,9 @@ import java.awt.geom.AffineTransform;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
+import Model.entities.DeadEntity;
 import Model.entities.weapon.Gun;
+import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
@@ -29,6 +31,12 @@ public class Plane extends Enemy {
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
 		rotate();
 		return super.Closest(direction,categorie);
+	}
+	
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
+		this.getWorld().removeEntity(getID());
 	}
 
 }

@@ -71,19 +71,19 @@ public class Game {
 		world.setPlayer(player);
 		
 		// uncomment if you want enemies
-		/*
+		
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		world.addEntity(tank);
 		
 		Snake snake = new Snake("Snake");
 		Template tmpSnake = TemplatesLoader.get("Snake");
 		new Avatar(snake, tmpSnake);
-		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
 		world.addEntity(snake);
-		
+		/*
 		Duck duck = new Duck("Duck");
 		Template tmpDuck = TemplatesLoader.get("Duck");
 		new Avatar(duck, tmpDuck);

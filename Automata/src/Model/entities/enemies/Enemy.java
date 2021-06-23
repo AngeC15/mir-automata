@@ -4,11 +4,12 @@ import java.awt.Color;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
-import Model.loader.AutomataLoader;
-import Utils.Vector2;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
+import Model.loader.AutomataLoader;
+import Utils.Vector2;
+import Model.entities.DeadEntity;
 
 public abstract class Enemy extends LivingEntity {
 
@@ -131,7 +132,7 @@ public abstract class Enemy extends LivingEntity {
 			return true;
 		return false;
 	}
-
+	
 	public Color getColor() {
 		return Color.red;
 	}

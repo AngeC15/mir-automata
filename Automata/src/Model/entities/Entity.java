@@ -262,7 +262,6 @@ public class Entity implements SafeMapElement {
 
 	public boolean GotStuff() {
 		return false;
-
 	}
 
 	public boolean getKey(KeyExtension key) {
@@ -280,7 +279,7 @@ public class Entity implements SafeMapElement {
 		//System.out.println("Collision de type " + c.toString()+ " entre l'entité " + this+ " et " + other.getClass());
 		//if the bullet meet a wall, destroy it
 		if((this instanceof Bullet && other instanceof Wall) ) {
-			((LivingEntity)this).death();
+			((LivingEntity) this).death();
 		}
 		//we check if both have life and enventually damages
 		if((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
@@ -291,8 +290,7 @@ public class Entity implements SafeMapElement {
 				float damageEntity2 = ((LivingEntity)other).getDamage();
 				((LivingEntity)this).damage(damageEntity2);
 				((LivingEntity)other).damage(damageEntity1);
-				((LivingEntity)this).checkDeath();
-				((LivingEntity)other).checkDeath();
+				
 			}
 		}
 	}

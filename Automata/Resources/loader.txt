@@ -10,3 +10,5 @@ Tank ; Resources/sprite_sheet_enemy.png ; Resources/tank.ani ; 6 ; 4 ; 22
 Snake ; Resources/sprite_sheet_enemy.png ; Resources/snake.ani ; 6 ; 4 ; 22
 Duck ; Resources/sprite_sheet_enemy.png ; Resources/duck.ani ; 6 ; 4 ; 22
 Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 6 ; 4 ; 22
+DeadDust ; Resources/sprite_sheet_enemy.png ; Resources/dead_dust.ani ; 6 ; 4 ; 22
+DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 6 ; 4 ; 22

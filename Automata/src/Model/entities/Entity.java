@@ -47,7 +47,9 @@ public class Entity implements SafeMapElement {
 
 	}
 
-
+	public void tick(long elapsed) {
+		
+	}
 	public void setAvatar(Avatar av) {
 		avatar = av;
 	}

@@ -66,7 +66,9 @@ public class Player extends LivingEntity{
 		this.armeDist = armeDist;
 	}
 
-	
+	public void tick(long elapsed) {
+		this.getBody().getTransform().rotate(0.01*elapsed);
+	}
 
 	@Override
 	public void Hit(DirectionExtension dir) {

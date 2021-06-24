@@ -2,7 +2,7 @@ Ground_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/groundWinter.
 Cowboy ; Resources/winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
 Dead ; Resources/red_winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
 GenCell ; Resources/winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
-Hero ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8
+Player ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8
 Wall ; Resources/sprite_sheet_decor.png ; Resources/decor/wallSummer.ani ; 3 ; 5 ; 15
 Wall_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/wallWinter.ani ; 3 ; 5 ; 15 
 Ground ; Resources/sprite_sheet_decor.png ; Resources/decor/ground.ani ; 3 ; 5 ; 15

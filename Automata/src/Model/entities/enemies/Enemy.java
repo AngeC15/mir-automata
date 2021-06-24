@@ -6,6 +6,7 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
 import Utils.Vector2;
+import Model.entities.DeadEntity;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
@@ -40,6 +41,7 @@ public abstract class Enemy extends LivingEntity {
 	 */
 	@Override
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
+		rotate();
 		Entity closestEntity;
 		double startAngle;
 		double percentage = 7; // hand calibrated
@@ -99,7 +101,7 @@ public abstract class Enemy extends LivingEntity {
 
 		double endAngle = 360 / percentage + startAngle;
 		double relativeAngle = Math.toDegrees((Math.atan2(relativeY, relativeX)));
-
+		
 		if (direction == DirectionExtension.W) {
 			// Need special treatment for West as we can't loop between 180° and -180°
 			return (relativeAngle >= startAngle && relativeAngle <= 180)
@@ -130,6 +132,12 @@ public abstract class Enemy extends LivingEntity {
 		if (now - lastAttack > cooldown)
 			return true;
 		return false;
+	}
+	
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
+		this.getWorld().removeEntity(getID());
 	}
 
 	public Color getColor() {

@@ -28,9 +28,10 @@ public class SwordStrick extends LivingEntity{
 		
 		HitBox h = new HitBox();
 		PrimitiveInstance pI = new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(8.2f, 3.1f));
-		VirtualInput keyboard = e.getWorld().getInputs();
-		Vector2 vectDir = keyboard.getMousePlayer().normalize();
+		// VirtualInput keyboard = e.getWorld().getInputs();
 		
+		
+		// Vector2 vectDir = keyboard.getMousePlayer().normalize();
 		
 		//pI.transform.translate(e.getTransform().getTranslateX()+vectDir.x, e.getTransform().getTranslateY()+vectDir.y);
 		//pI.transform.scale(1, -1);

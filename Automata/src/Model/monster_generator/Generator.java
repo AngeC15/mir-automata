@@ -4,9 +4,9 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import Model.World;
-import Model.entities.enemies.Duck;
+import Model.entities.enemies.Flamethrower;
 import Model.entities.enemies.Plane;
-import Model.entities.enemies.Snake;
+import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
 import View.Avatar;
@@ -70,17 +70,17 @@ public class Generator {
 			w.addEntity(plane);
 				}
 		else if(random_enemy>b2 && random_enemy<b3) {
-			Snake snake = new Snake("Snake");
+			Mecha mecha = new Mecha("Snake");
 			Template tmpSnake = TemplatesLoader.get("Snake");
-			new Avatar(snake, tmpSnake);
-			snake.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
-			w.addEntity(snake);		}
+			new Avatar(mecha, tmpSnake);
+			mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
+			w.addEntity(mecha);		}
 		else if(random_enemy>b3) {
-			Duck duck = new Duck("Duck");
+			Flamethrower flamethrower = new Flamethrower("Duck");
 			Template tmpDuck = TemplatesLoader.get("Duck");
-			new Avatar(duck, tmpDuck);
-			duck.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
-			w.addEntity(duck);		}
+			new Avatar(flamethrower, tmpDuck);
+			flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
+			w.addEntity(flamethrower);		}
 		
 	}
 	

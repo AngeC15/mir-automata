@@ -3,6 +3,7 @@ package Model.entities;
 import java.awt.Color;
 
 import Model.automata.Automaton;
+import Model.automata.actions.EnumAction;
 
 /**
  * add life for entities, 
@@ -37,6 +38,8 @@ public class LivingEntity extends Entity{
 		public void damage(float damage) {
 			//negative damage will heal
 			//because 2 colisions are detected
+			addAction(EnumAction.HURT);
+			
 			this.life -= damage/2;
 		}
 
@@ -66,6 +69,14 @@ public class LivingEntity extends Entity{
 			this.getWorld().removeEntity(getID());
 		}
 		
+		
+		
+		@Override
+		public boolean GotStuff() {
+			return life > 0;
+		}
+
+
 		public Color getColor() {
 			return null;
 		}

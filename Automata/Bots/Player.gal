@@ -1,5 +1,6 @@
 Player(Init){
   * (Init):
+  | ! GotStuff ? Egg : ()
   | Key(z) & (!Key(s)) & (!Key(q)) & (!Key(d)) ? Move(N) :(Init)
   | Key(d) & (!Key(s)) & (!Key(q)) & (!Key(z)) ? Move(E) :(Init)
   | Key(s) & (!Key(d)) & (!Key(q)) & (!Key(z)) ? Move(S) :(Init)
@@ -11,6 +12,7 @@ Player(Init){
   | Key(8) & GotPower ? Hit :(Init)
   | Key(6) & GotPower ? Pop :(Init)
   | Key(SPACE) ? Jump :(Init)
+  * ()
 }
 
 Bullet(Forward){

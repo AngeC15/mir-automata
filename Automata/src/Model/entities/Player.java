@@ -38,7 +38,7 @@ public class Player extends LivingEntity {
 
 		lastAttack = System.currentTimeMillis();
 
-		this.life = 100;
+		this.life = 750;
 	}
 
 	public void setArmeCac(Weapon armeCac) {
@@ -111,6 +111,13 @@ public class Player extends LivingEntity {
 
 	public Color getColor() {
 		return Color.green;
+	}
+
+	
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
+		this.getWorld().removeEntity(getID());
 	}
 
 }

@@ -293,8 +293,10 @@ public class Entity implements SafeMapElement {
 				float damageEntity2 = ((LivingEntity)other).getDamage();
 				((LivingEntity)this).damage(damageEntity2);
 				((LivingEntity)other).damage(damageEntity1);
-				((LivingEntity)this).checkDeath();
-				((LivingEntity)other).checkDeath();
+				
+				if (this instanceof Bullet) {
+					((LivingEntity)this).death();
+				}
 			}
 		}
 	}

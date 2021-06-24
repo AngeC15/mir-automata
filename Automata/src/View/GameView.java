@@ -244,7 +244,7 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-		// intensity = season.transitionSummerWinter(g, 1000, intensity);
+		 intensity = season.transitionSummerWinter(g, 1000, intensity);
 
 	}
 

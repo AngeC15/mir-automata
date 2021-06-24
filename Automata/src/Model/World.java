@@ -1,20 +1,14 @@
 package Model;
 
-import java.util.ArrayDeque;
 import java.util.Map.Entry;
-import java.util.Queue;
 
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.map.Map;
 import Model.physics.Newton;
 
-import Model.physics.PhysicsBody;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
-
-
-import java.util.TreeMap;
 
 import Controller.VirtualInput;
 

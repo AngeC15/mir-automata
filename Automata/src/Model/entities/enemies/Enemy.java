@@ -40,6 +40,7 @@ public abstract class Enemy extends LivingEntity {
 	 */
 	@Override
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
+		rotate();
 		Entity closestEntity;
 		double startAngle;
 		double percentage = 7; // hand calibrated
@@ -99,7 +100,7 @@ public abstract class Enemy extends LivingEntity {
 
 		double endAngle = 360 / percentage + startAngle;
 		double relativeAngle = Math.toDegrees((Math.atan2(relativeY, relativeX)));
-
+		
 		if (direction == DirectionExtension.W) {
 			// Need special treatment for West as we can't loop between 180° and -180°
 			return (relativeAngle >= startAngle && relativeAngle <= 180)

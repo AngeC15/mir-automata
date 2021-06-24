@@ -30,12 +30,6 @@ public class Tank extends Enemy {
 	}
 	
 	@Override
-	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
-		rotate();
-		return super.Closest(direction,categorie);
-	}
-	
-	@Override
 	public void Egg(DirectionExtension dir) {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());

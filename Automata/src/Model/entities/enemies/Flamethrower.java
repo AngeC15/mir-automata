@@ -21,7 +21,7 @@ public class Flamethrower extends Enemy {
 		shootDistance = 3;
 		acceleration = 90;
 		damage = 1;
-		life = 10;
+		life = 100;
 		damage = 10;
 		
 		HitBox h = new HitBox();

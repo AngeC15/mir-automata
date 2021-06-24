@@ -73,7 +73,7 @@ public class Game {
 		
 		// uncomment if you want enemies
 		
-		/*
+		
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
@@ -97,7 +97,7 @@ public class Game {
 		new Avatar(plane, tmpPlane);
 		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
 		world.addEntity(plane);
-		*/
+		
 	
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);

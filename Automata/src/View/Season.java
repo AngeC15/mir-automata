@@ -48,11 +48,13 @@ public class Season {
 		for (Entry<Long, SafeMapElement> entries : w.getEntities()) {
 			Entity et = (Entity) entries.getValue();
 			Avatar avatar = et.getAvatar();
-			avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
+			
 			if (et instanceof Player) {
 				Player p = (Player ) et;
 				p.getBody().setFriction(2); // normal 15
 				p.getBody().setmaxSpeed(100); // normal 40
+			}else if (et instanceof Decor){
+				avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
 			}
 		}
 		

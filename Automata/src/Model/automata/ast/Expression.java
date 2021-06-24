@@ -20,8 +20,10 @@ package Model.automata.ast;
 
 public abstract class Expression extends Node {
 
-  abstract Object accept(IVisitor visitor);
+	@Override
+	abstract Object accept(IVisitor visitor);
 
-  public abstract String toString();
+	@Override
+	public abstract String toString();
 
 }

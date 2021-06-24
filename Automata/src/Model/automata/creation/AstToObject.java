@@ -2,7 +2,6 @@ package Model.automata.creation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,7 +50,7 @@ import Model.automata.conditions.operators.NotOperator;
 import Model.automata.conditions.operators.OrOperator;
 
 public class AstToObject implements IVisitor {
-	
+
 	private HashMap<String, AutomatonState> state_names;
 
 	@Override
@@ -96,7 +95,7 @@ public class AstToObject implements IVisitor {
 			categorie = CategoryExtension.ENTITY;
 			break;
 		default:
-			System.out.println("Should never happen, category" + cat.terminal.content+ " not recognized");
+			System.out.println("Should never happen, category" + cat.terminal.content + " not recognized");
 			System.out.println("By default, void value used");
 			categorie = CategoryExtension.V;
 			break;
@@ -149,7 +148,7 @@ public class AstToObject implements IVisitor {
 			orientation = DirectionExtension.H;
 			break;
 		default:
-			System.out.println("Should never happen, direction" +dir.terminal.content + " not recognized");
+			System.out.println("Should never happen, direction" + dir.terminal.content + " not recognized");
 			System.out.println("By default, Est value used");
 			orientation = DirectionExtension.E;
 			break;
@@ -310,82 +309,84 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		//System.out.println("Not yet implemented need help");
+		// System.out.println("Not yet implemented need help");
 
 	}
 
 	@Override
 	public Object exit(FunCall funcall, List<Object> parameters) {
-		//reglages de paramètres
-		//il faut integrer les conditions
-		float p = (float) funcall.percent/100; //we divide by 100 to get a number between 0 and 1.
-		Object param1 = null,param2 = null;
-		//parameters length:
+		// reglages de paramètres
+		// il faut integrer les conditions
+		float p = (float) funcall.percent / 100; // we divide by 100 to get a number between 0 and 1.
+		Object param1 = null, param2 = null;
+		// parameters length:
 		int longParam = parameters.size();
-		Object parametrePremier = null;;
-		if(longParam > 0) {
+		Object parametrePremier = null;
+		;
+		if (longParam > 0) {
 			parametrePremier = parameters.get(0);
-			if(parametrePremier instanceof DirectionExtension || parametrePremier instanceof CategoryExtension) {
+			if (parametrePremier instanceof DirectionExtension || parametrePremier instanceof CategoryExtension) {
 				param1 = parameters.get(0);
-				if( longParam > 1) {
-					//on a forcément en deuxième une catégorie ou une direction, rien d'autre n'a que 2 arguments
+				if (longParam > 1) {
+					// on a forcément en deuxième une catégorie ou une direction, rien d'autre
+					// n'a que 2 arguments
 					param2 = parameters.get(1);
 				}
-			}else if(parametrePremier instanceof KeyExtension) {
+			} else if (parametrePremier instanceof KeyExtension) {
 				param1 = parameters.get(0);
 			}
 		}
 		switch (funcall.name) {
 		case "Wizz":
-				return new Wizz((DirectionExtension) param1, p);
+			return new Wizz((DirectionExtension) param1, p);
 		case "Pop":
-				return new Pop((DirectionExtension) param1, p);
+			return new Pop((DirectionExtension) param1, p);
 		case "Wait":
-				return new Wait(p);
+			return new Wait(p);
 		case "Move":
-			if (param1 == null){
+			if (param1 == null) {
 				param1 = DirectionExtension.F;
 			}
-				return new Move((DirectionExtension) param1, p);
+			return new Move((DirectionExtension) param1, p);
 		case "Jump":
-				return new Jump((DirectionExtension) param1, p);
+			return new Jump((DirectionExtension) param1, p);
 		case "Turn":
-				return new Turn((DirectionExtension) param1, p);
+			return new Turn((DirectionExtension) param1, p);
 		case "Hit":
-				return new Hit((DirectionExtension) param1, p);
+			return new Hit((DirectionExtension) param1, p);
 		case "Protect":
-				return new Protect((DirectionExtension) param1, p);
+			return new Protect((DirectionExtension) param1, p);
 		case "Pick":
-				return new Pick((DirectionExtension) param1, p);
+			return new Pick((DirectionExtension) param1, p);
 		case "Throw":
-				return new Throw((DirectionExtension) param1, p);
+			return new Throw((DirectionExtension) param1, p);
 		case "Store":
-				return new Store(p);
+			return new Store(p);
 		case "Get":
-				return new Get(p);
+			return new Get(p);
 		case "Power":
-				return new Power(p);
+			return new Power(p);
 		case "Explode":
-				return new Explode(p);
+			return new Explode(p);
 		case "Egg":
-				if (param1 == null){
-					param1 = DirectionExtension.F;
-				}
-				return new Egg((DirectionExtension) param1, p);
+			if (param1 == null) {
+				param1 = DirectionExtension.F;
+			}
+			return new Egg((DirectionExtension) param1, p);
 		case "Cell":
-				return new Cell((DirectionExtension) param1, (CategoryExtension) param2);
+			return new Cell((DirectionExtension) param1, (CategoryExtension) param2);
 		case "Closest":
-				return new Closest((DirectionExtension) param2, (CategoryExtension) param1);
+			return new Closest((DirectionExtension) param2, (CategoryExtension) param1);
 		case "GotPower":
-				return new GotPower();
+			return new GotPower();
 		case "GotStuff":
-				return new GotStuff();
+			return new GotStuff();
 		case "Key":
-				return new Model.automata.conditions.Key((KeyExtension) param1);
+			return new Model.automata.conditions.Key((KeyExtension) param1);
 		case "MyDir":
-				return new MyDir((DirectionExtension) param1);
+			return new MyDir((DirectionExtension) param1);
 		case "True":
-				return new True();
+			return new True();
 		default:
 			throw new RuntimeException("Die");
 		}
@@ -399,14 +400,16 @@ public class AstToObject implements IVisitor {
 										// que c'est un operateur unitaire
 		case "/": // Cas du ou
 			try {
-				result = new OrOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
+				result = new OrOperator((Model.automata.conditions.Condition) right,
+						(Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur ou");
 			}
 			break;
 		case "&": // cas du et
 			try {
-				result = new AndOperator((Model.automata.conditions.Condition) right, (Model.automata.conditions.Condition) left);
+				result = new AndOperator((Model.automata.conditions.Condition) right,
+						(Model.automata.conditions.Condition) left);
 			} catch (Exception e) {
 				System.out.println("Erreur dans visit avec l'operateur et");
 			}
@@ -433,12 +436,12 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public Object visit(State state) {
-		//Here we check if the name is already in the hashset
+		// Here we check if the name is already in the hashset
 		String name = state.name;
-		if(state_names.containsKey(name)) {
+		if (state_names.containsKey(name)) {
 			return state_names.get(name);
 		}
-		AutomatonState as = new AutomatonState(name); 
+		AutomatonState as = new AutomatonState(name);
 		state_names.put(name, as);
 		return as;
 
@@ -446,16 +449,17 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		//System.out.println("Not yet implemented need help");
+		// System.out.println("Not yet implemented need help");
 	}
 
 	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
 		// quand on quitte le "noeud" on veut en obtenir un mode (CAD un comportement
 		// associer à un état)
-		//return new ModeExtension((AutomatonState) source_state, (BehaviourExtension) behaviour);
-		for(Model.automata.Transition t : (ArrayList<Model.automata.Transition>) behaviour) {
-			((AutomatonState)source_state).setTransition((ArrayList<Model.automata.Transition>) behaviour);
+		// return new ModeExtension((AutomatonState) source_state, (BehaviourExtension)
+		// behaviour);
+		for (Model.automata.Transition t : (ArrayList<Model.automata.Transition>) behaviour) {
+			((AutomatonState) source_state).setTransition((ArrayList<Model.automata.Transition>) behaviour);
 		}
 		return source_state;
 
@@ -472,14 +476,13 @@ public class AstToObject implements IVisitor {
 			Model.automata.Transition transi = (Model.automata.Transition) transi1;
 			transitionList.add(transi);
 		}
-		
 
 		return transitionList;
 	}
 
 	@Override
 	public void enter(Condition condition) {
-		//System.out.println("Not yet implemented need help");
+		// System.out.println("Not yet implemented need help");
 	}
 
 	@Override
@@ -490,17 +493,17 @@ public class AstToObject implements IVisitor {
 
 	@Override
 	public void enter(Action action) {
-		//System.out.println("Not yet implemented need help");
+		// System.out.println("Not yet implemented need help");
 
 	}
 
 	@Override
 	public Object exit(Action action, List<Object> funcalls) {
-		//il faut mettre l'action de la transition
-		//System.out.println("Not yet implemented need help");
+		// il faut mettre l'action de la transition
+		// System.out.println("Not yet implemented need help");
 		Model.automata.actions.ActionList actionLi = new Model.automata.actions.ActionList(0);
-		for(Object ite : funcalls) {
-			Model.automata.actions.Action a = (Model.automata.actions.Action ) ite;
+		for (Object ite : funcalls) {
+			Model.automata.actions.Action a = (Model.automata.actions.Action) ite;
 			actionLi.addAction(a);
 		}
 		return actionLi;
@@ -509,38 +512,38 @@ public class AstToObject implements IVisitor {
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
 		return new Model.automata.Transition((AutomatonState) target_state,
-				(Model.automata.conditions.Condition) condition, 
-				(Model.automata.actions.Action) action);
-	
+				(Model.automata.conditions.Condition) condition, (Model.automata.actions.Action) action);
+
 	}
 
 	@Override
 	public void enter(Model.automata.ast.Automaton automaton) {
-		//System.out.println("Not yet implemented need help");
-		//TODO voir si ce n'est pas plutôt à laisser vide
+		// System.out.println("Not yet implemented need help");
+		// TODO voir si ce n'est pas plutôt à laisser vide
 		state_names = new HashMap<String, AutomatonState>();
 
 	}
 
 	@Override
 	public Object exit(Model.automata.ast.Automaton automaton, Object initial_state, List<Object> modes) {
-		//ArrayList<AutomatonState> li =  new ArrayList<AutomatonState>((List<AutomatonState>)modes);
+		// ArrayList<AutomatonState> li = new
+		// ArrayList<AutomatonState>((List<AutomatonState>)modes);
 		Automaton auto = new Automaton(automaton.name);
-		for(Object li2 : modes) {
+		for (Object li2 : modes) {
 			auto.addState((AutomatonState) li2);
 		}
 		auto.setInit((AutomatonState) initial_state);
 		return auto;
-		
+
 	}
 
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
 		List<Automaton> listAutomaton = new LinkedList<Automaton>();
-		//on parcours les différents automates de l'AST
+		// on parcours les différents automates de l'AST
 		Iterator iterateurAutomate = automata.iterator();
-		while(iterateurAutomate.hasNext()) {
-			//on ajoute à notre liste l'automate recontré
+		while (iterateurAutomate.hasNext()) {
+			// on ajoute à notre liste l'automate recontré
 			listAutomaton.add((Automaton) iterateurAutomate.next());
 		}
 		return listAutomaton;

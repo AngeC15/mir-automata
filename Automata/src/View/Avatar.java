@@ -23,7 +23,7 @@ public class Avatar {
 	EnumAction currentAction;
 	// Time in ms.
 	long compteur;
-	Template template;
+	private Template template;
 
 	/**
 	 * Creates a new Avatar linked to a Template and to an unique Entity
@@ -40,6 +40,7 @@ public class Avatar {
 		compteur = System.currentTimeMillis();
 		currentAction = tmp.getDefaultAction();
 		template = tmp;
+
 	}
 
 	/**
@@ -87,10 +88,11 @@ public class Avatar {
 			state = node;
 		}
 	}
-	
-	public void setTemplate(Template t){
-		this.template = t;
-		this.state = t.getDefaultNode();
+
+	public void setTemplate(Template tmp) {
+		currentAction = tmp.getDefaultAction();
+		template = tmp;
+		state = tmp.getDefaultNode();
 	}
 
 	public int getSpriteW() {
@@ -100,7 +102,7 @@ public class Avatar {
 	public int getSpriteH() {
 		return state.getSprite().getHeight();
 	}
-	
+
 	public BufferedImage getDefaultSprite() {
 		return template.getDefaultNode().getSprite();
 	}

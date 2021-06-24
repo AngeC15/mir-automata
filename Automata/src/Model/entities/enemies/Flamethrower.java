@@ -2,18 +2,15 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
-import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
-import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Model.entities.DeadEntity;
 
 public class Flamethrower extends Enemy {
-	
+
 	public Flamethrower(String automaton) {
 		super(automaton);
 		weapon = new Dagger();
@@ -23,10 +20,15 @@ public class Flamethrower extends Enemy {
 		damage = 1;
 		life = 100;
 		damage = 10;
-		
+
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
 		this.body = new PhysicsBody(h, ColliderType.Character, 0, 35, this);
+	}
+
+	@Override
+	public String toString() {
+		return "Flamethrower";
 	}
 
 }

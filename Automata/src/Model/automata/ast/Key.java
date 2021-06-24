@@ -19,18 +19,20 @@ package Model.automata.ast;
 
 public class Key extends Parameter {
 
-  public Terminal terminal;
+	public Terminal terminal;
 
-  public Key(Terminal t) {
-    terminal = t;
-  }
+	public Key(Terminal t) {
+		terminal = t;
+	}
 
-  public String toString() {
-    return terminal.content;
-  }
+	@Override
+	public String toString() {
+		return terminal.content;
+	}
 
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	@Override
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 
 }

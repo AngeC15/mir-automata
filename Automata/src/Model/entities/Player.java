@@ -1,23 +1,19 @@
 package Model.entities;
 
-import Controller.VirtualInput;
-
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
-import Model.World;
 
+import Controller.VirtualInput;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
-
 import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 public class Player extends LivingEntity {
@@ -27,7 +23,7 @@ public class Player extends LivingEntity {
 	private double lastAttackFrequency;
 	private Entity daggerStrick;
 
-	public Player(World w) {
+	public Player() {
 		super(AutomataLoader.get("Player"), 1);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
@@ -52,9 +48,9 @@ public class Player extends LivingEntity {
 
 	@Override
 	public boolean step() {
-		//Check to destroy dagger strick
+		// Check to destroy dagger strick
 		double now = System.currentTimeMillis();
-		if(daggerStrick != null && now - lastAttack >125) {
+		if (daggerStrick != null && now - lastAttack > 125) {
 			this.world.removeEntity(daggerStrick.getID());
 			daggerStrick = null;
 		}
@@ -81,20 +77,24 @@ public class Player extends LivingEntity {
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// Meelee attack
-		lastAttack = System.currentTimeMillis();
-		lastAttackFrequency = armeCac.getShot_frequency();
-
-		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+		double now = System.currentTimeMillis();
 		
+		if(lastAttack-now> armeCac.getShot_frequency()) {
+			lastAttack = now;
+		
+		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+		}
 	}
 
 	@Override
 	public void Pop(DirectionExtension dir) {
 		// Distance attack
-		lastAttack = System.currentTimeMillis();
-		lastAttackFrequency = armeDist.getShot_frequency();
-
+		double now = System.currentTimeMillis();
+		
+		if(lastAttack-now> armeDist.getShot_frequency()) {
+			lastAttack = now;
 		armeDist.attack(this, new Vector2(0, -1));
+		}
 	}
 
 	@Override
@@ -110,11 +110,11 @@ public class Player extends LivingEntity {
 		return "Player";
 	}
 
+	@Override
 	public Color getColor() {
 		return Color.blue;
 	}
 
-	
 	@Override
 	public void Egg(DirectionExtension dir) {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");

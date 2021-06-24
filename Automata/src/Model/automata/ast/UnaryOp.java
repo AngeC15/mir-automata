@@ -27,11 +27,13 @@ public class UnaryOp extends Expression {
 		this.operator = op;
 		this.operand = arg;
 	}
-	
+
+	@Override
 	public String toString() {
 		return operator + " " + operand.toString();
 	}
 
+	@Override
 	Object accept(IVisitor visitor) {
 		Object o = operand.accept(visitor);
 		return visitor.visit(this, o);

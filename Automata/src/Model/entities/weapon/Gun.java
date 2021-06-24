@@ -3,13 +3,12 @@ package Model.entities.weapon;
 import Model.World;
 import Model.entities.Bullet;
 import Model.entities.Entity;
-import Model.entities.Player;
 import Utils.Vector2;
 
 public class Gun extends Weapon {
 
 	String bulletSkin;
-	
+
 	public Gun(String bulletSkin) {
 		super(false);
 		this.bulletSkin = bulletSkin;
@@ -18,8 +17,8 @@ public class Gun extends Weapon {
 
 	@Override
 	public Entity attack(Entity e, Vector2 vect) {
-		
-		//on crée la bullet
+
+		// on crée la bullet
 		Bullet bul = new Bullet(e, vect, bulletSkin);
 		World w = e.getWorld();
 		w.addEntity(bul);

@@ -28,16 +28,18 @@ public class Transition extends Node {
 		this.action = action;
 		this.target = target;
 	}
-	
+
+	@Override
 	public String toString() {
 		return condition.toString() + "? " + action.toString();
 	}
-	
+
+	@Override
 	Object accept(IVisitor visitor) {
 		Object c = condition.accept(visitor);
 		Object a = action.accept(visitor);
 		Object t = target.accept(visitor);
-		return visitor.visit(this,c,a,t);
+		return visitor.visit(this, c, a, t);
 	}
-	
+
 }

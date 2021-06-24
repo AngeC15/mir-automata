@@ -2,13 +2,13 @@ package Model.automata.actions;
 
 import Model.entities.Entity;
 
-public class Power extends Action{
+public class Power extends Action {
 
 	public Power(float weight) {
 		super(weight);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public boolean apply(Entity e) {
 		e.addAction(EnumAction.POWER);
@@ -16,5 +16,4 @@ public class Power extends Action{
 		return false;
 	}
 
-	
 }

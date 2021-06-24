@@ -144,7 +144,7 @@ public class Decor extends Entity{
 	public Color getColor() {
 		if (state == 0)
 			return Color.getHSBColor(60/360.0f,20/100.0f,90/100.0f);
-		if (state == 1)
+		else if (state == 1)
 			return Color.gray;
 		else
 			return Color.getHSBColor(118/360.0f,60/100.0f,50/100.0f);

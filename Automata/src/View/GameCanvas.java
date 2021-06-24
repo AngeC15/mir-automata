@@ -178,9 +178,10 @@ public class GameCanvas extends Canvas {
     if (width != m_width || height != m_height) {
       m_width = width;
       m_height = height;
+      
       m_buffer1 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
       m_buffer2 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
-
+      
       Graphics gc = m_buffer1.getGraphics();
       gc.setColor(getBackground());
       gc.fillRect(0, 0, m_width, m_height);

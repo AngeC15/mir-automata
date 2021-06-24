@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Map.Entry;
 
 import javax.swing.JPanel;
@@ -75,15 +78,53 @@ public class MiniMap extends JPanel {
 		}
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
 				-playerTransform.getTranslateY()));
-		g.transform(canvasTransform); // pixel au coordonées du monde
+		g.transform(canvasTransform); // pixel au coordonï¿½es du monde
 
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
+
+		//g.setColor(Color.lightGray);
+		//g.fillRect(-100, -100, 200, 200);
+
+		//new version
+		g.setColor(Color.red);
+		g.fillOval(-1, 1, 5, 5);
+		
+		//drawing background
+		SpriteSheet sp = null;
+		BufferedImage image = null;
+		/*try {
+			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
+				image = sp.getSprite(0);
+				
+				//pour retourner l'image
+				AffineTransform aT = AffineTransform.getScaleInstance(1, -1);
+				aT.translate(0, -image.getHeight());
+				AffineTransformOp op = new AffineTransformOp(aT, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+				image = op.filter(image, null);
+				
+				int width  = this.conteneur.getWidth();
+				int heigth = this.conteneur.getHeight();
+				//System.out.println("width " + width + " height" + heigth);
+				int imwidth = image.getWidth();
+				int imHeigth = image.getHeight();
+				for(int x = -width; x < width; x+=imwidth) {
+						for(int z = - heigth; z < heigth ; z+=imHeigth) {
+							g.drawImage(image, x,z, this.conteneur);
+						}
+				}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		
+		//before merge
 		g.setColor(new Color(220,220,220));
 		g.fillRect(-100, -100, 200, 200);
+
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
 			Entity et = (Entity) entries.getValue();

@@ -81,6 +81,7 @@ public class Newton {
 		float dx = (float)b1.getTransform().getTranslateX() - (float)b2.getTransform().getTranslateX();
 		float dy = (float)b1.getTransform().getTranslateY() - (float)b2.getTransform().getTranslateY();
 		Vector2 d = new Vector2(dx, dy);
+
 		float min_d = b1.getHitBox().extRadius() + b2.getHitBox().extRadius();
 		return d.norm() <= min_d;
 	}

@@ -1,32 +1,49 @@
 package View;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import Model.World;
 import Model.automata.actions.EnumAction;
 import Model.entities.Entity;
+import Model.loader.TemplatesLoader;
 import Utils.SafeMapElement;
 
 public class Season {
-
-	Ground ground;
-	World w;
-
-	public Season(Ground g, World w) {
-		ground = g;
-		this.w = w;
+	public enum EnumSeason {
+		SUMMER, WINTER
 	}
 
+	private Template groundTemplate;
+	private World w;
+	private EnumSeason current;
+
+	public Season(World w) {
+		this.w = w;
+		current = EnumSeason.SUMMER;
+		groundTemplate = TemplatesLoader.get("Ground");
+	}
+	
+	public BufferedImage getGround() {
+		return groundTemplate.getDefaultNode().getSprite();
+	}
+
+	/**
+	 * Changes the current season by changing the templates associated with the entities.
+	 * @throws Exception
+	 */
 	public void nextSeason() throws Exception {
-		ground.step();
+		EnumSeason[] tabSeason = EnumSeason.values();
+		if (current.ordinal() + 1 < tabSeason.length) {
+			current = tabSeason[current.ordinal() + 1];
+		}
+		groundTemplate = TemplatesLoader.get("Ground", current);
 		for (Entry<Long, SafeMapElement> entries : w.getEntities()) {
 			Entity et = (Entity) entries.getValue();
 			Avatar avatar = et.getAvatar();
-			if (et.team == 3) {
-				et.getAvatar().step();
-				
-			}
+			avatar.template = TemplatesLoader.get(et.toString(), current);
+
 		}
 	}
 

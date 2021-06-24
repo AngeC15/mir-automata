@@ -42,7 +42,6 @@ public class Season {
 		if (current.ordinal() + 1 < tabSeason.length) {
 			current = tabSeason[current.ordinal() + 1];
 		}
-		SafeMap test = w.getEntities();
 		groundTemplate = TemplatesLoader.get("Ground", current);
 		for (Entry<Long, SafeMapElement> entries : w.getEntities()) {
 			Entity et = (Entity) entries.getValue();
@@ -50,7 +49,7 @@ public class Season {
 			avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
 
 		}
-		SafeMap entries = w.getEntities();
+		
 
 	}
 

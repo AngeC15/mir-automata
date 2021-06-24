@@ -17,7 +17,7 @@ public abstract class Weapon {
 	}
 
 
-	public abstract void attack(Entity e, Vector2 vect);
+	public abstract Entity attack(Entity e, Vector2 vect);
 
 
 	public boolean isCac() {

@@ -1,34 +1,3 @@
-# JOURNAL du mercredi 23 juin
-#### *Gergely + Samuel* : Résolutions diverses de beugs ( branche `dev.spritesheet`)
-- Correction du spritesheet de l'ennemi et de la fréquence des balles du joueur.
-- Ajout d'animations lors de la mort des personnages
-- Animations de degats
-
-- [x] `DONE` : *Testé et merge avec le master*
-
-#### *Joan* : Réalisation des Sprites
-- Remplacement des Spritesheet ennemis
-
-#### *Camille* : Attribution d'un automate à n'importe quelle entité ( branche `dev.changeAutomata`)
-- Assignation d'un automate à une entité via le fichier entityAutomata.txt.
-
-- [x] `DONE` : *Testé et merge avec le master*
-
-#### *Cyprien* : Armes de corps à corps( branche `dev.cac`)
-- cac implémenté
-
-#### *Julian* : Génération de la map ( branche `dev.map`)
-- Debeug des hitboxs
-
-#### *Théo* : Hitbox ( branche `hitbox`)
-- Debeug de l'algo GJK
-
-#### *Joan* : Génération des ennemis
-- Generation des monstres
-
-#### *Camille* : Gestion des saisons ( branche `dev.saison`)
-- Attribution d'un sol à la map qui change selon la saison
----
 # JOURNAL du mardi 22 juin
 
 #### *Camille* : Menu de demarrage ( branche `dev.menu`)

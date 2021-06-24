@@ -1,6 +1,0 @@
-Dead(Dying){
-  * (Dying):
-  | GotStuff ? Wizz :()
-  | True ? Pop : (Dying)
-  * ()
-}

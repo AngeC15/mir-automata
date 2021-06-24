@@ -3,4 +3,4 @@ Bots/Tank.gal
 Bots/Snake.gal
 Bots/Duck.gal
 Bots/Plane.gal
-Bots/Dead.gal
+Bots/Strick.gal

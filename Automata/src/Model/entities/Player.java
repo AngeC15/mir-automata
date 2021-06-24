@@ -24,6 +24,7 @@ public class Player extends LivingEntity {
 	public Weapon armeDist;
 	private double lastAttack;
 	private double lastAttackFrequency;
+	private Entity daggerStrick;
 
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
@@ -37,8 +38,7 @@ public class Player extends LivingEntity {
 
 		lastAttack = System.currentTimeMillis();
 
-		this.life = 50;
-		this.damage = 20;
+		this.life = 100;
 	}
 
 	public void setArmeCac(Weapon armeCac) {
@@ -51,6 +51,12 @@ public class Player extends LivingEntity {
 
 	@Override
 	public boolean step() {
+		//Check to destroy dagger strick
+		double now = System.currentTimeMillis();
+		if(daggerStrick != null && now - lastAttack >150) {
+			this.world.removeEntity(daggerStrick.getID());
+			daggerStrick = null;
+		}
 		rotate();
 		return super.step();
 	}
@@ -77,7 +83,8 @@ public class Player extends LivingEntity {
 		lastAttack = System.currentTimeMillis();
 		lastAttackFrequency = armeCac.getShot_frequency();
 
-		armeCac.attack(this, new Vector2(0, -1));
+		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+		
 	}
 
 	@Override
@@ -104,12 +111,6 @@ public class Player extends LivingEntity {
 
 	public Color getColor() {
 		return Color.green;
-	}
-	
-	@Override
-	public void Egg(DirectionExtension dir) {
-		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadDust");
-		this.getWorld().removeEntity(getID());
 	}
 
 }

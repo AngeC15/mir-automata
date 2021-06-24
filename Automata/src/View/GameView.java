@@ -46,12 +46,10 @@ public class GameView {
 	private MiniMap miniMap;
 	private Menu menu;
 	private Dimension frameSize;
-	private BufferedImage decor;
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
-	
-	private Ground grd;
+
 	private Season season;
 
 	// utiliser spritesheet pour charger le fond
@@ -110,7 +108,7 @@ public class GameView {
 
 	public void setupGame() {
 		// menu.setVisible(false);
-		
+
 		System.out.println("  - setting up the frame...");
 
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
@@ -132,17 +130,9 @@ public class GameView {
 
 		m_frame.add(pane, BorderLayout.CENTER);
 		m_frame.remove(menu);
-		
-		grd = new Ground();
-		season = new Season(grd, world);
-		try {
-			//season.nextSeason();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		decor = grd.getSprite();
-		
+
+		season = new Season(world);
+
 	}
 
 	public void tick(long elapsed) {
@@ -238,10 +228,11 @@ public class GameView {
 			g.draw(new Line2D.Float(-100.0f, (float) i, 100.0f, (float) i));
 		}
 
-		drawGround(g,  200, 200, 10);
+		drawGround(g, 200, 200, 10);
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
 		for (Entry<Long, SafeMapElement> entries : entities) {
+
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
@@ -259,13 +250,13 @@ public class GameView {
 	}
 
 	private void drawGround(Graphics2D g, int width, int height, int size) {
-		
+
 		for (float w = -width / 2.0f; w < width / 2.0f; w += size) {
 			for (float h = -height / 2.0f; h < height / 2.0f; h += size) {
-				g.drawImage(decor, (int) w, (int) h, size, size, m_canvas);
+				g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas);
 			}
 		}
-		
+
 	}
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import Model.World;
 import Model.entities.Entity;
-import Model.entities.Wall;
+import Model.entities.Decor;
 import Model.loader.TemplatesLoader;
 import View.Avatar;
 
@@ -13,12 +13,13 @@ public class Map {
 	
 	private Entity[][] map;
 	private float dimension;
-	private final int max_tick = 30;
-	private int tick_counter;
 	private World world;
+	private double start;
+	private int max_step = 15;
+	private boolean player_generated;
+	private int cmpt_step;
 	
 	public Map(int n, int p, float dimension, World world) throws IOException {
-		tick_counter = 0;
 		this.world = world;
 		map = new Entity[n][p];
 		
@@ -27,11 +28,11 @@ public class Map {
 		AffineTransform lineCurrent = new AffineTransform();
 		lineCurrent.translate(-n/2*dimension, -p/2*dimension);
 		
-		for (int i = 0 ; i < n ; i++) {
+		for (int i = 0 ; i < n ; i++) { 
 			AffineTransform cellCurrent = new AffineTransform(lineCurrent);
 			for (int j = 0 ; j < p ; j ++) {
-				Wall w = new Wall(this, i, j);
-				map[i][j] = w;
+				Decor w = new Decor(this, i, j);
+				map[i][j] = w; 
 				new Avatar(w, TemplatesLoader.get("Wall"));
 				w.getBody().getTransform().concatenate(cellCurrent);
 				world.addEntity(w);
@@ -40,6 +41,9 @@ public class Map {
 			lineCurrent.concatenate(yt);
 		}
 		this.dimension = dimension;
+		this.start = System.currentTimeMillis();
+		this.player_generated = false;
+		this.cmpt_step = 0;
 	}
 	
 	public Entity get(int i, int j) {
@@ -47,17 +51,27 @@ public class Map {
 		j = (j + map[0].length) % map[0].length;
 		return map[i][j];
 	}
-	public void tick(long elapsed) {
-		tick_counter++;
+	
+	public void tick(long elapsed) throws IOException {
+		if (cmpt_step > max_step+1 && !player_generated) {
+			player_generated = true;
+			world.generationDone(); 
+		}
+		if (System.currentTimeMillis()-start > 500) {
+			start = System.currentTimeMillis();
+			cmpt_step ++;
+		}
 	}
-	public boolean generationOver() {
-		return tick_counter >= max_tick;
+	
+	
+	public int getMaxStep() {
+		return max_step;
 	}
 	
 	public void remove(int x, int y) {
 		world.removeEntity(map[x][y].getID());
 		map[x][y] = null;
-	}
+	} 
 	
 	public int getX() {
 		return map.length;

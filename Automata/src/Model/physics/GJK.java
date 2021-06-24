@@ -66,7 +66,7 @@ public class GJK {
 		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateY());
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateY());
 		
-		Vector2 d = (vect1.sub(vect2)).normalize();
+		Vector2 d = (vect2.sub(vect1)).normalize();
 		
 		Vector2[] triangle = new Vector2[3];
 		triangle[idx++] = double_support(s1, s2, A1, A2, d);

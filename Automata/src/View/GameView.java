@@ -61,7 +61,9 @@ public class GameView {
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
+
 	private BufferedImage bg;
+
 	private static final AffineTransform identity = new AffineTransform();
 
 	public GameView(GameCanvasListener listener) {
@@ -189,7 +191,13 @@ public class GameView {
 	public Vector2 getMouseWorld(int x, int y) throws NoninvertibleTransformException {
 		Vector2 m = getMousePlayer(x, y);
 		Vector2 r = new Vector2(0, 0);
-		AffineTransform playerTransform = world.getPlayer().getTransform();
+		AffineTransform playerTransform;
+		if(world.getPlayer() == null) {
+			playerTransform = identity;
+		}
+		else{
+			playerTransform = world.getPlayer().getTransform();
+		}
 
 		AffineTransform playerTranslate = AffineTransform.getTranslateInstance(playerTransform.getTranslateX(),
 				playerTransform.getTranslateY());

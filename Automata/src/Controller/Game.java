@@ -59,8 +59,8 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-//		Map map = new Map(25, 25, 5.3f, world);
-//		world.setMap(map);
+		Map map = new Map(25, 25, 5.3f, world);
+		world.setMap(map);
 		
 		Player player = new Player(world);
 		Template tmp = TemplatesLoader.get("Hero");

@@ -1,6 +1,7 @@
 package Model.entities;
 
 import java.awt.geom.AffineTransform;
+import java.util.Random;
 
 import Model.automata.creation.DirectionExtension;
 import Model.loader.AutomataLoader;
@@ -45,16 +46,12 @@ public class Decor extends Entity{
 	public int getAlive() {
 		return state;
 	}
-
-	public boolean GotPower() {
+	
+	public boolean generation() {
 		int cmpt = 0;
-		int tmpx = (int)Math.floor((double)map.getX()/2);
-		int tmpy = (int)Math.floor((double)map.getY()/2);
 		try {
 		for (int k = -1 ; k <= 1 ; k++) {
 			for (int l = -1 ; l <= 1 ; l ++) {
-				if (x == tmpx+k && y == tmpy+l)
-					return false;
 				if (!(k==0 && l==0) && ((Decor)map.get(x+k, y+l)).getAlive() == 1) {
 					cmpt++;
 				}
@@ -72,6 +69,27 @@ public class Decor extends Entity{
 		}
 		
 		return false;
+	}
+
+	public boolean GotPower() {
+		int tmpx = (int)Math.floor((double)map.getX()/2);
+		int tmpy = (int)Math.floor((double)map.getY()/2);
+		for (int k = -1 ; k <= 1 ; k++) {
+			for (int l = -1 ; l <= 1 ; l ++) {
+				if (x == tmpx+k && y == tmpy+l)
+					return false;
+			}
+		}
+		if (GotStuff()) {
+			return generation();
+		}
+		else {
+			Random rn = new Random();
+			int answer = rn.nextInt(30);
+			if (answer == 1 && state == 0)
+				return true;
+			return false;
+		}
 	}
 
 	public boolean generationOver() {

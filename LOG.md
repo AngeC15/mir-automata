@@ -1,3 +1,31 @@
+# JOURNAL du Mercredi 23 juin
+
+#### *Théo* : HitBox ( branche `dev.map` )
+- Affichage en temps réel de la génération de la map
+- Le player apparait à la fin de la génération de la map
+
+#### *Julian* : Hitbox ( branche `dev.map` )
+- Amélioration
+- Résolution beugs GJK
+
+#### *Samuel + Gergely* : Mise à jour des sprites ( branche `dev.spritesheet` )
+- Correction du spritesheet de l'ennemi et de la fréquence des balles du joueur
+- Animation à la mort d'une entité
+- Animation de degats
+
+#### *Camille* : Attribution d'un automate à une entité ( branche `dev.changeAutomata` )
+- Attribution d'un automate à une entité via le fichier entityAutomata.txt
+- [x] `DONE` : *Merge avec le master*
+
+#### *Cyprien* : Armes de corps à corps ( branche `dev.cac` )
+- Attribution d'un automate à une entité via le fichier entityAutomata.txt
+- Cac implémentée et testée
+
+#### *Joan* : Réalisation des Sprites + générateur d'ennemis
+- Sprite des ennemis
+- Gnération des ennemis
+---
+
 # JOURNAL du mardi 22 juin
 
 #### *Camille* : Menu de demarrage ( branche `dev.menu`)

@@ -30,12 +30,12 @@ public class Entity implements SafeMapElement {
 	protected PhysicsBody body;
 	protected float acceleration = 20.0f;
 
-	public int team; // équipe: 1 = joueur
-						// équipe: 2 = ennemis
-						// équipe: 3 = neutre
-
+	public int team;	//équipe: 1  = joueur
+						//équipe: 2 = ennemis
+						//équipe: 3 = neutre
+	
 	public Entity(Automaton a, int equipe) {
-		// System.out.println("new entity");
+		//System.out.println("new entity");
 		this.id = -1;
 		automaton = a;
 		state = automaton.getInit();
@@ -43,7 +43,9 @@ public class Entity implements SafeMapElement {
 
 		this.team = equipe;
 
+
 	}
+
 
 	public void setAvatar(Avatar av) {
 		avatar = av;
@@ -91,11 +93,10 @@ public class Entity implements SafeMapElement {
 	public void setState(AutomatonState state) {
 		this.state = state;
 	}
-
+	
 	public int getEquipe() {
 		return team;
 	}
-
 	public void setEquipe(int equipe) {
 		this.team = equipe;
 	}
@@ -221,19 +222,31 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
-
+		
 		// PROTOTYPE
 		/*
-		 * double angle = Math.atan2(getTransform().getShearY(),
-		 * getTransform().getScaleY()); switch (direction) { case F: angle +=
-		 * Math.toRadians(0); break; case B: angle += Math.toRadians(180); break; case
-		 * L: angle += Math.toRadians(90); break; case R: angle += Math.toRadians(-90);
-		 * break; default: return false; }
-		 * 
-		 * int x = (int) (Math.cos(angle) + getTransform().getTranslateX()); int y =
-		 * (int) (Math.sin(angle) + getTransform().getTranslateY());
-		 */
-
+		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		switch (direction) {
+		case F:
+			angle += Math.toRadians(0);
+			break;
+		case B:
+			angle += Math.toRadians(180);
+			break;
+		case L:
+			angle += Math.toRadians(90);
+			break;
+		case R:
+			angle += Math.toRadians(-90);
+			break;
+		default:
+			return false;
+		}
+		
+		int x = (int) (Math.cos(angle) + getTransform().getTranslateX());
+		int y = (int) (Math.sin(angle) + getTransform().getTranslateY());
+		*/
+		
 		return false;
 	}
 
@@ -249,6 +262,7 @@ public class Entity implements SafeMapElement {
 
 	public boolean GotStuff() {
 		return false;
+
 	}
 
 	public boolean getKey(KeyExtension key) {
@@ -261,30 +275,33 @@ public class Entity implements SafeMapElement {
 		// TODO Auto-generated method stub
 
 	}
-
-	public void colisionHappened(Entity other, ColliderType c) {
-		// System.out.println("Collision de type " + c.toString()+ " entre l'entité " +
-		// this+ " et " + other.getClass());
-		// if the bullet meet a wall, destroy it
-		if ((this instanceof Bullet && other instanceof Wall)) {
-			((LivingEntity) this).death();
+	
+	public void colisionHappened(Entity other, ColliderType c ) {
+		//System.out.println("Collision de type " + c.toString()+ " entre l'entité " + this+ " et " + other.getClass());
+		
+		
+		//if the bullet meet a wall, destroy it
+		if((this instanceof Bullet && other instanceof Wall) ) {
+			((LivingEntity)this).death();
 		}
-		// we check if both have life and enventually damages
-		if ((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
-			// on regarde les teams:
-			if (!(this.team == other.team)) {
-				// we apply the damage on the life
-				float damageEntity1 = ((LivingEntity) this).getDamage();
-				float damageEntity2 = ((LivingEntity) other).getDamage();
-				((LivingEntity) this).damage(damageEntity2);
-				((LivingEntity) other).damage(damageEntity1);
-
+		//we check if both have life and enventually damages
+		if((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
+			//on regarde les teams:
+			if(!(this.team == other.team)) {
+				//we apply the damage on the life
+				float damageEntity1 = ((LivingEntity)this).getDamage();
+				float damageEntity2 = ((LivingEntity)other).getDamage();
+				((LivingEntity)this).damage(damageEntity2);
+				((LivingEntity)other).damage(damageEntity1);
+				
+				if (this instanceof Bullet) {
+					((LivingEntity)this).death();
+				}
 			}
 		}
 	}
-
+	
 	public Color getColor() {
 		return Color.gray;
 	}
-
 }

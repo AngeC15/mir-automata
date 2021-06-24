@@ -1,5 +1,5 @@
 Dead(Dying){
-  * (Dying):
+  *(Dying):
   | GotStuff ? Wizz :()
   | True ? Pop : (Dying)
   * ()

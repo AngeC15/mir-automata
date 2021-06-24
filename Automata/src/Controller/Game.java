@@ -6,19 +6,18 @@ import java.awt.geom.AffineTransform;
 
 import Model.World;
 import Model.entities.Player;
-import Model.entities.enemies.Mecha;
+import Model.entities.enemies.Plane;
 import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
-import Model.monster_generator.Generator;
 import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
 import Model.entities.enemies.Flamethrower;
+import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Plane;
-
 
 
 
@@ -55,25 +54,22 @@ public class Game {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
+		AutomataLoader.load_all("Bots/loader.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		Map map = new Map(25, 25, 5.3f, world);
-		world.setMap(map);
+//		Map map = new Map(25, 25, 5.3f, world);
+//		world.setMap(map);
 		
 		Player player = new Player(world);
 		Template tmp = TemplatesLoader.get("Hero");
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		Generator g= new Generator(world, 100, 1);
-
 		
 		// uncomment if you want enemies
-		
-		
+		/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
@@ -97,23 +93,21 @@ public class Game {
 		new Avatar(plane, tmpPlane);
 		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
 		world.addEntity(plane);
+		*/
 		
-	
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		 * world.addEntity(wall);
 		 */
-
-//		Template tmp2 = TemplatesLoader.get("Dead");
-//		EnemyPlayer enemy = new EnemyPlayer(world);
-//		Avatar av3 = new Avatar(enemy, tmp2);
-//		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
-//		world.addEntity(enemy);
-//		
-
-
-
+		
+		/*
+		Template tmp2 = TemplatesLoader.get("Dead");
+		EnemyPlayer enemy = new EnemyPlayer(world);
+		Avatar av3 = new Avatar(enemy, tmp2);
+		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
+		world.addEntity(enemy);
+		*/
 	}
 	
 	private static class Init implements Runnable{

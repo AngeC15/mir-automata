@@ -1,6 +1,6 @@
 Player(Init){
   * (Init):
-  | ! GotStuff ? Egg :()
+  | ! GotStuff ? Egg : ()
   | Key(z) & (!Key(s)) & (!Key(q)) & (!Key(d)) ? Move(N) :(Init)
   | Key(d) & (!Key(s)) & (!Key(q)) & (!Key(z)) ? Move(E) :(Init)
   | Key(s) & (!Key(d)) & (!Key(q)) & (!Key(z)) ? Move(S) :(Init)

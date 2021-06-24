@@ -1,6 +1,6 @@
 Tank(Follow){
   * (Follow):
-  | ! GotStuff ? Egg :()
+  | ! GotStuff ? Egg : ()
   | Cell(F,O) ? Turn(L) :(GetAroundLeft)
   | Cell(F,O) ? Turn(R) :(GetAroundRight)
   | Closest(A,N) ? Move(N) :(Follow)

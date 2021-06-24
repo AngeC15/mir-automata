@@ -8,3 +8,4 @@ Mecha ; Resources/sprite_sheet_enemy.png ; Resources/mecha.ani ; 8 ; 4 ; 32 ; 1
 Flamethrower ; Resources/sprite_sheet_enemy.png ; Resources/flamethrower.ani ; 8 ; 4 ; 32 ; 1
 Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 8 ; 4 ; 32 ; 1
 DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 8 ; 4 ; 32 ; 1
+Strick ; Resources/sprite_sheet_enemy.png ; Resources/strick.ani ; 8 ; 4 ; 48 ; 1

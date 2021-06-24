@@ -50,7 +50,7 @@ public class Entity implements SafeMapElement {
 
 	public void setAvatar(Avatar av) {
 		avatar = av;
-	}
+	} 
 
 	public AffineTransform getTransform() {
 		return body.getTransform();
@@ -238,7 +238,7 @@ public class Entity implements SafeMapElement {
 	public void colisionHappened(Entity other, ColliderType c ) {
 		//System.out.println("Collision de type " + c.toString()+ " entre l'entité " + this+ " et " + other.getClass());
 		//if the bullet meet a wall, destroy it
-		if((this instanceof Bullet && other instanceof Wall) ) {
+		if((this instanceof Bullet && other instanceof Decor) ) {
 			((LivingEntity)this).death();
 		}
 		//we check if both have life and enventually damages

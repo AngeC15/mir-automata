@@ -15,9 +15,9 @@ import Model.physics.primitives.Square;
 import View.Template;
 
 
-public class Wall extends Entity{
+public class Decor extends Entity{
 	
-	private boolean alive;
+	private int state; // 0 = dead, 1 == alive, 3 == tree
 	private int x;
 	private int y;
 	private Map map;
@@ -25,15 +25,16 @@ public class Wall extends Entity{
 	private int step_counter;
 	private Template[] templates;
 	
-	public Wall(Map m, int px, int py) {
+	public Decor(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"), 3);
-		templates = new Template[2]; 
+		templates = new Template[3]; 
 		templates[0] = TemplatesLoader.get("GenCell");
 		templates[1] = TemplatesLoader.get("Dead");
+		templates[2] = TemplatesLoader.get("Tree");
 		map = m;
 		x = px;
 		y = py;
-		alive = true;
+		state = 1;
 
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(4f, 4f)));
@@ -41,8 +42,8 @@ public class Wall extends Entity{
 		time = System.currentTimeMillis();
 	}
 	
-	public boolean getAlive() {
-		return alive;
+	public int getAlive() {
+		return state;
 	}
 
 	public boolean GotPower() {
@@ -54,13 +55,13 @@ public class Wall extends Entity{
 			for (int l = -1 ; l <= 1 ; l ++) {
 				if (x == tmpx+k && y == tmpy+l)
 					return false;
-				if (!(k==0 && l==0) && ((Wall)map.get(x+k, y+l)).getAlive()) {
+				if (!(k==0 && l==0) && ((Decor)map.get(x+k, y+l)).getAlive() == 1) {
 					cmpt++;
 				}
 			}
 		}
 		
-		if (alive)
+		if (state == 1)
 			return cmpt >= 3;
 		else
 			return cmpt >= 5;
@@ -86,20 +87,24 @@ public class Wall extends Entity{
 	public void Throw(DirectionExtension dir) {
 		if (dir == DirectionExtension.F) {
 			this.avatar.setTemplate(templates[0]);
-			setAlive(true);
+			setState(1);
+		}
+		else if (dir == DirectionExtension.B){
+			this.avatar.setTemplate(templates[1]);
+			setState(0);
 		}
 		else {
-			this.avatar.setTemplate(templates[1]);
-			setAlive(false);
+			this.avatar.setTemplate(templates[2]);
+			setState(3);
 		}
 	}
 
-	public void setAlive(boolean state) {
-		alive = state;
+	public void setState(int state) {
+		this.state = state;
 	}
 
 	public void Explode() {
-		if (!alive)
+		if (state == 0)
 			map.remove(x, y);
 	}
 

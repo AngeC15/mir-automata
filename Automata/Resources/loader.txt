@@ -1,3 +1,4 @@
 Cowboy ; Resources/winchester-4x6.png ; Resources/example.ani
 Dead ; Resources/red_winchester-4x6.png ; Resources/example.ani
 GenCell ; Resources/winchester-4x6.png ; Resources/example.ani
+Tree ; Resources/red_winchester-4x6.png ; Resources/example.ani

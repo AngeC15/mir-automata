@@ -15,7 +15,7 @@ import Model.entities.Cowboy;
 import Model.entities.EnemyPlayer;
 import Model.entities.Player;
 //import Model.entities.Tank;
-import Model.entities.Wall;
+import Model.entities.Decor;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -66,8 +66,8 @@ public class Game {
 		view.setWorld(world);
 
 		int n, p; 
-		n = 15;
-		p = 15;
+		n = 30;
+		p = 30;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 		

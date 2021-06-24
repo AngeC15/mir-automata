@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import Model.World;
 import Model.entities.Entity;
-import Model.entities.Wall;
+import Model.entities.Decor;
 import Model.loader.TemplatesLoader;
 import View.Avatar;
 
@@ -15,12 +15,11 @@ public class Map {
 	private float dimension;
 	private World world;
 	private double start;
-	private int max_step = 12;
+	private int max_step = 15;
 	private boolean player_generated;
 	private int cmpt_step;
 	
 	public Map(int n, int p, float dimension, World world) throws IOException {
-//		tick_counter = 0;
 		this.world = world;
 		map = new Entity[n][p];
 		
@@ -32,7 +31,7 @@ public class Map {
 		for (int i = 0 ; i < n ; i++) { 
 			AffineTransform cellCurrent = new AffineTransform(lineCurrent);
 			for (int j = 0 ; j < p ; j ++) {
-				Wall w = new Wall(this, i, j);
+				Decor w = new Decor(this, i, j);
 				map[i][j] = w; 
 				new Avatar(w, TemplatesLoader.get("GenCell"));
 				w.getBody().getTransform().concatenate(cellCurrent);

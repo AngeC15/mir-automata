@@ -8,7 +8,7 @@ import java.util.Queue;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
-import Model.entities.Wall;
+import Model.entities.Decor;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
 import Model.physics.Newton;
@@ -55,7 +55,6 @@ public class World {
 			try {
 				map.tick(elapsed);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	}

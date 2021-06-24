@@ -57,7 +57,7 @@ public class Game {
 		world.setMap(map);
 		
 		Player player = new Player();
-		Template tmp = TemplatesLoader.get("Hero");
+		Template tmp = TemplatesLoader.get("Player");
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);

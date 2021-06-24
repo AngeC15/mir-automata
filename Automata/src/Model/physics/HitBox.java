@@ -26,7 +26,7 @@ public class HitBox {
 		if(r > radius)
 			radius = r;
 		shapes.add(s);
-		System.out.println(radius);
+		//System.out.println(radius);
 	}
 	
 	public PrimitiveInstance get(int k) {

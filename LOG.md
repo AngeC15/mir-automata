@@ -1,4 +1,78 @@
-# JOURNAL du week end 18 & 19 juin
+# JOURNAL du mardi 22 juin
+
+#### *Camille* : Menu de demarrage ( branche `dev.menu`)
+- Implémentation du meneu de démarrage avec uniquement un bouton play pour le moment (à voir si on implémente les settings)
+- (avec *Cyprien* ) résolution du bug d'affichage ( lié au .PNG qui était en majuscule)
+
+- [x] `DONE` : *Merge avec le master*
+
+#### *Camille* : Simplification de la minimap ( branche `improve.minimap`)
+- Remplacement des sprite dans la minimap par un rond de couleur
+    - vert : pour le joueur
+    - rouge : pour les ennemis
+    - gris : pour les eléments de décor
+
+- [x] `DONE` : *Merge avec la branche `dev.spritesheet`*
+
+#### *Julian* : Background ( branche `background`)
+- Ajout d'un fond à la map
+
+#### *Théo* : Génération de la map ( branche `dev.map`)
+- Affichage de la génération en temps Réel 
+- Joueur qui apparait à la fin de la génération de la map 
+
+#### *Théo* : Génération de la map ( branche `dev.map`)
+- Affichage de la génération en temps Réel 
+- optimisation diverses
+
+#### *Gergely + Samuel + Joan* : Résolutions diverses de beugs ( branche `dev.spritesheet`)
+
+---
+# JOURNAL du lundi 21 juin 
+
+#### *Théo* : HitBox ( branche `hitbox` )
+- Fixation de Bugs
+
+#### *Théo + Cyprien* : Génération du sol ( branche `dev.ground` )
+- Génération aléatoire d'éléments sur la carte
+- Ajout du champs `Entite` pour les corps physiques. 
+- Ajout d'une méthode abstraite `colisionHappened()` dans entité pour detecter si il y a des collisions
+- Centrage de la map
+
+- [ ] `TODO (for Julian)` : *énumeration pour cette méthode *
+
+#### *Joan* : Réalisation des Sprites
+
+#### *Gergely + Samuel* : Entité suivant un joueur ( branche `dev.tank`)
+- Ne fait plus apparaitre le tank par défaut
+- Créer un tank qui bouge vers l'Est
+- Correction de beugs
+- Création de chars suiveurs
+
+- [x] `DONE` : *Merge avec le master*
+
+#### *Camille* : MiniMap ( branche `dev.MiniMap` )
+- Amélioration de la miniMap à l'affichage empéchant les clignotements  (remplacement du `getGraphics()` par une implémentation dans `paintComponents()` puis appel à la fonction `repaint()`)
+
+
+#### *Gergely + Samuel* : Mise à jour des sprites ( branche `dev.spritesheet`)
+- Mise à jour des spritesheet correspondants (char, ennemis, etc ...)
+- Rotation des entitées
+
+#### *Cyprien* : Gestion des armes ( branche `shot.try`)
+- Vies et collisions associées semblent être correctes, les balles sont détruites lorsqu'elles rencontrent un mur, les ennemis peuvent subir des dommages.
+- Ajout de fréquence de tir et gestion de la rapidité de tir / attaque.
+
+#### *Cyprien* : Background ( branche `background`)
+- Ajout d'un fond à la map
+
+#### *Camille* : Menu de demarrage ( branche `dev.menu`)
+- Implémentation du meneu de démarrage avec uniquement un bouton play pour le moment (à voir si on implémente les settings)
+
+
+---
+
+# JOURNAL du week end 19 & 20 juin
 #### *Gergely + Samuel* : Entité suivant un joueur ( branche `dev.tank`)
 - [x] `DONE` : *L'entité suit le joueur*
 
@@ -15,6 +89,7 @@
 - [x] `DONE` : *Changement d'armes fonctionnel*
 - [x] `DONE` : *Amélioration des dommages*
 
+#### *Joan* : Réalisation des Sprites
 
 ---
 

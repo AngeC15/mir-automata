@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import View.Season.EnumSeason;
-
 import View.Template;
 
 public class TemplatesLoader {
@@ -18,20 +17,21 @@ public class TemplatesLoader {
 		templates = new HashMap<String, Template>();
 	}
 
-
-
-	private void load_(EnumSeason season, String templatename, String spritename, String automatname, int rows, int lines, int totalSprites, double scale) throws IOException {
+	private void load_(EnumSeason season, String templatename, String spritename, String automatname, int rows,
+			int lines, int totalSprites, double scale) throws IOException {
 		Template template = new Template(season, spritename, automatname, rows, lines, totalSprites, scale);
 		templates.put(templatename, template);
 	}
 
-	public static void load(String templatename,String spritename, String automatname, int rows, int lines, int totalSprites, double scale) throws IOException {
+	public static void load(String templatename, String spritename, String automatname, int rows, int lines,
+			int totalSprites, double scale) throws IOException {
 		instance.load_(templatename, spritename, automatname, rows, lines, totalSprites, scale);
 	}
 
-	private void load_(String templatename,String spritename, String automatname, int rows, int lines, int totalSprites, double scale) throws IOException {
-			Template template = new Template(spritename, automatname, rows, lines, totalSprites, scale);
-			templates.put(templatename, template);
+	private void load_(String templatename, String spritename, String automatname, int rows, int lines,
+			int totalSprites, double scale) throws IOException {
+		Template template = new Template(spritename, automatname, rows, lines, totalSprites, scale);
+		templates.put(templatename, template);
 
 	}
 
@@ -51,11 +51,14 @@ public class TemplatesLoader {
 			}
 			String[] line_elems2 = line_elems[0].split("_");
 			if (line_elems2.length == 2) { // Look if it is for a special season
-				load_(EnumSeason.valueOf(line_elems2[1]),line_elems[0], line_elems[1], line_elems[2], Integer.parseInt(line_elems[3]), Integer.parseInt(line_elems[4]), Integer.parseInt(line_elems[5]), Double.parseDouble(line_elems[6]));
+				load_(EnumSeason.valueOf(line_elems2[1]), line_elems[0], line_elems[1], line_elems[2],
+						Integer.parseInt(line_elems[3]), Integer.parseInt(line_elems[4]),
+						Integer.parseInt(line_elems[5]), Double.parseDouble(line_elems[6]));
 			} else {
-				load_(line_elems[0], line_elems[1], line_elems[2], Integer.parseInt(line_elems[3]), Integer.parseInt(line_elems[4]), Integer.parseInt(line_elems[5]), Double.parseDouble(line_elems[6]));
+				load_(line_elems[0], line_elems[1], line_elems[2], Integer.parseInt(line_elems[3]),
+						Integer.parseInt(line_elems[4]), Integer.parseInt(line_elems[5]),
+						Double.parseDouble(line_elems[6]));
 			}
-			
 
 		}
 		br.close();
@@ -70,8 +73,10 @@ public class TemplatesLoader {
 	}
 
 	/**
-	 * Retrieves the template associated with an entity for a given season. By default the sprite returned is the summer one
-	 * @param name - name of the entity
+	 * Retrieves the template associated with an entity for a given season. By
+	 * default the sprite returned is the summer one
+	 * 
+	 * @param name   - name of the entity
 	 * @param season - current season
 	 * @return the associated template ( by default on summer)
 	 */

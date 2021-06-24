@@ -26,27 +26,33 @@
 
 package Controller.audio.com.jcraft.jorbis;
 
-import Controller.audio.com.jcraft.jogg.*;
+import Controller.audio.com.jcraft.jogg.Buffer;
 
-class Time0 extends FuncTime{
-  void pack(Object i, Buffer opb){
-  }
+class Time0 extends FuncTime {
+	@Override
+	void pack(Object i, Buffer opb) {
+	}
 
-  Object unpack(Info vi, Buffer opb){
-    return "";
-  }
+	@Override
+	Object unpack(Info vi, Buffer opb) {
+		return "";
+	}
 
-  Object look(DspState vd, InfoMode mi, Object i){
-    return "";
-  }
+	@Override
+	Object look(DspState vd, InfoMode mi, Object i) {
+		return "";
+	}
 
-  void free_info(Object i){
-  }
+	@Override
+	void free_info(Object i) {
+	}
 
-  void free_look(Object i){
-  }
+	@Override
+	void free_look(Object i) {
+	}
 
-  int inverse(Block vb, Object i, float[] in, float[] out){
-    return 0;
-  }
+	@Override
+	int inverse(Block vb, Object i, float[] in, float[] out) {
+		return 0;
+	}
 }

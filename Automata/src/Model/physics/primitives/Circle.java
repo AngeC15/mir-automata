@@ -7,7 +7,7 @@ import java.awt.geom.Ellipse2D;
 
 import Utils.Vector2;
 
-public class Circle extends Primitive{
+public class Circle extends Primitive {
 	@Override
 	public Vector2 support(Vector2 d) {
 		return d.normalize().scale(0.5f);
@@ -18,7 +18,7 @@ public class Circle extends Primitive{
 		g.transform(transform);
 		g.setColor(Color.green);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
-		
+
 	}
 
 	@Override

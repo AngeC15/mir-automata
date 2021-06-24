@@ -3,8 +3,8 @@ package Model.automata.actions;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
-public class Egg extends Action{
-	
+public class Egg extends Action {
+
 	DirectionExtension dir;
 
 	public Egg(DirectionExtension directionToRet, float weight) {

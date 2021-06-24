@@ -7,8 +7,8 @@ public class Transition {
 	public AutomatonState destination;
 	public Condition condition;
 	public Action action;
-	
-	public Transition(AutomatonState dst, Condition cond, Action act){
+
+	public Transition(AutomatonState dst, Condition cond, Action act) {
 		destination = dst;
 		condition = cond;
 		action = act;
@@ -16,9 +16,8 @@ public class Transition {
 
 	@Override
 	public String toString() {
-		return " \nTransition [destination=" + destination.toString() + 
-				"\n condition=" + condition.toString() + 
-				"\n action=" + action.toString() + "]";
+		return " \nTransition [destination=" + destination.toString() + "\n condition=" + condition.toString()
+				+ "\n action=" + action.toString() + "]";
 	}
-	
+
 }

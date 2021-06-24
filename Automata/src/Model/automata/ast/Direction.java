@@ -19,18 +19,20 @@ package Model.automata.ast;
 
 public class Direction extends Parameter {
 
-  public Terminal terminal;
+	public Terminal terminal;
 
-  public Direction(Terminal t) {
-    terminal = t;
-  }
-  
-  public String toString() {
-    return terminal.content;
-  }
-	
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	public Direction(Terminal t) {
+		terminal = t;
+	}
+
+	@Override
+	public String toString() {
+		return terminal.content;
+	}
+
+	@Override
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 
 }

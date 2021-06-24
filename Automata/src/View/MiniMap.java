@@ -2,19 +2,15 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 
-
 import Model.World;
 import Model.entities.Entity;
-import Model.physics.primitives.Circle;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 
@@ -82,7 +78,7 @@ public class MiniMap extends JPanel {
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
-		g.setColor(new Color(220,220,220));
+		g.setColor(new Color(220, 220, 220));
 		g.fillRect(-100, -100, 200, 200);
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
@@ -94,7 +90,6 @@ public class MiniMap extends JPanel {
 			g.transform(AffineTransform.getTranslateInstance(-size / 2f, -size / 2f)); // center
 																						// the
 
-			
 			Color c = et.getColor();
 			if (c != null) {
 				g.setColor(c);

@@ -1,9 +1,7 @@
 package Model.physics;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 
 import Model.entities.Entity;
 import Utils.SafeMapElement;
@@ -73,9 +71,11 @@ public class PhysicsBody implements SafeMapElement {
 		hitbox.debug(g);
 		g.setTransform(save);
 	}
+
 	public ColliderType getType() {
 		return type;
 	}
+
 	@Override
 	public void setID(long id) {
 		this.id = id;
@@ -94,11 +94,11 @@ public class PhysicsBody implements SafeMapElement {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
+
 	public void setFriction(int friction) {
 		this.friction = friction;
 	}
-	
+
 	public void setmaxSpeed(int speed) {
 		this.max_speed = speed;
 	}

@@ -12,7 +12,6 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import View.Avatar;
-import Model.World;
 
 public class DeadEntity extends Entity {
 
@@ -20,7 +19,7 @@ public class DeadEntity extends Entity {
 	private int deathTimer;
 	private double creationDate;
 
-	public DeadEntity(LivingEntity parent,Automaton a, int equipe, int deathTimer, String template) {
+	public DeadEntity(LivingEntity parent, Automaton a, int equipe, int deathTimer, String template) {
 		super(a, equipe);
 		world = parent.world;
 		this.deathTimer = deathTimer;
@@ -31,12 +30,13 @@ public class DeadEntity extends Entity {
 		try {
 			Avatar avatarCorpse = new Avatar(this, TemplatesLoader.get(template));
 			this.setAvatar(avatarCorpse);
-			getTransform().concatenate(AffineTransform.getTranslateInstance(parent.getTransform().getTranslateX(), parent.getTransform().getTranslateY()));
+			getTransform().concatenate(AffineTransform.getTranslateInstance(parent.getTransform().getTranslateX(),
+					parent.getTransform().getTranslateY()));
 			world.addEntity(this);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -44,6 +44,7 @@ public class DeadEntity extends Entity {
 		world.removeEntity(this.getID());
 		return;
 	}
+
 	@Override
 	public boolean GotStuff() {
 		double now = System.currentTimeMillis();

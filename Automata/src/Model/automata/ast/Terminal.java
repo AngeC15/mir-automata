@@ -25,8 +25,9 @@ public class Terminal extends Node {
 		this.content = parsed;
 	}
 
-  Object accept(IVisitor visitor) {
-    throw new Error("Should not be invoked");
-  }
+	@Override
+	Object accept(IVisitor visitor) {
+		throw new Error("Should not be invoked");
+	}
 
 }

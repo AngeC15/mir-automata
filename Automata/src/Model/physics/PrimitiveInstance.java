@@ -9,16 +9,16 @@ public class PrimitiveInstance {
 
 	public Primitive prim;
 	public AffineTransform transform;
-	
+
 	public PrimitiveInstance(Primitive p, AffineTransform t) {
 		prim = p;
 		this.transform = t;
 	}
-	
+
 	public Primitive get_prim() {
 		return prim;
 	}
-	
+
 	public AffineTransform get_transform() {
 		return transform;
 	}
@@ -26,5 +26,5 @@ public class PrimitiveInstance {
 	public void debug(Graphics2D g) {
 		prim.debug(g, transform);
 	}
-	
+
 }

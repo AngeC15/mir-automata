@@ -19,15 +19,17 @@ package Model.automata.ast;
 
 public class Underscore extends Parameter {
 
-  public Underscore() {
-    super();
-  }
+	public Underscore() {
+		super();
+	}
 
-  public String toString() {
-    return "_";
-  }
+	@Override
+	public String toString() {
+		return "_";
+	}
 
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	@Override
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

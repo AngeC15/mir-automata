@@ -9,9 +9,9 @@ import Model.entities.Entity;
  *
  */
 public abstract class Action {
-	
-	float weight; //must be more than 0 ad less than 1
-	
+
+	float weight; // must be more than 0 ad less than 1
+
 	public abstract boolean apply(Entity e);
 
 	public float getWeigth() {
@@ -24,13 +24,12 @@ public abstract class Action {
 
 	public void setWeight(float p) {
 		this.weight = p;
-		
+
 	}
 
 	@Override
 	public String toString() {
 		return "Action [weight=" + weight + getClass() + "]";
 	}
-	
-	
+
 }

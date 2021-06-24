@@ -63,7 +63,7 @@ public class AstPrinter implements IVisitor {
 	protected void non_terminal(Node node, String name) {
 		dot_non_terminal_node(node.id, name);
 	}
-	
+
 	protected void identifier(Node node, String name) {
 		dot_non_terminal_node(node.id, name);
 		edge(node.id, -node.id);
@@ -76,15 +76,15 @@ public class AstPrinter implements IVisitor {
 		dot_keyword_node(-node.id, node.toString());
 	}
 
-	
 	protected void subtree(Node node, List<Integer> son_ids) {
 		for (Integer id : son_ids) {
 			edge(node.id, id);
 		}
 	}
-	
+
 	// THE METHODES OF IVisitor
 
+	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
 		non_terminal(operator, "BinaryOp");
 		edge(operator.id, (Integer) left);
@@ -92,65 +92,79 @@ public class AstPrinter implements IVisitor {
 		return operator.id;
 	}
 
+	@Override
 	public Object visit(UnaryOp operator, Object expr) {
 		non_terminal(operator, "UnaryOp");
 		edge(operator.id, (Integer) expr);
 		return operator.id;
 	}
 
+	@Override
 	public void enter(FunCall funcall) {
 		non_terminal(funcall, "FunCall");
 		edge(funcall.id, -funcall.id);
-		dot_keyword_node(-funcall.id, funcall.name);		
+		dot_keyword_node(-funcall.id, funcall.name);
 	}
-	
+
+	@Override
 	public Object exit(FunCall funcall, List<Object> parameters) {
 		subtree(funcall, (List<Integer>) (Object) parameters);
 		return funcall.id;
 	}
 
+	@Override
 	public Object visit(Category terminal) {
 		keyword(terminal, "Category");
 		return terminal.id;
 	}
 
+	@Override
 	public Object visit(Direction terminal) {
 		keyword(terminal, "Direction");
 		return terminal.id;
 	}
 
+	@Override
 	public Object visit(Key terminal) {
 		keyword(terminal, "Key");
 		return terminal.id;
 	}
 
+	@Override
 	public Object visit(Underscore u) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Value value) {
 		return null;
 	}
 
-	public void enter(Action action) {}
-	
+	@Override
+	public void enter(Action action) {
+	}
+
+	@Override
 	public Object exit(Action action, List<Object> funcalls) {
-		non_terminal(action,"Action");
+		non_terminal(action, "Action");
 		subtree(action, (List<Integer>) (Object) funcalls);
 		return action.id;
 	}
 
+	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
 		non_terminal(behaviour, "Behaviour");
 		subtree(behaviour, (List<Integer>) (Object) transitions);
 		return behaviour.id;
 	}
 
+	@Override
 	public Object visit(State state) {
-		identifier(state,"State");
+		identifier(state, "State");
 		return state.id;
 	}
-	
+
+	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target) {
 		non_terminal(transition, "Transition");
 		edge(transition.id, (Integer) condition);
@@ -159,35 +173,44 @@ public class AstPrinter implements IVisitor {
 		return transition.id;
 	}
 
+	@Override
 	public void enter(Automaton automaton) {
-		non_terminal(automaton,"Automaton");
-		edge(automaton.id,-automaton.id);
-		dot_terminal_node(-automaton.id, automaton.name);		
+		non_terminal(automaton, "Automaton");
+		edge(automaton.id, -automaton.id);
+		dot_terminal_node(-automaton.id, automaton.name);
 	}
 
+	@Override
 	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
 		edge(automaton.id, (Integer) initial_state);
 		subtree(automaton, (List<Integer>) (Object) modes);
 		return automaton.id;
 	}
 
+	@Override
 	public Object visit(AST bot, List<Object> automata) {
-		non_terminal(bot,"AST");
+		non_terminal(bot, "AST");
 		subtree(bot, (List<Integer>) (Object) automata);
 		return bot.id;
 	}
-	
-	public void enter(Mode mode) {}
 
-	public Object exit(Mode mode, Object state, Object behaviour) {
-		non_terminal(mode,"Mode");
-		edge(mode.id, (Integer) state);
-		edge(mode.id, (Integer) behaviour);
-		return mode.id; 
+	@Override
+	public void enter(Mode mode) {
 	}
 
-	public void enter(Condition condition) {}
+	@Override
+	public Object exit(Mode mode, Object state, Object behaviour) {
+		non_terminal(mode, "Mode");
+		edge(mode.id, (Integer) state);
+		edge(mode.id, (Integer) behaviour);
+		return mode.id;
+	}
 
+	@Override
+	public void enter(Condition condition) {
+	}
+
+	@Override
 	public Object exit(Condition condition, Object expr) {
 		non_terminal(condition, "Condition");
 		edge(condition.id, (Integer) expr);

@@ -4,10 +4,9 @@ import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
 public class Jump extends Action {
-	
+
 	DirectionExtension dir;
 
-	
 	public Jump(DirectionExtension f, float weight) {
 		super(weight);
 		this.dir = f;

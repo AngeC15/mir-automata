@@ -4,8 +4,6 @@ import Model.entities.Entity;
 
 public class Store extends Action {
 
-	
-	
 	public Store(float weight) {
 		super(weight);
 		// TODO Auto-generated constructor stub

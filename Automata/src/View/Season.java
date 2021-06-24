@@ -11,7 +11,6 @@ import Model.entities.Entity;
 import Model.entities.Player;
 import Model.loader.TemplatesLoader;
 import Utils.RandomUtil;
-import Utils.SafeMap;
 import Utils.SafeMapElement;
 
 public class Season {

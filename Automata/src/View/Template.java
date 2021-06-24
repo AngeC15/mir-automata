@@ -24,19 +24,18 @@ import View.Season.EnumSeason;
 public class Template {
 	private SpriteSheet spriteSheet;
 	private LinkedHashMap<EnumAction, AnimNode> allNodes;
-	protected EnumSeason season ;
+	protected EnumSeason season;
 	private double scale;
-
 
 	/**
 	 * Creates a template with an associated sprite sheet and an animation automata.
 	 * 
 	 * @param fileNameSpriteSheet
 	 * @param fileNameAutomata
-	 * @param rows 
-	 * @param lines 
-	 * @param totalSprites 
-	 * @param scale 
+	 * @param rows
+	 * @param lines
+	 * @param totalSprites
+	 * @param scale
 	 * @throws IOException
 	 */
 	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites,
@@ -46,9 +45,9 @@ public class Template {
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		this.season = EnumSeason.SUMMER;
 		readFile(fileNameAutomata);
-		
+
 	}
-	
+
 	/**
 	 * Creates a template with an associated sprite sheet and an animation automata.
 	 * 
@@ -56,7 +55,8 @@ public class Template {
 	 * @param fileNameAutomata
 	 * @throws IOException
 	 */
-	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites, double scale) throws IOException {
+	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines,
+			int totalSprites, double scale) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		this.season = season;
@@ -115,7 +115,6 @@ public class Template {
 		}
 	}
 
-
 	/**
 	 * Checks what node have the most priority out of the given newAction array. If
 	 * none of the elements of newAction have the most priority than currentAction,
@@ -154,7 +153,7 @@ public class Template {
 	public BufferedImage resize(BufferedImage imgToScale) {
 		int w = imgToScale.getWidth();
 		int h = imgToScale.getHeight();
-		BufferedImage after = new BufferedImage((int) (w*scale), (int) (h*scale), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage after = new BufferedImage((int) (w * scale), (int) (h * scale), BufferedImage.TYPE_INT_ARGB);
 		AffineTransform at = new AffineTransform();
 		at.scale(scale, scale);
 		AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);

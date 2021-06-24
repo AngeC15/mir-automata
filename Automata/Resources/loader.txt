@@ -1,4 +1,13 @@
-Cowboy ; Resources/winchester-4x6.png ; Resources/example.ani
-Dead ; Resources/red_winchester-4x6.png ; Resources/example.ani
-GenCell ; Resources/winchester-4x6.png ; Resources/example.ani
-Tree ; Resources/red_winchester-4x6.png ; Resources/example.ani
+Hero ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8 ; 1
+Wall ; Resources/sprite_sheet_decor.png ; Resources/wall.ani ; 3 ; 5 ; 15 ; 0.25
+Dead ; Resources/sprite_sheet_decor.png ; Resources/dead.ani ; 3 ; 5 ; 15 ; 0.25
+Tree ; Resources/sprite_sheet_decor.png ; Resources/tree.ani ; 3 ; 5 ; 15 ; 0.5
+Bullet ; Resources/sprite_sheet_effect.png ; Resources/bullet.ani ; 3 ; 4 ; 10 ; 1
+EnemyBullet ; Resources/sprite_sheet_effect.png ; Resources/enemy_bullet.ani ; 3 ; 4 ; 10 ; 1
+Missile ; Resources/sprite_sheet_effect.png ; Resources/missile.ani ; 3 ; 4 ; 10 ; 1
+Tank ; Resources/sprite_sheet_enemy.png ; Resources/tank.ani ; 8 ; 4 ; 32 ; 1
+Mecha ; Resources/sprite_sheet_enemy.png ; Resources/mecha.ani ; 8 ; 4 ; 32 ; 1
+Flamethrower ; Resources/sprite_sheet_enemy.png ; Resources/flamethrower.ani ; 8 ; 4 ; 32 ; 1
+Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 8 ; 4 ; 32 ; 1
+DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 8 ; 4 ; 32 ; 1
+Strick ; Resources/sprite_sheet_enemy.png ; Resources/strick.ani ; 8 ; 4 ; 48 ; 1

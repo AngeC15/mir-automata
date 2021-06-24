@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
@@ -29,7 +30,7 @@ public class Decor extends Entity{
 	public Decor(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"), 3);
 		templates = new Template[3]; 
-		templates[0] = TemplatesLoader.get("GenCell");
+		templates[0] = TemplatesLoader.get("Wall");
 		templates[1] = TemplatesLoader.get("Dead");
 		templates[2] = TemplatesLoader.get("Tree");
 		map = m;
@@ -138,6 +139,15 @@ public class Decor extends Entity{
 	@Override
 	public String toString() {
 		return "Wall";
+	}
+	
+	public Color getColor() {
+		if (state == 0)
+			return Color.getHSBColor(60/360.0f,20/100.0f,90/100.0f);
+		if (state == 1)
+			return Color.gray;
+		else
+			return Color.getHSBColor(118/360.0f,60/100.0f,50/100.0f);
 	}
 
 }

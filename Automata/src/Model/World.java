@@ -99,7 +99,7 @@ public class World {
 	
 	public void generationDone() throws IOException {
 		Player player = new Player(this);
-		Template tmp = TemplatesLoader.get("Cowboy");
+		Template tmp = TemplatesLoader.get("Hero");
 		new Avatar(player, tmp);
 		this.addEntity(player);
 		this.setPlayer(player); 

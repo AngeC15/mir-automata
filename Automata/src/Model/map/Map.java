@@ -33,7 +33,7 @@ public class Map {
 			for (int j = 0 ; j < p ; j ++) {
 				Decor w = new Decor(this, i, j);
 				map[i][j] = w; 
-				new Avatar(w, TemplatesLoader.get("GenCell"));
+				new Avatar(w, TemplatesLoader.get("Wall"));
 				w.getBody().getTransform().concatenate(cellCurrent);
 				world.addEntity(w);
 				cellCurrent.concatenate(xt);

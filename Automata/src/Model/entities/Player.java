@@ -17,6 +17,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 public class Player extends LivingEntity {
@@ -110,7 +111,7 @@ public class Player extends LivingEntity {
 	}
 
 	public Color getColor() {
-		return Color.green;
+		return Color.blue;
 	}
 
 	

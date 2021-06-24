@@ -1,6 +1,10 @@
-Player ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8 ; 1
-Wall ; Resources/sprite_sheet_decor.png ; Resources/decor/wallSummer.ani ; 3 ; 5 ; 15 ; 1
-Bullet ; Resources/sprite_sheet_effect.png ; Resources/bullet.ani ; 3 ; 4 ; 10 ; 1
+Player ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8 ; 0.8
+Wall ; Resources/sprite_sheet_decor.png ; Resources/decor/wallSummer.ani ; 3 ; 5 ; 15 ; 0.4
+Wall_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/wallWinter.ani ; 3 ; 5 ; 15 ; 0.4
+Dead ; Resources/sprite_sheet_decor.png ; Resources/decor/dead.ani ; 3 ; 5 ; 15 ; 0.25
+Tree ; Resources/sprite_sheet_decor.png ; Resources/decor/tree.ani ; 3 ; 5 ; 15 ; 0.7
+Tree_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/treeWinter.ani ; 3 ; 5 ; 15 ; 0.7
+Bullet ; Resources/sprite_sheet_effect.png ; Resources/bullet.ani ; 3 ; 4 ; 10 ; 0.70
 EnemyBullet ; Resources/sprite_sheet_effect.png ; Resources/enemy_bullet.ani ; 3 ; 4 ; 10 ; 1
 Missile ; Resources/sprite_sheet_effect.png ; Resources/missile.ani ; 3 ; 4 ; 10 ; 1
 Tank ; Resources/sprite_sheet_enemy.png ; Resources/tank.ani ; 8 ; 4 ; 32 ; 1
@@ -10,5 +14,4 @@ Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 8 ; 4 ; 32 ; 1
 DeadExplosion ; Resources/sprite_sheet_enemy.png ; Resources/dead_explosion.ani ; 8 ; 4 ; 32 ; 1
 Strick ; Resources/sprite_sheet_enemy.png ; Resources/strick.ani ; 8 ; 4 ; 48 ; 1
 Ground_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/groundWinter.ani ; 3 ; 5 ; 15 ; 1
-Wall_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/wallWinter.ani ; 3 ; 5 ; 15 ; 1
 Ground ; Resources/sprite_sheet_decor.png ; Resources/decor/ground.ani ; 3 ; 5 ; 15 ; 1

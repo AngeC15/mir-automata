@@ -5,7 +5,8 @@ import java.awt.Graphics2D;
 
 import Model.World;
 import Model.entities.Player;
-
+//import Model.entities.Tank;
+import Model.entities.Decor;
 import Model.entities.enemies.Plane;
 import Model.entities.enemies.Tank;
 
@@ -59,16 +60,20 @@ public class Game {
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
-
-		Map map = new Map(25, 25, 5.3f, world);
+		int n, p; 
+		n = 30;
+		p = 30;
+		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 		
+/*
 		Player player = new Player();
 		Template tmp = TemplatesLoader.get("Player");
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-		
+		*/
+
 
 		// uncomment if you want enemies
 
@@ -169,6 +174,7 @@ public class Game {
 		
 		world.tick(elapsed);
 		view.tick(elapsed);
+		
 	}
 
 	/*

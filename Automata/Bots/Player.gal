@@ -9,6 +9,10 @@ Player(Init){
   | Key(d) & Key(s) & (!Key(q)) & (!Key(z)) ? Move(SE) :(Init)
   | Key(s) & Key(q) & (!Key(d)) & (!Key(z)) ? Move(SW) :(Init)
   | Key(q) & Key(z) & (!Key(d)) & (!Key(s)) ? Move(NW) :(Init)
+  | Key(q) & Key(z) & Key(d) & (!Key(s)) ? Move(N) :(Init)
+  | Key(q) & (!Key(z)) & Key(d) & Key(s) ? Move(S) :(Init)
+  | Key(q) & Key(z) & (!Key(d)) & (!Key(s)) ? Move(W) :(Init)
+  | (!Key(q)) & Key(z) & Key(d) & Key(s) ? Move(E) :(Init)
   | Key(8) & GotPower ? Hit :(Init)
   | Key(6) & GotPower ? Pop :(Init)
   | Key(SPACE) ? Jump :(Init)
@@ -34,15 +38,18 @@ Wall(Init){
 	| True ? :(Alive)
 	| True ? :(Alive)
 	* (Idle):
-	| GotStuff & !GotPower ? :(Dead)
+	| GotStuff & (!GotPower) ? :(Dead)
 	| GotStuff & GotPower ? :(Alive)
-	| (!GotStuff) ? :(End)
+	| (!GotStuff) ? :(Tmp)
 	* (Dead):
 	| True ? Throw(B) :(Idle)
 	* (Alive):
 	| True ? Throw(F) :(Idle)
+	* (Tmp):
+	| True ? Throw(R) :(End)
 	* (End):
-	| True ? Explode :(Wall)
+	| !GotPower ? Explode :(Wall)
+	| GotPower ? Throw(H) :(Wall)
 	* (Wall)
 }
 

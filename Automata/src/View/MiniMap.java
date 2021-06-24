@@ -75,7 +75,7 @@ public class MiniMap extends JPanel {
 		}
 		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
 				-playerTransform.getTranslateY()));
-		g.transform(canvasTransform); // pixel au coordonées du monde
+		g.transform(canvasTransform); // pixel au coordonï¿½es du monde
 
 		cameraTransform = cam_save;
 

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map.Entry;
 
 import Model.World;
+import Model.entities.Decor;
 import Model.entities.Entity;
 import Model.entities.Player;
 import Model.loader.TemplatesLoader;
@@ -48,11 +49,10 @@ public class Season {
 			Entity et = (Entity) entries.getValue();
 			Avatar avatar = et.getAvatar();
 			avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
-			if (et.team == 1) {
+			if (et instanceof Player) {
 				Player p = (Player ) et;
 				p.getBody().setFriction(2); // normal 15
 				p.getBody().setmaxSpeed(100); // normal 40
-				
 			}
 		}
 		

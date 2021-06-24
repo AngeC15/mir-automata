@@ -6,6 +6,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -18,12 +22,25 @@ import Utils.Vector2;
 
 import java.awt.Graphics2D;
 
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Shape;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
+
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.TreeMap;
+import java.util.ArrayList;
+
+
 import java.util.Map.Entry;
 
 public class GameView {
@@ -45,11 +62,15 @@ public class GameView {
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
-
 	private Season season;
 
 	// utiliser spritesheet pour charger le fond
 	// private File imageFond;
+
+	private BufferedImage bg;
+
+	private static final AffineTransform identity = new AffineTransform();
+
 
 	public GameView(GameCanvasListener listener) {
 
@@ -86,10 +107,11 @@ public class GameView {
 	public void updateCanvasTransform() {
 		float canvasScaling = m_frame.getWidth() / units_per_width; // 100.0 wide
 		canvasTransform = AffineTransform.getScaleInstance(canvasScaling, -canvasScaling);
-		canvasTransform.concatenate(AffineTransform.getTranslateInstance(units_per_width / 2.0f,
-				-(units_per_width / 2.0f) * (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()))));
+		float ratio = (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()));
+		canvasTransform.translate(units_per_width / 2.0f, -(units_per_width / 2.0f) * ratio);
 
 	}
+
 
 	public void setupFrame() {
 		m_frame.setTitle("Game");
@@ -103,13 +125,24 @@ public class GameView {
 	}
 
 	public void setupGame() {
-		// menu.setVisible(false);
-
 		System.out.println("  - setting up the frame...");
 
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
+
+	/*	SpriteSheet sp = null;
+		try {
+			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bg = sp.getSprite(0);
+		*/
+		
+		m_frame.setTitle("Game");
+		m_frame.setLayout(new BorderLayout());
 
 		m_text = new JLabel();
 		m_text.setText("Tick: 0ms FPS=0");
@@ -125,10 +158,18 @@ public class GameView {
 		pane.add(m_canvas, 2);
 
 		m_frame.add(pane, BorderLayout.CENTER);
+
+		// center the window on the screen
+		m_frame.setLocationRelativeTo(null);
+		// make the window visible
+		m_frame.setVisible(true);
+
+		//______
 		m_frame.remove(menu);
 
 		season = new Season(world);
 		intensity = 0;
+
 
 	}
 
@@ -157,7 +198,13 @@ public class GameView {
 	public Vector2 getMouseWorld(int x, int y) throws NoninvertibleTransformException {
 		Vector2 m = getMousePlayer(x, y);
 		Vector2 r = new Vector2(0, 0);
-		AffineTransform playerTransform = world.getPlayer().getTransform();
+		AffineTransform playerTransform;
+		if(world.getPlayer() == null) {
+			playerTransform = identity;
+		}
+		else{
+			playerTransform = world.getPlayer().getTransform();
+		}
 
 		AffineTransform playerTranslate = AffineTransform.getTranslateInstance(playerTransform.getTranslateX(),
 				playerTransform.getTranslateY());
@@ -179,8 +226,9 @@ public class GameView {
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-
+		this.miniMap.setWorld(world); //Met a jour le monde dans la miniMap
 		miniMap.repaint(); // Refait l'affichage
+
 
 		// erase background
 		g.setColor(Color.gray);
@@ -204,20 +252,53 @@ public class GameView {
 		// float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)
 		// * 0.2f;
 		// System.out.println("angle " + System.currentTimeMillis());
-		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
-				-playerTransform.getTranslateY()));
+		cameraTransform.translate(-playerTransform.getTranslateX(),-playerTransform.getTranslateY());
 		// .concatenate(AffineTransform.getRotateInstance(angle));
 
+		
+		
 		g.transform(canvasTransform);
+		
+		AffineTransform screeSpace = new AffineTransform(g.getTransform());
+		
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
-		AffineTransform gameTransform = g.getTransform();
-
-		// draw
-
+		AffineTransform gameTransform = new AffineTransform(g.getTransform());
+		
+		/*
+		int imWidth = bg.getWidth();
+		int imHeight = bg.getHeight();
+		float bgw = imWidth/sprite_pixels_per_unit;
+		float bgh = imHeight/sprite_pixels_per_unit;
+		
+		
+		//int width  = m_frame.getWidth();
+		int width  = 10; 
+		//int heigth = m_frame.getHeight();
+		int height = 10;
+		g.translate(-bgw*width/2.0f , -bgh*height/2.0f);
+		AffineTransform backgroundTransform = new AffineTransform(g.getTransform());
+		//System.out.println("width " + width + " height" + heigth);
+		AffineTransform lineTransform = new AffineTransform();
+		AffineTransform tileTransform = null;
+		for(int y = 0; y < height; y++) {
+			tileTransform = new AffineTransform(lineTransform);
+			for(int x = 0; x < width ; x++) {
+				tileTransform.translate(bgw, 0);
+				g.transform(tileTransform);
+				g.transform(localTransform);
+				g.translate(-imWidth / 2.0f, -imHeight / 2.0f);
+				g.drawRenderedImage(bg, identity);
+				g.setTransform(backgroundTransform);
+			}
+			lineTransform.translate(0, bgh);
+		}*/
+		
+		g.setTransform(gameTransform);
 		SafeMap entities = world.getEntities();
-
+		drawGround(g, 200, 200, 10);
+		/*
 		g.setColor(Color.darkGray);
 		g.setStroke(new BasicStroke(0.2f));
 
@@ -226,9 +307,13 @@ public class GameView {
 			g.draw(new Line2D.Float(-100.0f, (float) i, 100.0f, (float) i));
 		}
 
-		drawGround(g, 200, 200, 10);
+		
 		g.setColor(Color.red);
 		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
+		*/		
+		
+		
+		
 		for (Entry<Long, SafeMapElement> entries : entities) {
 
 			Entity et = (Entity) entries.getValue();
@@ -236,7 +321,7 @@ public class GameView {
 			g.transform(et.getTransform());
 			//et.getBody().debug(g);
 			g.transform(localTransform);
-			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
+			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center
 																													// the
 																													// object
 
@@ -244,7 +329,14 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-		 intensity = season.transitionSummerWinter(g, 1000, intensity);
+		try {
+			season.nextSeason();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//intensity = season.transitionSummerWinter(g, 1000, intensity);
+		 
 
 	}
 
@@ -255,6 +347,8 @@ public class GameView {
 				g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas);
 			}
 		}
+
+		// g.setTransform(baseTransform);
 
 	}
 

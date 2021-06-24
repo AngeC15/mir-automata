@@ -40,13 +40,7 @@ public class Avatar {
 		compteur = System.currentTimeMillis();
 		currentAction = tmp.getDefaultAction();
 		template = tmp;
-		
-	}
-	
-	public void setTemplate(Template tmp) {
-		currentAction = tmp.getDefaultAction();
-		template = tmp;
-		state = tmp.getDefaultNode();
+
 	}
 
 	/**
@@ -95,6 +89,12 @@ public class Avatar {
 		}
 	}
 
+	public void setTemplate(Template tmp) {
+		currentAction = tmp.getDefaultAction();
+		template = tmp;
+		state = tmp.getDefaultNode();
+	}
+
 	public int getSpriteW() {
 		return state.getSprite().getWidth();
 	}
@@ -102,7 +102,7 @@ public class Avatar {
 	public int getSpriteH() {
 		return state.getSprite().getHeight();
 	}
-	
+
 	public BufferedImage getDefaultSprite() {
 		return template.getDefaultNode().getSprite();
 	}

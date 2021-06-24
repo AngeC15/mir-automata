@@ -1,14 +1,25 @@
 package Model;
 
+
+import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.Map.Entry;
 
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
+import Model.entities.Player;
+import Model.entities.Decor;
+import Model.loader.TemplatesLoader;
 import Model.map.Map;
 import Model.physics.Newton;
 
 import Utils.SafeMap;
 import Utils.SafeMapElement;
+
+import View.Avatar;
+import View.Template;
+
+import java.util.TreeMap;
 
 import Controller.VirtualInput;
 
@@ -20,7 +31,8 @@ public class World {
 	private VirtualInput inputs;
 	private long elapsed;
 	private Newton newton;
-	public Map map;
+	private Map map;
+	
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new SafeMap();
@@ -39,7 +51,12 @@ public class World {
 			((Entity)e.getValue()).step();
 		}
 		newton.tick(elapsed);
-		if(map!=null) map.tick(elapsed);
+		if(map!=null)
+			try {
+				map.tick(elapsed);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 	}
 	public SafeMap getEntities(){
 		return entities;
@@ -79,4 +96,12 @@ public class World {
 	public void setInputs(VirtualInput inputs) {
 		this.inputs = inputs;
 	}	
+	
+	public void generationDone() throws IOException {
+		Player player = new Player();
+		Template tmp = TemplatesLoader.get("Player");
+		new Avatar(player, tmp);
+		this.addEntity(player);
+		this.setPlayer(player); 
+	}
 }

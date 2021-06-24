@@ -30,6 +30,10 @@ public class Template {
 	 * 
 	 * @param fileNameSpriteSheet
 	 * @param fileNameAutomata
+	 * @param rows 
+	 * @param lines 
+	 * @param totalSprites 
+	 * @param scale 
 	 * @throws IOException
 	 */
 	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites,

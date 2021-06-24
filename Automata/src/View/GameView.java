@@ -5,15 +5,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import Model.World;
 import Model.entities.Entity;
-import Model.loader.AutomataLoader;
-import Model.loader.TemplatesLoader;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 import Utils.Vector2;
@@ -26,9 +24,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.NoninvertibleTransformException;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Map.Entry;
 
 public class GameView {
@@ -37,6 +32,7 @@ public class GameView {
 	JFrame m_frame;
 	JLabel m_text;
 	World world;
+	int intensity;
 	private long m_textElapsed;
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
@@ -132,6 +128,7 @@ public class GameView {
 		m_frame.remove(menu);
 
 		season = new Season(world);
+		intensity = 0;
 
 	}
 
@@ -175,6 +172,7 @@ public class GameView {
 	}
 
 	public void paint(Graphics2D g) {
+
 		// get the size of the canvas
 
 		this.frameSize.width = m_frame.getWidth();
@@ -246,6 +244,7 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
+		// intensity = season.transitionSummerWinter(g, 1000, intensity);
 
 	}
 

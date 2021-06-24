@@ -1,9 +1,11 @@
+Ground_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/groundWinter.ani ; 3 ; 5 ; 15
 Cowboy ; Resources/winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
 Dead ; Resources/red_winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
 GenCell ; Resources/winchester-4x6.png ; Resources/example.ani ; 6 ; 4 ; 24
 Hero ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8
-Wall ; Resources/sprite_sheet_decor.png ; Resources/wall.ani ; 3 ; 5 ; 15
-Ground ; Resources/sprite_sheet_decor.png ; Resources/ground.ani ; 3 ; 5 ; 15
+Wall ; Resources/sprite_sheet_decor.png ; Resources/decor/wallSummer.ani ; 3 ; 5 ; 15
+Wall_WINTER ; Resources/sprite_sheet_decor.png ; Resources/decor/wallWinter.ani ; 3 ; 5 ; 15 
+Ground ; Resources/sprite_sheet_decor.png ; Resources/decor/ground.ani ; 3 ; 5 ; 15
 Bullet ; Resources/sprite_sheet_effect.png ; Resources/bullet.ani ; 2 ; 4 ; 7
 EnemyBullet ; Resources/sprite_sheet_effect.png ; Resources/enemy_bullet.ani ; 2 ; 4 ; 7
 Missile ; Resources/sprite_sheet_effect.png ; Resources/missile.ani ; 3 ; 4 ; 22

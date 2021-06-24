@@ -13,8 +13,8 @@ public class Dagger extends Weapon {
 
 	public Dagger() {
 		super(true);
-		this.shot_frequency = 500;
-		this.damage = 30;
+		this.shot_frequency = 200;
+		this.damage = 20;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Dagger extends Weapon {
 		 * 
 		 * //suppression de la hitbox
 		 */
-		SwordStrick swordStrick = new SwordStrick(e, vect);
+		SwordStrick swordStrick = new SwordStrick(e, vect, this.damage);
 		World w = e.getWorld();
 		w.addEntity(swordStrick);
 		Vector2 direction = new Vector2((float) swordStrick.getTransform().getShearX(),

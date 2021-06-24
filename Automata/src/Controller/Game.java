@@ -67,8 +67,8 @@ public class Game {
 		view.setWorld(world);
 
 		int n, p; 
-		n = 100;
-		p = 100;
+		n = 30;
+		p = 30;
 		state = 1;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);

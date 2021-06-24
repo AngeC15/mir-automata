@@ -73,7 +73,10 @@ public class Newton {
 		//v.x = nv.x;
 		//v.y = nv.y;
 		Vector2 n = normal.scale(0.05f);
-		b.transform.translate(n.x, n.y);
+		AffineTransform tr = AffineTransform.getTranslateInstance(n.x, n.y);
+		tr.concatenate(b.transform);
+		b.setTransform(tr);
+//		b.transform.translate(n.x, n.y);
 		
 	}
 	

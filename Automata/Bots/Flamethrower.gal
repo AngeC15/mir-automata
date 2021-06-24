@@ -1,4 +1,4 @@
-Duck(Follow){
+Flamethrower(Follow){
   * (Follow):
   | ! GotStuff ? Egg :()
   | Closest(A,N) ? Move(N) :(Follow)

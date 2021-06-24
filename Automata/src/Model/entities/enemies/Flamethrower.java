@@ -12,24 +12,26 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 
-public class Snake extends Enemy {
-
-	public Snake(String automaton) {
+public class Flamethrower extends Enemy {
+	
+	public Flamethrower(String automaton) {
 		super(automaton);
 		weapon = new Dagger();
-		cooldown = 900;
+		cooldown = 100;
 		shootDistance = 3;
-		life = 30;
-		damage = 20;
+		acceleration = 90;
+		damage = 1;
+		life = 10;
+		damage = 10;
 		
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
-		this.body = new PhysicsBody(h, ColliderType.Character, 4, 30, this);
+		this.body = new PhysicsBody(h, ColliderType.Character, 0, 35, this);
 	}
 	
 	@Override
 	public void Egg(DirectionExtension dir) {
-		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadDust");
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
 	}
 

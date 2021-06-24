@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 import Model.World;
 import Model.entities.Player;
-import Model.entities.enemies.Snake;
+import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
@@ -16,7 +16,7 @@ import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
-import Model.entities.enemies.Duck;
+import Model.entities.enemies.Flamethrower;
 import Model.entities.enemies.Plane;
 
 
@@ -80,17 +80,17 @@ public class Game {
 		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		world.addEntity(tank);
 		
-		Snake snake = new Snake("Snake");
-		Template tmpSnake = TemplatesLoader.get("Snake");
-		new Avatar(snake, tmpSnake);
-		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
-		world.addEntity(snake);
+		Mecha mecha = new Mecha("Mecha");
+		Template tmpMecha = TemplatesLoader.get("Mecha");
+		new Avatar(mecha, tmpMecha);
+		mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
+		world.addEntity(mecha);
 		
-		Duck duck = new Duck("Duck");
-		Template tmpDuck = TemplatesLoader.get("Duck");
-		new Avatar(duck, tmpDuck);
-		duck.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
-		world.addEntity(duck);
+		Flamethrower flamethrower = new Flamethrower("Flamethrower");
+		Template tmpFlamethrower = TemplatesLoader.get("Flamethrower");
+		new Avatar(flamethrower, tmpFlamethrower);
+		flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
+		world.addEntity(flamethrower);
 		
 		Plane plane = new Plane("Plane");
 		Template tmpPlane = TemplatesLoader.get("Plane");

@@ -108,7 +108,7 @@ public class Player extends LivingEntity {
 	
 	@Override
 	public void Egg(DirectionExtension dir) {
-		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadDust");
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
 	}
 

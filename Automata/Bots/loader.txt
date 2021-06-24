@@ -1,6 +1,6 @@
 Bots/Player.gal
 Bots/Tank.gal
-Bots/Snake.gal
-Bots/Duck.gal
+Bots/Mecha.gal
+Bots/Flamethrower.gal
 Bots/Plane.gal
 Bots/Dead.gal

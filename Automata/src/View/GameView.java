@@ -272,9 +272,9 @@ public class GameView {
 		
 		
 		//int width  = m_frame.getWidth();
-		int width  = 0;
+		int width  = 10; 
 		//int heigth = m_frame.getHeight();
-		int height = 0;
+		int height = 10;
 		g.translate(-bgw*width/2.0f , -bgh*height/2.0f);
 		AffineTransform backgroundTransform = new AffineTransform(g.getTransform());
 		//System.out.println("width " + width + " height" + heigth);

@@ -281,7 +281,7 @@ public class Entity implements SafeMapElement {
 		
 		
 		//if the bullet meet a wall, destroy it
-		if((this instanceof Bullet && other instanceof Decor) ) {
+		if((this instanceof Bullet && other instanceof Decor) ) { //attention ce n'est pas bien
 			((LivingEntity)this).death();
 		}
 		//we check if both have life and enventually damages

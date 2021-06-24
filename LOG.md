@@ -6,6 +6,26 @@
 
 - [x] `DONE` : *Merge avec le master*
 
+#### *Camille* : Simplification de la minimap ( branche `improve.minimap`)
+- Remplacement des sprite dans la minimap par un rond de couleur
+    - vert : pour le joueur
+    - rouge : pour les ennemis
+    - gris : pour les eléments de décor
+
+- [x] `DONE` : *Merge avec la branche `dev.spritesheet`*
+
+#### *Julian* : Background ( branche `background`)
+- Ajout d'un fond à la map
+
+#### *Théo* : Génération de la map ( branche `dev.map`)
+- Affichage de la génération en temps Réel 
+- Joueur qui apparait à la fin de la génération de la map 
+
+#### *Théo* : Génération de la map ( branche `dev.map`)
+- Affichage de la génération en temps Réel 
+- optimisation diverses
+
+#### *Gergely + Samuel + Joan* : Résolutions diverses de beugs ( branche `dev.spritesheet`)
 
 ---
 # JOURNAL du lundi 21 juin 

@@ -1,5 +1,6 @@
 package Model.entities;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 
 
@@ -85,5 +86,13 @@ public class Wall extends Entity{
 	public boolean step() {
 		return automaton.step(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Wall";
+	}
 	
+	public Color getColor() {
+		return Color.gray;
+	}
 }

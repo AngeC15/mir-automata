@@ -1,6 +1,8 @@
 package Model.entities;
 
 import Controller.VirtualInput;
+
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import Model.World;
 
@@ -17,47 +19,28 @@ import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+public class Player extends LivingEntity {
 	public Weapon armeCac;
 	public Weapon armeDist;
-	public Weapon currentWeapon;
-	private double waitingSwitch;
-	private double lastshot;
-	
+	private double lastAttack;
+	private double lastAttackFrequency;
+	private Entity daggerStrick;
+
 	public Player(World w) {
 		super(AutomataLoader.get("Player"), 1);
 		this.acceleration = 80.0f;
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
-		
-		armeCac = new Dagger(); //to change please
-		armeDist = new Gun();
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
 
-		currentWeapon = armeDist;
-		waitingSwitch = System.currentTimeMillis();
-		lastshot = System.currentTimeMillis();
-		this.life = 100;
-		this.damage = 20;
+		armeCac = new Dagger(); // to change please
+		armeDist = new Gun("Bullet");
 
+		lastAttack = System.currentTimeMillis();
+
+		this.life = 750;
 	}
-	
 
-	public void switchWeapon() {
-		//you need to wait 1s between 2 switch of weapon
-		double now = System.currentTimeMillis();
-		if( now - waitingSwitch > 1000) {
-			waitingSwitch = now;
-			if(currentWeapon == armeDist) {
-				currentWeapon = armeCac;
-			}else {
-				currentWeapon = armeDist;
-			}
-			System.out.println("Weapon switched");
-		}
-	}
-	
 	public void setArmeCac(Weapon armeCac) {
 		this.armeCac = armeCac;
 	}
@@ -66,47 +49,75 @@ public class Player extends LivingEntity{
 		this.armeDist = armeDist;
 	}
 
-	
+	@Override
+	public boolean step() {
+		//Check to destroy dagger strick
+		double now = System.currentTimeMillis();
+		if(daggerStrick != null && now - lastAttack >125) {
+			this.world.removeEntity(daggerStrick.getID());
+			daggerStrick = null;
+		}
+		rotate();
+		return super.step();
+	}
+
+	protected void rotate() {
+		VirtualInput keyboard = this.world.getInputs();
+
+		try {
+			// mouse angle relative to the player
+			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
+
+			// substract the players current angle and rotate
+			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+			getTransform().rotate(relativeAngle + Math.toRadians(90));
+
+		} catch (NullPointerException e) {
+			getTransform().rotate(Math.toRadians(0));
+		}
+	}
 
 	@Override
 	public void Hit(DirectionExtension dir) {
-		// attaque corp à corps
-		double now = System.currentTimeMillis();
+		// Meelee attack
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeCac.getShot_frequency();
 
-		//System.out.println("Hit with " + currentWeapon.getClass().toString());
-		super.Hit(dir);
-		VirtualInput christianClavier = this.world.getInputs();
-		
-		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		currentWeapon.attack(this, christianClavier.getMousePlayer());
+		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
 		
 	}
-
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		//changement d'arme
-		this.switchWeapon();
-	}
+		// Distance attack
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeDist.getShot_frequency();
 
+		armeDist.attack(this, new Vector2(0, -1));
+	}
 
 	@Override
 	public boolean GotPower() {
-		// TODO Auto-generated method stub
 		double now = System.currentTimeMillis();
-		if(now - lastshot > currentWeapon.getShot_frequency()) {
-			lastshot = now;
+		if (now - lastAttack > lastAttackFrequency)
 			return true;
-		}
 		return false;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Player";
 	}
+
+	public Color getColor() {
+		return Color.green;
+	}
+
 	
-	
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
+		this.getWorld().removeEntity(getID());
+	}
 
 }

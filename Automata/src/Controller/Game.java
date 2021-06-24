@@ -1,28 +1,23 @@
 package Controller;
 
-import View.Avatar;
-import View.GameCanvas;
-import View.GameView;
-import View.MiniMap;
-import View.Sound;
-import View.Template;
-import Controller.audio.*;
-import Controller.audio.info3.game.sound.RandomFileInputStream;
-import java.io.RandomAccessFile;
-
-import Model.World;
-import Model.entities.Cowboy;
-import Model.entities.EnemyPlayer;
-import Model.entities.Player;
-import Model.entities.Tank;
-import Model.entities.Wall;
-import Model.loader.AutomataLoader;
-import Model.loader.TemplatesLoader;
-import Model.map.Map;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+
+import Model.World;
+import Model.entities.Player;
+import Model.entities.enemies.Plane;
+import Model.entities.enemies.Tank;
+import Model.loader.AutomataLoader;
+import Model.loader.TemplatesLoader;
+import Model.map.Map;
+import View.Avatar;
+import View.GameView;
+import View.Sound;
+import View.Template;
+import Model.entities.enemies.Flamethrower;
+import Model.entities.enemies.Mecha;
+import Model.entities.enemies.Plane;
 
 
 
@@ -32,7 +27,6 @@ public class Game {
 	static Game game;
 	
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
 	GameView view ;
@@ -65,26 +59,55 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		Map map = new Map(50, 50, 5.3f, world);
+		Map map = new Map(25, 25, 5.3f, world);
 		world.setMap(map);
 		
 		Player player = new Player(world);
-		Template tmp = TemplatesLoader.get("Cowboy");
+		Template tmp = TemplatesLoader.get("Hero");
 		new Avatar(player, tmp);
 		world.addEntity(player);
 		world.setPlayer(player);
-//
+		
+		// uncomment if you want enemies
+		/*
+		Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		new Avatar(tank, tmpTank);
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		world.addEntity(tank);
+		
+		Mecha mecha = new Mecha("Mecha");
+		Template tmpMecha = TemplatesLoader.get("Mecha");
+		new Avatar(mecha, tmpMecha);
+		mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
+		world.addEntity(mecha);
+		
+		Flamethrower flamethrower = new Flamethrower("Flamethrower");
+		Template tmpFlamethrower = TemplatesLoader.get("Flamethrower");
+		new Avatar(flamethrower, tmpFlamethrower);
+		flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
+		world.addEntity(flamethrower);
+		
+		Plane plane = new Plane("Plane");
+		Template tmpPlane = TemplatesLoader.get("Plane");
+		new Avatar(plane, tmpPlane);
+		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
+		world.addEntity(plane);
+		*/
+		
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		 * world.addEntity(wall);
 		 */
+		
+		/*
 		Template tmp2 = TemplatesLoader.get("Dead");
 		EnemyPlayer enemy = new EnemyPlayer(world);
 		Avatar av3 = new Avatar(enemy, tmp2);
 		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
 		world.addEntity(enemy);
-
+		*/
 	}
 	
 	private static class Init implements Runnable{

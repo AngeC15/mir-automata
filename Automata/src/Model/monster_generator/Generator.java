@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import Model.World;
-import Model.entities.EnemyPlayer;
 import Model.entities.enemies.Duck;
 import Model.entities.enemies.Plane;
 import Model.entities.enemies.Snake;

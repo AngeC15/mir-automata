@@ -6,8 +6,10 @@ import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
+import Model.entities.Wall;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
+import Model.physics.ColliderType;
 import Utils.Vector2;
 
 public abstract class Enemy extends LivingEntity {
@@ -18,6 +20,7 @@ public abstract class Enemy extends LivingEntity {
 	protected float friction;
 	protected float maxSpeed;
 	protected double lastAttack;
+	protected Entity lastEntityHit;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
@@ -137,8 +140,27 @@ public abstract class Enemy extends LivingEntity {
 			return true;
 		return false;
 	}
-	
+
 	public Color getColor() {
 		return Color.red;
+	}
+
+	@Override
+	public void colisionHappened(Entity other, ColliderType c) {
+		lastEntityHit = other;
+		super.colisionHappened(other, c);
+	}
+
+	@Override
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		if (categorie == CategoryExtension.O) {
+			if (lastEntityHit == null)
+				return false;
+			if (lastEntityHit instanceof Wall) {
+				System.out.println("Mario think you fantastic!");
+				return true;
+			}
+		}
+		return false;
 	}
 }

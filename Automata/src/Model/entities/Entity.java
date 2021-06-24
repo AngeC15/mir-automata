@@ -15,7 +15,10 @@ import Utils.Functions;
 
 import Utils.SafeMapElement;
 import Model.physics.ColliderType;
+import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
+import Model.physics.PrimitiveInstance;
+import Model.physics.primitives.Circle;
 import Utils.Vector2;
 import View.Avatar;
 
@@ -221,7 +224,7 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
-
+		
 		// PROTOTYPE
 		/*
 		 * double angle = Math.atan2(getTransform().getShearY(),

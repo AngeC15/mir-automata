@@ -2,12 +2,9 @@ package Controller;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 import Model.World;
 import Model.entities.Player;
-import Model.entities.enemies.Snake;
-import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -15,8 +12,6 @@ import View.Avatar;
 import View.GameView;
 import View.Sound;
 import View.Template;
-import Model.entities.enemies.Duck;
-import Model.entities.enemies.Plane;
 
 
 

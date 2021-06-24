@@ -4,7 +4,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import Model.World;
+import Model.entities.Cowboy;
+import Model.entities.EnemyPlayer;
 import Model.entities.Player;
+
+import Model.entities.enemies.Duck;
+import Model.entities.enemies.Plane;
+import Model.entities.enemies.Snake;
+import Model.entities.enemies.Tank;
+
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -21,6 +29,7 @@ public class Game {
 	static Game game;
 	
 	CanvasListener m_listener;
+	Cowboy m_cowboy;
 	Sound m_music;
 	World world;
 	GameView view ;
@@ -48,7 +57,7 @@ public class Game {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
 		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
+		AutomataLoader.load_all("Bots/loader.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
@@ -64,38 +73,20 @@ public class Game {
 		
 
 		// uncomment if you want enemies
-		
-		/*
-		Tank tank = new Tank("Tank");
-		Template tmpTank = TemplatesLoader.get("Tank");
-		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-		world.addEntity(tank);
-		
-		Snake snake = new Snake("Snake");
-		Template tmpSnake = TemplatesLoader.get("Snake");
-		new Avatar(snake, tmpSnake);
-		snake.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
-		world.addEntity(snake);
-		
-		Duck duck = new Duck("Duck");
-		Template tmpDuck = TemplatesLoader.get("Duck");
-		new Avatar(duck, tmpDuck);
-		duck.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
-		world.addEntity(duck);
-		
-		Plane plane = new Plane("Plane");
-		Template tmpPlane = TemplatesLoader.get("Plane");
-		new Avatar(plane, tmpPlane);
-		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
-		world.addEntity(plane);
-		
-		*/
+
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
 		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		 * world.addEntity(wall);
 		 */
+		
+		/*
+		Template tmp2 = TemplatesLoader.get("Dead");
+		EnemyPlayer enemy = new EnemyPlayer(world);
+		Avatar av3 = new Avatar(enemy, tmp2);
+		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
+		world.addEntity(enemy);
+		*/
 	}
 	
 	private static class Init implements Runnable{

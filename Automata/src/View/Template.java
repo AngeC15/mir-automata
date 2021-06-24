@@ -1,9 +1,11 @@
 package View;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -23,19 +25,28 @@ public class Template {
 	private SpriteSheet spriteSheet;
 	private LinkedHashMap<EnumAction, AnimNode> allNodes;
 	protected EnumSeason season ;
+	private double scale;
+
 
 	/**
 	 * Creates a template with an associated sprite sheet and an animation automata.
 	 * 
 	 * @param fileNameSpriteSheet
 	 * @param fileNameAutomata
+	 * @param rows 
+	 * @param lines 
+	 * @param totalSprites 
+	 * @param scale 
 	 * @throws IOException
 	 */
-	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites) throws IOException {
+	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites,
+			double scale) throws IOException {
+		this.scale = scale;
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
+		this.season = EnumSeason.SUMMER;
 		readFile(fileNameAutomata);
-		season = EnumSeason.SUMMER;
+		
 	}
 	
 	/**
@@ -45,11 +56,12 @@ public class Template {
 	 * @param fileNameAutomata
 	 * @throws IOException
 	 */
-	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites) throws IOException {
+	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites, double scale) throws IOException {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
+		this.season = season;
+		this.scale = scale;
 		readFile(fileNameAutomata);
-		season = this.season;
 	}
 
 	/**
@@ -83,12 +95,12 @@ public class Template {
 				int time = Integer.parseInt(line[1]);
 				int dividedTime = time / (line.length - 3);
 				AnimInterrupt inter = AnimInterrupt.valueOf(line[2]);
-				AnimNode node = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[3])), dividedTime, action,
-						inter);
+				BufferedImage scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[3])));
+				AnimNode node = new AnimNode(scaledImage, dividedTime, action, inter);
 				AnimNode tempNode = node;
 				for (int i = 4; i < line.length; i++) {
-					AnimNode nextNode = new AnimNode(spriteSheet.getSprite(Integer.parseInt(line[i])), dividedTime,
-							action, inter);
+					scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[i])));
+					AnimNode nextNode = new AnimNode(scaledImage, dividedTime, action, inter);
 					tempNode.addNode(nextNode);
 					tempNode = nextNode;
 				}
@@ -102,6 +114,7 @@ public class Template {
 			e.printStackTrace();
 		}
 	}
+
 
 	/**
 	 * Checks what node have the most priority out of the given newAction array. If
@@ -130,6 +143,22 @@ public class Template {
 					return allNodes.get(action);
 		}
 		throw new Exception("Current action not found. Should not happen.");
+	}
+
+	/**
+	 * Resizes the image with the template's scale variable
+	 * 
+	 * @param imgToScale
+	 * @return the resized image
+	 */
+	public BufferedImage resize(BufferedImage imgToScale) {
+		int w = imgToScale.getWidth();
+		int h = imgToScale.getHeight();
+		BufferedImage after = new BufferedImage((int) (w*scale), (int) (h*scale), BufferedImage.TYPE_INT_ARGB);
+		AffineTransform at = new AffineTransform();
+		at.scale(scale, scale);
+		AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		return scaleOp.filter(imgToScale, after);
 	}
 
 	/**

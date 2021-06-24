@@ -50,7 +50,7 @@ public class ChangeAutomata {
 				if (line.length > 0) {
 					String readEntity = line[0];
 					String readAutomata = line[1];
-					Automaton aut = AutomataLoader.getAutomaton(line[1]);
+					Automaton aut = AutomataLoader.get(line[1]);
 					if (aut != null) {
 						entityAutomaton.put(line[0], aut);
 					} else {

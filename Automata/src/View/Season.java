@@ -74,7 +74,6 @@ public class Season {
 	 *         attribute )
 	 */
 	public int transitionSummerWinter(Graphics2D g, int intensitySnow, int cmpIntensity) {
-
 		if (cmpIntensity < intensitySnow && current == EnumSeason.SUMMER) {
 			cmpIntensity += 5;
 			g.setColor(Color.white);

@@ -1,6 +1,5 @@
 Duck(Follow){
   * (Follow):
-  | ! GotStuff ? Egg :()
   | Closest(A,N) ? Move(N) :(Follow)
   | Closest(A,S) ? Move(S) :(Follow)
   | Closest(A,E) ? Move(E) :(Follow)
@@ -10,5 +9,4 @@ Duck(Follow){
   | Closest(A,SE) ? Move(SE) :(Follow)
   | Closest(A,SW) ? Move(SW) :(Follow)
   | GotPower ? Hit :(Follow)
-  * ()
 }

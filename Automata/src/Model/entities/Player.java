@@ -15,6 +15,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 
@@ -31,8 +32,6 @@ public class Player extends LivingEntity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
-		this.body.getTransform().rotate(Math.PI/2);
-		
 		armeCac = new Dagger(); //to change please
 		armeDist = new Gun();
 
@@ -67,7 +66,9 @@ public class Player extends LivingEntity{
 		this.armeDist = armeDist;
 	}
 
-	
+	public void tick(long elapsed) {
+//		this.getBody().getTransform().rotate(0.002*elapsed);
+	}
 
 	@Override
 	public void Hit(DirectionExtension dir) {

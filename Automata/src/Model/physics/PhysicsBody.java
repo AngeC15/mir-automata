@@ -94,4 +94,12 @@ public class PhysicsBody implements SafeMapElement {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
+	
+	public void setFriction(int friction) {
+		this.friction = friction;
+	}
+	
+	public void setmaxSpeed(int speed) {
+		this.max_speed = speed;
+	}
 }

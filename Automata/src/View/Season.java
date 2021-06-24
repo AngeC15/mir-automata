@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import Model.World;
 import Model.entities.Entity;
+import Model.entities.Player;
 import Model.loader.TemplatesLoader;
 import Utils.RandomUtil;
 import Utils.SafeMap;
@@ -47,7 +48,12 @@ public class Season {
 			Entity et = (Entity) entries.getValue();
 			Avatar avatar = et.getAvatar();
 			avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
-
+			if (et.team == 1) {
+				Player p = (Player ) et;
+				p.getBody().setFriction(2); // normal 15
+				p.getBody().setmaxSpeed(100); // normal 40
+				
+			}
 		}
 		
 

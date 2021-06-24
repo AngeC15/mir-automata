@@ -53,7 +53,7 @@ public class Player extends LivingEntity {
 	public boolean step() {
 		//Check to destroy dagger strick
 		double now = System.currentTimeMillis();
-		if(daggerStrick != null && now - lastAttack >150) {
+		if(daggerStrick != null && now - lastAttack >125) {
 			this.world.removeEntity(daggerStrick.getID());
 			daggerStrick = null;
 		}

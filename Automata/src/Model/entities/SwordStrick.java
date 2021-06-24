@@ -50,7 +50,7 @@ public class SwordStrick extends LivingEntity{
 		this.getTransform().translate(0, 5);
 
 		try {
-			Avatar avatarBullet = new Avatar(this, TemplatesLoader.get("Bullet"));
+			Avatar avatarBullet = new Avatar(this, TemplatesLoader.get("Strick"));
 			this.setAvatar(avatarBullet);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

@@ -23,9 +23,8 @@ public class Decor extends Entity{
 	private int x;
 	private int y;
 	private Map map;
-	private double time;
-	private int step_counter;
 	private Template[] templates;
+	private int random;
 	
 	public Decor(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"), 3);
@@ -41,7 +40,6 @@ public class Decor extends Entity{
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(4f, 4f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
-		time = System.currentTimeMillis();
 	}
 	
 	public int getAlive() {
@@ -85,16 +83,14 @@ public class Decor extends Entity{
 			return generation();
 		}
 		else {
-			Random rn = new Random();
-			int answer = rn.nextInt(30);
-			if (answer == 1 && state == 0)
+			if (random == 1 && state == 0)
 				return true;
 			return false;
 		}
 	}
 
 	public boolean generationOver() {
-		return step_counter >= map.getMaxStep();
+		return map.stepCounter() >= map.getMaxStep();
 	}
 
 	@Override
@@ -112,9 +108,13 @@ public class Decor extends Entity{
 			this.avatar.setTemplate(templates[1]);
 			setState(0);
 		}
-		else {
+		else if (dir == DirectionExtension.H){
 			this.avatar.setTemplate(templates[2]);
 			setState(3);
+		}
+		else {
+			Random rn = new Random();
+			random = rn.nextInt(30);
 		}
 	}
 
@@ -128,9 +128,7 @@ public class Decor extends Entity{
 	}
 
 	public boolean step() {
-		if (System.currentTimeMillis()-time > 500) {
-			time = System.currentTimeMillis();
-			step_counter ++;
+		if (map.step()) {
 			return automaton.step(this);
 		}
 		return true;

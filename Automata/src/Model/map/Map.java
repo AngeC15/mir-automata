@@ -14,8 +14,9 @@ public class Map {
 	private Entity[][] map;
 	private float dimension;
 	private World world;
-	private double start;
+	private double time;
 	private int max_step = 15;
+	private boolean canStep;
 	private boolean player_generated;
 	private int cmpt_step;
 	
@@ -41,7 +42,7 @@ public class Map {
 			lineCurrent.concatenate(yt);
 		}
 		this.dimension = dimension;
-		this.start = System.currentTimeMillis();
+		this.time = System.currentTimeMillis();
 		this.player_generated = false;
 		this.cmpt_step = 0;
 	}
@@ -53,19 +54,29 @@ public class Map {
 	}
 	
 	public void tick(long elapsed) throws IOException {
+		canStep = false;
 		if (cmpt_step > max_step+1 && !player_generated) {
 			player_generated = true;
 			world.generationDone(); 
 		}
-		if (System.currentTimeMillis()-start > 500) {
-			start = System.currentTimeMillis();
+		if (System.currentTimeMillis()-time > 500) {
+			canStep = true;
+			time = System.currentTimeMillis();
 			cmpt_step ++;
 		}
+	}
+	
+	public boolean step() {
+		return canStep;
 	}
 	
 	
 	public int getMaxStep() {
 		return max_step;
+	}
+	
+	public int stepCounter() {
+		return cmpt_step;
 	}
 	
 	public void remove(int x, int y) {

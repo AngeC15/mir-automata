@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import Model.automata.actions.EnumAction;
+import View.Season.EnumSeason;
 
 /**
  * @author Gergely, Camille, Samuel
@@ -21,6 +22,7 @@ import Model.automata.actions.EnumAction;
 public class Template {
 	private SpriteSheet spriteSheet;
 	private LinkedHashMap<EnumAction, AnimNode> allNodes;
+	protected EnumSeason season ;
 
 	/**
 	 * Creates a template with an associated sprite sheet and an animation automata.
@@ -33,6 +35,21 @@ public class Template {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		readFile(fileNameAutomata);
+		season = EnumSeason.SUMMER;
+	}
+	
+	/**
+	 * Creates a template with an associated sprite sheet and an animation automata.
+	 * 
+	 * @param fileNameSpriteSheet
+	 * @param fileNameAutomata
+	 * @throws IOException
+	 */
+	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites) throws IOException {
+		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
+		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
+		readFile(fileNameAutomata);
+		season = this.season;
 	}
 
 	/**

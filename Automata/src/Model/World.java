@@ -112,6 +112,12 @@ public class World {
 		new Avatar(tank, tmpTank);
 		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 200));
 		addEntity(tank);
+		
+		Tank tank2 = new Tank("Tank");
+		Template tmpTank2 = TemplatesLoader.get("Tank");
+		new Avatar(tank2, tmpTank2);
+		tank2.getTransform().concatenate(AffineTransform.getTranslateInstance(100, 200));
+		addEntity(tank2);
 		/*
 		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
 		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);

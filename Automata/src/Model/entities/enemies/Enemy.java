@@ -134,7 +134,7 @@ public abstract class Enemy extends LivingEntity {
 		double relativeX = world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX();
 		double relativeY = world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY();
 		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
-		if(distance >= shootDistance)
+		if (distance >= shootDistance)
 			return false;
 		double now = System.currentTimeMillis();
 		if (now - lastAttack > cooldown)
@@ -156,20 +156,37 @@ public abstract class Enemy extends LivingEntity {
 	@Override
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
 		PathfindingSingleton detection = PathfindingSingleton.getInstance(world);
-		
+
 		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		angle += Math.toRadians(90);
+		switch (direction) {
+		case F:
+			angle += Math.toRadians(90);
+			break;
+		case B:
+			angle += Math.toRadians(-90);
+			break;
+		case L:
+			angle += Math.toRadians(180);
+			break;
+		case R:
+			angle += Math.toRadians(0);
+			break;
+		default:
+			System.out.println("Non-existing direction, this is an error");
+		}
+
 		
+
 		int x = (int) (this.getTransform().getTranslateX() + Math.cos(angle) * 10);
 		int y = (int) (this.getTransform().getTranslateY() + Math.sin(angle) * 10);
-		
+
 		detection.changePosition(x, y);
-		
+		Entity testVar = detection.getLastHit();
+
 		if (categorie == CategoryExtension.O) {
-			if (detection.getLastHit() == null)
+			if (testVar == null)
 				return false;
-			if (detection.getLastHit() instanceof Decor) {
-//				System.out.println("decor hit");
+			if (testVar instanceof Decor) {
 				return true;
 			}
 		}

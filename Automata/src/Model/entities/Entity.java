@@ -183,16 +183,16 @@ public class Entity implements SafeMapElement {
 		double angle;
 		switch (dir) {
 		case F:
-			angle = Math.toRadians(0);
-			break;
-		case B:
-			angle = Math.toRadians(180);
-			break;
-		case L:
 			angle = Math.toRadians(90);
 			break;
-		case R:
+		case B:
 			angle = Math.toRadians(-90);
+			break;
+		case L:
+			angle = Math.toRadians(180);
+			break;
+		case R:
+			angle = Math.toRadians(0);
 			break;
 		default:
 			return;

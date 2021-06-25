@@ -15,7 +15,7 @@ public class Tank extends Enemy {
 		super(automaton);
 		weapon = new Gun("EnemyBullet");
 		cooldown = 1900;
-		shootDistance = 40;
+		shootDistance = 10;
 		acceleration = 18;
 
 		life = 100;

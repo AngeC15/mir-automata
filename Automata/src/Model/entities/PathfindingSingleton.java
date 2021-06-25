@@ -59,7 +59,9 @@ public class PathfindingSingleton extends Entity {
 	
 	
 	public Entity getLastHit() {
-		return lastHittenEntity;
+		Entity returnEntity = lastHittenEntity;
+		lastHittenEntity = null;
+		return returnEntity;
 	}
 	
 }

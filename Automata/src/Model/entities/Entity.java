@@ -114,27 +114,22 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Egg(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Explode() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Get() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Hit(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Jump(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -157,7 +152,6 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Pick(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -166,27 +160,22 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Pop(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Power() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Protect(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Store() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Throw(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -212,12 +201,10 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void Wait() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void Wizz(DirectionExtension dir) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -240,8 +227,6 @@ public class Entity implements SafeMapElement {
 
 	public boolean Closest(DirectionExtension direction, CategoryExtension categorie) {
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean GotPower() {
@@ -260,8 +245,6 @@ public class Entity implements SafeMapElement {
 
 	public boolean MyDir(DirectionExtension direction) {
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	public void colisionHappened(Entity other, ColliderType c) {

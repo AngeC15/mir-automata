@@ -111,12 +111,12 @@ public class World {
 		  new Avatar(tank, tmpTank);
 		  tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100)); 
 		  this.addEntity(tank);
-		  
+		  /*
 		  Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
 		  TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
 		  mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40)); 
 		  this.addEntity(mecha);
-		  
+		  */
 		  /*
 		  Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
 		  tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new

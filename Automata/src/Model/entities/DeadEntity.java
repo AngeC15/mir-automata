@@ -26,7 +26,7 @@ public class DeadEntity extends Entity {
 		creationDate = System.currentTimeMillis();
 		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
-		this.body = new PhysicsBody(h, ColliderType.Character, 4, 30, this);
+		this.body = new PhysicsBody(h, ColliderType.Area, 4, 30, this);
 		try {
 			Avatar avatarCorpse = new Avatar(this, TemplatesLoader.get(template));
 			this.setAvatar(avatarCorpse);

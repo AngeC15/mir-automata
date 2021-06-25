@@ -2,13 +2,17 @@ package Controller;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import Model.World;
+import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
+import View.Avatar;
 import View.GameView;
 import View.Sound;
+import View.Template;
 
 public class Game {
 
@@ -54,31 +58,7 @@ public class Game {
 		 * Player player = new Player(); Template tmp = TemplatesLoader.get("Player");
 		 * new Avatar(player, tmp); world.addEntity(player); world.setPlayer(player);
 		 */
-
-		// uncomment if you want enemies
-
-		/*
-		 * Tank tank = new Tank("Tank"); Template tmpTank = TemplatesLoader.get("Tank");
-		 * new Avatar(tank, tmpTank);
-		 * tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 100)); world.addEntity(tank);
-		 * 
-		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
-		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
-		 * mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 40)); world.addEntity(mecha);
-		 * 
-		 * Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
-		 * tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
-		 * Avatar(flamethrower, tmpFlamethrower);
-		 * flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
-		 * 0, -100)); world.addEntity(flamethrower);
-		 * 
-		 * Plane plane = new Plane("Plane"); Template tmpPlane =
-		 * TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
-		 * plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 20)); world.addEntity(plane);
-		 */
+		
 
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);

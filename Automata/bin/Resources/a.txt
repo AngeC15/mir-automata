@@ -11,3 +11,4 @@ Snake ; Resources/sprite_sheet_enemy.png ; Resources/snake.ani ; 6 ; 4 ; 22
 Duck ; Resources/sprite_sheet_enemy.png ; Resources/duck.ani ; 6 ; 4 ; 22
 Plane ; Resources/sprite_sheet_enemy.png ; Resources/plane.ani ; 6 ; 4 ; 22
 Strick ; Resources/sprite_sheet_enemy.png ; Resources/strick.ani ; 8 ; 4 ; 23
+Dummy ; Resources/sprite_sheet_enemy.png ; Resources/dummy.ani ; 8 ; 4 ; 23

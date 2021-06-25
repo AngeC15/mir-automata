@@ -5,10 +5,13 @@ import java.awt.Color;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.DeadEntity;
+import Model.entities.Decor;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
+import Model.entities.PathfindingSingleton;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
+import Model.physics.ColliderType;
 import Utils.Vector2;
 
 public abstract class Enemy extends LivingEntity {
@@ -19,6 +22,7 @@ public abstract class Enemy extends LivingEntity {
 	protected float friction;
 	protected float maxSpeed;
 	protected double lastAttack;
+	protected Entity lastEntityHit;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
@@ -128,6 +132,11 @@ public abstract class Enemy extends LivingEntity {
 
 	@Override
 	public boolean GotPower() {
+		double relativeX = world.getPlayer().getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = world.getPlayer().getTransform().getTranslateY() - getTransform().getTranslateY();
+		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
+		if(distance >= shootDistance)
+			return false;
 		double now = System.currentTimeMillis();
 		if (now - lastAttack > cooldown)
 			return true;
@@ -144,4 +153,30 @@ public abstract class Enemy extends LivingEntity {
 	public Color getColor() {
 		return Color.red;
 	}
+
+	@Override
+	public void colisionHappened(Entity other, ColliderType c) {
+		lastEntityHit = other;
+		super.colisionHappened(other, c);
+	}
+
+	@Override
+	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
+		PathfindingSingleton detection = PathfindingSingleton.getInstance(world);
+		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		int x = (int) (this.getTransform().getTranslateX() + Math.cos(angle));
+		int y = (int) (this.getTransform().getTranslateY() + Math.sin(angle));
+		detection.changePosition(x, y);
+		
+		if (categorie == CategoryExtension.O) {
+			if (lastEntityHit == null)
+				return false;
+			if (lastEntityHit instanceof Decor) {
+				System.out.println("Mario think you're fantastic!");
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

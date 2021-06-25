@@ -22,7 +22,6 @@ public abstract class Enemy extends LivingEntity {
 	protected float friction;
 	protected float maxSpeed;
 	protected double lastAttack;
-	protected Entity lastEntityHit;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
@@ -155,24 +154,22 @@ public abstract class Enemy extends LivingEntity {
 	}
 
 	@Override
-	public void colisionHappened(Entity other, ColliderType c) {
-		lastEntityHit = other;
-		super.colisionHappened(other, c);
-	}
-
-	@Override
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
 		PathfindingSingleton detection = PathfindingSingleton.getInstance(world);
+		
 		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		int x = (int) (this.getTransform().getTranslateX() + Math.cos(angle));
-		int y = (int) (this.getTransform().getTranslateY() + Math.sin(angle));
+		angle += Math.toRadians(90);
+		
+		int x = (int) (this.getTransform().getTranslateX() + Math.cos(angle) * 10);
+		int y = (int) (this.getTransform().getTranslateY() + Math.sin(angle) * 10);
+		
 		detection.changePosition(x, y);
 		
 		if (categorie == CategoryExtension.O) {
-			if (lastEntityHit == null)
+			if (detection.getLastHit() == null)
 				return false;
-			if (lastEntityHit instanceof Decor) {
-				System.out.println("Mario think you're fantastic!");
+			if (detection.getLastHit() instanceof Decor) {
+//				System.out.println("decor hit");
 				return true;
 			}
 		}

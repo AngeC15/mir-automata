@@ -48,6 +48,7 @@ public class Game {
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
+		
 		int n, p;
 		n = 30;
 		p = 30;

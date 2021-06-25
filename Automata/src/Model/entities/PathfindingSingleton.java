@@ -23,13 +23,15 @@ public class PathfindingSingleton extends Entity {
 		super(a, equipe);
 		
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(7.0f, 7.0f)));
 		this.body = new PhysicsBody(h, ColliderType.Projectile, 10, 20, this);
+		
 		try {
 			avatar = new Avatar(this, TemplatesLoader.get("Strick"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		world.addEntity(this);
 	}
 	
@@ -40,8 +42,10 @@ public class PathfindingSingleton extends Entity {
 	}
 	
 	public void changePosition(int x, int y) {
-		getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
+		getTransform().setToTranslation(x, y);
+		
 	}
+	
 	@Override
 	public boolean step() {
 		return super.step();

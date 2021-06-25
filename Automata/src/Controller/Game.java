@@ -55,30 +55,8 @@ public class Game {
 		 * new Avatar(player, tmp); world.addEntity(player); world.setPlayer(player);
 		 */
 
-		// uncomment if you want enemies
 
-		/*
-		 * Tank tank = new Tank("Tank"); Template tmpTank = TemplatesLoader.get("Tank");
-		 * new Avatar(tank, tmpTank);
-		 * tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 100)); world.addEntity(tank);
-		 * 
-		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
-		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
-		 * mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 40)); world.addEntity(mecha);
-		 * 
-		 * Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
-		 * tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
-		 * Avatar(flamethrower, tmpFlamethrower);
-		 * flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
-		 * 0, -100)); world.addEntity(flamethrower);
-		 * 
-		 * Plane plane = new Plane("Plane"); Template tmpPlane =
-		 * TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
-		 * plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 20)); world.addEntity(plane);
-		 */
+		
 
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);

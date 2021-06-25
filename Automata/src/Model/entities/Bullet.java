@@ -26,11 +26,11 @@ public class Bullet extends LivingEntity {
 	 * @param e    = entity who launch the bullet (not the weapon)
 	 * @param vect = vector of direction of the bullet
 	 */
-	public Bullet(Entity e, Vector2 vect, String bulletSkin) {
+	public Bullet(Entity e, Vector2 vect, String bulletSkin, int damage) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
 
 		// on créer tout le nécessaire pour gerer les physics body
-		this.damage = 20;
+		this.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
 		HitBox h = new HitBox();

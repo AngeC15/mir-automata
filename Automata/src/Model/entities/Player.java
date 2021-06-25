@@ -77,20 +77,24 @@ public class Player extends LivingEntity {
 	@Override
 	public void Hit(DirectionExtension dir) {
 		// Meelee attack
-		lastAttack = System.currentTimeMillis();
-		lastAttackFrequency = armeCac.getShot_frequency();
-
+		double now = System.currentTimeMillis();
+		
+		if(now - lastAttack> armeCac.getShot_frequency()) {
+			lastAttack = now;
+		
 		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
-
+		}
 	}
 
 	@Override
 	public void Pop(DirectionExtension dir) {
 		// Distance attack
-		lastAttack = System.currentTimeMillis();
-		lastAttackFrequency = armeDist.getShot_frequency();
-
+		double now = System.currentTimeMillis();
+		
+		if(now - lastAttack> armeDist.getShot_frequency()) {
+			lastAttack = now;
 		armeDist.attack(this, new Vector2(0, -1));
+		}
 	}
 
 	@Override

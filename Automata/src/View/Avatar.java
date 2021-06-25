@@ -44,8 +44,8 @@ public class Avatar {
 		template = tmp;
 		if (entity.addLifeBar()) {
 			int w = this.getSpriteW();
-			int h =this.getSpriteH();
-			lf = new LifeBar((LivingEntity) entity, w/4, 20, w/2,h/20);
+			int h = this.getSpriteH();
+			lf = new LifeBar((LivingEntity) entity, w * 2 / 5, 30, w / 5, h / 20);
 		} else {
 			lf = null;
 		}

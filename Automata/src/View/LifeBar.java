@@ -38,14 +38,17 @@ public class LifeBar extends JComponent {
 		
 		g.setColor(Color.black);
 		g.drawRect(x, y, getSizeBar(100), height);
-		if (life < (100 * 2 / 3)) {
+		g.setColor(Color.white);
+		g.fillRect(x, y, getSizeBar(100), height);
+		if (life < (100 * 1 / 3)) {
 			g.setColor(Color.red);
-		} else if (life >= (100 * 2 / 3) && life <= (100 * 1 / 3)) {
+		} else if (life >= (100 * 1 / 3) && life <= (100 * 2 / 3)) {
 			g.setColor(Color.orange);
-		} else if (life > (100 * 1 / 3)) {
+		} else if (life > (100 * 2 / 3)) {
 			g.setColor(Color.green);
 		}
 
 		g.fillRect(x, y, getSizeBar(life), height);
+
 	}
 }

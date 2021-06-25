@@ -111,5 +111,7 @@ public class World {
 		new Avatar(tank, tmpTank);
 		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		this.addEntity(tank);
+		
+
 	}
 }

@@ -58,11 +58,6 @@ public class Bullet extends LivingEntity {
 	}
 
 	@Override
-	public String toString() {
-		return "Bullet";
-	}
-
-	@Override
 	public Color getColor() {
 		return null;
 	}

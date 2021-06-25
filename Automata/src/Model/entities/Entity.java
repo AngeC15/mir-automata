@@ -292,4 +292,8 @@ public class Entity implements SafeMapElement {
 	public Color getColor() {
 		return Color.gray;
 	}
+	
+	public String toString(){
+		return this.getClass().getName();
+	}
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.Map.Entry;
 
@@ -7,6 +8,7 @@ import Controller.VirtualInput;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
+import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
 import Model.physics.Newton;
@@ -103,5 +105,11 @@ public class World {
 		new Avatar(player, tmp);
 		this.addEntity(player);
 		this.setPlayer(player);
+		
+		Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		new Avatar(tank, tmpTank);
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		this.addEntity(tank);
 	}
 }

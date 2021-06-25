@@ -144,4 +144,8 @@ public abstract class Enemy extends LivingEntity {
 	public Color getColor() {
 		return Color.red;
 	}
+	
+	public boolean addLifeBar() {
+		return true;
+	}
 }

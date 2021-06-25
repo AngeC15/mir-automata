@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Map.Entry;
 
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.JLayeredPane;
 
 import Model.World;
 import Model.entities.Entity;
+import Model.entities.enemies.Tank;
+import Model.loader.TemplatesLoader;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 import Utils.Vector2;
@@ -41,6 +44,7 @@ public class GameView {
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
 	private Season season;
+	
 
 	// utiliser spritesheet pour charger le fond
 	// private File imageFond;
@@ -136,6 +140,18 @@ public class GameView {
 
 		season = new Season(world);
 		intensity = 0;
+		
+		/*Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		try {
+			new Avatar(tank, tmpTank);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		world.addEntity(tank);*/
+		
 
 	}
 

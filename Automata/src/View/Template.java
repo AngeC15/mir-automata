@@ -36,10 +36,10 @@ public class Template {
 	 * @param lines
 	 * @param totalSprites
 	 * @param scale
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	public Template(String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines, int totalSprites,
-			double scale) throws IOException {
+			double scale) throws Exception {
 		this.scale = scale;
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
@@ -53,10 +53,10 @@ public class Template {
 	 * 
 	 * @param fileNameSpriteSheet
 	 * @param fileNameAutomata
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	public Template(EnumSeason season, String fileNameSpriteSheet, String fileNameAutomata, int rows, int lines,
-			int totalSprites, double scale) throws IOException {
+			int totalSprites, double scale) throws Exception {
 		spriteSheet = new SpriteSheet(fileNameSpriteSheet, rows, lines, totalSprites);
 		allNodes = new LinkedHashMap<EnumAction, AnimNode>();
 		this.season = season;
@@ -77,42 +77,44 @@ public class Template {
 	 * 
 	 * 
 	 * @param fileNameAutomata
+	 * @throws Exception 
 	 */
-	private void readFile(String fileNameAutomata) {
+	private void readFile(String fileNameAutomata) throws Exception {
 		File file = new File(fileNameAutomata);
-		try {
-			Scanner myReader = new Scanner(file);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
-				String[] line = data.split(" ");
+		if (file.exists() && file != null) {
+				Scanner myReader = new Scanner(file);
+				while (myReader.hasNextLine()) {
+					String data = myReader.nextLine();
+					String[] line = data.split(" ");
 
-				if (line.length < 3) {
-					myReader.close();
-					throw new Exception("Too few arguments.");
+					if (line.length < 3) {
+						myReader.close();
+						throw new Exception("Too few arguments.");
+					}
+
+					EnumAction action = EnumAction.valueOf(line[0]); // Recovers the actual action
+					int time = Integer.parseInt(line[1]);
+					int dividedTime = time / (line.length - 3);
+					AnimInterrupt inter = AnimInterrupt.valueOf(line[2]);
+					BufferedImage scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[3])));
+					AnimNode node = new AnimNode(scaledImage, dividedTime, action, inter);
+					AnimNode tempNode = node;
+					for (int i = 4; i < line.length; i++) {
+						scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[i])));
+						AnimNode nextNode = new AnimNode(scaledImage, dividedTime, action, inter);
+						tempNode.addNode(nextNode);
+						tempNode = nextNode;
+					}
+
+					// Now, let's store that to the HashMap
+					allNodes.put(action, node);
 				}
+				myReader.close();
 
-				EnumAction action = EnumAction.valueOf(line[0]); // Recovers the actual action
-				int time = Integer.parseInt(line[1]);
-				int dividedTime = time / (line.length - 3);
-				AnimInterrupt inter = AnimInterrupt.valueOf(line[2]);
-				BufferedImage scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[3])));
-				AnimNode node = new AnimNode(scaledImage, dividedTime, action, inter);
-				AnimNode tempNode = node;
-				for (int i = 4; i < line.length; i++) {
-					scaledImage = resize(spriteSheet.getSprite(Integer.parseInt(line[i])));
-					AnimNode nextNode = new AnimNode(scaledImage, dividedTime, action, inter);
-					tempNode.addNode(nextNode);
-					tempNode = nextNode;
-				}
-
-				// Now, let's store that to the HashMap
-				allNodes.put(action, node);
-			}
-			myReader.close();
-		} catch (Exception e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
+		} else {
+			throw new Exception("The file " + fileNameAutomata + "was not found");
 		}
+
 	}
 
 	/**

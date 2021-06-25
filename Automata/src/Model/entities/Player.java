@@ -106,11 +106,6 @@ public class Player extends LivingEntity {
 	}
 
 	@Override
-	public String toString() {
-		return "Player";
-	}
-
-	@Override
 	public Color getColor() {
 		return Color.blue;
 	}

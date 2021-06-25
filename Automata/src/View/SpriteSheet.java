@@ -36,7 +36,7 @@ public class SpriteSheet {
 	 */
 	private BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
-		if (imageFile.exists()) {
+		if (imageFile.exists() && imageFile != null) {
 			BufferedImage image = ImageIO.read(imageFile);
 			int width = image.getWidth(null) / ncols;
 			int height = image.getHeight(null) / nrows;

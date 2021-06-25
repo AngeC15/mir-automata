@@ -247,12 +247,7 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-		try {
-			season.nextSeason();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		/**
 		 * TO DECOMMENT : if you want to change season
 		 */

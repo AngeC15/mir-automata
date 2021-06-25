@@ -48,8 +48,10 @@ Wall(Init){
 	* (Tmp):
 	| True ? Throw(R) :(End)
 	* (End):
-	| !GotPower ? Explode :(Wall)
-	| GotPower ? Throw(H) :(Wall)
+	| !GotPower ? Explode :(Tmp2)
+	| GotPower ? Throw(H) :(Tmp2)
+	* (Tmp2):
+	| True ? Explode :(Wall)
 	* (Wall)
 }
 

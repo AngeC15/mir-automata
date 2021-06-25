@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Map.Entry;
@@ -8,6 +9,10 @@ import java.util.Queue;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
+import Model.entities.enemies.Flamethrower;
+import Model.entities.enemies.Mecha;
+import Model.entities.enemies.Plane;
+import Model.entities.enemies.Tank;
 import Model.entities.Decor;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -103,5 +108,45 @@ public class World {
 		new Avatar(player, tmp);
 		this.addEntity(player);
 		this.setPlayer(player); 
+		
+		// uncomment if you want enemies
+
+//		Tank tank = new Tank("Tank");
+//		Template tmpTank = TemplatesLoader.get("Tank");
+//		new Avatar(tank, tmpTank);
+//		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+//		this.addEntity(tank);
+		
+//		Mecha mecha = new Mecha("Mecha");
+//		Template tmpMecha = TemplatesLoader.get("Mecha");
+//		new Avatar(mecha, tmpMecha);
+//		mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
+//		this.addEntity(mecha);
+		
+		Flamethrower flamethrower = new Flamethrower("Flamethrower");
+		Template tmpFlamethrower = TemplatesLoader.get("Flamethrower");
+		new Avatar(flamethrower, tmpFlamethrower);
+		flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
+		this.addEntity(flamethrower);
+		
+		Plane plane = new Plane("Plane");
+		Template tmpPlane = TemplatesLoader.get("Plane");
+		new Avatar(plane, tmpPlane);
+		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
+		this.addEntity(plane);
+//		
+		/*
+		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
+		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
+		 * world.addEntity(wall);
+		 */
+		
+		/*
+		Template tmp2 = TemplatesLoader.get("Dead");
+		EnemyPlayer enemy = new EnemyPlayer(world);
+		Avatar av3 = new Avatar(enemy, tmp2);
+		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
+		world.addEntity(enemy);
+		*/
 	}
 }

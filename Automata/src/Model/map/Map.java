@@ -11,7 +11,7 @@ import View.Avatar;
 
 public class Map {
 	
-	private Entity[][] map;
+	private Decor[][] map;
 	private float dimension;
 	private World world;
 	private double time;
@@ -22,7 +22,7 @@ public class Map {
 	
 	public Map(int n, int p, float dimension, World world) throws IOException {
 		this.world = world;
-		map = new Entity[n][p];
+		map = new Decor[n][p];
 		
 		AffineTransform xt = AffineTransform.getTranslateInstance(dimension, 0);
 		AffineTransform yt = AffineTransform.getTranslateInstance(0, dimension);
@@ -34,7 +34,7 @@ public class Map {
 			for (int j = 0 ; j < p ; j ++) {
 				Decor w = new Decor(this, i, j);
 				map[i][j] = w; 
-				new Avatar(w, TemplatesLoader.get("Wall"));
+				new Avatar(w, TemplatesLoader.get("Wall5"));
 				w.getBody().getTransform().concatenate(cellCurrent);
 				world.addEntity(w);
 				cellCurrent.concatenate(xt);
@@ -47,7 +47,7 @@ public class Map {
 		this.cmpt_step = 0;
 	}
 	
-	public Entity get(int i, int j) {
+	public Decor get(int i, int j) {
 		i = (i + map.length) % map.length;
 		j = (j + map[0].length) % map[0].length;
 		return map[i][j];
@@ -59,7 +59,7 @@ public class Map {
 			player_generated = true;
 			world.generationDone(); 
 		}
-		if (System.currentTimeMillis()-time > 500) {
+		if (System.currentTimeMillis()-time > 250) {
 			canStep = true;
 			time = System.currentTimeMillis();
 			cmpt_step ++;

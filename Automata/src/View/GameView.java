@@ -129,7 +129,7 @@ public class GameView {
 
 		SpriteSheet sp = null;
 		try {
-			sp = new SpriteSheet("Resources/sprite_sheet_decor.png", 3, 5, 15);
+			sp = new SpriteSheet("Resources/sprite_sheet_decor2.png", 5, 5, 25);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

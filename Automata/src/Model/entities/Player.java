@@ -39,7 +39,7 @@ public class Player extends LivingEntity {
 
 		lastAttack = System.currentTimeMillis();
 
-		this.life = 750;
+		this.life = 100000;
 	}
 
 	public void setArmeCac(Weapon armeCac) {

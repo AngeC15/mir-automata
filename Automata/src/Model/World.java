@@ -12,6 +12,7 @@ import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
+import Model.monster_generator.Generator;
 import Model.physics.Newton;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
@@ -111,6 +112,9 @@ public class World {
 		  new Avatar(tank, tmpTank);
 		  tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100)); 
 		  this.addEntity(tank);
+		  
+		  Generator g=new Generator(this, 100,1);
+		  g.spawn_cover();
 		  /*
 		  Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
 		  TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);

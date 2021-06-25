@@ -16,13 +16,17 @@ public class Generator {
 	int difficulty;
 	World w;
 	float dim;
-
+	
 	public Generator(World w, float dim, int dif) {
 		this.w = w;
 		this.dim = dim;
 		this.difficulty = dif;
 	}
-
+	
+	public void spawn_cover() throws IOException {
+		Weapon_cover weapon=new Weapon_cover(1,w);
+	}
+	
 	public void new_wave(int level) throws IOException {
 		int nb_monster = this.difficulty * level * level + level + 5;
 		double x, y;

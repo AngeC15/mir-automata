@@ -79,7 +79,7 @@ public class Player extends LivingEntity {
 		// Meelee attack
 		double now = System.currentTimeMillis();
 		
-		if(lastAttack-now> armeCac.getShot_frequency()) {
+		if(now - lastAttack> armeCac.getShot_frequency()) {
 			lastAttack = now;
 		
 		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
@@ -91,7 +91,7 @@ public class Player extends LivingEntity {
 		// Distance attack
 		double now = System.currentTimeMillis();
 		
-		if(lastAttack-now> armeDist.getShot_frequency()) {
+		if(now - lastAttack> armeDist.getShot_frequency()) {
 			lastAttack = now;
 		armeDist.attack(this, new Vector2(0, -1));
 		}

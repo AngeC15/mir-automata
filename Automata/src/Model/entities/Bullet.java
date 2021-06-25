@@ -20,16 +20,16 @@ import View.Avatar;
  *
  */
 public class Bullet extends LivingEntity {
-	
+
 	/**
 	 * 
-	 * @param e = entity who launch the bullet (not the weapon)
-	 * @param vect  = vector of direction of the bullet
+	 * @param e    = entity who launch the bullet (not the weapon)
+	 * @param vect = vector of direction of the bullet
 	 */
 	public Bullet(Entity e, Vector2 vect, String bulletSkin) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
 
-		//on créer tout le nécessaire pour gerer les physics body
+		// on créer tout le nécessaire pour gerer les physics body
 		this.damage = 20;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
@@ -38,13 +38,13 @@ public class Bullet extends LivingEntity {
 
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Projectile, 0.0f, 60.0f, this);
-		
+
 		vect = vect.normalize();
-		
+
 		float angle = (float) Math.atan2(-vect.x, vect.y);
 
 		this.getBody().setTransform(new AffineTransform(e.getTransform()));
-		
+
 		this.getTransform().rotate(angle);
 		this.getTransform().translate(0, 5);
 		try {
@@ -54,20 +54,12 @@ public class Bullet extends LivingEntity {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-	
+
 	}
 
-	
 	@Override
-	public String toString() {
-		return "Bullet";
-	}
-	
 	public Color getColor() {
 		return null;
 	}
-
-
 
 }

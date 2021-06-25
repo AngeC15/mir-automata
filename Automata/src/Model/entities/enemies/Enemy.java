@@ -4,12 +4,12 @@ import java.awt.Color;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
-import Model.loader.AutomataLoader;
-import Utils.Vector2;
 import Model.entities.DeadEntity;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
+import Model.loader.AutomataLoader;
+import Utils.Vector2;
 
 public abstract class Enemy extends LivingEntity {
 
@@ -101,7 +101,7 @@ public abstract class Enemy extends LivingEntity {
 
 		double endAngle = 360 / percentage + startAngle;
 		double relativeAngle = Math.toDegrees((Math.atan2(relativeY, relativeX)));
-		
+
 		if (direction == DirectionExtension.W) {
 			// Need special treatment for West as we can't loop between 180° and -180°
 			return (relativeAngle >= startAngle && relativeAngle <= 180)
@@ -133,14 +133,19 @@ public abstract class Enemy extends LivingEntity {
 			return true;
 		return false;
 	}
-	
+
 	@Override
 	public void Egg(DirectionExtension dir) {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
 	}
 
+	@Override
 	public Color getColor() {
 		return Color.red;
+	}
+	
+	public boolean addLifeBar() {
+		return true;
 	}
 }

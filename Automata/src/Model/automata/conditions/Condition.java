@@ -1,6 +1,5 @@
 package Model.automata.conditions;
 
-
 import Model.entities.Entity;
 
 public abstract class Condition {
@@ -15,9 +14,7 @@ public abstract class Condition {
 
 	@Override
 	public String toString() {
-		return "Condition [" + getClass() +"]";
+		return "Condition [" + getClass() + "]";
 	}
-	
-	
 
 }

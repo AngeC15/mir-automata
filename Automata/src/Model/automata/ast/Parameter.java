@@ -18,7 +18,8 @@
 package Model.automata.ast;
 
 public abstract class Parameter extends Node {
-  
-  public abstract String toString();
+
+	@Override
+	public abstract String toString();
 
 }

@@ -29,10 +29,12 @@ public class BinaryOp extends Expression {
 		this.right_operand = r;
 	}
 
+	@Override
 	public String toString() {
 		return left_operand.toString() + " " + operator + " " + right_operand.toString();
 	}
 
+	@Override
 	Object accept(IVisitor visitor) {
 		Object left = left_operand.accept(visitor);
 		Object right = right_operand.accept(visitor);

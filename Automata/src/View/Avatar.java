@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Model.automata.actions.EnumAction;
 import Model.entities.Entity;
+import Model.entities.LivingEntity;
 
 /**
  * @author Camille, Gergely, Samuel
@@ -23,7 +24,8 @@ public class Avatar {
 	EnumAction currentAction;
 	// Time in ms.
 	long compteur;
-	Template template;
+	private Template template;
+	private LifeBar lf;
 
 	/**
 	 * Creates a new Avatar linked to a Template and to an unique Entity
@@ -40,6 +42,14 @@ public class Avatar {
 		compteur = System.currentTimeMillis();
 		currentAction = tmp.getDefaultAction();
 		template = tmp;
+		if (entity.addLifeBar()) {
+			int w = this.getSpriteW();
+			int h = this.getSpriteH();
+			lf = new LifeBar((LivingEntity) entity, w * 2 / 5, 30, w / 5, h / 20);
+		} else {
+			lf = null;
+		}
+
 	}
 
 	/**
@@ -58,6 +68,9 @@ public class Avatar {
 			}
 		BufferedImage sprite = state.getSprite();
 		g.drawRenderedImage(sprite, identity);
+		if (lf != null) {
+			lf.paint(g);
+		}
 
 	}
 
@@ -87,10 +100,11 @@ public class Avatar {
 			state = node;
 		}
 	}
-	
-	public void setTemplate(Template t){
-		this.template = t;
-		this.state = t.getDefaultNode();
+
+	public void setTemplate(Template tmp) {
+		currentAction = tmp.getDefaultAction();
+		template = tmp;
+		state = tmp.getDefaultNode();
 	}
 
 	public int getSpriteW() {
@@ -100,7 +114,7 @@ public class Avatar {
 	public int getSpriteH() {
 		return state.getSprite().getHeight();
 	}
-	
+
 	public BufferedImage getDefaultSprite() {
 		return template.getDefaultNode().getSprite();
 	}

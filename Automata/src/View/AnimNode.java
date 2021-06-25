@@ -7,7 +7,8 @@ import Model.automata.actions.EnumAction;
 /**
  * @author Gergely, camille, Samuel
  *
- * Represents one step in an animation. Contains a sprite and the following step
+ *         Represents one step in an animation. Contains a sprite and the
+ *         following step
  */
 public class AnimNode {
 
@@ -67,11 +68,11 @@ public class AnimNode {
 	public int getTime() {
 		return time;
 	}
-	
+
 	public boolean isInterruptable() throws Exception {
-		if(interruptable == AnimInterrupt.INTERRUPT)
+		if (interruptable == AnimInterrupt.INTERRUPT)
 			return true;
-		if(interruptable == AnimInterrupt.NON_INTERRUPT)
+		if (interruptable == AnimInterrupt.NON_INTERRUPT)
 			return false;
 		throw new Exception("This is not interruptable, nor not not interruptable");
 	}

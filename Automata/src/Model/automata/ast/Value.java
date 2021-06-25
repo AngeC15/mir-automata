@@ -19,18 +19,20 @@ package Model.automata.ast;
 
 public class Value extends Parameter {
 
-  public int value;
+	public int value;
 
-  public Value(int v) {
-    value = v;
-  }
-  
-  public String toString() {
-    return Integer.toString(value);
-  }
+	public Value(int v) {
+		value = v;
+	}
 
-  Object accept(IVisitor visitor) {
-    return visitor.visit(this);
-  }
+	@Override
+	public String toString() {
+		return Integer.toString(value);
+	}
+
+	@Override
+	Object accept(IVisitor visitor) {
+		return visitor.visit(this);
+	}
 
 }

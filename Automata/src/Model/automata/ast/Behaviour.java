@@ -3,7 +3,7 @@ package Model.automata.ast;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Behaviour  extends Node {
+public class Behaviour extends Node {
 
 	public List<Transition> transitions;
 
@@ -11,6 +11,7 @@ public class Behaviour  extends Node {
 		this.transitions = transitions;
 	}
 
+	@Override
 	Object accept(IVisitor visitor) {
 		LinkedList<Object> list = new LinkedList<Object>();
 		for (Transition transition : this.transitions) {

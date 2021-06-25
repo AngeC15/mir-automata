@@ -1,12 +1,9 @@
 package Model.automata.actions;
 
-
 import Model.entities.Entity;
 
-public class Get extends Action{
-	
-	
-	
+public class Get extends Action {
+
 	public Get(float weight) {
 		super(weight);
 	}
@@ -17,5 +14,5 @@ public class Get extends Action{
 		e.Get();
 		return false;
 	}
-		
+
 }

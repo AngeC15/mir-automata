@@ -18,7 +18,5 @@ public class BehaviourExtension {
 		super();
 		this.transitions = transitions;
 	}
-	
-	
 
 }

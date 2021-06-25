@@ -19,19 +19,21 @@ package Model.automata.ast;
 
 public class Condition extends Node {
 
-  Expression expression;
+	Expression expression;
 
-  public Condition(Expression expression) {
-    this.expression = expression;
-  }
+	public Condition(Expression expression) {
+		this.expression = expression;
+	}
 
-  Object accept(IVisitor visitor) {
-	visitor.enter(this);  
-    Object o = expression.accept(visitor);
-    return visitor.exit(this, o);
-  }
+	@Override
+	Object accept(IVisitor visitor) {
+		visitor.enter(this);
+		Object o = expression.accept(visitor);
+		return visitor.exit(this, o);
+	}
 
-  public String toString() {
-    return expression.toString() ;
-  }
+	@Override
+	public String toString() {
+		return expression.toString();
+	}
 }

@@ -2,6 +2,7 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Gun;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
@@ -31,5 +32,10 @@ public class Tank extends Enemy {
 	@Override
 	public String toString() {
 		return "Tank";
+	}
+	
+	@Override
+	public void Wizz(DirectionExtension dir) {
+		super.Move(dir);
 	}
 }

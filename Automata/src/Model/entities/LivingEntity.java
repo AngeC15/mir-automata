@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import Model.automata.Automaton;
 import Model.automata.actions.EnumAction;
+import Model.entities.Bullet.Bullet;
 
 /**
  * add life for entities,

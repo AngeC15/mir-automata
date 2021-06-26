@@ -13,7 +13,7 @@ Player(Init){
   | Key(q) & (!Key(z)) & Key(d) & Key(s) ? Move(S) :(Init)
   | Key(q) & Key(z) & (!Key(d)) & (!Key(s)) ? Move(W) :(Init)
   | (!Key(q)) & Key(z) & Key(d) & Key(s) ? Move(E) :(Init)
-  | Key(8) & GotPower ? Hit :(Init)
+  | Key(8) & GotPower ? Wizz :(Init)
   | Key(6) & GotPower ? Pop :(Init)
   | Key(SPACE) ? Jump :(Init)
   * ()
@@ -21,12 +21,27 @@ Player(Init){
 
 Bullet(Forward){
 	* (Forward) :
-	| Cell(F,_) ? Hit  :()
-	| True ?  Move(F)  :(Forward)
+	| True ?  Pop(F)  :(Forward)
   	* ()
 }
 
-Wall(Init){
+BulletZigZag(Forward){
+	* (Forward) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(F)  :(Right)
+	| True ?  Move(F)  :(Left)
+	| True ?  Move(F)  :(Forward)
+	* (Right) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(R)  :(Forward)
+	| True ?  Move(F)  :(Forward)
+	* (Left) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(L)  :(Forward)
+	| True ?  Move(F)  :(Forward)
+}
+
+Decor(Init){
   	* (Init):
 	| True ? :(Dead)
 	| True ? :(Dead)
@@ -42,16 +57,16 @@ Wall(Init){
 	| GotStuff & GotPower ? :(Alive)
 	| (!GotStuff) ? :(Tmp)
 	* (Dead):
-	| True ? Throw(B) :(Idle)
+	| True ? Pop(B) :(Idle)
 	* (Alive):
-	| True ? Throw(F) :(Idle)
+	| True ? Pop(F) :(Idle)
 	* (Tmp):
-	| True ? Throw(R) :(End)
+	| True ? Pop(R) :(End)
 	* (End):
-	| !GotPower ? Explode :(Tmp2)
-	| GotPower ? Throw(H) :(Tmp2)
+	| !GotPower ? Wizz :(Tmp2)
+	| GotPower ? Pop(H) :(Tmp2)
 	* (Tmp2):
-	| True ? Explode :(Wall)
+	| True ? Wizz :(Wall)
 	* (Wall)
 }
 

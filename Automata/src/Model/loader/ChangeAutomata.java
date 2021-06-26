@@ -47,15 +47,14 @@ public class ChangeAutomata {
 					myReader.close();
 					throw new Exception("Too much arguments.");
 				}
-				if (line.length > 0) {
-					String readEntity = line[0];
-					String readAutomata = line[1];
-					Automaton aut = AutomataLoader.get(line[1]);
-					if (aut != null) {
-						entityAutomaton.put(line[0], aut);
-					} else {
-						System.err.println("The automaton " + line[1] + "does not exist");
-					}
+
+				String readEntity = line[0];
+				String readAutomata = line[1];
+				Automaton aut = AutomataLoader.getAutomaton(line[1]);
+				if (aut != null) {
+					entityAutomaton.put(line[0], aut);
+				} else {
+					System.err.println("The automaton " + line[1] + "does not exist");
 				}
 
 			}

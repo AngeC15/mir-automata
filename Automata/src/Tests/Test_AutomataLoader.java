@@ -8,7 +8,7 @@ import Model.loader.AutomataLoader;
 public class Test_AutomataLoader {
 
 	public static Automaton loader(String filename) throws IOException {
-		AutomataLoader.load_all(filename);
+		//AutomataLoader.load_all(filename);
 		Automaton automata = AutomataLoader.get("Mine");
 		return automata;
 	}

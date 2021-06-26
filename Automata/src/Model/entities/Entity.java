@@ -11,6 +11,9 @@ import Model.automata.actions.EnumAction;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
+import Model.entities.Bullet.Bullet;
+import Model.entities.weapon.Weapon;
+import Model.monster_generator.Weapon_cover;
 import Model.physics.ColliderType;
 import Model.physics.PhysicsBody;
 import Utils.Functions;
@@ -32,6 +35,7 @@ public class Entity implements SafeMapElement {
 	public int team; // équipe: 1 = joueur
 						// équipe: 2 = ennemis
 						// équipe: 3 = neutre
+						// Equipe 4 : cacheArme
 
 	public Entity(Automaton a, int equipe) {
 		// System.out.println("new entity");
@@ -273,6 +277,15 @@ public class Entity implements SafeMapElement {
 		// this+ " et " + other.getClass());
 
 		// if the bullet meet a wall, destroy it
+		if (this instanceof Player && other instanceof Weapon_cover) {
+			Weapon weapon = ((Weapon_cover) other).getW();
+			if (weapon.isCac()) {
+				((Player) this).setArmeCac(weapon);
+			} else {
+				((Player) this).setArmeDist(weapon);
+			}
+			world.removeEntity(other.getID());
+		}
 		if ((this instanceof Bullet && other instanceof Decor)) {
 			((LivingEntity) this).death();
 		}
@@ -296,12 +309,24 @@ public class Entity implements SafeMapElement {
 	public Color getColor() {
 		return Color.gray;
 	}
-	
-	public String toString(){
+
+	@Override
+	public String toString() {
 		return this.getClass().getName();
 	}
-	
+
 	public boolean addLifeBar() {
 		return false;
+	}
+
+	protected void rotate() {
+		Entity player = world.getPlayer();
+
+		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
+		double relativeAngle = Math.atan2(relativeY, relativeX);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle - Math.toRadians(90));
 	}
 }

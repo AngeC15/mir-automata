@@ -114,9 +114,15 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 	public void tick(long elapsed) {
-
-		world.tick(elapsed);
-		view.tick(elapsed);
+		if(world.getPlayer() != null) {
+			world.tick(elapsed);
+			view.tick(elapsed);
+		}
+		else {
+			//ici on fait paint l'écran de fin
+			world.tick(elapsed);
+			view.tick(elapsed);
+		}
 
 	}
 

@@ -92,9 +92,11 @@ public class Player extends LivingEntity {
 		}
 	}
 
+	/**
+	 * Hand to hand attack
+	 */
 	@Override
-	public void Hit(DirectionExtension dir) {
-		// Meelee attack
+	public void Wizz(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
 		
 		if(now - lastAttack> armeCac.getShot_frequency()) {
@@ -104,9 +106,11 @@ public class Player extends LivingEntity {
 		}
 	}
 
+	/**
+	 * Distance attack
+	 */
 	@Override
 	public void Pop(DirectionExtension dir) {
-		// Distance attack
 		double now = System.currentTimeMillis();
 		
 		if(now - lastAttack> armeDist.getShot_frequency()) {

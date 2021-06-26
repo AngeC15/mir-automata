@@ -2,6 +2,7 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
@@ -27,6 +28,16 @@ public class Mecha extends Enemy {
 	@Override
 	public String toString() {
 		return "Mecha";
+	}
+	
+	@Override
+	public void Pop(DirectionExtension dir) {
+		super.Move(dir);
+	}
+
+	@Override
+	public void Wizz(DirectionExtension dir) {
+		super.Hit(dir);
 	}
 
 }

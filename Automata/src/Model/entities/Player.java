@@ -2,6 +2,7 @@ package Model.entities;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import Controller.VirtualInput;
 import Model.automata.creation.DirectionExtension;
@@ -9,6 +10,7 @@ import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
+import Model.pathfinding.Node;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
@@ -55,7 +57,28 @@ public class Player extends LivingEntity {
 			daggerStrick = null;
 		}
 		rotate();
-		System.out.println("Player : x = " + getTransform().getTranslateX() + " , y = " + getTransform().getTranslateY());
+		
+		// System.out.println("Player : x = " + getTransform().getTranslateX() + " , y = " + getTransform().getTranslateY());
+		
+//		ArrayList<Node> neighbors = new ArrayList<Node>();
+//		Node currentNode = new Node((int) getTransform().getTranslateX(), (int) getTransform().getTranslateY(), null);
+//		int margin = 2;
+//		neighbors.add(new Node(currentNode.getX() + margin, currentNode.getY(), currentNode));
+//		neighbors.add(new Node(currentNode.getX() - margin, currentNode.getY(), currentNode));
+//		neighbors.add(new Node(currentNode.getX(), currentNode.getY() + margin, currentNode));
+//		neighbors.add(new Node(currentNode.getX(), currentNode.getY() - margin, currentNode));
+//		
+//		for (Node node : neighbors) {
+//			
+//			int x = (int) (node.getX() / 5.3f + 15);
+//			int y = (int) (node.getY() / 5.3f + 15);
+//			
+//			System.out.println("Node : x = " + x + " , y = " + y);
+//			if (world.getMap().hasWall(y, x, margin)) {
+//				System.out.println("Wall near player");
+//			}
+//		}
+		
 		return super.step();
 	}
 

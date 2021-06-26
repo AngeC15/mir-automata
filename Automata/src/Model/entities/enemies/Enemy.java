@@ -62,64 +62,80 @@ public abstract class Enemy extends LivingEntity {
 			System.out.println("Not supported Entity type");
 			return false;
 		}
-
-		// entity coordinates relative to this
+		
 		double relativeX = closestEntity.getTransform().getTranslateX() - getTransform().getTranslateX();
 		double relativeY = closestEntity.getTransform().getTranslateY() - getTransform().getTranslateY();
 		double distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
-
+		
 		if (distance < shootDistance)
 			return false;
+		
+		try {
+			aStarPlayer(1);
+			
+			Node node = new Node((int) getTransform().getTranslateX(), (int) getTransform().getTranslateY(), null);
+			
+			while (pathToPlayer.get(0).isSameCoordinates(node, 1)) {
+				pathToPlayer.remove(0);
+			}
+			
+			relativeX = pathToPlayer.get(0).getX() - getTransform().getTranslateX();
+			relativeY = pathToPlayer.get(0).getY() - getTransform().getTranslateY();
+			
+			switch (direction) {
+			case E:
+				startAngle = -22.5;
+				break;
 
-		switch (direction) {
-		case E:
-			startAngle = -22.5;
-			break;
+			case NE:
+				startAngle = 22.5;
+				break;
 
-		case NE:
-			startAngle = 22.5;
-			break;
+			case N:
+				startAngle = 67.5;
+				break;
 
-		case N:
-			startAngle = 67.5;
-			break;
+			case NW:
+				startAngle = 112.5;
+				break;
 
-		case NW:
-			startAngle = 112.5;
-			break;
+			case W:
+				startAngle = 157.5;
+				break;
 
-		case W:
-			startAngle = 157.5;
-			break;
+			case SW:
+				startAngle = -157.5;
+				break;
 
-		case SW:
-			startAngle = -157.5;
-			break;
+			case S:
+				startAngle = -112.5;
+				break;
 
-		case S:
-			startAngle = -112.5;
-			break;
+			case SE:
+				startAngle = -67.5;
+				break;
 
-		case SE:
-			startAngle = -67.5;
-			break;
+			default:
+				System.out.println("Non-existing direction");
+				return false;
+			}
 
-		default:
-			System.out.println("Non-existing direction");
+			double endAngle = 360 / percentage + startAngle;
+			double relativeAngle = Math.toDegrees((Math.atan2(relativeY, relativeX)));
+
+			if (direction == DirectionExtension.W) {
+				// Need special treatment for West as we can't loop between 180° and -180°
+				return (relativeAngle >= startAngle && relativeAngle <= 180)
+						|| (relativeAngle <= -157.5 && relativeAngle >= -180);
+
+			} else {
+				return (relativeAngle >= startAngle && relativeAngle <= endAngle);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
-
-		double endAngle = 360 / percentage + startAngle;
-		double relativeAngle = Math.toDegrees((Math.atan2(relativeY, relativeX)));
-
-		if (direction == DirectionExtension.W) {
-			// Need special treatment for West as we can't loop between 180° and -180°
-			return (relativeAngle >= startAngle && relativeAngle <= 180)
-					|| (relativeAngle <= -157.5 && relativeAngle >= -180);
-
-		} else {
-			return (relativeAngle >= startAngle && relativeAngle <= endAngle);
-		}
+		
 	}
 
 	@Override
@@ -165,9 +181,12 @@ public abstract class Enemy extends LivingEntity {
 		Queue<Node> closedList = new LinkedList<Node>();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>();
 		
+		int firstX = (int) getTransform().getTranslateX();
+		int firstY = (int) getTransform().getTranslateY();
+		
 		// create and insert the start node
-		openList.add(new Node((int) getTransform().getTranslateX(), 
-				(int) getTransform().getTranslateY(), null));
+		Node firstNode = new Node(firstX, firstY, null);
+		openList.add(firstNode);
 		
 		// create a player Node for coordinate comparison
 		Entity player = world.getPlayer();
@@ -188,6 +207,8 @@ public abstract class Enemy extends LivingEntity {
 				return; // end of A* algorithm
 				
 			} else {
+				System.out.println("loop");
+				
 				// create and store the 4 neighbors
 				ArrayList<Node> neighbors = new ArrayList<Node>();
 				neighbors.add(new Node(currentNode.getX() + 2 * margin, currentNode.getY(), currentNode));
@@ -196,9 +217,13 @@ public abstract class Enemy extends LivingEntity {
 				neighbors.add(new Node(currentNode.getX(), currentNode.getY() - 2 * margin, currentNode));
 
 				// remove neighbors if they are a wall
-				for (Node neighbor : neighbors) {
-					if (world.getMap().hasWall(neighbor.getX(), neighbor.getY(), margin)) {
-						neighbors.remove(neighbor);
+				for (int i = 0; i < neighbors.size(); i++) {
+					Node neighbor = neighbors.get(i);
+					int x = (int) (neighbor.getX() / 5.3f + 15);
+					int y = (int) (neighbor.getY() / 5.3f + 15);
+					if (world.getMap().hasWall(x, y, margin)) {
+						neighbors.remove(i);
+						i--;
 					}
 				}
 				
@@ -231,8 +256,9 @@ public abstract class Enemy extends LivingEntity {
 				// check each neighbor
 				for (Node neighbor : neighbors) {
 					if (! (closedList.contains(neighbor) || (openList.contains(neighbor) && neighbor.cost < currentNode.cost + 1))) {
-						neighbor.cost = currentNode.cost;
+						neighbor.cost = currentNode.cost + 1;
 						neighbor.heuristic = neighbor.cost + (int) neighbor.distance(playerNode);
+						// neighbor.heuristic *= 5; weighted A* 
 						openList.add(neighbor);
 					}
 				}

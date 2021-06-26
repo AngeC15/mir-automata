@@ -23,6 +23,8 @@ public class Decor extends Entity {
 	private Map map;
 	private Template[] templates;
 	private int random;
+	
+	public boolean display;
 
 	public Decor(Map m, int px, int py) {
 		super(AutomataLoader.get("Wall"), 3);

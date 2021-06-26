@@ -102,7 +102,17 @@ public class Map {
 	public boolean hasWall(int x, int y, int margin) {
 		for (int i = x - margin; i < x + margin; i++) {
 			for (int j = y - margin; j < y + margin; j++) {
-				if (get(i, j) != null) {
+				
+				if (i < 0 || j < 0 || i >= 30 || j >= 30) {
+					break;
+				}
+				
+//				if (get(i, j) != null) {
+//					return true;
+//				}
+				
+				if (map[i][j] != null) {
+					((Decor)map[i][j]).display = true;
 					return true;
 				}
 			}

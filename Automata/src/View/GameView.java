@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import Model.World;
+import Model.entities.Decor;
 import Model.entities.Entity;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
@@ -237,6 +238,12 @@ public class GameView {
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
+			
+			if (et instanceof Decor && ((Decor) et).display) {
+				et.getBody().debug(g);
+				((Decor) et).display = false;
+			}
+			
 			// et.getBody().debug(g);
 			g.transform(localTransform);
 			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center

@@ -12,6 +12,10 @@ public class Node implements Comparable<Node> {
 		this.x = x;
 		this.y = y;
 		this.previousNode = previousNode;
+		
+		if (previousNode != null) {
+			cost = previousNode.cost + 1;
+		}
 	}
 	
 	public int getX() {
@@ -38,6 +42,13 @@ public class Node implements Comparable<Node> {
 		return Math.sqrt(tmpX + tmpY);
 	}
 	
+	public double distance(int x, int y) {
+		double tmpX = Math.pow(x - this.x, 2);
+		double tmpY = Math.pow(y - this.y, 2);
+		
+		return Math.sqrt(tmpX + tmpY);
+	}
+	
 	/**
 	 * Returns true if the other node has close enough coordinates (with the given margin)
 	 * @param otherNode
@@ -45,15 +56,15 @@ public class Node implements Comparable<Node> {
 	 * @return boolean
 	 */
 	public boolean isSameCoordinates(Node otherNode, int margin) {
-		boolean sameX = otherNode.getX() - margin < x + margin || otherNode.getX() + margin > x - margin;
-		boolean sameY = otherNode.getY() - margin < y + margin || otherNode.getY() + margin > y - margin;
+		boolean sameX = otherNode.getX() - margin < x + margin && otherNode.getX() + margin > x - margin;
+		boolean sameY = otherNode.getY() - margin < y + margin && otherNode.getY() + margin > y - margin;
 		
-		return sameX || sameY;
+		return sameX && sameY;
 	}
 
 	@Override
 	public int compareTo(Node otherNode) {
-		if (heuristic < otherNode.heuristic) {
+		if (heuristic > otherNode.heuristic) {
 			return 1;
 			
 		} else if (heuristic == otherNode.heuristic) {

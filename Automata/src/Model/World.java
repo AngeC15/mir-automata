@@ -111,13 +111,12 @@ public class World {
 		this.setPlayer(player);
 
 		// Uncomment if you want enemies
-		/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 200));
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
 		addEntity(tank);
-
+		/*
 		Tank tank2 = new Tank("Tank");
 		Template tmpTank2 = TemplatesLoader.get("Tank");
 		new Avatar(tank2, tmpTank2);

@@ -26,6 +26,7 @@ public abstract class Enemy extends LivingEntity {
 	protected float friction;
 	protected float maxSpeed;
 	protected double lastAttack;
+	protected ArrayList<Node> pathToPlayer;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
@@ -40,6 +41,8 @@ public abstract class Enemy extends LivingEntity {
 
 		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
 		getTransform().rotate(relativeAngle - Math.toRadians(90));
+		
+		pathToPlayer = new ArrayList<Node>();
 	}
 
 	/**
@@ -156,40 +159,88 @@ public abstract class Enemy extends LivingEntity {
 	public Color getColor() {
 		return Color.red;
 	}
-
-	@Override
-	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
-		return false;
-	}
 	
-	private void aStarPlayer(int margin) {
+	private void aStarPlayer(int margin) throws Exception {
 		// create the two queues
 		Queue<Node> closedList = new LinkedList<Node>();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>();
 		
 		// create and insert the start node
 		openList.add(new Node((int) getTransform().getTranslateX(), 
-				(int) getTransform().getTranslateY(), 0, 0, null));
+				(int) getTransform().getTranslateY(), null));
 		
 		// create a player Node for coordinate comparison
 		Entity player = world.getPlayer();
 		Node playerNode = new Node((int) player.getTransform().getTranslateX(), 
-				(int) player.getTransform().getTranslateY(), 0, 0, null);
+				(int) player.getTransform().getTranslateY(), null);
 		
 		while (!openList.isEmpty()) {
 			// extract highest priority node
 			Node currentNode = openList.remove();
 			
 			if (currentNode.isSameCoordinates(playerNode, margin)) {
-				// TODO : reconstruct the path
+				
+				while (currentNode != null) {
+					pathToPlayer.add(0, currentNode);
+					currentNode = currentNode.getPreviousNode();
+				}
+				
 				return; // end of A* algorithm
 				
 			} else {
 				// create and store the 4 neighbors
 				ArrayList<Node> neighbors = new ArrayList<Node>();
+				neighbors.add(new Node(currentNode.getX() + 2 * margin, currentNode.getY(), currentNode));
+				neighbors.add(new Node(currentNode.getX() - 2 * margin, currentNode.getY(), currentNode));
+				neighbors.add(new Node(currentNode.getX(), currentNode.getY() + 2 * margin, currentNode));
+				neighbors.add(new Node(currentNode.getX(), currentNode.getY() - 2 * margin, currentNode));
+
+				// remove neighbors if they are a wall
+				for (Node neighbor : neighbors) {
+					if (world.getMap().hasWall(neighbor.getX(), neighbor.getY(), margin)) {
+						neighbors.remove(neighbor);
+					}
+				}
 				
+				// remove duplicate neighbors (for later contains)
+				for (Node neighbor : neighbors) {
+					
+					Node replaceNode = null;
+					
+					for (Node node : closedList) {
+						if (neighbor.isSameCoordinates(node, margin)) {
+							replaceNode = node;
+							break;
+						}
+					}
+					
+					if (replaceNode == null) {
+						for (Node node : openList) {
+							if (neighbor.isSameCoordinates(node, margin)) {
+								replaceNode = node;
+								break;
+							}
+						}
+					}
+					
+					if (replaceNode != null) {
+						neighbor = replaceNode;
+					}
+				}
+				
+				// check each neighbor
+				for (Node neighbor : neighbors) {
+					if (! (closedList.contains(neighbor) || (openList.contains(neighbor) && neighbor.cost < currentNode.cost + 1))) {
+						neighbor.cost = currentNode.cost;
+						neighbor.heuristic = neighbor.cost + (int) neighbor.distance(playerNode);
+						openList.add(neighbor);
+					}
+				}
+				closedList.add(currentNode);
 			}
 		}
+		
+		throw new Exception("A* algorithm error");
 	}
 
 }

@@ -4,15 +4,13 @@ public class Node implements Comparable<Node> {
 	
 	private int x;
 	private int y;
-	private int cost;
-	private int heuristic;
+	public int cost;
+	public int heuristic;
 	private Node previousNode;
 	
-	public Node(int x, int y, int cost, int heuristic, Node previousNode) {
+	public Node(int x, int y, Node previousNode) {
 		this.x = x;
 		this.y = y;
-		this.cost = cost;
-		this.heuristic = heuristic;
 		this.previousNode = previousNode;
 	}
 	
@@ -22,14 +20,6 @@ public class Node implements Comparable<Node> {
 
 	public int getY() {
 		return y;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public int getHeuristic() {
-		return heuristic;
 	}
 	
 	public Node getPreviousNode() {
@@ -63,10 +53,10 @@ public class Node implements Comparable<Node> {
 
 	@Override
 	public int compareTo(Node otherNode) {
-		if (heuristic < otherNode.getHeuristic()) {
+		if (heuristic < otherNode.heuristic) {
 			return 1;
 			
-		} else if (heuristic == otherNode.getHeuristic()) {
+		} else if (heuristic == otherNode.heuristic) {
 			return 0;
 			
 		} else {

@@ -90,6 +90,10 @@ public class World {
 	public void setMap(Map m) {
 		map = m;
 	}
+	
+	public Map getMap() {
+		return map;
+	}
 
 	public VirtualInput getInputs() {
 		return inputs;

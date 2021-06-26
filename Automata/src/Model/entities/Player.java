@@ -32,14 +32,12 @@ public class Player extends LivingEntity {
 		h.add(prim);
 
 		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 47.0f, this);
-//		armeCac = new Dagger(); //to change please
-//		armeDist = new Gun();
-
 
 		armeCac = new Dagger(); // to change please
 		armeDist = new Gun("Bullet");
 
 		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeDist.getShot_frequency();
 
 		this.life = 100000;
 	}
@@ -77,10 +75,9 @@ public class Player extends LivingEntity {
 
 			// substract the players current angle and rotate
 			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-			getTransform().rotate(relativeAngle + Math.toRadians(90));
+			getTransform().rotate(relativeAngle + Math.PI/2);
 
 		} catch (NullPointerException e) {
-			getTransform().rotate(Math.toRadians(0));
 		}
 	}
 
@@ -91,7 +88,6 @@ public class Player extends LivingEntity {
 	public void Wizz(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
 		lastAttack = now;
-		
 		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
 	}
 
@@ -107,9 +103,11 @@ public class Player extends LivingEntity {
 
 	@Override
 	public boolean GotPower() {
+		
 		double now = System.currentTimeMillis();
-		if (now - lastAttack > lastAttackFrequency)
+		if ((now - lastAttack) > lastAttackFrequency) {
 			return true;
+		}
 		return false;
 	}
 

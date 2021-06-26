@@ -60,7 +60,7 @@ public class Decor extends Entity {
 			if (state == 1)
 				return cmpt >= 3;
 			else
-				return cmpt >= 5;
+				return cmpt >= 4;
 
 		} catch (Exception e) {
 			System.exit(0);
@@ -115,7 +115,7 @@ public class Decor extends Entity {
 			setState(3);
 		} else {
 			Random rn = new Random();
-			random = rn.nextInt(30);
+			random = rn.nextInt(70);
 		}
 	}
 

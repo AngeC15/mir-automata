@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import Model.World;
 import Model.entities.Entity;
+import Model.entities.Player;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 
@@ -95,12 +96,12 @@ public class MiniMap extends JPanel {
 
 			if (c != null) {
 				g.setColor(c);
-				if (et.addLifeBar()) {
+				if (et.addLifeBar()&& et instanceof Player) {
 					g.fillPolygon(triangleX, triangleY, 4);
-				} else if (et.getEquipe() == 3) {
-					g.fillOval(-1, 1, (int) size, (int) size);
 				} else if (et.getEquipe() == 4) {
 					g.fillRect(0, 0, (int) size, (int) size);
+				}else {
+					g.fillOval(-1, 1, (int) size, (int) size);
 				}
 			}
 			g.setTransform(gameTransform);

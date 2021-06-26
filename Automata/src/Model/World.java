@@ -8,6 +8,7 @@ import Controller.VirtualInput;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
+import Model.entities.enemies.Flamethrower;
 import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
@@ -107,34 +108,35 @@ public class World {
 		new Avatar(player, tmp);
 		this.addEntity(player);
 		this.setPlayer(player);
-		
-		  Tank tank = new Tank("Tank"); Template tmpTank = TemplatesLoader.get("Tank");
-		  new Avatar(tank, tmpTank);
-		  tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100)); 
-		  this.addEntity(tank);
-		  
-		  Generator g=new Generator(this, 100,1);
-		  g.spawn_cover();
-		  /*
-		  Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
-		  TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
-		  mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40)); 
-		  this.addEntity(mecha);
-		  */
-		  /*
-		  Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
-		  tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
-		  Avatar(flamethrower, tmpFlamethrower);
-		  flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
-		  0, -100)); this.addEntity(flamethrower);
-		  
-		  Plane plane = new Plane("Plane"); Template tmpPlane =
-		  TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
-		  plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		  20)); this.addEntity(plane);
-		  */
 
-		
+		Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		new Avatar(tank, tmpTank);
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		this.addEntity(tank);
+
+		Generator g = new Generator(this, 100, 1);
+		g.spawn_cover();
+		/*
+		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
+		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
+		 * mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		 * 40)); this.addEntity(mecha);
+		 */
+
+		/*
+		 * Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
+		 * tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
+		 * Avatar(flamethrower, tmpFlamethrower);
+		 * flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
+		 * 0, -100)); this.addEntity(flamethrower);
+		 */
+		/*
+		 * Plane plane = new Plane("Plane"); Template tmpPlane =
+		 * TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
+		 * plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		 * 20)); this.addEntity(plane);
+		 */
 
 	}
 }

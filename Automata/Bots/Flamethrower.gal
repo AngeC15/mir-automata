@@ -1,14 +1,14 @@
 Flamethrower(Follow){
   * (Follow):
   | ! GotStuff ? Egg : ()
-  | Closest(A,N) ? Move(N) :(Follow)
-  | Closest(A,S) ? Move(S) :(Follow)
-  | Closest(A,E) ? Move(E) :(Follow)
-  | Closest(A,W) ? Move(W) :(Follow)
-  | Closest(A,NE) ? Move(NE) :(Follow)
-  | Closest(A,NW) ? Move(NW) :(Follow)
-  | Closest(A,SE) ? Move(SE) :(Follow)
-  | Closest(A,SW) ? Move(SW) :(Follow)
-  | GotPower ? Hit :(Follow)
+  | Closest(A,N) ? Pop(N) :(Follow)
+  | Closest(A,S) ? Pop(S) :(Follow)
+  | Closest(A,E) ? Pop(E) :(Follow)
+  | Closest(A,W) ? Pop(W) :(Follow)
+  | Closest(A,NE) ? Pop(NE) :(Follow)
+  | Closest(A,NW) ? Pop(NW) :(Follow)
+  | Closest(A,SE) ? Pop(SE) :(Follow)
+  | Closest(A,SW) ? Pop(SW) :(Follow)
+  | GotPower ? Wizz :(Follow)
   * ()
 }

@@ -53,6 +53,7 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 			grid.remove(trm);
 		}
 	}
+	
 	public long getPos(float x, float y) {
 		//System.out.println("x " + x + " y " + y);
 		x -= cellOffset;
@@ -62,6 +63,7 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		
 		long xi = (long)Math.round(x);
 		long yi = (long)Math.round(y);
+		
 		//System.out.println("xi " + xi + " yi " + yi);
 		long p = ((xi << 32) | (yi & 0xFFFFFFFFL));
 		//System.out.println("p " + p);

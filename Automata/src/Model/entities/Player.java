@@ -37,8 +37,8 @@ public class Player extends LivingEntity {
 		armeDist = new Gun("Bullet");
 
 		lastAttack = System.currentTimeMillis();
-		lastAttackFrequency = armeDist.getShot_frequency();
-
+//		lastAttackFrequency = armeDist.getShot_frequency();
+		lastAttackFrequency = 0;
 		this.life = 100000;
 	}
 

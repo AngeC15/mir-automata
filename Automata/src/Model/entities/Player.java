@@ -5,26 +5,8 @@ import java.awt.geom.AffineTransform;
 
 import Controller.VirtualInput;
 import Model.automata.creation.DirectionExtension;
-import Model.entities.weapon.AssaultRifle;
-import Model.entities.weapon.Axe;
-import Model.entities.weapon.Croissant;
 import Model.entities.weapon.Dagger;
-import Model.entities.weapon.Guisarm;
 import Model.entities.weapon.Gun;
-import Model.entities.weapon.Halberd;
-import Model.entities.weapon.Hammer;
-import Model.entities.weapon.Juliette;
-import Model.entities.weapon.Longsword;
-import Model.entities.weapon.MachineGun;
-import Model.entities.weapon.Pistol;
-import Model.entities.weapon.Revolver;
-import Model.entities.weapon.Romeo;
-import Model.entities.weapon.Scythe;
-import Model.entities.weapon.Shotgun;
-import Model.entities.weapon.Sniper;
-import Model.entities.weapon.Spear;
-import Model.entities.weapon.Sword;
-import Model.entities.weapon.TommyGun;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
@@ -32,7 +14,6 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 public class Player extends LivingEntity {
@@ -109,12 +90,9 @@ public class Player extends LivingEntity {
 	@Override
 	public void Wizz(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
-		
-		if(now - lastAttack> armeCac.getShot_frequency()) {
-			lastAttack = now;
+		lastAttack = now;
 		
 		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
-		}
 	}
 
 	/**
@@ -123,11 +101,8 @@ public class Player extends LivingEntity {
 	@Override
 	public void Pop(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
-		
-		if(now - lastAttack> armeDist.getShot_frequency()) {
-			lastAttack = now;
+		lastAttack = now;
 		armeDist.attack(this, new Vector2(0, -1));
-		}
 	}
 
 	@Override

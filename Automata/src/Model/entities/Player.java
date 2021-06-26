@@ -55,6 +55,7 @@ public class Player extends LivingEntity {
 			daggerStrick = null;
 		}
 		rotate();
+		System.out.println("Player : x = " + getTransform().getTranslateX() + " , y = " + getTransform().getTranslateY());
 		return super.step();
 	}
 

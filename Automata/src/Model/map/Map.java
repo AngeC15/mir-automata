@@ -90,4 +90,23 @@ public class Map {
 	public int getY() {
 		return map[0].length;
 	}
+	
+	/**
+	 * Returns true if there is a wall in the given area
+	 * TODO : to be tested
+	 * @param x
+	 * @param y
+	 * @param margin
+	 * @return boolean
+	 */
+	public boolean hasWall(int x, int y, int margin) {
+		for (int i = x - margin; i < x + margin; i++) {
+			for (int j = y - margin; j < y + margin; j++) {
+				if (get(i, j) != null) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

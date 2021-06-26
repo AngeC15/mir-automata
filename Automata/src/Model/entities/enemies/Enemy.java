@@ -1,6 +1,10 @@
 package Model.entities.enemies;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
@@ -8,9 +12,9 @@ import Model.entities.DeadEntity;
 import Model.entities.Decor;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
-import Model.entities.PathfindingSingleton;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
+import Model.pathfinding.Node;
 import Model.physics.ColliderType;
 import Utils.Vector2;
 
@@ -155,42 +159,37 @@ public abstract class Enemy extends LivingEntity {
 
 	@Override
 	public boolean Cell(DirectionExtension direction, CategoryExtension categorie) {
-		PathfindingSingleton detection = PathfindingSingleton.getInstance(world);
-
-		double angle = Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		switch (direction) {
-		case F:
-			angle += Math.toRadians(90);
-			break;
-		case B:
-			angle += Math.toRadians(-90);
-			break;
-		case L:
-			angle += Math.toRadians(180);
-			break;
-		case R:
-			angle += Math.toRadians(0);
-			break;
-		default:
-			System.out.println("Non-existing direction, this is an error");
-		}
-
+		return false;
+	}
+	
+	private void aStarPlayer(int margin) {
+		// create the two queues
+		Queue<Node> closedList = new LinkedList<Node>();
+		PriorityQueue<Node> openList = new PriorityQueue<Node>();
 		
-
-		int x = (int) (this.getTransform().getTranslateX() + Math.cos(angle) * 10);
-		int y = (int) (this.getTransform().getTranslateY() + Math.sin(angle) * 10);
-
-		detection.changePosition(x, y);
-		Entity testVar = detection.getLastHit();
-
-		if (categorie == CategoryExtension.O) {
-			if (testVar == null)
-				return false;
-			if (testVar instanceof Decor) {
-				return true;
+		// create and insert the start node
+		openList.add(new Node((int) getTransform().getTranslateX(), 
+				(int) getTransform().getTranslateY(), 0, 0, null));
+		
+		// create a player Node for coordinate comparison
+		Entity player = world.getPlayer();
+		Node playerNode = new Node((int) player.getTransform().getTranslateX(), 
+				(int) player.getTransform().getTranslateY(), 0, 0, null);
+		
+		while (!openList.isEmpty()) {
+			// extract highest priority node
+			Node currentNode = openList.remove();
+			
+			if (currentNode.isSameCoordinates(playerNode, margin)) {
+				// TODO : reconstruct the path
+				return; // end of A* algorithm
+				
+			} else {
+				// create and store the 4 neighbors
+				ArrayList<Node> neighbors = new ArrayList<Node>();
+				
 			}
 		}
-		return false;
 	}
 
 }

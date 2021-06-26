@@ -21,8 +21,7 @@ Player(Init){
 
 Bullet(Forward){
 	* (Forward) :
-	| Cell(F,_) ? Hit  :()
-	| True ?  Move(F)  :(Forward)
+	| True ?  Pop(F)  :(Forward)
   	* ()
 }
 

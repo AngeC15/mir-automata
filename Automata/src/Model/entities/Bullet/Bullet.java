@@ -1,9 +1,13 @@
-package Model.entities;
+package Model.entities.Bullet;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
+import Model.automata.creation.CategoryExtension;
+import Model.automata.creation.DirectionExtension;
+import Model.entities.Entity;
+import Model.entities.LivingEntity;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.physics.ColliderType;
@@ -11,6 +15,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Functions;
 import Utils.Vector2;
 import View.Avatar;
 
@@ -21,21 +26,57 @@ import View.Avatar;
  */
 public class Bullet extends LivingEntity {
 
+	Entity e;
+	String bulletSkin;
+	Vector2 vect;
+
 	/**
 	 * 
 	 * @param e    = entity who launch the bullet (not the weapon)
 	 * @param vect = vector of direction of the bullet
+	 * 
+	 *             By default the automaton bullet is "Bullet"
 	 */
 	public Bullet(Entity e, Vector2 vect, String bulletSkin) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
 
 		// on créer tout le nécessaire pour gerer les physics body
+		this.e = e;
+		this.vect = vect;
+		this.bulletSkin = bulletSkin;
 		this.damage = 20;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
-		HitBox h = new HitBox();
 		this.team = e.team;
 
+		initBullet();
+
+	}
+
+	/**
+	 * 
+	 * @param e             = entity who launch the bullet (not the weapon)
+	 * @param vect          = vector of direction of the bullet
+	 * @param bulletSkin    = aspect of the Bullet
+	 * @param automatonName = name of the automaton
+	 */
+	public Bullet(Entity e, Vector2 vect, String bulletSkin, String automatonName) {
+		super(AutomataLoader.get(automatonName), e.getEquipe());
+
+		// on créer tout le nécessaire pour gerer les physics body
+		this.e = e;
+		this.vect = vect;
+		this.bulletSkin = bulletSkin;
+		this.damage = 20;
+		this.life = 1000;
+		this.acceleration = 2000.0f;
+		this.team = e.team;
+		initBullet();
+
+	}
+
+	private void initBullet() {
+		HitBox h = new HitBox();
 		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
 		this.body = new PhysicsBody(h, ColliderType.Projectile, 0.0f, 60.0f, this);
 
@@ -54,12 +95,21 @@ public class Bullet extends LivingEntity {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public Color getColor() {
 		return null;
+	}
+
+	public void Pop(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void Wizz(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

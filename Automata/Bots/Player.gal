@@ -26,6 +26,22 @@ Bullet(Forward){
   	* ()
 }
 
+BulletZigZag(Forward){
+	* (Forward) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(F)  :(Right)
+	| True ?  Move(F)  :(Left)
+	| True ?  Move(F)  :(Forward)
+	* (Right) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(R)  :(Forward)
+	| True ?  Move(F)  :(Forward)
+	* (Left) :
+	| Cell(F,_) ? Hit  :()
+	| True ?  Move(L)  :(Forward)
+	| True ?  Move(F)  :(Forward)
+}
+
 Wall(Init){
   	* (Init):
 	| True ? :(Dead)

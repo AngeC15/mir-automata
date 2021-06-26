@@ -11,6 +11,7 @@ import Model.automata.actions.EnumAction;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
+import Model.entities.Bullet.Bullet;
 import Model.physics.ColliderType;
 import Model.physics.PhysicsBody;
 import Utils.Functions;
@@ -299,5 +300,16 @@ public class Entity implements SafeMapElement {
 	
 	public boolean addLifeBar() {
 		return false;
+	}
+	
+	protected void rotate() {
+		Entity player = world.getPlayer();
+
+		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
+		double relativeAngle = Math.atan2(relativeY, relativeX);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle - Math.toRadians(90));
 	}
 }

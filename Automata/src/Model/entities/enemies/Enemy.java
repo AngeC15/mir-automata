@@ -24,16 +24,7 @@ public abstract class Enemy extends LivingEntity {
 		super(AutomataLoader.get(automaton), 2);
 	}
 
-	protected void rotate() {
-		Entity player = world.getPlayer();
-
-		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
-		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
-		double relativeAngle = Math.atan2(relativeY, relativeX);
-
-		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		getTransform().rotate(relativeAngle - Math.toRadians(90));
-	}
+	
 
 	/**
 	 * Takes a category and a direction and returns true if the closest entity of

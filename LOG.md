@@ -1,6 +1,30 @@
+# JOURNAL du Vendredi 25 juin
+#### *Cyprien* : Ajout de nouvelles armes ( branche `dev.armory` )
+- Implémentation de nouvelles armes
+
+#### *Camille* : Gestion des erreurs ( branche `improve.beugs` )
+- Création de méthode toString par défaut pour les entité
+- Gestion des caractéres en trop dans les fichiers loader ( espaces, etc...)
+- [x] `DONE` : *Merge avec le master*
+
+#### *Camille* : Création d'une barre de vie sur les entités ( branche `dev.life` )
+- Ajout d'une barre de vie sur les ennemis et les joueurs
+- [x] `DONE` : *Merge avec le master*
+
+#### *Samuel + Gergely* : Mise à jour des sprites ( branche `dev.truePathfinding` )
+- Mise à jour du tour des cellules ennemies et des entités
+
+#### *Joan + Cyprien* : Génération de cache d'armes ( branche `dev.generation_monster` )
+- Ajout d'une arme aléatoire lorsqu'une box spawn
+- Placement des caches d'armes dans la map
+
+#### *Théo + Julian* : HitBox ( branche `dev.map` )
+- nouvelle façon de générer les murs, changements dans les sprites utilisés
+- [ ] `TODO` : *Les faire apparaitre dans la minimap*
+---
 # JOURNAL du Jeudi 24 juin
 
-#### *Théo* : HitBox ( branche `dev.map` )
+#### *Théo + Julian* : HitBox ( branche `dev.map` )
 - Probléme sur les collisions fixées
 - Ajout d'arbre génération de la map
 - Résolution de beugs divers

@@ -14,6 +14,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 public class Player extends LivingEntity {
@@ -25,10 +26,16 @@ public class Player extends LivingEntity {
 
 	public Player() {
 		super(AutomataLoader.get("Player"), 1);
-		this.acceleration = 80.0f;
+		this.acceleration = 100.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
+		PrimitiveInstance prim = new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(6.25f, 8.8f));
+		prim.get_transform().translate(0.0f, 0.05f);
+		h.add(prim);
+
+		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 47.0f, this);
+//		armeCac = new Dagger(); //to change please
+//		armeDist = new Gun();
+
 
 		armeCac = new Dagger(); // to change please
 		armeDist = new Gun("Bullet");
@@ -44,6 +51,10 @@ public class Player extends LivingEntity {
 
 	public void setArmeDist(Weapon armeDist) {
 		this.armeDist = armeDist;
+	}
+
+	public void tick(long elapsed) {
+//		this.getBody().getTransform().rotate(0.002*elapsed);
 	}
 
 	@Override

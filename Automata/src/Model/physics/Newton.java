@@ -54,24 +54,12 @@ public class Newton {
 	}
 
 	private void resetPosition(long elapsed, PhysicsBody b, AffineTransform saved, Vector2 normal) {
-		// float dot = b.getVelocity().dot(normal);
 		b.transform = saved;
-		// b.velocity = b.getVelocity().sub(normal.scale(dot));
-		// b.transform.translate(normal.x, normal.y);
-		// Vector2 dir = new Vector2(-normal.y, -normal.x);
-		// Vector2 v = b.getVelocity();
-		// Vector2 delta = v.scale(elapsed/1000.0f);
-		// Vector2 nv = dir.normalize().scale(delta.norm());
-		/*
-		 * System.out.println("----------"); System.out.println("normal is " + normal.x
-		 * + " " + normal.y); System.out.println("dir is " + dir.x + " " + dir.y);
-		 * System.out.println("v is " + v.x + " " + v.y); System.out.println("nv is " +
-		 * nv.x + " " + nv.y);
-		 */
-		// v.x = nv.x;
-		// v.y = nv.y;
+
 		Vector2 n = normal.scale(0.05f);
-		b.transform.translate(n.x, n.y);
+		AffineTransform tr = AffineTransform.getTranslateInstance(n.x, n.y);
+		tr.concatenate(b.transform);
+		b.setTransform(tr);
 
 	}
 
@@ -94,10 +82,10 @@ public class Newton {
 				for (Entry<Long, SafeMapElement> b2_e : bodies[i]) {
 					if (b_idx != i || j > bt_idx) {
 						PhysicsBody b2 = (PhysicsBody) b2_e.getValue();
-
 						Vector2 normal = new Vector2(0, 0);
-						if (circleTest(b1, b2)) {
-							if (collide(b1, b2, normal)) {
+						if(circleTest(b1, b2)) {
+
+							if(collide(b1, b2, normal)){
 								b1.getEntity().colisionHappened(b2.getEntity(), b2.getType());
 								b2.getEntity().colisionHappened(b1.getEntity(), b1.getType());
 								if (col == 2) {
@@ -157,6 +145,7 @@ public class Newton {
 				t1.concatenate(p1.transform);
 				t2.concatenate(p2.transform);
 				if (GJK.collide(p1.prim, p2.prim, t1, t2)) {
+
 					normal.x = GJK.get_normal().x;
 					normal.y = GJK.get_normal().y;
 					// System.out.println("Colision");

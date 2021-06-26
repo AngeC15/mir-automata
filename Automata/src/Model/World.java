@@ -51,6 +51,7 @@ public class World {
 
 		for (Entry<Long, SafeMapElement> e : entities) {
 			((Entity) e.getValue()).step();
+
 		}
 		newton.tick(elapsed);
 		if (map != null)

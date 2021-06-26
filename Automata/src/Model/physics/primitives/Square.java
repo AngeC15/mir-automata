@@ -1,5 +1,6 @@
 package Model.physics.primitives;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -14,6 +15,7 @@ public class Square extends Primitive {
 	@Override
 	public Vector2 support(Vector2 d) {
 		d = d.normalize();
+
 		int x = (int) (1.999f - (d.x + 1)); // 1:0 -> -1:2
 		int y = (int) (1.999f - (d.y + 1));
 
@@ -30,7 +32,11 @@ public class Square extends Primitive {
 	public void debug(Graphics2D g, AffineTransform transform) {
 		g.transform(transform);
 		g.setColor(Color.green);
+		g.setStroke(new BasicStroke(0.1f));
 		g.draw(new Rectangle.Float(-0.5f, -0.5f, 1, 1));
+	}
+	public String toString() {
+		return "Square";
 	}
 
 }

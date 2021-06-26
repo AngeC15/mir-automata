@@ -50,9 +50,10 @@ public class Game {
 		TemplatesLoader.load_all("Resources/loader.txt");
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
-		int n, p;
-		n = 30;
-		p = 30;
+
+		int n, p; 
+		n = 50;
+		p = 50;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 

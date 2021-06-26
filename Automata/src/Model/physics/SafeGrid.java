@@ -9,75 +9,113 @@ import java.util.TreeMap;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 
-public class SafeGrid implements Iterable<SafeMap>{
+public class SafeGrid implements Iterable<SafeGridCell>{
 	long idx;
-	float cellSize = 25.0f;
-	float cellOffset = 25.0f/2.0f;
-	TreeMap<Long, SafeMap> grid;
-	ArrayDeque<Cell> addQueue;
+	float cellSize = 5*5.3f;
+	float cellOffset = 0;
+	TreeMap<Long, SafeGridCell> grid;
+	ArrayDeque<SafeGridCell> addQueue;
 	ArrayDeque<Long> rmQueue;
-	private class Cell{
-		public Cell(long p, SafeMap m) {
-			pos = p;
-			map = m;
-		}
-		public long pos;
-		public SafeMap map;
-	}
+	private double emptyCellLife = 5000;
+	public int gridNb;
+
 	public SafeGrid() {
 		idx = 0;
-		grid = new TreeMap<Long, SafeMap>();
-		addQueue = new ArrayDeque<Cell>();
+		grid = new TreeMap<Long, SafeGridCell>();
+		addQueue = new ArrayDeque<SafeGridCell>();
 		rmQueue = new ArrayDeque<Long>();
 	}
 	
 	public void update() {
-		for(SafeMap m : this) {
+		for(SafeGridCell m : this) {
 			m.update();
+			if(m.size() == 0 && (m.getTime() - System.currentTimeMillis()) > emptyCellLife) {
+				removeCell(m.getPos());
+			}
 			for(Entry<Long, SafeMapElement> e : m) {
-				long id = e.getKey();
 				SafeGridElement em = (SafeGridElement)e.getValue();
 				long prev_pos = em.getPos();
 				long pos = getPos(em.getPosX_f(), em.getPosY_f());
 				if(prev_pos != pos) {
-					m.remove(id);
-					grid.get(pos).add(em);
+					remove(em);
+					addSafe(em);
 				}
 			}
 		}
 		
 		int s = addQueue.size();
 		for(int i=0; i < s; i++) {
-			Cell c = addQueue.poll();
-			grid.put(c.pos, c.map);
+			SafeGridCell c = addQueue.poll();
+			grid.put(c.getPos(), c);
 		}
 		s = rmQueue.size();
 		for(int i=0; i < s; i++) {
-			grid.remove(rmQueue.poll());
+			long trm = rmQueue.poll();
+			grid.remove(trm);
 		}
 	}
 	public long getPos(float x, float y) {
+		//System.out.println("x " + x + " y " + y);
 		x -= cellOffset;
 		y -= cellOffset;
 		x /= cellSize;
 		y /= cellSize;
 		
-		long xi = (long)x;
-		long yi = (long)y;
-		
-		return (xi << 32) & yi;
+		long xi = (long)Math.round(x);
+		long yi = (long)Math.round(y);
+		//System.out.println("xi " + xi + " yi " + yi);
+		long p = ((xi << 32) | (yi & 0xFFFFFFFFL));
+		//System.out.println("p " + p);
+		return p;
 	}
-	public void addCell(SafeMap cell, long pos) {
-		Cell c = new Cell(pos, cell);
+	public void addCell(SafeGridCell c) {
 		addQueue.addLast(c);
 	}
-	public void remove(long id) {
+	public void addCellUnsafe(SafeGridCell c) {
+		grid.put(c.getPos(), c);
+	}
+	public void removeCell(long id) {
 		rmQueue.addLast(id);
 	}
-	public SafeGridElement get(long pos, long id) {
-		return (SafeGridElement)grid.get(pos).get(id);
+	public void addSafe(SafeGridElement e) {
+		long pos = getPos(e.getPosX_f(), e.getPosY_f());
+		long id;
+		if(!grid.containsKey(pos)) {
+			SafeGridCell c = new SafeGridCell(pos);
+			id = c.add(e);
+			addCell(c);
+		}
+		else {
+			id = grid.get(pos).add(e);
+		}
+		e.setID(id);
+		e.setPos(pos);
+		
 	}
-	public Iterator<SafeMap> iterator() {
+	public void add(SafeGridElement e) {
+		long pos = getPos(e.getPosX_f(), e.getPosY_f());
+		long id;
+		e.setPos(pos);
+		if(!grid.containsKey(pos)) {
+			SafeGridCell c = new SafeGridCell(pos);
+			id = c.add(e);
+			addCellUnsafe(c);
+		}
+		else {
+			id = grid.get(pos).add(e);
+		}
+		e.setID(id);
+		
+	}
+	public void remove(SafeGridElement e) {
+		grid.get(e.getPos()).remove(e.getID());
+	}
+	public SafeGridCell get(long pos) {
+		if(!grid.containsKey(pos))
+			return null;
+		return grid.get(pos);
+	}
+	public Iterator<SafeGridCell> iterator() {
 		return grid.values().iterator();
 	}
 	public int gridSize() {

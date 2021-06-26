@@ -35,6 +35,7 @@ public class Entity implements SafeMapElement {
 	public int team; // équipe: 1 = joueur
 						// équipe: 2 = ennemis
 						// équipe: 3 = neutre
+						// Equipe 4 : cacheArme
 
 	public Entity(Automaton a, int equipe) {
 		// System.out.println("new entity");

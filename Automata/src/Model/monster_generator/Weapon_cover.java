@@ -1,5 +1,6 @@
 package Model.monster_generator;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Weapon_cover extends Entity {
 
 	public Weapon_cover(int nb_weapon,World world,double x,double y) throws IOException {
 	
-		super(AutomataLoader.get("Dead"), 3);
+		super(AutomataLoader.get("Dead"), 4);
 		
 	
 		numeroArme = new ArrayList<Integer>();
@@ -104,6 +105,11 @@ public class Weapon_cover extends Entity {
 
 	public void setW(Weapon w) {
 		this.w = w;
+	}
+	
+	@Override
+	public Color getColor() {
+		return new Color(255, 180, 0);
 	}
 
 }

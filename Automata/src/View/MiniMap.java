@@ -22,14 +22,15 @@ public class MiniMap extends JPanel {
 	private AffineTransform cameraTransform;
 	private AffineTransform localTransform;
 	private double cameraDistance = 3;
-	private float size;
+	private static final float size = 12;
+	private static final int[] triangleX = new int[] { (int) -size, 0, (int) size, 0 };
+	private static final int[] triangleY = new int[] { 0, (int) (size * 2), 0, (int) size / 2 };
 
 	public MiniMap() {
 
 		super(new BorderLayout());
 		this.setVisible(true);
 		this.setBounds(5, 5, 200, 200);
-		size = 12;
 		setupFrame();
 	}
 
@@ -91,9 +92,16 @@ public class MiniMap extends JPanel {
 																						// the
 
 			Color c = et.getColor();
+
 			if (c != null) {
 				g.setColor(c);
-				g.fillOval(-1, 1, (int) size, (int) size);
+				if (et.addLifeBar()) {
+					g.fillPolygon(triangleX, triangleY, 4);
+				} else if (et.getEquipe() == 3) {
+					g.fillOval(-1, 1, (int) size, (int) size);
+				} else if (et.getEquipe() == 4) {
+					g.fillRect(0, 0, (int) size, (int) size);
+				}
 			}
 			g.setTransform(gameTransform);
 

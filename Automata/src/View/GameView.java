@@ -263,11 +263,15 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-
+		/*try {
+			season.nextSeason();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
 		/**
 		 * TO DECOMMENT : if you want to change season
 		 */
-		// intensity = season.transitionSummerWinter(g, 1000, intensity);
+		 //intensity = season.transitionSummerWinter(g, 500, intensity);
 
 	}
 

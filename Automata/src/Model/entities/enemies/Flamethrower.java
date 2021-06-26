@@ -2,12 +2,14 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Vector2;
 
 public class Flamethrower extends Enemy {
 
@@ -30,5 +32,25 @@ public class Flamethrower extends Enemy {
 	public String toString() {
 		return "Flamethrower";
 	}
+
+	@Override
+	public void Pop(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		super.Pop(dir);
+		 lastAttack = System.currentTimeMillis();
+		Vector2 vector = new Vector2(0, 1);
+		this.daggerStrike = weapon.attack(this, vector);
+	}
+
+	@Override
+	public void Hit(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		super.Hit(dir);
+		 lastAttack = System.currentTimeMillis();
+		Vector2 vector = new Vector2(0, 1);
+		this.daggerStrike = weapon.attack(this, vector);
+	}
+	
+	
 
 }

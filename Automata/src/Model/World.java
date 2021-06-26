@@ -79,8 +79,10 @@ public class World {
 
 	public void removeEntity(long id) {
 		Entity pb = ((Entity) entities.get(id));
-		newton.remove(pb.getBody());
-		entities.remove(id);
+		if(pb != null) {
+			newton.remove(pb.getBody());
+			entities.remove(id);
+		}
 	}
 
 	public void setPlayer(Entity p) {
@@ -121,7 +123,7 @@ public class World {
 
 		  Generator g=new Generator(this, 100,1);
 		  //g.spawn_cover();
-		 niveau = new Level(5000, 0, this, g);
+		 niveau = new Level(10000, 0, this, g);
 		 
 		  
 		  /*

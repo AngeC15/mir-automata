@@ -25,6 +25,21 @@ public abstract class Enemy extends LivingEntity {
 	}
 
 	protected void rotate() {
+		//for life duration
+		double now = System.currentTimeMillis();
+
+		if (this.daggerStrike != null && now - lastAttack > 125) {
+			//System.out.println("Remove daggerStrick from enemy: " );
+			this.world.removeEntity(daggerStrike.getID());
+			daggerStrike = null;
+		}
+		if (this.ShotStrike != null && now - lastAttack > 8000) {
+			//System.out.println("Remove Shotstrick from enemy: " );
+			this.world.removeEntity(ShotStrike.getID());
+			ShotStrike = null;
+		}
+		
+		
 		Entity player = world.getPlayer();
 
 		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
@@ -114,16 +129,20 @@ public abstract class Enemy extends LivingEntity {
 
 	@Override
 	public void Pop(DirectionExtension dir) {
+		/*
 		lastAttack = System.currentTimeMillis();
 		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
+		this.ShotStrike = weapon.attack(this, vector);
+		*/
 	}
 
 	@Override
 	public void Hit(DirectionExtension dir) {
-		lastAttack = System.currentTimeMillis();
+		/*
+		 lastAttack = System.currentTimeMillis();
 		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
+		this.daggerStrike = weapon.attack(this, vector);
+		*/
 	}
 
 	@Override

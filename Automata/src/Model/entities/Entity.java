@@ -268,7 +268,7 @@ public class Entity implements SafeMapElement {
 
 	public void colisionHappened(Entity other, ColliderType c) {
 		// System.out.println("Collision de type " + c.toString()+ " entre l'entité " +
-		// this+ " et " + other.getClass());
+		//this.toString()+ " et " + other.toString());
 
 		// if the bullet meet a wall, destroy it
 		if(this instanceof Player && other instanceof Weapon_cover) {
@@ -281,7 +281,7 @@ public class Entity implements SafeMapElement {
 			}
 			world.removeEntity(other.getID());
 		}
-		if ((this instanceof Bullet && other instanceof Decor)) {
+		if ((this instanceof Bullet && other instanceof Decor) || (this instanceof SwordStrick && other instanceof Decor)) {
 			((LivingEntity) this).death();
 		}
 		// we check if both have life and enventually damages
@@ -294,9 +294,10 @@ public class Entity implements SafeMapElement {
 				((LivingEntity) this).damage(damageEntity2);
 				((LivingEntity) other).damage(damageEntity1);
 
-				if (this instanceof Bullet) {
+				if (this instanceof Bullet || this instanceof SwordStrick) {
 					((LivingEntity) this).death();
 				}
+				
 			}
 		}
 	}

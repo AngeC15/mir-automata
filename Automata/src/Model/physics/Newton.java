@@ -13,7 +13,9 @@ public class Newton {
 	// 0: no collision, 1: detect collision, 2: detect and block
 	private static int collisionMatrix[][] = {
 			/* Wall Projectile Character Area */
-			/* Wall */ { 0, 0, 0, 0 }, /* Projectile */ { 1, 0, 1, 0 }, /* Character */ { 2, 0, 2, 1 },
+			/* Wall */ { 0, 0, 0, 0 }, 
+	  /* Projectile */ { 1, 0, 1, 0 }, 
+	   /* Character */ { 2, 0, 2, 1 },
 			/* Area */ { 0, 0, 0, 0 } };
 
 	public Newton() {

@@ -14,10 +14,13 @@ import Model.automata.actions.EnumAction;
 public class LivingEntity extends Entity {
 	protected float life;
 	protected float damage;
+	public Entity daggerStrike;
+	public Entity ShotStrike;
 
 	public LivingEntity(Automaton a, int equipe) {
 		super(a, equipe);
-
+		daggerStrike = null;
+		ShotStrike = null;
 	}
 
 	public float getLife() {
@@ -26,6 +29,24 @@ public class LivingEntity extends Entity {
 
 	public void setLife(float life) {
 		this.life = life;
+	}
+	
+	
+
+	public Entity getDaggerStrike() {
+		return daggerStrike;
+	}
+
+	public void setDaggerStrike(Entity daggerStrike) {
+		this.daggerStrike = daggerStrike;
+	}
+
+	public Entity getShotStrike() {
+		return ShotStrike;
+	}
+
+	public void setShotStrike(Entity shotStrike) {
+		ShotStrike = shotStrike;
 	}
 
 	/**
@@ -37,7 +58,7 @@ public class LivingEntity extends Entity {
 		// negative damage will heal
 		// because 2 colisions are detected
 		addAction(EnumAction.HURT);
-
+		System.out.println("Santé de l'entité " + this + " à " + this.life);
 		this.life -= damage / 2;
 	}
 

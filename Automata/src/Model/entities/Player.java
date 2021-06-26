@@ -39,7 +39,6 @@ public class Player extends LivingEntity {
 	public Weapon armeDist;
 	private double lastAttack;
 	private double lastAttackFrequency;
-	private Entity daggerStrick;
 
 	public Player() {
 		super(AutomataLoader.get("Player"), 1);
@@ -68,9 +67,15 @@ public class Player extends LivingEntity {
 	public boolean step() {
 		// Check to destroy dagger strick
 		double now = System.currentTimeMillis();
-		if (daggerStrick != null && now - lastAttack > 125) {
-			this.world.removeEntity(daggerStrick.getID());
-			daggerStrick = null;
+		if (this.daggerStrike != null && now - lastAttack > 125) {
+			//System.out.println("Remove daggerStrick from player: " );
+			this.world.removeEntity(daggerStrike.getID());
+			daggerStrike = null;
+		}
+		if (this.ShotStrike != null && now - lastAttack > 8000) {
+			//System.out.println("Remove ShotStrick from player: " );
+			this.world.removeEntity(ShotStrike.getID());
+			ShotStrike = null;
 		}
 		rotate();
 		return super.step();
@@ -99,8 +104,7 @@ public class Player extends LivingEntity {
 		
 		if(now - lastAttack> armeCac.getShot_frequency()) {
 			lastAttack = now;
-		
-		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+			this.daggerStrike = armeCac.attack(this, new Vector2(0, -1));
 		}
 	}
 
@@ -111,7 +115,7 @@ public class Player extends LivingEntity {
 		
 		if(now - lastAttack> armeDist.getShot_frequency()) {
 			lastAttack = now;
-		armeDist.attack(this, new Vector2(0, -1));
+			this.ShotStrike = armeDist.attack(this, new Vector2(0, -1));
 		}
 	}
 

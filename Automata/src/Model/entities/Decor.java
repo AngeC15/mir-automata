@@ -25,7 +25,7 @@ public class Decor extends Entity {
 	private int random;
 
 	public Decor(Map m, int px, int py) {
-		super(AutomataLoader.get("Wall"), 3);
+		super(AutomataLoader.get("Decor"), 3);
 		templates = new Template[3];
 		templates[0] = TemplatesLoader.get("Wall");
 		templates[1] = TemplatesLoader.get("Dead");
@@ -95,8 +95,11 @@ public class Decor extends Entity {
 		return !generationOver();
 	}
 
+	/**
+	 * Create element of decor
+	 */
 	@Override
-	public void Throw(DirectionExtension dir) {
+	public void Pop(DirectionExtension dir) {
 		if (dir == DirectionExtension.F) {
 			this.avatar.setTemplate(templates[0]);
 			setState(1);
@@ -116,8 +119,11 @@ public class Decor extends Entity {
 		this.state = state;
 	}
 
+	/**
+	 * Delete an element on the map
+	 */
 	@Override
-	public void Explode() {
+	public void Wizz(DirectionExtension dir) {
 		if (state == 0)
 			map.remove(x, y);
 	}

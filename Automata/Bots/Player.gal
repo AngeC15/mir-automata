@@ -41,7 +41,7 @@ BulletZigZag(Forward){
 	| True ?  Move(F)  :(Forward)
 }
 
-Wall(Init){
+Decor(Init){
   	* (Init):
 	| True ? :(Dead)
 	| True ? :(Dead)
@@ -57,14 +57,14 @@ Wall(Init){
 	| GotStuff & GotPower ? :(Alive)
 	| (!GotStuff) ? :(Tmp)
 	* (Dead):
-	| True ? Throw(B) :(Idle)
+	| True ? Pop(B) :(Idle)
 	* (Alive):
-	| True ? Throw(F) :(Idle)
+	| True ? Pop(F) :(Idle)
 	* (Tmp):
-	| True ? Throw(R) :(End)
+	| True ? Pop(R) :(End)
 	* (End):
-	| !GotPower ? Explode :(Wall)
-	| GotPower ? Throw(H) :(Wall)
+	| !GotPower ? Wizz(F) :(Wall)
+	| GotPower ? Pop(H) :(Wall)
 	* (Wall)
 }
 

@@ -21,85 +21,26 @@ import Model.physics.primitives.Square;
 import View.Avatar;
 import View.Template;
 
-<<<<<<< HEAD
+
 public class Weapon_cover extends Entity {
 	Weapon w;
+	protected ArrayList<Integer> numeroArme;
 
 	public Weapon_cover(int nb_weapon,World world,double x,double y) throws IOException {
-=======
-public class  Weapon_cover extends Entity {
-	protected Weapon w;
-	protected ArrayList<Integer> numeroArme;
 	
-	public Weapon_cover(int nb_weapon,World world) throws IOException {
-		
->>>>>>> 7c61aadaf8086c834fb812e92b75ab07c95eba80
 		super(AutomataLoader.get("Dead"), 3);
 		
 	
 		numeroArme = new ArrayList<Integer>();
 		
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
+		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(x,y)));
 		this.body = new PhysicsBody(h, ColliderType.Area, 15.0f, 40.0f, this);
-<<<<<<< HEAD
-		
-		switch (nb_weapon) {
-		case 0:
-			w=new Axe();
-			break;
-		case 1:
-			w=new Croissant();
-			break;
-		case 2:
-			w=new Guisarm();
-			break;
-		case 3:
-			w=new Halberd();
-			break;
-		case 4:
-			w=new Juliette("Bullet");
-			break;
-		case 5:
-			w=new Longsword();
-			break;
-		case 6:
-			w=new MachineGun("Bullet");
-			break;
-		case 7:
-			w=new Pistol("Bullet");
-			break;
-		case 8:
-			w=new Revolver("Bullet");
-			break;
-		case 9:
-			w=new Romeo();
-			break;
-		case 10:
-			w=new Scythe();
-			break;
-		case 11:
-			w=new Shotgun("Bullet");
-			break;
-		case 12:
-			w=new Sniper("Bullet");
-			break;
-		case 13:
-			w=new Sword();
-			break;
-		case 14:
-			w=new TommyGun("Bullet");
-			break;
-		}
-		
-=======
 		w = randomWeapon(); 
->>>>>>> 7c61aadaf8086c834fb812e92b75ab07c95eba80
 		Template tmpPlane = TemplatesLoader.get("Plane");
 		new Avatar(this, tmpPlane);
 		this.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
 		world.addEntity(this);
-		
 	}
 
 	private Weapon randomWeapon() {

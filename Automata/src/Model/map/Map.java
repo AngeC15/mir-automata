@@ -15,7 +15,7 @@ public class Map {
 	private float dimension;
 	private World world;
 	private double time;
-	private int max_step = 15;
+	private int max_step = 13;
 	private boolean canStep;
 	private boolean player_generated;
 	private int cmpt_step;

@@ -46,11 +46,6 @@ Decor(Init){
 	| True ? :(Dead)
 	| True ? :(Dead)
 	| True ? :(Dead)
-	| True ? :(Dead)
-	| True ? :(Dead)
-	| True ? :(Dead)
-	| True ? :(Alive)
-	| True ? :(Alive)
 	| True ? :(Alive)
 	* (Idle):
 	| GotStuff & (!GotPower) ? :(Dead)

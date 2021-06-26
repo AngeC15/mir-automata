@@ -52,8 +52,8 @@ public class Game {
 		view.setWorld(world);
 
 		int n, p; 
-		n = 50;
-		p = 50;
+		n = 30;
+		p = 30;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 

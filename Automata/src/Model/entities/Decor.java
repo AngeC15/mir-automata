@@ -38,7 +38,7 @@ public class Decor extends Entity {
 		state = 1;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(4f, 4f)));
+		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(5f, 5f)));
 		this.body = new PhysicsBody(h, ColliderType.Wall, 0.0f, 0.0f, this);
 	}
 
@@ -60,7 +60,7 @@ public class Decor extends Entity {
 			if (state == 1)
 				return cmpt >= 3;
 			else
-				return cmpt >= 5;
+				return cmpt >= 4;
 
 		} catch (Exception e) {
 			System.exit(0);
@@ -112,7 +112,7 @@ public class Decor extends Entity {
 			setState(3);
 		} else {
 			Random rn = new Random();
-			random = rn.nextInt(30);
+			random = rn.nextInt(70);
 		}
 	}
 

@@ -61,7 +61,6 @@ public class Game {
 		 * new Avatar(player, tmp); world.addEntity(player); world.setPlayer(player);
 		 */
 
-		// uncomment if you want enemies
 
 		/*Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");

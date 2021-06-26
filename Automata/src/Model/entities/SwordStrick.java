@@ -15,9 +15,9 @@ import View.Avatar;
 
 public class SwordStrick extends LivingEntity {
 
-	public SwordStrick(Entity e, Vector2 vector) {
+	public SwordStrick(Entity e, Vector2 vector, int damage) {
 		super(AutomataLoader.get("Strick"), e.getEquipe());
-		this.damage = 20;
+		this.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
 		this.team = e.team;

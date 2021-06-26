@@ -11,10 +11,12 @@ import Utils.Vector2;
 public class MultipleBullet extends Bullet {
 
 	private int nbBullet;
+	private String automatonName;
 
 	public MultipleBullet(Entity e, Vector2 vect, String bulletSkin, int nbBullet) {
-		super(e, vect, bulletSkin);
+		super(e, vect, bulletSkin, 20);
 		this.nbBullet = nbBullet;
+		automatonName = "Bullet";
 
 		generateMultiple();
 	}
@@ -29,9 +31,10 @@ public class MultipleBullet extends Bullet {
 	 *                      the comportment of the bullet
 	 * @param nbBullet      = the number of bullets you want generates
 	 */
-	public MultipleBullet(Entity e, Vector2 vect, String bulletSkin, String AutomatonName, int nbBullet) {
-		super(e, vect, bulletSkin, AutomatonName);
+	public MultipleBullet(Entity e, Vector2 vect, String bulletSkin, String automatonName, int nbBullet) {
+		super(e, vect, bulletSkin, automatonName, 20);
 		this.nbBullet = nbBullet;
+		this.automatonName = automatonName;
 		generateMultiple();
 	}
 
@@ -43,7 +46,7 @@ public class MultipleBullet extends Bullet {
 		float angleDev;
 		float x;
 		float y;
-		Bullet bul = new Bullet(e, vect, bulletSkin);
+		Bullet bul = new Bullet(e, vect, bulletSkin, automatonName, 20);
 		World w = e.getWorld();
 		w.addEntity(bul);
 
@@ -51,10 +54,10 @@ public class MultipleBullet extends Bullet {
 			angleDev = (float) Math.toRadians(5 * (i + 1));
 			x = (float) Math.cos(angle + angleDev);
 			y = (float) Math.sin(angle + angleDev);
-			Bullet bul2 = new Bullet(e, new Vector2(x, y), bulletSkin);
+			Bullet bul2 = new Bullet(e, new Vector2(x, y), bulletSkin, automatonName, 20);
 			x = (float) Math.cos(angle - angleDev);
 			y = (float) Math.sin(angle - angleDev);
-			Bullet bul3 = new Bullet(e, new Vector2(x, y), bulletSkin);
+			Bullet bul3 = new Bullet(e, new Vector2(x, y), bulletSkin, automatonName, 20);
 
 			w.addEntity(bul2);
 			w.addEntity(bul3);

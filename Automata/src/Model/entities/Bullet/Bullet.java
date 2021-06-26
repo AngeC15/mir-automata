@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
-import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 import Model.entities.LivingEntity;
@@ -15,7 +14,6 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Utils.Functions;
 import Utils.Vector2;
 import View.Avatar;
 
@@ -32,19 +30,19 @@ public class Bullet extends LivingEntity {
 
 	/**
 	 * 
-	 * @param e    = entity who launch the bullet (not the weapon)
-	 * @param vect = vector of direction of the bullet
-	 * 
-	 *             By default the automaton bullet is "Bullet"
+	 * @param e          = entity who launch the bullet (not the weapon)
+	 * @param vect       = vector of direction of the bullet
+	 * @param bulletSkin = aspect of the Bullet
+	 * @param damage
 	 */
-	public Bullet(Entity e, Vector2 vect, String bulletSkin) {
+	public Bullet(Entity e, Vector2 vect, String bulletSkin, int damage) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
 
 		// on créer tout le nécessaire pour gerer les physics body
 		this.e = e;
 		this.vect = vect;
 		this.bulletSkin = bulletSkin;
-		this.damage = 20;
+		this.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
 		this.team = e.team;
@@ -60,14 +58,14 @@ public class Bullet extends LivingEntity {
 	 * @param bulletSkin    = aspect of the Bullet
 	 * @param automatonName = name of the automaton
 	 */
-	public Bullet(Entity e, Vector2 vect, String bulletSkin, String automatonName) {
+	public Bullet(Entity e, Vector2 vect, String bulletSkin, String automatonName, int damage) {
 		super(AutomataLoader.get(automatonName), e.getEquipe());
 
 		// on créer tout le nécessaire pour gerer les physics body
 		this.e = e;
 		this.vect = vect;
 		this.bulletSkin = bulletSkin;
-		this.damage = 20;
+		this.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
 		this.team = e.team;
@@ -102,11 +100,13 @@ public class Bullet extends LivingEntity {
 		return null;
 	}
 
+	@Override
 	public void Pop(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public void Wizz(DirectionExtension dir) {
 		// TODO Auto-generated method stub
 

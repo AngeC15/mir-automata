@@ -1,3 +1,62 @@
+# JOURNAL du Jeudi 24 juin
+
+#### *Théo* : HitBox ( branche `dev.map` )
+- Probléme sur les collisions fixées
+- Ajout d'arbre génération de la map
+- Résolution de beugs divers
+- [x] `DONE` : *Merge avec le master*
+
+#### *Joan* : Réalisation des Sprites 
+- Sprite des explosions
+- Sprite des ennemis
+
+#### *Cyprien* : Armes de corps à corps ( branche `dev.cac` )
+- Cac implémentée 
+- Amélioration des feuilles de sprite
+
+#### *Camille* : Changement de saisons ( branche `dev.saison` )
+- Ajout des fichiers d'animation et changement du loader en conséquence 
+- Changement du loader pour prendre en compte les saisons quand necessaire
+- Suppression de la classe Ground l'affichage se fait maintenant directement dans la classe saison
+- Ajout de constructeurs dans Template pour prendre en compte les saisons
+- Animation de la neige pour la transition entre l'été et l'hiver
+- Changement de la physique dans le monde hiver
+- [x] `DONE` : *Merge avec le master*
+
+#### *Samuel + Gergely* : Mise à jour des sprites ( branche `dev.spritesheet` )
+- Finition des animations
+- [x] `DONE` : *Merge avec le master*
+
+---
+
+# JOURNAL du Mercredi 23 juin
+
+#### *Théo* : HitBox ( branche `dev.map` )
+- Affichage en temps réel de la génération de la map
+- Le player apparait à la fin de la génération de la map
+
+#### *Julian* : Hitbox ( branche `dev.map` )
+- Amélioration
+- Résolution beugs GJK
+
+#### *Samuel + Gergely* : Mise à jour des sprites ( branche `dev.spritesheet` )
+- Correction du spritesheet de l'ennemi et de la fréquence des balles du joueur
+- Animation à la mort d'une entité
+- Animation de degats
+
+#### *Camille* : Attribution d'un automate à une entité ( branche `dev.changeAutomata` )
+- Attribution d'un automate à une entité via le fichier entityAutomata.txt
+- [x] `DONE` : *Merge avec le master*
+
+#### *Cyprien* : Armes de corps à corps ( branche `dev.cac` )
+- Attribution d'un automate à une entité via le fichier entityAutomata.txt
+- Cac implémentée et testée
+
+#### *Joan* : Réalisation des Sprites + générateur d'ennemis
+- Sprite des ennemis
+- Gnération des ennemis
+---
+
 # JOURNAL du mardi 22 juin
 
 #### *Camille* : Menu de demarrage ( branche `dev.menu`)
@@ -6,6 +65,19 @@
 
 - [x] `DONE` : *Merge avec le master*
 
+#### *Camille* : Simplification de la minimap ( branche `improve.minimap`)
+- Remplacement des sprite dans la minimap par un rond de couleur
+    - vert : pour le joueur
+    - rouge : pour les ennemis
+    - gris : pour les eléments de décor
+
+- [x] `DONE` : *Merge avec la branche `dev.spritesheet`*
+
+#### *Julian + Théo* : Background ( branche `background`)
+- Ajout d'un fond à la map
+
+
+#### *Gergely + Samuel + Joan* : Résolutions diverses de beugs ( branche `dev.spritesheet`)
 
 ---
 # JOURNAL du lundi 21 juin 

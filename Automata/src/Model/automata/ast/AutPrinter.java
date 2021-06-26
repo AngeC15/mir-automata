@@ -27,9 +27,9 @@
 package Model.automata.ast;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import Model.automata.util.Dot;
 
@@ -113,65 +113,84 @@ public class AutPrinter implements IVisitor {
 
 	// THE METHODS REQUIRED BY IVisitor
 
+	@Override
 	public Object visit(Category cat) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Direction dir) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Key key) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Value v) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Underscore u) {
 		return null;
 	}
 
+	@Override
 	public void enter(FunCall funcall) {
 	}
 
+	@Override
 	public Object exit(FunCall funcall, List<Object> params) {
 		return null;
 	}
 
+	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
 		return null;
 	}
 
+	@Override
 	public Object visit(UnaryOp operator, Object exp) {
 		return null;
 	}
 
+	@Override
 	public Object visit(State state) {
 		return state_id(state);
 	}
 
+	@Override
 	public void enter(Mode mode) {
 		this.current_source_state = state_id(mode.state);
 	}
 
+	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
 		return null;
 	}
 
-	public void enter(Condition condition) {}
+	@Override
+	public void enter(Condition condition) {
+	}
 
+	@Override
 	public Object exit(Condition condition, Object exp) {
 		return null;
 	}
 
-	public void enter(Action action) {}
+	@Override
+	public void enter(Action action) {
+	}
 
+	@Override
 	public Object exit(Action action, List<Object> funcalls) {
 		return null;
 	}
 
+	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target) {
 		transition_node(transition);
 		edge(this.current_source_state, transition.id);
@@ -179,16 +198,19 @@ public class AutPrinter implements IVisitor {
 		return transition.id;
 	}
 
+	@Override
 	public Object visit(Behaviour behaviour, List<Object> transitions) {
 		return null;
 	}
 
+	@Override
 	public void enter(Automaton automaton) {
 		this.state_map.clear();
 		Dot.start_subgraph(this.ps, automaton.name);
 		automaton_node(automaton);
 	}
 
+	@Override
 	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
 		edge(automaton.id, (Integer) initial_state);
 		print_state_map();
@@ -196,6 +218,7 @@ public class AutPrinter implements IVisitor {
 		return null;
 	}
 
+	@Override
 	public Object visit(AST bot, List<Object> automata) {
 		return null;
 	}

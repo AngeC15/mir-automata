@@ -13,10 +13,11 @@ public class SpriteSheet {
 
 	/**
 	 * Construct a sprite-sheet from a given file path
+	 * 
 	 * @param filePath
 	 * @param nrows
 	 * @param ncols
-	 * @param nbSprite 
+	 * @param nbSprite
 	 * @throws IOException
 	 */
 	SpriteSheet(String filePath, int nrows, int ncols, int nbSprite) throws IOException {
@@ -26,6 +27,7 @@ public class SpriteSheet {
 
 	/**
 	 * Load a sprite-sheet and decompose it into an array of single sprite
+	 * 
 	 * @param filename
 	 * @param nrows
 	 * @param ncols
@@ -34,7 +36,7 @@ public class SpriteSheet {
 	 */
 	private BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
-		if (imageFile.exists()) {
+		if (imageFile.exists() && imageFile != null) {
 			BufferedImage image = ImageIO.read(imageFile);
 			int width = image.getWidth(null) / ncols;
 			int height = image.getHeight(null) / nrows;
@@ -50,13 +52,14 @@ public class SpriteSheet {
 				}
 			}
 			return images;
-		}else {
+		} else {
 			throw new FileNotFoundException("SpriteSheet not found");
 		}
 	}
 
 	/**
 	 * Get the sprite a the given index
+	 * 
 	 * @param index
 	 * @return the selected sprite
 	 */

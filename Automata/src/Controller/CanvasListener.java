@@ -24,88 +24,88 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import Model.entities.Cowboy;
-import Utils.Vector2;
 import View.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
 
-  Game m_game;
-  VirtualInput vi;
+	Game m_game;
+	VirtualInput vi;
 
-  public CanvasListener(Game game) {
-    m_game = game;
-    vi = new VirtualInput();
-  }
-  public VirtualInput getVirtualInput() {
-	  return vi;
-  }
-  @Override
-  public void mouseClicked(MouseEvent e) {
+	public CanvasListener(Game game) {
+		m_game = game;
+		vi = new VirtualInput();
+	}
 
-  }
+	public VirtualInput getVirtualInput() {
+		return vi;
+	}
 
-  @Override
-  public void mousePressed(MouseEvent e) {
-    vi.updateKeys(-e.getButton(), true);
-  }
+	@Override
+	public void mouseClicked(MouseEvent e) {
 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    
-    vi.updateKeys(-e.getButton(), false);
-  }
+	}
 
-  @Override
-  public void mouseEntered(MouseEvent e) {
-  }
+	@Override
+	public void mousePressed(MouseEvent e) {
+		vi.updateKeys(-e.getButton(), true);
+	}
 
-  @Override
-  public void mouseExited(MouseEvent e) {
-  }
+	@Override
+	public void mouseReleased(MouseEvent e) {
 
-  @Override
-  public void mouseDragged(MouseEvent e) {
-    
-    vi.updateMouse(e.getX(), e.getY());
-    
-  }
+		vi.updateKeys(-e.getButton(), false);
+	}
 
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    
-    vi.updateMouse(e.getX(), e.getY());
-  }
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
 
-  @Override
-  public void keyTyped(KeyEvent e) {
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
 
-  }
+	@Override
+	public void mouseDragged(MouseEvent e) {
 
-  @Override
-  public void keyPressed(KeyEvent e) {
-    vi.updateKeys(e.getKeyCode(), true);
-  }
+		vi.updateMouse(e.getX(), e.getY());
 
-  @Override
-  public void keyReleased(KeyEvent e) {
-    vi.updateKeys(e.getKeyCode(), false);
-  }
+	}
 
-  @Override
-  public void tick(long elapsed) {
-    m_game.tick(elapsed);
-    
-  }
+	@Override
+	public void mouseMoved(MouseEvent e) {
 
-  @Override
-  public void paint(Graphics g) {
-    m_game.paint(g);
-  }
+		vi.updateMouse(e.getX(), e.getY());
+	}
 
-  @Override
-  public void windowOpened() {
-    //m_game.loadMusic();
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		vi.updateKeys(e.getKeyCode(), true);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		vi.updateKeys(e.getKeyCode(), false);
+	}
+
+	@Override
+	public void tick(long elapsed) {
+		m_game.tick(elapsed);
+
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		m_game.paint(g);
+	}
+
+	@Override
+	public void windowOpened() {
+		// m_game.loadMusic();
 //    m_game.m_canvas.setTimer(6000);
 	}
 

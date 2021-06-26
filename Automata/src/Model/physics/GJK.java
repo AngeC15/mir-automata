@@ -12,14 +12,18 @@ public class GJK {
 	
 	protected static Vector2 double_support(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2, Vector2 d) {
 		Vector2 d1, d2;
+		
 		float angle1 = (float) Math.atan2(A1.getShearY(), A1.getScaleY());
 		float angle2 = (float) Math.atan2(A2.getShearY(), A2.getScaleY());
 		d1 = d.transform(AffineTransform.getRotateInstance(-angle1));
 		d2 = d.transform(AffineTransform.getRotateInstance(-angle2));
+
 		Vector2 u1 = s1.support(d1);
 		Vector2 u2 = s2.support(d2.invert());
+
 		Vector2 vect1 = u1.transform(A1);
 		Vector2 vect2 = u2.transform(A2);
+
 		Vector2 s = vect1.sub(vect2);
 		return s;
 	}
@@ -69,8 +73,10 @@ public class GJK {
 
 	public static boolean collide(Primitive s1, Primitive s2, AffineTransform A1, AffineTransform A2) {
 		idx = 0;
+
 		Vector2 vect1 = new Vector2((float)A1.getTranslateX(), (float)A1.getTranslateY());
 		Vector2 vect2 = new Vector2((float)A2.getTranslateX(), (float)A2.getTranslateY());
+
 		Vector2 d = (vect1.sub(vect2)).normalize();
 		
 		Vector2[] triangle = new Vector2[3];
@@ -92,6 +98,7 @@ public class GJK {
 			}
 		}
 	}
+
 	public static Vector2 get_normal() {
 		return n;
 	}

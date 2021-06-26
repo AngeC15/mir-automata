@@ -3,8 +3,8 @@ package Model.automata.actions;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
-public class Wizz extends Action{
-	
+public class Wizz extends Action {
+
 	DirectionExtension dir;
 
 	public Wizz(DirectionExtension dir, float weight) {

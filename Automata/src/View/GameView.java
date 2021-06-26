@@ -1,34 +1,28 @@
 package View;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Map.Entry;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import Model.World;
 import Model.entities.Entity;
-
+import Model.entities.enemies.Tank;
+import Model.loader.TemplatesLoader;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 import Utils.Vector2;
-
-import java.awt.Graphics2D;
-
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.NoninvertibleTransformException;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Map.Entry;
 
 public class GameView {
 
@@ -36,6 +30,7 @@ public class GameView {
 	JFrame m_frame;
 	JLabel m_text;
 	World world;
+	int intensity;
 	private long m_textElapsed;
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
@@ -48,21 +43,31 @@ public class GameView {
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
+	private Season season;
+	
+
+	// utiliser spritesheet pour charger le fond
+	// private File imageFond;
+
+	private BufferedImage bg;
+
 	private static final AffineTransform identity = new AffineTransform();
 
 	public GameView(GameCanvasListener listener) {
+
 		m_canvas = new GameCanvas(listener);
 
 		System.out.println("  - creating frame...");
 
 		frameSize = new Dimension(1024, 768);
 		miniMap = new MiniMap();
-		
+
 		menu = new Menu(frameSize, this);
 
 		m_frame = m_canvas.createFrame(frameSize);
 
 		m_frame.addComponentListener(new ComponentAdapter() {
+			@Override
 			public void componentResized(ComponentEvent ev) {
 				System.out.println("resized");
 				updateCanvasTransform();
@@ -70,6 +75,7 @@ public class GameView {
 		});
 
 		m_frame.add(menu, BorderLayout.CENTER);
+
 	}
 
 	public void post(Runnable r) {
@@ -83,8 +89,8 @@ public class GameView {
 	public void updateCanvasTransform() {
 		float canvasScaling = m_frame.getWidth() / units_per_width; // 100.0 wide
 		canvasTransform = AffineTransform.getScaleInstance(canvasScaling, -canvasScaling);
-		canvasTransform.concatenate(AffineTransform.getTranslateInstance(units_per_width / 2.0f,
-				-(units_per_width / 2.0f) * (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()))));
+		float ratio = (((float) m_frame.getHeight()) / ((float) m_frame.getWidth()));
+		canvasTransform.translate(units_per_width / 2.0f, -(units_per_width / 2.0f) * ratio);
 
 	}
 
@@ -100,15 +106,24 @@ public class GameView {
 	}
 
 	public void setupGame() {
-		//menu.setVisible(false);
-		
 		System.out.println("  - setting up the frame...");
 
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
+
+		SpriteSheet sp = null;
+		try {
+			sp = new SpriteSheet("Resources/sprite_sheet_decor2.png", 5, 5, 25);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bg = sp.getSprite(0);
 		
-		
+		m_frame.setTitle("Game");
+		m_frame.setLayout(new BorderLayout());
+
 		m_text = new JLabel();
 		m_text.setText("Tick: 0ms FPS=0");
 		m_frame.add(m_text, BorderLayout.NORTH);
@@ -117,14 +132,36 @@ public class GameView {
 		JLayeredPane pane = new JLayeredPane();
 
 		m_canvas.setBounds(0, 0, m_frame.getWidth(), m_frame.getHeight());
-		
+
 		// adding buttons on pane
 		pane.add(miniMap, 1);
 		pane.add(m_canvas, 2);
-		
-	
+
 		m_frame.add(pane, BorderLayout.CENTER);
+
+		// center the window on the screen
+		m_frame.setLocationRelativeTo(null);
+		// make the window visible
+		m_frame.setVisible(true);
+
+		// ______
 		m_frame.remove(menu);
+
+		season = new Season(world);
+		intensity = 0;
+		
+		/*Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		try {
+			new Avatar(tank, tmpTank);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		world.addEntity(tank);*/
+		
+
 	}
 
 	public void tick(long elapsed) {
@@ -153,10 +190,9 @@ public class GameView {
 		Vector2 m = getMousePlayer(x, y);
 		Vector2 r = new Vector2(0, 0);
 		AffineTransform playerTransform;
-		if(world.getPlayer() == null) {
+		if (world.getPlayer() == null) {
 			playerTransform = identity;
-		}
-		else{
+		} else {
 			playerTransform = world.getPlayer().getTransform();
 		}
 
@@ -173,20 +209,20 @@ public class GameView {
 	}
 
 	public void paint(Graphics2D g) {
+
 		// get the size of the canvas
 
 		this.frameSize.width = m_frame.getWidth();
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-		
+		this.miniMap.setWorld(world); // Met a jour le monde dans la miniMap
 		miniMap.repaint(); // Refait l'affichage
 
 		// erase background
 		g.setColor(Color.gray);
 
 		g.fillRect(0, 0, frameSize.width, frameSize.height);
-		
 
 		if (world == null)
 			return;
@@ -205,44 +241,53 @@ public class GameView {
 		// float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)
 		// * 0.2f;
 		// System.out.println("angle " + System.currentTimeMillis());
-		cameraTransform.concatenate(AffineTransform.getTranslateInstance(-playerTransform.getTranslateX(),
-				-playerTransform.getTranslateY()));
+		cameraTransform.translate(-playerTransform.getTranslateX(), -playerTransform.getTranslateY());
 		// .concatenate(AffineTransform.getRotateInstance(angle));
 
 		g.transform(canvasTransform);
+
+		AffineTransform screeSpace = new AffineTransform(g.getTransform());
+
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
-		AffineTransform gameTransform = g.getTransform();
+		AffineTransform gameTransform = new AffineTransform(g.getTransform());
 
-		// draw
-
+		g.setTransform(gameTransform);
 		SafeMap entities = world.getEntities();
+		drawGround(g, 200, 200, 10);
 
-		g.setColor(Color.darkGray);
-		g.setStroke(new BasicStroke(0.2f));
-
-		for (int i = -100; i < 100; i += 5) {
-			g.draw(new Line2D.Float((float) i, -100.0f, (float) i, 100.0f));
-			g.draw(new Line2D.Float(-100.0f, (float) i, 100.0f, (float) i));
-		}
-		g.setColor(Color.red);
-		g.draw(new Ellipse2D.Float(-0.5f, -0.5f, 1, 1));
 		for (Entry<Long, SafeMapElement> entries : entities) {
+
 			Entity et = (Entity) entries.getValue();
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
+
 			//et.getBody().debug(g);
 			g.transform(localTransform);
-			g.transform(AffineTransform.getTranslateInstance(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f)); // center
-																													// the
-																													// object
+			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center
+																			// the
+																			// object
 
 			av.paint(g);
 			g.setTransform(gameTransform);
 
 		}
 
+		/**
+		 * TO DECOMMENT : if you want to change season
+		 */
+		// intensity = season.transitionSummerWinter(g, 1000, intensity);
+
+	}
+
+	private void drawGround(Graphics2D g, int width, int height, int size) {
+
+		for (float w = -width / 2.0f; w < width / 2.0f; w += size) {
+			for (float h = -height / 2.0f; h < height / 2.0f; h += size) {
+				g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas);
+			}
+		}
 	}
 
 }

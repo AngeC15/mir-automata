@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import java.util.Map.Entry;
 
-import Model.physics.primitives.Primitive;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 import Utils.Vector2;
@@ -14,66 +13,66 @@ import Utils.Vector2;
 public class Newton {
 	private SafeGrid[] bodies;
 	private static final int l = ColliderType.values().length;
-	//0: no collision, 1: detect collision, 2: detect and block
+	// 0: no collision, 1: detect collision, 2: detect and block
 	private static int collisionMatrix[][] = {
-					/*Wall  Projectile  Character  Area*/
-	/*Wall*/	    { 0,    0,          0,         0},
-	/*Projectile*/  { 1,    0,          1,         0},
-	/*Character*/   { 2,    0,          2,         1},
-	/*Area*/	    { 0,    0,          0,         0}
-	};
-	
+			/* Wall Projectile Character Area */
+			/* Wall */ { 0, 0, 0, 0 }, /* Projectile */ { 1, 0, 1, 0 }, /* Character */ { 2, 0, 2, 1 },
+			/* Area */ { 0, 0, 0, 0 } };
+
 	public Newton() {
 		bodies = new SafeGrid[l];
 		for(int i=0; i < l; i++) {
 			bodies[i] = new SafeGrid();
-			bodies[i].gridNb = i;
 		}
 	}
-	
+
 	public void add(PhysicsBody body) {
 		bodies[body.getType().ordinal()].add(new PhysicsBodyProxy(body));
 	}
+
 	public void remove(PhysicsBody body) {
 		bodies[body.getType().ordinal()].remove(body.getProxy());
 	}
+
 	public void update() {
-		for(int i=0; i < l; i++) {
+		for (int i = 0; i < l; i++) {
 			bodies[i].update();
 		}
 	}
 
-
 	private AffineTransform simulateTranslation(long elapsed, PhysicsBody b) {
 		Vector2 velo = b.getVelocity();
 		AffineTransform t = b.getTransform();
-		if(velo.x == 0.0f && velo.y == 0.0f)
+		if (velo.x == 0.0f && velo.y == 0.0f)
 			return t;
-		
+
 		AffineTransform save = new AffineTransform(t);
-		
-		Vector2 delta = velo.scale(elapsed/1000.0f);
+
+		Vector2 delta = velo.scale(elapsed / 1000.0f);
 		AffineTransform trans = AffineTransform.getTranslateInstance(delta.x, delta.y);
 		trans.concatenate(t);
 		b.setTransform(trans);
 		return save;
 	}
+
 	private void resetPosition(long elapsed, PhysicsBody b, AffineTransform saved, Vector2 normal) {
 		b.transform = saved;
+
 		Vector2 n = normal.scale(0.05f);
 		AffineTransform tr = AffineTransform.getTranslateInstance(n.x, n.y);
 		tr.concatenate(b.transform);
 		b.setTransform(tr);
-		
 	}
-	
+
 	private boolean circleTest(PhysicsBody b1, PhysicsBody b2) {
-		float dx = (float)b1.getTransform().getTranslateX() - (float)b2.getTransform().getTranslateX();
-		float dy = (float)b1.getTransform().getTranslateY() - (float)b2.getTransform().getTranslateY();
+		float dx = (float) b1.getTransform().getTranslateX() - (float) b2.getTransform().getTranslateX();
+		float dy = (float) b1.getTransform().getTranslateY() - (float) b2.getTransform().getTranslateY();
 		Vector2 d = new Vector2(dx, dy);
+
 		float min_d = b1.getHitBox().extRadius() + b2.getHitBox().extRadius();
 		return d.norm() <= min_d;
 	}
+	
 	private void singleCollision(long elapsed, PhysicsBodyProxy b1, PhysicsBodyProxy b2, long idx, int b_idx, int bt_idx, int col, int i, int j) {
 		//if(b_idx != i || j > bt_idx) {
 			Vector2 normal = new Vector2(0, 0);
@@ -157,8 +156,8 @@ public class Newton {
 	public boolean collide(PhysicsBody b1, PhysicsBody b2, Vector2 normal) {
 		HitBox h1 = b1.getHitBox();
 		HitBox h2 = b2.getHitBox();
-		for(PrimitiveInstance p1: h1.shapes) {
-			for(PrimitiveInstance p2: h2.shapes) {
+		for (PrimitiveInstance p1 : h1.shapes) {
+			for (PrimitiveInstance p2 : h2.shapes) {
 				AffineTransform t1 = new AffineTransform(b1.transform);
 				AffineTransform t2 = new AffineTransform(b2.transform);
 				t1.concatenate(p1.transform);
@@ -166,7 +165,7 @@ public class Newton {
 				if(GJK.collide(p1.prim, p2.prim, t1, t2)) {
 					normal.x = GJK.get_normal().x;
 					normal.y = GJK.get_normal().y;
-					//System.out.println("Colision");
+					// System.out.println("Colision");
 					return true;
 				}
 			}

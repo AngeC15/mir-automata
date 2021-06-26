@@ -25,10 +25,12 @@ public class State extends Node {
 		this.name = name;
 	}
 
+	@Override
 	public String toString() {
 		return name;
 	}
 
+	@Override
 	Object accept(IVisitor visitor) {
 		return visitor.visit(this);
 	}

@@ -5,7 +5,7 @@ import Model.entities.Entity;
 
 /**
  */
-public class Turn extends Action{
+public class Turn extends Action {
 
 	DirectionExtension dir;
 

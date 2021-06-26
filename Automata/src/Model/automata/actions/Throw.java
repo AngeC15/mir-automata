@@ -11,7 +11,7 @@ public class Throw extends Action {
 		super(weight);
 		this.dir = directionToRet;
 	}
-	
+
 	@Override
 	public boolean apply(Entity e) {
 		e.addAction(EnumAction.THROW);

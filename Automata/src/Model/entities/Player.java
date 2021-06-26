@@ -1,14 +1,13 @@
 package Model.entities;
 
-import Controller.VirtualInput;
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
-import Model.World;
 
+import Controller.VirtualInput;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
 import Model.entities.weapon.Weapon;
-
 import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
@@ -18,46 +17,34 @@ import Model.physics.primitives.Circle;
 import Model.physics.primitives.Square;
 import Utils.Vector2;
 
-
-public class Player extends LivingEntity{
+public class Player extends LivingEntity {
 	public Weapon armeCac;
 	public Weapon armeDist;
-	public Weapon currentWeapon;
-	private double waitingSwitch;
-	private double lastshot;
-	
-	public Player(World w) {
+	private double lastAttack;
+	private double lastAttackFrequency;
+	private Entity daggerStrick;
+
+	public Player() {
 		super(AutomataLoader.get("Player"), 1);
-		this.acceleration = 80.0f;
+		this.acceleration = 100.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 40.0f, this);
-		armeCac = new Dagger(); //to change please
-		armeDist = new Gun();
+		PrimitiveInstance prim = new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(6.25f, 8.8f));
+		prim.get_transform().translate(0.0f, 0.05f);
+		h.add(prim);
 
-		currentWeapon = armeDist;
-		waitingSwitch = System.currentTimeMillis();
-		lastshot = System.currentTimeMillis();
-		this.life = 100;
-		this.damage = 20;
+		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 47.0f, this);
+//		armeCac = new Dagger(); //to change please
+//		armeDist = new Gun();
 
+
+		armeCac = new Dagger(); // to change please
+		armeDist = new Gun("Bullet");
+
+		lastAttack = System.currentTimeMillis();
+
+		this.life = 100000;
 	}
-	
 
-	public void switchWeapon() {
-		//you need to wait 1s between 2 switch of weapon
-		double now = System.currentTimeMillis();
-		if( now - waitingSwitch > 1000) {
-			waitingSwitch = now;
-			if(currentWeapon == armeDist) {
-				currentWeapon = armeCac;
-			}else {
-				currentWeapon = armeDist;
-			}
-			System.out.println("Weapon switched");
-		}
-	}
-	
 	public void setArmeCac(Weapon armeCac) {
 		this.armeCac = armeCac;
 	}
@@ -71,44 +58,74 @@ public class Player extends LivingEntity{
 	}
 
 	@Override
-	public void Hit(DirectionExtension dir) {
-		// attaque corp à corps
+	public boolean step() {
+		// Check to destroy dagger strick
 		double now = System.currentTimeMillis();
-
-		//System.out.println("Hit with " + currentWeapon.getClass().toString());
-		super.Hit(dir);
-		VirtualInput christianClavier = this.world.getInputs();
-		
-		//armeCac.attack(this, christianClavier.getMouseX(), christianClavier.getMouseY());
-		currentWeapon.attack(this, christianClavier.getMousePlayer());
-		
+		if (daggerStrick != null && now - lastAttack > 125) {
+			this.world.removeEntity(daggerStrick.getID());
+			daggerStrick = null;
+		}
+		rotate();
+		return super.step();
 	}
 
+	protected void rotate() {
+		VirtualInput keyboard = this.world.getInputs();
+
+		try {
+			// mouse angle relative to the player
+			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
+
+			// substract the players current angle and rotate
+			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+			getTransform().rotate(relativeAngle + Math.toRadians(90));
+
+		} catch (NullPointerException e) {
+			getTransform().rotate(Math.toRadians(0));
+		}
+	}
+
+	@Override
+	public void Hit(DirectionExtension dir) {
+		// Meelee attack
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeCac.getShot_frequency();
+
+		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+
+	}
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		//changement d'arme
-		this.switchWeapon();
-	}
+		// Distance attack
+		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeDist.getShot_frequency();
 
+		armeDist.attack(this, new Vector2(0, -1));
+	}
 
 	@Override
 	public boolean GotPower() {
-		// TODO Auto-generated method stub
 		double now = System.currentTimeMillis();
-		if(now - lastshot > currentWeapon.getShot_frequency()) {
-			lastshot = now;
+		if (now - lastAttack > lastAttackFrequency)
 			return true;
-		}
 		return false;
 	}
-	
-	
+
 	@Override
-	public String toString() {
-		return "Player";
+	public Color getColor() {
+		return Color.blue;
+	}
+
+	@Override
+	public void Egg(DirectionExtension dir) {
+		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
+		this.getWorld().removeEntity(getID());
 	}
 	
-	
+	@Override
+	public boolean addLifeBar() {
+		return true;
+	}
 
 }

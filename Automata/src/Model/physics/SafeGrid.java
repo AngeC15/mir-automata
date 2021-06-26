@@ -17,7 +17,6 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 	ArrayDeque<SafeGridCell> addQueue;
 	ArrayDeque<Long> rmQueue;
 	private double emptyCellLife = 5000;
-	public int gridNb;
 
 	public SafeGrid() {
 		idx = 0;

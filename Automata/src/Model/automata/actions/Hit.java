@@ -3,7 +3,7 @@ package Model.automata.actions;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.Entity;
 
-public class Hit extends Action{
+public class Hit extends Action {
 
 	DirectionExtension dir;
 
@@ -16,6 +16,6 @@ public class Hit extends Action{
 	public boolean apply(Entity e) {
 		e.addAction(EnumAction.HIT);
 		e.Hit(dir);
-		return false;
+		return true;
 	}
 }

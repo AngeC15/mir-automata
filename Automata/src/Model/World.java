@@ -28,12 +28,14 @@ public class World {
 	private long elapsed;
 	private Newton newton;
 	private Map map;
+	private Level niveau;
 
 	public World(VirtualInput vi) {
 		inputs = vi;
 		entities = new SafeMap();
 		elapsed = 0;
 		newton = new Newton();
+		niveau = null;
 
 	}
 
@@ -108,13 +110,20 @@ public class World {
 		this.addEntity(player);
 		this.setPlayer(player);
 		
-		  Tank tank = new Tank("Tank"); Template tmpTank = TemplatesLoader.get("Tank");
+		
+		  /*
+		  
 		  new Avatar(tank, tmpTank);
 		  tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100)); 
 		  this.addEntity(tank);
-		  
+		   */
+		
+
 		  Generator g=new Generator(this, 100,1);
-		  g.spawn_cover();
+		  //g.spawn_cover();
+		 niveau = new Level(5000, 0, this, g);
+		 
+		  
 		  /*
 		  Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
 		  TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
@@ -135,4 +144,11 @@ public class World {
 		  */
 		 
 	}
+
+	public void tryLevel() throws IOException {
+		if(niveau != null) {
+			niveau.generate();
+		}
+	}
+
 }

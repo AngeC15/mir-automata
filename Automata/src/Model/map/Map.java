@@ -63,6 +63,7 @@ public class Map {
 			canStep = true;
 			time = System.currentTimeMillis();
 			cmpt_step++;
+			world.tryLevel();
 		}
 	}
 

@@ -50,17 +50,18 @@ public class Generator {
 			y = Math.random() * 2 * dim - dim;
 		}
 		// not spawn if it's to close
-		while (!(x < x_p + 50 && x > x_p - 50) || (y < y_p + 50 && y > y_p - 50));
+		while (!(x < x_p + 100 && x > x_p - 100) || (y < y_p + 100 && y > y_p - 100));
 	
 		Weapon_cover weapon=new Weapon_cover(nb,w, x, y);
 	}
 	
-	public void new_wave(int level) throws IOException {
-		int nb_monster = this.difficulty * level * level + level + 5;
+	public int new_wave(int level) throws IOException {
+		int nb_monster = this.difficulty * level * level + level;
 		double x, y;
 		double x_p = w.getPlayer().getTransform().getTranslateX();
 		double y_p = w.getPlayer().getTransform().getTranslateY();
-
+		int toRet = nb_monster;
+		spawn_cover();
 		while (nb_monster > 0) {
 			// get a random coordinate
 			do {
@@ -74,6 +75,7 @@ public class Generator {
 			nb_monster--;
 
 		}
+		return toRet;
 
 	}
 
@@ -102,14 +104,14 @@ public class Generator {
 			plane.getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
 			w.addEntity(plane);
 		} else if (random_enemy > b2 && random_enemy < b3) {
-			Mecha mecha = new Mecha("Snake");
-			Template tmpSnake = TemplatesLoader.get("Snake");
+			Mecha mecha = new Mecha("Mecha");
+			Template tmpSnake = TemplatesLoader.get("Mecha");
 			new Avatar(mecha, tmpSnake);
 			mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
 			w.addEntity(mecha);
 		} else if (random_enemy > b3) {
-			Flamethrower flamethrower = new Flamethrower("Duck");
-			Template tmpDuck = TemplatesLoader.get("Duck");
+			Flamethrower flamethrower = new Flamethrower("Flamethrower");
+			Template tmpDuck = TemplatesLoader.get("Flamethrower");
 			new Avatar(flamethrower, tmpDuck);
 			flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(x, y));
 			w.addEntity(flamethrower);

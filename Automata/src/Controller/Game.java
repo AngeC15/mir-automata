@@ -53,7 +53,7 @@ public class Game {
 
 		int n, p; 
 		n = 70;
-		p = 70;
+		p = 70; 
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 

@@ -18,7 +18,7 @@ public class Gun extends Weapon {
 	@Override
 	public Entity attack(Entity e, Vector2 vect) {
 
-		Bullet bul = new Bullet(e, vect, bulletSkin, "BulletZigZag", 20);
+		Bullet bul = new Bullet(e, vect, bulletSkin, "Bullet", 20);
 
 		World w = e.getWorld();
 		w.addEntity(bul);

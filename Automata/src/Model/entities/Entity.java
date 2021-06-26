@@ -308,4 +308,8 @@ public class Entity implements SafeMapElement {
 	public String toString(){
 		return this.getClass().getName();
 	}
+	
+	public boolean addLifeBar() {
+		return false;
+	}
 }

@@ -133,6 +133,8 @@ public class World {
 		  plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
 		  20)); this.addEntity(plane);
 		  */
-		 
+
+		
+
 	}
 }

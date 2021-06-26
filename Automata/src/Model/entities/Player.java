@@ -133,5 +133,10 @@ public class Player extends LivingEntity {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
 	}
+	
+	@Override
+	public boolean addLifeBar() {
+		return true;
+	}
 
 }

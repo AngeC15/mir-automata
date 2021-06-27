@@ -226,5 +226,9 @@ public class World {
 		// TODO Auto-generated method stub
 		return this.game_h;
 	}
+	
+	public Map getMap() {
+		return map;
+	}
 
 }

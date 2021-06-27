@@ -16,7 +16,7 @@ import View.GameView;
 import View.Sound;
 import View.Template;
 
-public class Game {
+public class Game { 
 
 	static Game game;
 

@@ -38,7 +38,7 @@ public class Weapon_cover extends Entity {
 		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(5,5)));
 		this.body = new PhysicsBody(h, ColliderType.Area, 15.0f, 40.0f, this);
 		w = randomWeapon(); 
-		Template tmpPlane = TemplatesLoader.get("Plane");
+		Template tmpPlane = TemplatesLoader.get("WeaponCover");
 		new Avatar(this, tmpPlane);
 		this.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
 		world.addEntity(this);

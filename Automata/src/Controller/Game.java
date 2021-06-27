@@ -45,16 +45,22 @@ public class Game {
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
-		view.setupFrame();
+		
+		float block_size = 5.3f;
+		int n, p;
+		n = 50;
+		p = 50;
+		float game_w = (p-1)*block_size;
+		float game_h = (n-1)*block_size;
+		view.setupFrame(game_w, game_h);
 		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
-		world = new World(m_listener.getVirtualInput());
+		world = new World(m_listener.getVirtualInput(), block_size, game_w, game_h);
 		view.setWorld(world);
 
-		int n, p;
-		n = 100;
-		p = 100;
-		Map map = new Map(n, p, 5.3f, world);
+		
+		
+		Map map = new Map(n, p, block_size, world);
 		world.setMap(map);
 
 		/*

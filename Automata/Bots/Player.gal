@@ -21,23 +21,23 @@ Player(Init){
 
 Bullet(Forward){
 	* (Forward) :
-	| True ?  Pop(F)  :(Forward)
+	| True ?  Move(F)  :(Forward)
 }
 
 BulletZigZag(Forward){
 	* (Forward) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Pop(F)  :(Right)
-	| True ?  Pop(F)  :(Left)
-	| True ?  Pop(F)  :(Forward)
+	| True ?  Move(F)  :(Right)
+	| True ?  Move(F)  :(Left)
+	| True ?  Move(F)  :(Forward)
 	* (Right) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Wizz(R)  :(Forward)
-	| True ?  Pop(F)  :(Forward)
+	| True ?  Move(R)  :(Forward)
+	| True ?  Move(F)  :(Forward)
 	* (Left) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Wizz(L)  :(Forward)
-	| True ?  Pop(F)  :(Forward)
+	| True ?  Move(L)  :(Forward)
+	| True ?  Move(F)  :(Forward)
 }
 
 Decor(Init){

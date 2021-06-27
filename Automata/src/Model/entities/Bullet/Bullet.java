@@ -100,17 +100,6 @@ public class Bullet extends LivingEntity {
 		return null;
 	}
 
-	/**
-	 * Bullet movement
-	 */
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-	
-	public void Wizz(DirectionExtension dir) {
-		super.Move(dir);
 
-	}
 
 }

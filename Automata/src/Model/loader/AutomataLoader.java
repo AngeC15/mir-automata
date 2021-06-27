@@ -69,7 +69,7 @@ public class AutomataLoader {
 
 	}
 
-	protected static Automaton getAutomaton(String name) {
+	public static Automaton getAutomaton(String name) {
 		return instance.getAutomaton_(name);
 	}
 

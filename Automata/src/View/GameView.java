@@ -270,7 +270,7 @@ public class GameView {
 		/**
 		 * TO DECOMMENT : if you want to change season
 		 */
-		 intensity = season.transitionSummerWinter(g, 500, intensity);
+		// intensity = season.transitionSummerWinter(g, 500, intensity);
 
 	}
 

@@ -128,6 +128,8 @@ public class World {
 		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		this.addEntity(tank);
 		
+		
+		
 //		Mecha mecha = new Mecha("Mecha");
 //		Template tmpMecha = TemplatesLoader.get("Mecha");
 //		new Avatar(mecha, tmpMecha);

@@ -23,6 +23,7 @@ public class Decor extends Entity {
 	private Map map;
 	private Template[][] templates;
 	private int random;
+	private boolean end = false;
 
 	public Decor(Map m, int px, int py) {
 		super(AutomataLoader.get("DecorGeneration"), 3);
@@ -89,11 +90,7 @@ public class Decor extends Entity {
 	}
 
 	public boolean generationOver() {
-		boolean over = map.stepCounter() >= map.getMaxStep();
-		if(over) {
-			this.automaton = AutomataLoader.get("Decor");
-		}
-		return over;
+		return map.stepCounter() >= map.getMaxStep();
 	}
 
 	@Override
@@ -116,6 +113,12 @@ public class Decor extends Entity {
 			this.avatar.setTemplate(templates[2][0]);
 			setState(3);
 		} else {
+			if (end == false) {
+				System.out.println("wait");
+				this.automaton = AutomataLoader.get("Decor");
+				super.state = automaton.getInit();
+				end = true;
+			}
 			Random rn = new Random();
 			random = rn.nextInt(70);
 		}
@@ -215,14 +218,16 @@ public class Decor extends Entity {
 
 	@Override
 	public void Pop(DirectionExtension Dir) {
+		System.out.println("pop");
 		for (int k = 0; k < 10; k++) {
 			templates[1][k] = TemplatesLoader.get("Wall" + k);
 		}
 		templates[2][0] = TemplatesLoader.get("Dead");
 		templates[0][0] = TemplatesLoader.get("Tree");
 	}
-	
+
 	public void Wizz(DirectionExtension Dir) {
+		System.out.println("wizz");
 		templates[2][0] = TemplatesLoader.get("Tree_FIRE");
 	}
 

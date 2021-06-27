@@ -70,7 +70,7 @@ public class Generator {
 	            y = Math.random() * 2 * w.getGame_h() - w.getGame_h();
 			}
 			// not spawn if it's to close
-			while (!(x < x_p + 30 && x > x_p - 30) || (y < y_p + 30 && y > y_p - 30));
+			while (!(x < x_p + 90 && x > x_p - 90) || (y < y_p + 90 && y > y_p - 90));
 			// spawn a ennemy her
 			spawn(x, y, level);
 			nb_monster--;

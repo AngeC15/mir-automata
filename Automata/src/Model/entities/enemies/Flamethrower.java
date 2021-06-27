@@ -33,14 +33,5 @@ public class Flamethrower extends Enemy {
 		return "Flamethrower";
 	}
 
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Hit(dir);
-	}
 
 }

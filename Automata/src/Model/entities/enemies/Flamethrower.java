@@ -33,5 +33,13 @@ public class Flamethrower extends Enemy {
 		return "Flamethrower";
 	}
 
+	@Override
+	public void Pop(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		super.Pop(dir);
+		 lastAttack = System.currentTimeMillis();
+		Vector2 vector = new Vector2(0, 1);
+		this.daggerStrike = weapon.attack(this, vector);
+	}
 
 }

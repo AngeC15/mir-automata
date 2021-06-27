@@ -8,18 +8,7 @@ import Controller.VirtualInput;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
-
-import Model.entities.enemies.Flamethrower;
-import Model.entities.enemies.Mecha;
-import Model.entities.enemies.Plane;
 import Model.entities.enemies.Tank;
-import Model.entities.Decor;
-
-import Model.entities.enemies.Flamethrower;
-import Model.entities.enemies.Mecha;
-
-import Model.entities.enemies.Tank;
-
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
 import Model.monster_generator.Generator;
@@ -28,6 +17,8 @@ import Utils.SafeMap;
 import Utils.SafeMapElement;
 import View.Avatar;
 import View.Template;
+import Model.Level;
+
 
 public class World {
 
@@ -38,19 +29,27 @@ public class World {
 	private long elapsed;
 	private Newton newton;
 	private Map map;
+	public Level niveau;
+	public boolean playerDead;
+
 	private float block_size;
 	private float game_w;
 	private float game_h;
 	private static final AffineTransform identity = new AffineTransform();
 
+
 	public World(VirtualInput vi, float block_size, float game_w, float game_h) {
 		inputs = vi;
 		entities = new SafeMap();
 		elapsed = 0;
+		this.niveau = null;
+		playerDead = false;
+
 		newton = new Newton(block_size);
 		this.block_size = block_size;
 		this.game_w = game_w;
 		this.game_h = game_h;
+
 	}
 
 	public void tick(long elapsed) {
@@ -132,8 +131,13 @@ public class World {
 
 	public void removeEntity(long id) {
 		Entity pb = ((Entity) entities.get(id));
-		newton.remove(pb.getBody());
-		entities.remove(id);
+		if(pb instanceof Player) {
+			this.playerDead = true;
+		}
+		if(pb != null) {
+			newton.remove(pb.getBody());
+			entities.remove(id);
+		}
 	}
 
 	public void setPlayer(Entity p) {
@@ -165,76 +169,61 @@ public class World {
 		this.setPlayer(player); 
 		
 		// uncomment if you want enemies
-
+/*
 		Tank tank = new Tank("Tank");
 		Template tmpTank = TemplatesLoader.get("Tank");
 		new Avatar(tank, tmpTank);
 		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
 		this.addEntity(tank);
-		
-		
-		
-//		Mecha mecha = new Mecha("Mecha");
-//		Template tmpMecha = TemplatesLoader.get("Mecha");
-//		new Avatar(mecha, tmpMecha);
-//		mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40));
-//		this.addEntity(mecha);
-		
-//		Flamethrower flamethrower = new Flamethrower("Flamethrower");
-//		Template tmpFlamethrower = TemplatesLoader.get("Flamethrower");
-//		new Avatar(flamethrower, tmpFlamethrower);
-//		flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -100));
-//		this.addEntity(flamethrower);
-//		
-//		Plane plane = new Plane("Plane");
-//		Template tmpPlane = TemplatesLoader.get("Plane");
-//		new Avatar(plane, tmpPlane);
-//		plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
-//		this.addEntity(plane);
-//		
-		/*
-		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);
-		 * wall.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 10));
-		 * world.addEntity(wall);
-		 */
-		
-		/*
-		Template tmp2 = TemplatesLoader.get("Dead");
-		EnemyPlayer enemy = new EnemyPlayer(world);
-		Avatar av3 = new Avatar(enemy, tmp2);
-		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
-		world.addEntity(enemy);
 		*/
+		  /*
+		  
+		  new Avatar(tank, tmpTank);
+		  tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100)); 
+		  this.addEntity(tank);
+		   */
 		
+		  Generator g=new Generator(this, 100,1);
+		  //g.spawn_cover();
+		  niveau = new Level(10000, 0, this, g);
+		 
+		  
+		  /*
+		  Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
+		  TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
+		  mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 40)); 
+		  this.addEntity(mecha);
+		  */
+		  /*
+		  Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
+		  tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
+		  Avatar(flamethrower, tmpFlamethrower);
+		  flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
+		  0, -100)); this.addEntity(flamethrower);
+		  
+		  Plane plane = new Plane("Plane"); Template tmpPlane =
+		  TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
+		  plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		  20)); this.addEntity(plane);
+		  */
+		 
 
-		//Tank tank = new Tank("Tank");
-		//Template tmpTank = TemplatesLoader.get("Tank");
-		//new Avatar(tank, tmpTank);
-		//tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-		//this.addEntity(tank);
-
-
-		//Generator g = new Generator(this, 100, 1);
-		//g.spawn_cover();
-		/*
-		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
-		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
-		 * mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 40)); this.addEntity(mecha);
-		 */
-
-		/*
-		 * Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
-		 * tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
-		 * Avatar(flamethrower, tmpFlamethrower);
-		 * flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
-		 * 0, -100)); this.addEntity(flamethrower);
-		 */
-		/*
-		 * Plane plane = new Plane("Plane"); Template tmpPlane =
-		 * TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
-		 * plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
-		 * 20)); this.addEntity(plane);
-		 */
 	}
+
+	public void tryLevel() throws IOException {
+		if(niveau != null) {
+			niveau.generate();
+		}
+	}
+
+	public double getGame_w() {
+		// TODO Auto-generated method stub
+		return this.game_w;
+	}
+
+	public double getGame_h() {
+		// TODO Auto-generated method stub
+		return this.game_h;
+	}
+
 }

@@ -37,7 +37,7 @@ public class Bullet extends LivingEntity {
 	 */
 	public Bullet(Entity e, Vector2 vect, String bulletSkin, int damage) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
-
+		//System.out.println("New bullet");
 		// on créer tout le nécessaire pour gerer les physics body
 		this.e = e;
 		this.vect = vect;

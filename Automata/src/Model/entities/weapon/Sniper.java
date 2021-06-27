@@ -12,7 +12,7 @@ public class Sniper extends Weapon {
 	public Sniper(String bulletSkin) {
 		super(false);
 		this.bulletSkin = bulletSkin;
-		this.shot_frequency = 2000;
+		this.shot_frequency = 4000;
 	}
 
 	@Override

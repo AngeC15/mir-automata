@@ -1,6 +1,5 @@
-Strick(Go){
- * (Go) :
- | True ? Move(F) : (Att)
- * (Att) :
- | True ? Wait : ()
+Strick(Forward){
+	* (Forward) :
+	| True ?  Move(F)  :(Forward)
+}
 }

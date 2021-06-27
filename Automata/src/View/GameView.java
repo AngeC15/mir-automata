@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
@@ -106,6 +107,7 @@ public class GameView {
 		m_frame.setVisible(true);
 		this.game_w = game_w;
 		this.game_h = game_h;
+		miniMap.setDims(game_w, game_h);
 	}
 
 	public void setupGame() {
@@ -202,14 +204,14 @@ public class GameView {
 	}
 
 	public void paint(Graphics2D g) {
-
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		// get the size of the canvas
 
 		this.frameSize.width = m_frame.getWidth();
 		this.frameSize.height = m_frame.getHeight();
 
 		m_canvas.setSize(frameSize.width, frameSize.height);
-		this.miniMap.setWorld(world); // Met a jour le monde dans la miniMap
+		//this.miniMap.setWorld(world); // Met a jour le monde dans la miniMap
 		miniMap.repaint(); // Refait l'affichage
 
 		// erase background
@@ -258,7 +260,7 @@ public class GameView {
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
 
-			// et.getBody().debug(g);
+			//et.getBody().debug(g);
 			g.transform(localTransform);
 			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center
 																			// the

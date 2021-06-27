@@ -137,7 +137,7 @@ public class Player extends LivingEntity {
 	}
 
 	@Override
-	public boolean addLifeBar() {
+	public boolean hasLifeBar() {
 		return true;
 	}
 	

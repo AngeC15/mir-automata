@@ -16,4 +16,8 @@ public class Functions {
 		Vector2 vect = movIdx[dir.ordinal() * 2 + 1];
 		return new Vector2(vect.x * relativeDir.x, vect.y * relativeDir.y).normalize();
 	}
+	
+	public static float pfmod(float x, float m) {
+		return (((x % m) + m) % m);
+	}
 }

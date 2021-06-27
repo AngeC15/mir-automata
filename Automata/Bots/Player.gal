@@ -51,16 +51,16 @@ Decor(Init){
 	| GotStuff & GotPower ? :(Alive)
 	| (!GotStuff) ? :(Tmp)
 	* (Dead):
-	| True ? Pop(B) :(Idle)
+	| True ? Throw(B) :(Idle)
 	* (Alive):
-	| True ? Pop(F) :(Idle)
+	| True ? Throw(F) :(Idle)
 	* (Tmp):
-	| True ? Pop(R) :(End)
+	| True ? Throw(R) :(End)
 	* (End):
-	| !GotPower ? Wizz :(Tmp2)
-	| GotPower ? Pop(H) :(Tmp2)
+	| !GotPower ? Explode :(Tmp2)
+	| GotPower ? Throw(H) :(Tmp2)
 	* (Tmp2):
-	| True ? Wizz :(Wall)
+	| True ? Throw :(Wall)
 	* (Wall)
 }
 

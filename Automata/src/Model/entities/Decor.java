@@ -101,7 +101,7 @@ public class Decor extends Entity {
 	 * Create element of decor
 	 */
 	@Override
-	public void Pop(DirectionExtension dir) {
+	public void Throw(DirectionExtension dir) {
 		if (dir == DirectionExtension.F) {
 			this.avatar.setTemplate(templates[0][5]);
 			setState(1);
@@ -142,7 +142,7 @@ public class Decor extends Entity {
 	 * Delete an element on the map
 	 */
 	@Override
-	public void Wizz(DirectionExtension dir) {
+	public void Explode() {
 		if (state == 0)
 			map.remove(x, y);
 		else if (state == 1) {

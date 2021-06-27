@@ -24,17 +24,6 @@ public abstract class Enemy extends LivingEntity {
 		super(AutomataLoader.get(automaton), 2);
 	}
 
-	protected void rotate() {
-		Entity player = world.getPlayer();
-
-		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
-		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
-		double relativeAngle = Math.atan2(relativeY, relativeX);
-
-		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-		getTransform().rotate(relativeAngle - Math.toRadians(90));
-	}
-
 	/**
 	 * Takes a category and a direction and returns true if the closest entity of
 	 * said category is in said direction. Only implemented to detect player
@@ -112,6 +101,9 @@ public abstract class Enemy extends LivingEntity {
 		}
 	}
 
+	/**
+	 * Attack an ennemy
+	 */
 	@Override
 	public void Pop(DirectionExtension dir) {
 		lastAttack = System.currentTimeMillis();
@@ -119,11 +111,12 @@ public abstract class Enemy extends LivingEntity {
 		weapon.attack(this, vector);
 	}
 
+	/**
+	 * Accelerate the speed
+	 */
 	@Override
-	public void Hit(DirectionExtension dir) {
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
+	public void Wizz(DirectionExtension dir) {
+		this.getBody().setmaxSpeed((int) this.getBody().getmaxSpeed() * 2);
 	}
 
 	@Override
@@ -143,5 +136,9 @@ public abstract class Enemy extends LivingEntity {
 	@Override
 	public Color getColor() {
 		return Color.red;
+	}
+
+	public boolean addLifeBar() {
+		return true;
 	}
 }

@@ -2,12 +2,14 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Gun;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Model.physics.primitives.Square;
 
 public class Tank extends Enemy {
 
@@ -21,7 +23,9 @@ public class Tank extends Enemy {
 		life = 100;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
+		PrimitiveInstance prim = new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(11, 16));
+		prim.get_transform().translate(0, -0.15);
+		h.add(prim);
 		this.body = new PhysicsBody(h, ColliderType.Character, 10, 20, this);
 	}
 
@@ -29,4 +33,5 @@ public class Tank extends Enemy {
 	public String toString() {
 		return "Tank";
 	}
+	
 }

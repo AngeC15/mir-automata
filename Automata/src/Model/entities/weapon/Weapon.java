@@ -6,7 +6,7 @@ import Utils.Vector2;
 public abstract class Weapon {
 
 	boolean cac;
-	float damage;
+	int damage;
 	double shot_frequency;
 
 	public Weapon(boolean cac) {
@@ -28,7 +28,7 @@ public abstract class Weapon {
 		return damage;
 	}
 
-	public void setDamage(float damage) {
+	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 
@@ -42,7 +42,7 @@ public abstract class Weapon {
 
 	@Override
 	public String toString() {
-		return "Weapon";
+		return "Weapon: " + this.getClass().toString() + "damage: " + this.damage + " arme de cac : " + this.cac;
 	}
 
 }

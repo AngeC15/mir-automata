@@ -8,7 +8,7 @@ import Utils.SafeMapElement;
 import Utils.Vector2;
 
 //Hitbox + other properties
-public class PhysicsBody implements SafeMapElement {
+public class PhysicsBody {
 
 	private HitBox hitbox;
 	private float friction;
@@ -18,7 +18,7 @@ public class PhysicsBody implements SafeMapElement {
 	private boolean accelerating;
 	private ColliderType type;
 	private Entity entity;
-	private long id;
+	private PhysicsBodyProxy proxy;
 
 	public PhysicsBody(HitBox hb, ColliderType t, float friction, float max_speed, Entity e) {
 		this.hitbox = hb;
@@ -76,16 +76,6 @@ public class PhysicsBody implements SafeMapElement {
 		return type;
 	}
 
-	@Override
-	public void setID(long id) {
-		this.id = id;
-
-	}
-
-	@Override
-	public long getID() {
-		return id;
-	}
 
 	public Entity getEntity() {
 		return entity;
@@ -95,11 +85,21 @@ public class PhysicsBody implements SafeMapElement {
 		this.entity = entity;
 	}
 
+	public void setProxy(PhysicsBodyProxy p) {
+		proxy = p;
+	}
+	public PhysicsBodyProxy getProxy() {
+		return proxy;
+	}
 	public void setFriction(int friction) {
 		this.friction = friction;
 	}
 
-	public void setmaxSpeed(int speed) {
-		this.max_speed = speed;
+	public void setmaxSpeed(int f) {
+		this.max_speed = f;
+	}
+	
+	public float getmaxSpeed() {
+		return max_speed;
 	}
 }

@@ -2,6 +2,8 @@ package Model.monster_generator;
 
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.World;
 import Model.entities.enemies.Flamethrower;
@@ -16,13 +18,43 @@ public class Generator {
 	int difficulty;
 	World w;
 	float dim;
-
+	int nb_weapon;
+	List<Integer> w_sort;
+	
+	
 	public Generator(World w, float dim, int dif) {
 		this.w = w;
 		this.dim = dim;
 		this.difficulty = dif;
+		this.nb_weapon=15;
+		w_sort = new ArrayList<Integer>();
+		
 	}
-
+	
+	public void spawn_cover() throws IOException {
+		//weapon choice
+		int nb;
+		do {
+			nb=(int)( Math.random()*this.nb_weapon);
+		}
+		while(w_sort.contains(nb));
+		System.out.print("weapon in the weapon cover:");
+		System.out.print(nb);
+		//location choose
+		
+		double x, y;
+		double x_p = w.getPlayer().getTransform().getTranslateX();
+		double y_p = w.getPlayer().getTransform().getTranslateY();
+		do {
+			x = Math.random() * 2 * dim - dim;
+			y = Math.random() * 2 * dim - dim;
+		}
+		// not spawn if it's to close
+		while (!(x < x_p + 50 && x > x_p - 50) || (y < y_p + 50 && y > y_p - 50));
+	
+		Weapon_cover weapon=new Weapon_cover(nb,w, x, y);
+	}
+	
 	public void new_wave(int level) throws IOException {
 		int nb_monster = this.difficulty * level * level + level + 5;
 		double x, y;
@@ -86,3 +118,4 @@ public class Generator {
 	}
 
 }
+

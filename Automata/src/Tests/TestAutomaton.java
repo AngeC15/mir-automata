@@ -17,7 +17,7 @@ public class TestAutomaton {
 		a.addState(s);
 
 		Entity e;
-		World w = new World(null);
+		World w = new World(null, 1.0f, 3.0f, 3.0f);
 		e = new Entity(a, 3);
 		e.step();
 		e.step();

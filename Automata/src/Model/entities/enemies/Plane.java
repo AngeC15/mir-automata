@@ -2,6 +2,7 @@ package Model.entities.enemies;
 
 import java.awt.geom.AffineTransform;
 
+import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Gun;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
@@ -29,4 +30,5 @@ public class Plane extends Enemy {
 	public String toString() {
 		return "Plane";
 	}
+	
 }

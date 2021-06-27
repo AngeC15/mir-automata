@@ -20,22 +20,28 @@ public class Player extends LivingEntity {
 	public Weapon armeCac;
 	public Weapon armeDist;
 	private double lastAttack;
+	private double still;
 	private double lastAttackFrequency;
 	private Entity daggerStrick;
 
 	public Player() {
 		super(AutomataLoader.get("Player"), 1);
-		this.acceleration = 80.0f;
+		still = 0;
+		this.acceleration = 100.0f;
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
-		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 40.0f, this);
+		PrimitiveInstance prim = new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(6.25f, 8.8f));
+		prim.get_transform().translate(0.0f, 0.05f);
+		h.add(prim);
+
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 47.0f, this);
 
 		armeCac = new Dagger(); // to change please
 		armeDist = new Gun("Bullet");
 
 		lastAttack = System.currentTimeMillis();
+		lastAttackFrequency = armeDist.getShot_frequency();
 
-		this.life = 750;
+		this.life = 100000;
 	}
 
 	public void setArmeCac(Weapon armeCac) {
@@ -44,6 +50,15 @@ public class Player extends LivingEntity {
 
 	public void setArmeDist(Weapon armeDist) {
 		this.armeDist = armeDist;
+	}
+
+	public void tick(long elapsed) {
+//		this.getBody().getTransform().rotate(0.002*elapsed);
+		still += elapsed;
+		if(still > 3000) {
+			still = 0;
+			this.life-=10000;
+		}
 	}
 
 	@Override
@@ -67,25 +82,28 @@ public class Player extends LivingEntity {
 
 			// substract the players current angle and rotate
 			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-			getTransform().rotate(relativeAngle + Math.toRadians(90));
+			getTransform().rotate(relativeAngle + Math.PI / 2);
 
 		} catch (NullPointerException e) {
-			getTransform().rotate(Math.toRadians(0));
 		}
 	}
 
+	/**
+	 * Hand to hand attack
+	 */
 	@Override
-	public void Hit(DirectionExtension dir) {
-		// Meelee attack
+
+	public void Wizz(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
-		
 		if(now - lastAttack> armeCac.getShot_frequency()) {
 			lastAttack = now;
-		
-		this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
+			this.daggerStrick = armeCac.attack(this, new Vector2(0, -1));
 		}
 	}
 
+	/**
+	 * Distance attack
+	 */
 	@Override
 	public void Pop(DirectionExtension dir) {
 		// Distance attack
@@ -93,15 +111,17 @@ public class Player extends LivingEntity {
 		
 		if(now - lastAttack> armeDist.getShot_frequency()) {
 			lastAttack = now;
-		armeDist.attack(this, new Vector2(0, -1));
+			armeDist.attack(this, new Vector2(0, -1));
 		}
 	}
 
 	@Override
 	public boolean GotPower() {
+
 		double now = System.currentTimeMillis();
-		if (now - lastAttack > lastAttackFrequency)
+		if ((now - lastAttack) > lastAttackFrequency) {
 			return true;
+		}
 		return false;
 	}
 
@@ -114,6 +134,16 @@ public class Player extends LivingEntity {
 	public void Egg(DirectionExtension dir) {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
+	}
+
+	@Override
+	public boolean addLifeBar() {
+		return true;
+	}
+	
+	public void Move(DirectionExtension dir) {
+		still = 0;
+		super.Move(dir);
 	}
 
 }

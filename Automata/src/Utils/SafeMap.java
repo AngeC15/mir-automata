@@ -23,12 +23,19 @@ public class SafeMap implements Iterable<Entry<Long, SafeMapElement>> {
 
 		int s = addQueue.size();
 		for (int i = 0; i < s; i++) {
-			contents.put(id, addQueue.poll());
+			SafeMapElement elem = addQueue.poll();
+			//System.out.println("added (" + elem.getID() + ") to " + this);
+			contents.put(id, elem);
 			id++;
 		}
 		s = rmQueue.size();
 		for (int i = 0; i < s; i++) {
-			contents.remove(rmQueue.poll());
+			long idr = rmQueue.poll();
+			SafeMapElement elem = contents.get(idr);
+			if(elem == null)
+				continue;
+			//System.out.println("removed (" + elem.getID() + ") from " + this);
+			contents.remove(idr);
 		}
 	}
 
@@ -52,5 +59,8 @@ public class SafeMap implements Iterable<Entry<Long, SafeMapElement>> {
 
 	public int size() {
 		return contents.size();
+	}
+	public boolean empty() {
+		return (contents.size() + addQueue.size() + rmQueue.size()) == 0;
 	}
 }

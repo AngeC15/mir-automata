@@ -21,15 +21,18 @@ public class Decor extends Entity {
 	private int x;
 	private int y;
 	private Map map;
-	private Template[] templates;
+	private Template[][] templates;
 	private int random;
+	private boolean end = false;
 
 	public Decor(Map m, int px, int py) {
-		super(AutomataLoader.get("Wall"), 3);
-		templates = new Template[3];
-		templates[0] = TemplatesLoader.get("Wall");
-		templates[1] = TemplatesLoader.get("Dead");
-		templates[2] = TemplatesLoader.get("Tree");
+		super(AutomataLoader.get("DecorGeneration"), 3);
+		templates = new Template[3][10];
+		for (int k = 0; k < 10; k++) {
+			templates[0][k] = TemplatesLoader.get("Wall" + k);
+		}
+		templates[1][0] = TemplatesLoader.get("Dead");
+		templates[2][0] = TemplatesLoader.get("Tree");
 		map = m;
 		x = px;
 		y = py;
@@ -58,7 +61,7 @@ public class Decor extends Entity {
 			if (state == 1)
 				return cmpt >= 3;
 			else
-				return cmpt >= 5;
+				return cmpt >= 4;
 
 		} catch (Exception e) {
 			System.exit(0);
@@ -95,20 +98,27 @@ public class Decor extends Entity {
 		return !generationOver();
 	}
 
+	/**
+	 * Create element of decor
+	 */
 	@Override
 	public void Throw(DirectionExtension dir) {
 		if (dir == DirectionExtension.F) {
-			this.avatar.setTemplate(templates[0]);
+			this.avatar.setTemplate(templates[0][5]);
 			setState(1);
 		} else if (dir == DirectionExtension.B) {
-			this.avatar.setTemplate(templates[1]);
+			this.avatar.setTemplate(templates[1][0]);
 			setState(0);
 		} else if (dir == DirectionExtension.H) {
-			this.avatar.setTemplate(templates[2]);
+			this.avatar.setTemplate(templates[2][0]);
 			setState(3);
 		} else {
 			Random rn = new Random();
-			random = rn.nextInt(30);
+			random = rn.nextInt(70);
+			
+
+			this.automaton = AutomataLoader.get("Decor");
+			super.state = automaton.getInit();
 		}
 	}
 
@@ -116,10 +126,64 @@ public class Decor extends Entity {
 		this.state = state;
 	}
 
+	private boolean voisin(int px, int py) {
+		if (map.get(px, py) != null && map.get(px, py).getAlive() == 1)
+			return true;
+		return false;
+	}
+
+	private int nbvoisins() {
+		int cmpt = 0;
+		if (voisin(x + 1, y))
+			cmpt++;
+		if (voisin(x, y + 1))
+			cmpt++;
+		if (voisin(x - 1, y))
+			cmpt++;
+		if (voisin(x, y - 1))
+			cmpt++;
+		return cmpt;
+	}
+
+	/**
+	 * Delete an element on the map
+	 */
 	@Override
 	public void Explode() {
 		if (state == 0)
 			map.remove(x, y);
+		else if (state == 1) {
+			int nb_voisins = nbvoisins();
+			if (nb_voisins == 2) {
+				if (voisin(x - 1, y) && voisin(x, y + 1)) {
+					this.avatar.setTemplate(templates[0][1]);
+				}
+				if (voisin(x - 1, y) && voisin(x, y - 1)) {
+					this.avatar.setTemplate(templates[0][3]);
+				}
+				if (voisin(x, y + 1) && voisin(x + 1, y)) {
+					this.avatar.setTemplate(templates[0][7]);
+				}
+				if (voisin(x, y - 1) && voisin(x + 1, y)) {
+					this.avatar.setTemplate(templates[0][9]);
+				}
+			} else if (nb_voisins == 3) {
+				if (!voisin(x + 1, y)) {
+					this.avatar.setTemplate(templates[0][2]);
+				}
+				if (!voisin(x, y + 1)) {
+					this.avatar.setTemplate(templates[0][6]);
+				}
+				if (!voisin(x - 1, y)) {
+					this.avatar.setTemplate(templates[0][8]);
+				}
+				if (!voisin(x, y - 1)) {
+					this.avatar.setTemplate(templates[0][4]);
+				}
+			} else if (nb_voisins == 4) {
+				this.avatar.setTemplate(templates[0][5]);
+			}
+		}
 	}
 
 	@Override
@@ -135,9 +199,9 @@ public class Decor extends Entity {
 		if (state == 0)
 			return Color.getHSBColor(60 / 360.0f, 20 / 100.0f, 90 / 100.0f);
 		else if (state == 1)
-			return Color.gray;
+			return new Color(150, 145, 140);
 		else
-			return Color.getHSBColor(118 / 360.0f, 60 / 100.0f, 50 / 100.0f);
+			return new Color(110, 160, 95);
 	}
 
 	@Override
@@ -148,6 +212,22 @@ public class Decor extends Entity {
 			return "Wall";
 		else
 			return "Tree";
+	}
+
+	@Override
+	public void Pop(DirectionExtension Dir) {
+		System.out.println("pop");
+		/*for (int k = 0; k < 10; k++) {
+			templates[1][k] = TemplatesLoader.get("Wall" + k);
+		}
+		templates[2][0] = TemplatesLoader.get("Dead");
+		templates[0][0] = TemplatesLoader.get("Tree");*/
+		
+	}
+
+	public void Wizz(DirectionExtension Dir) {
+		System.out.println("wizz");
+		/*templates[2][0] = TemplatesLoader.get("Tree_FIRE");*/
 	}
 
 }

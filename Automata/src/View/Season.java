@@ -15,7 +15,7 @@ import Utils.SafeMapElement;
 
 public class Season {
 	public enum EnumSeason {
-		SUMMER, WINTER
+		SUMMER, WINTER, FIRE
 	}
 
 	private Template groundTemplate;

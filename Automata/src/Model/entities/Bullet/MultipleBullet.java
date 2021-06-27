@@ -17,6 +17,7 @@ public class MultipleBullet extends Bullet {
 		super(e, vect, bulletSkin, 20);
 		this.nbBullet = nbBullet;
 		automatonName = "Bullet";
+		super.damage = 200;
 
 		generateMultiple();
 	}
@@ -35,6 +36,7 @@ public class MultipleBullet extends Bullet {
 		super(e, vect, bulletSkin, automatonName, 20);
 		this.nbBullet = nbBullet;
 		this.automatonName = automatonName;
+		super.damage = 200;
 		generateMultiple();
 	}
 

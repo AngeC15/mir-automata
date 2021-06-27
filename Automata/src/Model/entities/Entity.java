@@ -279,6 +279,7 @@ public class Entity implements SafeMapElement {
 
 
 		if (this instanceof Player && other instanceof Weapon_cover) {
+			System.out.println("Changement d'arme");
 			Weapon weapon = ((Weapon_cover) other).getW();
 			if (weapon.isCac()) {
 				((Player) this).setArmeCac(weapon);

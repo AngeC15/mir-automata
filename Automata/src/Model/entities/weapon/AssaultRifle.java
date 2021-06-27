@@ -12,6 +12,7 @@ public class AssaultRifle extends Weapon{
 	
 	public AssaultRifle(String bulletSkin) {
 		super(false);
+		super.damage = 35;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 150;
 	}
@@ -22,7 +23,7 @@ public class AssaultRifle extends Weapon{
 	public Entity attack(Entity e, Vector2 vect) {
 
 		// on crée la bullet
-		Bullet bul = new Bullet(e, vect, bulletSkin, 35);
+		Bullet bul = new Bullet(e, vect, bulletSkin, damage);
 		World w = e.getWorld();
 		w.addEntity(bul);
 		return bul;

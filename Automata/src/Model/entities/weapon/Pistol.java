@@ -14,6 +14,7 @@ public class Pistol extends Weapon {
 
 	public Pistol(String bulletSkin) {
 		super(false);
+		super.damage = 5;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 300;
 	}
@@ -21,7 +22,7 @@ public class Pistol extends Weapon {
 	@Override
 	public Entity attack(Entity e, Vector2 vect) {
 		// on crée la bullet
-		MultipleBullet bul = new MultipleBullet(e, vect, bulletSkin, 5);
+		MultipleBullet bul = new MultipleBullet(e, vect, bulletSkin, damage);
 		World w = e.getWorld();
 		w.addEntity(bul);
 		Vector2 direction = new Vector2((float) bul.getTransform().getShearX(), (float) bul.getTransform().getScaleY());

@@ -11,6 +11,7 @@ public class Sniper extends Weapon {
 
 	public Sniper(String bulletSkin) {
 		super(false);
+		super.damage = 3000;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 2000;
 	}

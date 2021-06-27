@@ -22,7 +22,7 @@ public class MiniMap extends JPanel {
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
 	private AffineTransform localTransform;
-	private double cameraDistance = 3;
+	private double cameraDistance = 1;
 	private static final float size = 12;
 	private static final int[] triangleX = new int[] { (int) -size, 0, (int) size, 0 };
 	private static final int[] triangleY = new int[] { 0, (int) (size * 2), 0, (int) size / 2 };
@@ -60,7 +60,7 @@ public class MiniMap extends JPanel {
 		
 		// Graphics g2 = this.getGraphics();
 		Graphics2D g = (Graphics2D) g2;
-
+		g.setColor(new Color(220, 220, 220));
 		g.fillRect(0, 0, 200, 200);
 
 		AffineTransform baseTransform = g.getTransform();
@@ -76,13 +76,15 @@ public class MiniMap extends JPanel {
 				-playerTransform.getTranslateY()));
 		g.transform(canvasTransform); // pixel au coordon�es du monde
 
+		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
-		g.setColor(new Color(220, 220, 220));
-		g.fillRect(-100, -100, 200, 200);
+		//g.setColor(new Color(220, 220, 220));
+		//g.fillRect(-100, -100, 200, 200);
+		
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
 			Entity et = (Entity) entries.getValue();
@@ -91,7 +93,7 @@ public class MiniMap extends JPanel {
 			g.transform(et.getTransform());
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-size / 2f, -size / 2f)); // center
-																						// the
+																			// the
 
 			Color c = et.getColor();
 

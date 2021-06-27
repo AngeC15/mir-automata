@@ -24,8 +24,6 @@ public abstract class Enemy extends LivingEntity {
 		super(AutomataLoader.get(automaton), 2);
 	}
 
-	
-
 	/**
 	 * Takes a category and a direction and returns true if the closest entity of
 	 * said category is in said direction. Only implemented to detect player
@@ -103,11 +101,22 @@ public abstract class Enemy extends LivingEntity {
 		}
 	}
 
+	/**
+	 * Attack an ennemy
+	 */
 	@Override
 	public void Pop(DirectionExtension dir) {
 		lastAttack = System.currentTimeMillis();
 		Vector2 vector = new Vector2(0, 1);
 		weapon.attack(this, vector);
+	}
+
+	/**
+	 * Accelerate the speed
+	 */
+	@Override
+	public void Wizz(DirectionExtension dir) {
+		this.getBody().setmaxSpeed((int) this.getBody().getmaxSpeed() * 2);
 	}
 
 	@Override
@@ -128,7 +137,7 @@ public abstract class Enemy extends LivingEntity {
 	public Color getColor() {
 		return Color.red;
 	}
-	
+
 	public boolean addLifeBar() {
 		return true;
 	}

@@ -11,6 +11,7 @@ import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
+import Model.path.Grid;
 import View.Avatar;
 import View.GameView;
 import View.Sound;
@@ -54,8 +55,11 @@ public class Game {
 		int n, p; 
 		n = 30;
 		p = 30;
-		Map map = new Map(n, p, 5.3f, world);
+		float dimension = 5.3f;
+		Map map = new Map(n, p, dimension, world);
 		world.setMap(map);
+	
+		Grid grid = new Grid(n, p, dimension, map);
 
 		/*
 		 * Player player = new Player(); Template tmp = TemplatesLoader.get("Player");

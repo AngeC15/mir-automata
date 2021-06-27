@@ -90,7 +90,7 @@ public class Menu extends JPanel implements ActionListener {
 
 		super.paintComponent(g);
 
-		File imageFile = new File("Resources/Menu/fond.jpg");
+		File imageFile = new File("Resources/Menu/menuDepart.png");
 
 		if (imageFile.exists()) {
 			BufferedImage image;

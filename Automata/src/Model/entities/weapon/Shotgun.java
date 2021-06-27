@@ -12,7 +12,6 @@ public class Shotgun extends Weapon {
 
 	public Shotgun(String bulletSkin) {
 		super(false);
-		super.damage = 200;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 1000;
 	}

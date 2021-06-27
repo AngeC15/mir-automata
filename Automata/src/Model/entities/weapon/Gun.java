@@ -11,7 +11,6 @@ public class Gun extends Weapon {
 
 	public Gun(String bulletSkin) {
 		super(false);
-		super.damage = 20;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 350;
 	}
@@ -19,7 +18,7 @@ public class Gun extends Weapon {
 	@Override
 	public Entity attack(Entity e, Vector2 vect) {
 
-		Bullet bul = new Bullet(e, vect, bulletSkin, "Bullet", damage);
+		Bullet bul = new Bullet(e, vect, bulletSkin, "Bullet", 20);
 
 		World w = e.getWorld();
 		w.addEntity(bul);

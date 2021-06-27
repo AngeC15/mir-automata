@@ -14,7 +14,7 @@ public class Halberd extends Weapon{
 	public Halberd() {
 		super(true);
 		this.shot_frequency = 750;
-		super.damage = 50;
+		this.damage = 50;
 		etat = 1;
 	}
 	
@@ -34,13 +34,13 @@ public class Halberd extends Weapon{
 	
 	void changeDamage() {
 		if(etat ==1) {
-			super.damage = 80;
+			this.damage = 80;
 			etat++;
 		}else if (etat == 2) {
-			super.damage = 30;
+			this.damage = 30;
 			etat =0;
 		}else if(etat == 0) {
-			super.damage = 130;
+			this.damage = 130;
 			etat++;
 		}
 	}

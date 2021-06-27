@@ -12,7 +12,6 @@ public class MachineGun extends Weapon {
 
 	public MachineGun(String bulletSkin) {
 		super(false);
-		super.damage = 10;
 		this.bulletSkin = bulletSkin;
 		this.shot_frequency = 75;
 	}
@@ -20,7 +19,7 @@ public class MachineGun extends Weapon {
 	@Override
 	public Entity attack(Entity e, Vector2 vect) {
 		// on crée la bullet
-		Bullet bul = new Bullet(e, vect, bulletSkin, damage);
+		Bullet bul = new Bullet(e, vect, bulletSkin, 10);
 		World w = e.getWorld();
 		w.addEntity(bul);
 		Vector2 direction = new Vector2((float) bul.getTransform().getShearX(), (float) bul.getTransform().getScaleY());

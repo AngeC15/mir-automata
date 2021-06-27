@@ -37,6 +37,9 @@ public class GameView {
 	private MiniMap miniMap;
 	private Menu menu;
 	private Dimension frameSize;
+	private EndView endView;
+	private boolean needSetUp;
+	private JLayeredPane pane;
 
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
@@ -50,6 +53,7 @@ public class GameView {
 	private static final AffineTransform identity = new AffineTransform();
 
 	public GameView(GameCanvasListener listener) {
+		needSetUp= true;
 
 		m_canvas = new GameCanvas(listener);
 
@@ -59,7 +63,8 @@ public class GameView {
 		miniMap = new MiniMap();
 
 		menu = new Menu(frameSize, this);
-
+		this.endView = new EndView(frameSize, this);
+				
 		m_frame = m_canvas.createFrame(frameSize);
 
 		m_frame.addComponentListener(new ComponentAdapter() {
@@ -100,6 +105,32 @@ public class GameView {
 		// make the window visible
 		m_frame.setVisible(true);
 	}
+	
+	public EndView setupEnd() {
+		System.out.println("Setup end");
+		// make the window visible
+		this.endView.setVisible(true);
+		m_frame.remove(pane);
+		m_frame.add(endView, BorderLayout.CENTER);
+		
+		//m_frame.repaint();
+
+		/*
+		m_frame.add(endView, BorderLayout.CENTER);
+		m_frame = m_canvas.createFrame(frameSize);
+
+		m_frame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent ev) {
+				System.out.println("resized");
+				updateCanvasTransform();
+			}
+		});
+
+		m_frame.add(endView, BorderLayout.CENTER);
+		*/
+		return endView;
+	}
 
 	public void setupGame() {
 		System.out.println("  - setting up the frame...");
@@ -116,7 +147,7 @@ public class GameView {
 		m_frame.add(m_text, BorderLayout.NORTH);
 
 		// LayeredPane permet la superposition du canvas et du panel
-		JLayeredPane pane = new JLayeredPane();
+		pane = new JLayeredPane();
 
 		m_canvas.setBounds(0, 0, m_frame.getWidth(), m_frame.getHeight());
 
@@ -155,6 +186,7 @@ public class GameView {
 			m_text.setText(txt);
 		}
 	}
+	
 
 	public void setWorld(World w) {
 		world = w;
@@ -250,6 +282,100 @@ public class GameView {
 			av.paint(g);
 			g.setTransform(gameTransform);
 
+		}
+
+		/**
+		 * TO DECOMMENT : if you want to change season
+		 */
+		// intensity = season.transitionSummerWinter(g, 1000, intensity);
+
+	}
+	
+	public void paint(Graphics2D g, Boolean PlayerDead) {
+
+		if(!PlayerDead) {
+			
+		// get the size of the canvas
+
+		this.frameSize.width = m_frame.getWidth();
+		this.frameSize.height = m_frame.getHeight();
+
+		m_canvas.setSize(frameSize.width, frameSize.height);
+		this.miniMap.setWorld(world); // Met a jour le monde dans la miniMap
+		miniMap.repaint(); // Refait l'affichage
+
+		// erase background
+		g.setColor(Color.gray);
+
+		g.fillRect(0, 0, frameSize.width, frameSize.height);
+
+		if (world == null)
+			return;
+
+		AffineTransform baseTransform = g.getTransform();
+
+		AffineTransform cam_save = new AffineTransform(cameraTransform);
+
+		AffineTransform playerTransform;
+		if (world.getPlayer() != null) {
+			playerTransform = world.getPlayer().getTransform();
+		} else {
+			playerTransform = new AffineTransform();
+		}
+
+		// float angle = (float) Math.cos((System.currentTimeMillis() % 6282) / 1000.0f)
+		// * 0.2f;
+		// System.out.println("angle " + System.currentTimeMillis());
+		cameraTransform.translate(-playerTransform.getTranslateX(), -playerTransform.getTranslateY());
+		// .concatenate(AffineTransform.getRotateInstance(angle));
+
+		g.transform(canvasTransform);
+
+		AffineTransform screeSpace = new AffineTransform(g.getTransform());
+
+		g.transform(cameraTransform);
+		cameraTransform = cam_save;
+
+		AffineTransform gameTransform = new AffineTransform(g.getTransform());
+
+		g.setTransform(gameTransform);
+		SafeMap entities = world.getEntities();
+		drawGround(g, 200, 200, 10);
+
+		for (Entry<Long, SafeMapElement> entries : entities) {
+
+			Entity et = (Entity) entries.getValue();
+			Avatar av = et.getAvatar();
+			g.transform(et.getTransform());
+			
+			//
+			//et.getBody().debug(g);
+			//
+			
+			g.transform(localTransform);
+			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center
+																			// the
+																			// object
+
+			av.paint(g);
+			g.setTransform(gameTransform);
+
+		}
+		}else {
+			//affichage de l'écran de fin
+			if(needSetUp) {
+				setupEnd();
+				needSetUp = false;
+			}
+			
+			endView.paintComponent(g);
+			/*
+			g.setColor(Color.black);
+			g.fillRect(0, 0, frameSize.width, frameSize.height);
+			*/
+			
+			//v.paintComponent(g);
+	
 		}
 
 		/**

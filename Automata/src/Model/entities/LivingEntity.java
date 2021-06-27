@@ -58,7 +58,7 @@ public class LivingEntity extends Entity {
 		// negative damage will heal
 		// because 2 colisions are detected
 		addAction(EnumAction.HURT);
-		System.out.println("Santé de l'entité " + this + " à " + this.life);
+		//System.out.println("Santé de l'entité " + this + " à " + this.life);
 		this.life -= damage / 2;
 	}
 

@@ -29,6 +29,7 @@ public class World {
 	private Newton newton;
 	private Map map;
 	private Level niveau;
+	public boolean playerDead;
 
 	public World(VirtualInput vi) {
 		inputs = vi;
@@ -36,6 +37,7 @@ public class World {
 		elapsed = 0;
 		newton = new Newton();
 		niveau = null;
+		playerDead = false;
 
 	}
 
@@ -79,6 +81,9 @@ public class World {
 
 	public void removeEntity(long id) {
 		Entity pb = ((Entity) entities.get(id));
+		if(pb instanceof Player) {
+			this.playerDead = true;
+		}
 		if(pb != null) {
 			newton.remove(pb.getBody());
 			entities.remove(id);
@@ -112,7 +117,6 @@ public class World {
 		this.addEntity(player);
 		this.setPlayer(player);
 		
-		
 		  /*
 		  
 		  new Avatar(tank, tmpTank);
@@ -123,7 +127,7 @@ public class World {
 
 		  Generator g=new Generator(this, 100,1);
 		  //g.spawn_cover();
-		 niveau = new Level(10000, 0, this, g);
+		 niveau = new Level(100, 0, this, g);
 		 
 		  
 		  /*

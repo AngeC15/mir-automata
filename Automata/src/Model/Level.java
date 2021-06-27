@@ -30,7 +30,7 @@ public class Level {
 		//double diff = now - startTime;
 		//System.out.println("Difference " + diff);
 		if(now - startTime > time) {
-			if(time == 10000) {
+			if(time == 100) {
 				time = 60000;
 			}
 			//changement de saison:

@@ -114,16 +114,8 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 	public void tick(long elapsed) {
-		if(world.getPlayer() != null) {
 			world.tick(elapsed);
 			view.tick(elapsed);
-		}
-		else {
-			//ici on fait paint l'écran de fin
-			world.tick(elapsed);
-			view.tick(elapsed);
-		}
-
 	}
 
 	/*
@@ -131,7 +123,12 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-		view.paint((Graphics2D) g);
+		if(world.playerDead) {
+			//System.out.println("Detection de la mort du joueur");
+			view.paint((Graphics2D) g, true);
+		}else{
+			view.paint((Graphics2D) g);
+		}
 	}
 
 }

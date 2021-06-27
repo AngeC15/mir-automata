@@ -56,23 +56,9 @@ public class Weapon_cover extends Entity {
 
 	private Weapon WeaponInTheBox(enum_weapon weaponSel) {
 		Weapon toRet = null;
-		switch (weaponSel) {
-		case AssaultRifle :
-			return new AssaultRifle("Bullet");
-		case Halberd :
-			return new Halberd();
-		case MachineGun :
+		
 			return new MachineGun("Bullet");
-		case Pistol :
-			return new Pistol("Bullet");
-		case Shotgun :
-			return new Shotgun("Bullet");
-		case Sniper :
-			return new Sniper("Bullet");
-		default:
-			System.out.println("Erreur reconnaissance de l'arme aléatoire dans Weapon_cover");
-			return null;
-		}
+		
 	}
 
 	public Weapon getW() {

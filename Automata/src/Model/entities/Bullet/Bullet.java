@@ -106,12 +106,10 @@ public class Bullet extends LivingEntity {
 	@Override
 	public void Pop(DirectionExtension dir) {
 		super.Move(dir);
-
 	}
-
-	@Override
+	
 	public void Wizz(DirectionExtension dir) {
-
+		super.Move(dir);
 
 	}
 

@@ -27,17 +27,17 @@ Bullet(Forward){
 BulletZigZag(Forward){
 	* (Forward) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Move(F)  :(Right)
-	| True ?  Move(F)  :(Left)
-	| True ?  Move(F)  :(Forward)
+	| True ?  Pop(F)  :(Right)
+	| True ?  Pop(F)  :(Left)
+	| True ?  Pop(F)  :(Forward)
 	* (Right) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Move(R)  :(Forward)
-	| True ?  Move(F)  :(Forward)
+	| True ?  Wizz(R)  :(Forward)
+	| True ?  Pop(F)  :(Forward)
 	* (Left) :
 	| Cell(F,_) ? Hit  :()
-	| True ?  Move(L)  :(Forward)
-	| True ?  Move(F)  :(Forward)
+	| True ?  Wizz(L)  :(Forward)
+	| True ?  Pop(F)  :(Forward)
 }
 
 Decor(Init){

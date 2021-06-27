@@ -50,7 +50,7 @@ public class Season {
 
 			if (et instanceof Player && current == EnumSeason.WINTER) {
 				Player p = (Player) et;
-				p.getBody().setFriction(0); // normal 15
+				p.getBody().setFriction(1); // normal 15
 			} else if (et instanceof Player) {
 				Player p = (Player) et;
 				p.getBody().setFriction(15); // normal 15

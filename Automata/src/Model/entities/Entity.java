@@ -253,11 +253,11 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean GotPower() {
-		return false;
+		return true;
 	}
 
 	public boolean GotStuff() {
-		return false;
+		return true;
 
 	}
 

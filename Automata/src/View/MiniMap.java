@@ -27,6 +27,7 @@ public class MiniMap extends JPanel {
 	private float game_h;
 	private AffineTransform canvasTransform;
 	private AffineTransform localTransform;
+
 	private static final float arrowScaling = 2;
 	private static final float[] arrowX = new float[] { -arrowScaling, 0, arrowScaling, 0 };
 	private static final float[] arrowY = new float[] { -arrowScaling, arrowScaling, -arrowScaling, -arrowScaling/2 };
@@ -34,6 +35,7 @@ public class MiniMap extends JPanel {
 	private static final Ellipse2D.Float circle = new Ellipse2D.Float(-0.5f, -0.5f, 1, 1);
 	private static Path2D.Float arrow;
 	
+
 	public MiniMap() {
 		super(new BorderLayout());
 		this.setVisible(true);
@@ -75,7 +77,7 @@ public class MiniMap extends JPanel {
 		
 		// Graphics g2 = this.getGraphics();
 		Graphics2D g = (Graphics2D) g2;
-		
+
 		AffineTransform baseTransform = g.getTransform();
 
 		AffineTransform playerTransform;
@@ -90,6 +92,7 @@ public class MiniMap extends JPanel {
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
+
 		g.setColor(new Color(220, 220, 220));
 		
 		g.scale(game_w, game_h);

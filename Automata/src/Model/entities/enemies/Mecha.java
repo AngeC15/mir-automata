@@ -29,15 +29,6 @@ public class Mecha extends Enemy {
 	public String toString() {
 		return "Mecha";
 	}
-	
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
 
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Hit(dir);
-	}
 
 }

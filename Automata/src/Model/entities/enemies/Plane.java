@@ -31,8 +31,4 @@ public class Plane extends Enemy {
 		return "Plane";
 	}
 	
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Move(dir);
-	}
 }

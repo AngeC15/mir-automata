@@ -16,8 +16,15 @@ import View.Avatar;
 
 public class SwordStrick extends LivingEntity {
 
+	private Entity e;
+	private Vector2 vect;
+	private int damage;
+
 	public SwordStrick(Entity e, Vector2 vector, int damage) {
 		super(AutomataLoader.get("Strick"), e.getEquipe());
+		this.e = e;
+		this.vect = vector;
+		this.damage = damage;
 		this.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
@@ -59,16 +66,6 @@ public class SwordStrick extends LivingEntity {
 	@Override
 	public String toString() {
 		return "Strick";
-	}
-	
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-	
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Wait();
 	}
 
 }

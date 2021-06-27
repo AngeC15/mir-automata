@@ -20,18 +20,20 @@ public class Player extends LivingEntity {
 	public Weapon armeCac;
 	public Weapon armeDist;
 	private double lastAttack;
+	private double still;
 	private double lastAttackFrequency;
 	private Entity daggerStrick;
 
 	public Player() {
 		super(AutomataLoader.get("Player"), 1);
+		still = 0;
 		this.acceleration = 100.0f;
 		HitBox h = new HitBox();
 		PrimitiveInstance prim = new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(6.25f, 8.8f));
 		prim.get_transform().translate(0.0f, 0.05f);
 		h.add(prim);
 
-		this.body = new PhysicsBody(h, ColliderType.Character,15.0f, 47.0f, this);
+		this.body = new PhysicsBody(h, ColliderType.Character, 15.0f, 47.0f, this);
 
 		armeCac = new Dagger(); // to change please
 		armeDist = new Gun("Bullet");
@@ -52,6 +54,11 @@ public class Player extends LivingEntity {
 
 	public void tick(long elapsed) {
 //		this.getBody().getTransform().rotate(0.002*elapsed);
+		still += elapsed;
+		if(still > 3000) {
+			still = 0;
+			this.life-=10000;
+		}
 	}
 
 	@Override
@@ -75,7 +82,7 @@ public class Player extends LivingEntity {
 
 			// substract the players current angle and rotate
 			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
-			getTransform().rotate(relativeAngle + Math.PI/2);
+			getTransform().rotate(relativeAngle + Math.PI / 2);
 
 		} catch (NullPointerException e) {
 		}
@@ -103,7 +110,7 @@ public class Player extends LivingEntity {
 
 	@Override
 	public boolean GotPower() {
-		
+
 		double now = System.currentTimeMillis();
 		if ((now - lastAttack) > lastAttackFrequency) {
 			return true;
@@ -121,10 +128,15 @@ public class Player extends LivingEntity {
 		new DeadEntity(this, AutomataLoader.get("Dead"), team, 350, "DeadExplosion");
 		this.getWorld().removeEntity(getID());
 	}
-	
+
 	@Override
 	public boolean addLifeBar() {
 		return true;
+	}
+	
+	public void Move(DirectionExtension dir) {
+		still = 0;
+		super.Move(dir);
 	}
 
 }

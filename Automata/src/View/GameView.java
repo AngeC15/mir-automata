@@ -24,6 +24,7 @@ import Model.loader.TemplatesLoader;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 import Utils.Vector2;
+import View.Season.EnumSeason;
 
 public class GameView {
 
@@ -32,7 +33,7 @@ public class GameView {
 	JLabel m_text;
 	World world;
 	int intensity;
-	
+
 	private float game_w;
 	private float game_h;
 	private long m_textElapsed;
@@ -48,12 +49,9 @@ public class GameView {
 	private float units_per_width = 100.0f;
 	private float sprite_pixels_per_unit = 6.0f;
 	private Season season;
-	
-	
 
 	// utiliser spritesheet pour charger le fond
 	// private File imageFond;
-
 
 	private static final AffineTransform identity = new AffineTransform();
 
@@ -119,7 +117,6 @@ public class GameView {
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
 
-		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
 
@@ -148,18 +145,14 @@ public class GameView {
 
 		season = new Season(world);
 		intensity = 0;
-		
-		/*Tank tank = new Tank("Tank");
-		Template tmpTank = TemplatesLoader.get("Tank");
-		try {
-			new Avatar(tank, tmpTank);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-		world.addEntity(tank);*/
-		
+
+		/*
+		 * Tank tank = new Tank("Tank"); Template tmpTank = TemplatesLoader.get("Tank");
+		 * try { new Avatar(tank, tmpTank); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 * tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		 * 100)); world.addEntity(tank);
+		 */
 
 	}
 
@@ -177,6 +170,9 @@ public class GameView {
 				txt += " ";
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
+		}
+		if (world.getPlayer() != null && this.season.getCurrentSeason() == EnumSeason.WINTER) {
+			world.getPlayer().tick(elapsed);
 		}
 	}
 
@@ -246,17 +242,16 @@ public class GameView {
 		g.transform(canvasTransform);
 
 		AffineTransform screeSpace = new AffineTransform(g.getTransform());
-		
-		
+
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = new AffineTransform(g.getTransform());
 
 		drawGround(g, 20, 20, 0.5f, playerTransform);
-		
+
 		g.setTransform(gameTransform);
-		
+
 		SafeMap entities = world.getEntities();
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
@@ -275,48 +270,43 @@ public class GameView {
 			g.setTransform(gameTransform);
 
 		}
-		/*try {
-			season.nextSeason();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		
+		  //try { season.nextSeason(); } catch (Exception e) { e.printStackTrace(); }
+		 
 		/**
 		 * TO DECOMMENT : if you want to change season
 		 */
-		 //intensity = season.transitionSummerWinter(g, 500, intensity);
+		// intensity = season.transitionSummerWinter(g, 1000, intensity);
 
 	}
 
 	private void drawGround(Graphics2D g, int width, int height, float scale, AffineTransform playerTransform) {
 		/*
-		for (float w = -width / 2.0f; w < width / 2.0f; w += size) {
-			for (float h = -height / 2.0f; h < height / 2.0f; h += size) {
-				g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas);
-			}
-		}*/
+		 * for (float w = -width / 2.0f; w < width / 2.0f; w += size) { for (float h =
+		 * -height / 2.0f; h < height / 2.0f; h += size) {
+		 * g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas); } }
+		 */
 		BufferedImage bg = season.getGround();
-		
-		
-		
+
 		int imWidth = bg.getWidth();
 		int imHeight = bg.getHeight();
-		float bgw = imWidth/sprite_pixels_per_unit * scale;
-		float bgh = imHeight/sprite_pixels_per_unit * scale;
-	
+		float bgw = imWidth / sprite_pixels_per_unit * scale;
+		float bgh = imHeight / sprite_pixels_per_unit * scale;
+
 		float tX = (float) playerTransform.getTranslateX();
 		float tY = (float) playerTransform.getTranslateY();
-		
+
 		float ptX = (float) (playerTransform.getTranslateX() % bgw);
 		float ptY = (float) (playerTransform.getTranslateY() % bgh);
-		
-		g.translate(-bgw*width/2.0f + tX - ptX, -bgh*height/2.0f + tY - ptY);
+
+		g.translate(-bgw * width / 2.0f + tX - ptX, -bgh * height / 2.0f + tY - ptY);
 		AffineTransform backgroundTransform = new AffineTransform(g.getTransform());
-		//System.out.println("width " + width + " height" + heigth);
+		// System.out.println("width " + width + " height" + heigth);
 		AffineTransform lineTransform = new AffineTransform();
 		AffineTransform tileTransform = null;
-		for(int y = 0; y < height; y++) {
+		for (int y = 0; y < height; y++) {
 			tileTransform = new AffineTransform(lineTransform);
-			for(int x = 0; x < width ; x++) {
+			for (int x = 0; x < width; x++) {
 				tileTransform.translate(bgw, 0);
 				g.transform(tileTransform);
 				g.transform(localTransform);

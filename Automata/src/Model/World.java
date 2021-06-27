@@ -8,6 +8,7 @@ import Controller.VirtualInput;
 import Model.automata.creation.KeyExtension;
 import Model.entities.Entity;
 import Model.entities.Player;
+import Model.entities.enemies.Enemy;
 import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
@@ -30,6 +31,7 @@ public class World {
 	private Map map;
 	public Level niveau;
 	public boolean playerDead;
+	public int deathEnnemies;
 
 	private float block_size;
 	private float game_w;
@@ -37,6 +39,7 @@ public class World {
 	private static final AffineTransform identity = new AffineTransform();
 
 	public World(VirtualInput vi, float block_size, float game_w, float game_h) {
+		deathEnnemies = 0;
 		inputs = vi;
 		entities = new SafeMap();
 		elapsed = 0;
@@ -131,10 +134,13 @@ public class World {
 		Entity pb = ((Entity) entities.get(id));
 		if (pb instanceof Player) {
 			this.playerDead = true;
+		} else if (pb instanceof Enemy) {
+			deathEnnemies++;
 		}
 		if (pb != null) {
 			newton.remove(pb.getBody());
 			entities.remove(id);
+			
 		}
 	}
 
@@ -182,7 +188,7 @@ public class World {
 
 		Generator g = new Generator(this, 100, 1);
 		// g.spawn_cover();
-		niveau = new Level(10000, 0, this, g);
+		niveau = new Level(2000, 0, this, g);
 
 		/*
 		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =

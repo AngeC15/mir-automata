@@ -13,46 +13,34 @@ public class Level {
 	private double startTime;
 	int numEnemy;
 	Season season;
-	
+
 	public Level(int time, int level, World world, Generator generator) throws IOException {
 		System.out.println("New Level 0");
-		this.time = time; //on ajoute 50s au dix secondes de départ
+		this.time = time;
 		this.level = level;
 		this.world = world;
 		this.generator = generator;
 		this.startTime = System.currentTimeMillis();
+		this.numEnemy = 0;
 		season = new Season(this.world);
-		//generate();
+		// generate();
 	}
-	
+
 	public void generate() throws IOException {
 		double now = System.currentTimeMillis();
-		//double diff = now - startTime;
-		//System.out.println("Difference " + diff);
-		if(now - startTime > time) {
-			if(time == 10000) {
+		 
+		if (now - startTime > time || (numEnemy != 0 && (numEnemy - world.deathEnnemies) == 0)) {
+			if (time == 2000) {
 				time = 60000;
 			}
-			//changement de saison:
-			try {
-				//season.nextSeason();
-				//season.transitionSummerWinter(g, 1000, intensity);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//autre
+
 			level++;
 			startTime = now;
-			//System.out.println("Lancement niveau :" + level);
-			numEnemy = generator.new_wave(level);//(this.world.getPlayer().getTransform().getTranslateX(), this.world.getPlayer().getTransform().getTranslateX(), level);
-		
+			// System.out.println("Lancement niveau :" + level);
+			numEnemy = generator.new_wave(level);// (this.world.getPlayer().getTransform().getTranslateX(),
+													// this.world.getPlayer().getTransform().getTranslateX(), level);
+			world.deathEnnemies = 0;
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 }

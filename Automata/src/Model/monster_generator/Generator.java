@@ -56,7 +56,8 @@ public class Generator {
 	public int new_wave(int level) throws IOException {
 		//System.out.println("New enemy has appeared");
 
-		int nb_monster = this.difficulty * level * level + level;
+		//int nb_monster = this.difficulty * level * level + level;
+		int nb_monster = 0;
 		double x, y;
 		double x_p = w.getPlayer().getTransform().getTranslateX();
 		double y_p = w.getPlayer().getTransform().getTranslateY();

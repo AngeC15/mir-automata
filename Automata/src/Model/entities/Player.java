@@ -103,7 +103,6 @@ public class Player extends LivingEntity {
 	public void Wizz(DirectionExtension dir) {
 		double now = System.currentTimeMillis();
 		if(now - lastAttack> armeCac.getShot_frequency()) {
-			System.out.println("New attack");
 			lastAttack = now;
 			this.daggerStrike = armeCac.attack(this, new Vector2(0, -1));
 

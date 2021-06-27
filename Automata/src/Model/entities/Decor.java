@@ -216,18 +216,18 @@ public class Decor extends Entity {
 
 	@Override
 	public void Pop(DirectionExtension Dir) {
-		System.out.println("pop");
-		/*for (int k = 0; k < 10; k++) {
+		//System.out.println("pop");
+		for (int k = 0; k < 10; k++) {
 			templates[1][k] = TemplatesLoader.get("Wall" + k);
 		}
 		templates[2][0] = TemplatesLoader.get("Dead");
-		templates[0][0] = TemplatesLoader.get("Tree");*/
+		templates[0][0] = TemplatesLoader.get("Tree");
 		
 	}
 
 	public void Wizz(DirectionExtension Dir) {
-		System.out.println("wizz");
-		/*templates[2][0] = TemplatesLoader.get("Tree_FIRE");*/
+		//System.out.println("wizz");
+		templates[2][0] = TemplatesLoader.get("Tree_WINTER");
 	}
 
 }

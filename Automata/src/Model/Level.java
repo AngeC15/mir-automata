@@ -31,7 +31,7 @@ public class Level {
 		//System.out.println("Difference " + diff);
 		if(now - startTime > time) {
 			if(time == 10000) {
-				time = 60000;
+				time = 20000;
 			}
 			//changement de saison:
 			try {
@@ -44,8 +44,9 @@ public class Level {
 			//autre
 			level++;
 			startTime = now;
-			System.out.println("Lancement niveau :" + level);
+			//System.out.println("Lancement niveau :" + level);
 			numEnemy = generator.new_wave(level);//(this.world.getPlayer().getTransform().getTranslateX(), this.world.getPlayer().getTransform().getTranslateX(), level);
+		
 		}
 	}
 	

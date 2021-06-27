@@ -16,7 +16,7 @@ import Utils.SafeMapElement;
 
 public class Season {
 	public enum EnumSeason {
-		SUMMER, WINTER, FIRE
+		SUMMER, WINTER
 	}
 
 	private Template groundTemplate;
@@ -41,19 +41,23 @@ public class Season {
 	 */
 	public void nextSeason() throws Exception {
 		EnumSeason[] tabSeason = EnumSeason.values();
-		if (current.ordinal() + 1 < tabSeason.length) {
-			current = tabSeason[current.ordinal() + 1];
-		}
+		int index = Math.floorMod(current.ordinal() + 1, tabSeason.length);
+		current = tabSeason[index];
 		groundTemplate = TemplatesLoader.get("Ground", current);
 		for (Entry<Long, SafeMapElement> entries : w.getEntities()) {
 			Entity et = (Entity) entries.getValue();
 			Avatar avatar = et.getAvatar();
 
-			if (et instanceof Player) {
+			if (et instanceof Player && current == EnumSeason.WINTER) {
 				Player p = (Player) et;
 				p.getBody().setFriction(2); // normal 15
 				p.getBody().setmaxSpeed(100); // normal 40
-			} else if (et instanceof Decor && ((Decor) et).toString() != "Wall") {
+			}else if(et instanceof Player) {
+				Player p = (Player) et;
+				p.getBody().setFriction(15); // normal 15
+				p.getBody().setmaxSpeed(40); // normal 40
+			}
+			if (et instanceof Decor && ((Decor) et).toString() != "Wall") {
 				avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
 			}
 		}
@@ -85,12 +89,6 @@ public class Season {
 				
 				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
 			}
-		} else if (cmpIntensity >= intensitySnow && current == EnumSeason.SUMMER) {
-			try {
-				this.nextSeason();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		} else if (cmpIntensity > 0 && current == EnumSeason.WINTER) {
 			cmpIntensity -= 8;
 			g.setColor(new Color(230, 230, 230));
@@ -98,6 +96,15 @@ public class Season {
 				int size = RandomUtil.genererInt(0, 3);
 				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
 			}
+		}else if ((cmpIntensity >= intensitySnow && current == EnumSeason.SUMMER) || (current != EnumSeason.SUMMER)) {
+			try {
+				this.nextSeason();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			intensitySnow = 0;
 		}
 		return cmpIntensity;
 	}

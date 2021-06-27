@@ -111,13 +111,6 @@ public abstract class Enemy extends LivingEntity {
 	}
 
 	@Override
-	public void Hit(DirectionExtension dir) {
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
-	}
-
-	@Override
 	public boolean GotPower() {
 		double now = System.currentTimeMillis();
 		if (now - lastAttack > cooldown)

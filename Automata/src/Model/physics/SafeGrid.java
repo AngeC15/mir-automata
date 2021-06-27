@@ -11,18 +11,19 @@ import Utils.SafeMapElement;
 
 public class SafeGrid implements Iterable<SafeGridCell>{
 	long idx;
-	float cellSize = 5*5.3f;
+	float cellSize;
 	float cellOffset = 0;
 	TreeMap<Long, SafeGridCell> grid;
-	ArrayDeque<SafeGridCell> addQueue;
+	TreeMap<Long, SafeGridCell> addQueue;
 	ArrayDeque<Long> rmQueue;
 	private double emptyCellLife = 5000;
 
-	public SafeGrid() {
+	public SafeGrid(float block_size) {
 		idx = 0;
 		grid = new TreeMap<Long, SafeGridCell>();
-		addQueue = new ArrayDeque<SafeGridCell>();
+		addQueue = new TreeMap<Long, SafeGridCell>();
 		rmQueue = new ArrayDeque<Long>();
+		cellSize = 5*block_size;
 	}
 	
 	public void update() {
@@ -46,10 +47,11 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		}
 		
 		int s = addQueue.size();
-		for(int i=0; i < s; i++) {
-			SafeGridCell c = addQueue.poll();
+		for(SafeGridCell c: addQueue.values()) {
 			grid.put(c.getPos(), c);
 		}
+		addQueue.clear();
+		
 		s = rmQueue.size();
 		for(int i=0; i < s; i++) {
 			long trm = rmQueue.poll();
@@ -73,7 +75,7 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		return p;
 	}
 	public void addCell(SafeGridCell c) {
-		addQueue.addLast(c);
+		addQueue.put(c.getPos(), c);
 	}
 	public void addCellUnsafe(SafeGridCell c) {
 		grid.put(c.getPos(), c);
@@ -85,7 +87,7 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		long pos = getPos(e.getPosX_f(), e.getPosY_f());
 		long id;
 		e.setPos(pos);
-		if(!grid.containsKey(pos)) {
+		if(!grid.containsKey(pos) && !addQueue.containsKey(pos)) {
 			SafeGridCell c = new SafeGridCell(pos);
 			//System.out.println("Cell added, add (" + e.getPos() + " - " + e.getID() + ") to " + c);
 			id = c.add(e);
@@ -94,7 +96,9 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		}
 		else {
 			SafeGridCell c = grid.get(pos);
-			id = c.add(e);
+			if(c == null)
+				c = addQueue.get(pos);
+ 			id = c.add(e);
 			c.setTime(System.currentTimeMillis());
 			//System.out.println("Cell exists, add (" + e.getPos() + " - " + e.getID() + ") to " + grid.get(pos));
 		}
@@ -104,19 +108,22 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		long pos = getPos(e.getPosX_f(), e.getPosY_f());
 		long id;
 		e.setPos(pos);
-		if(!grid.containsKey(pos)) {
+		if(!grid.containsKey(pos) && !addQueue.containsKey(pos)) {
 			SafeGridCell c = new SafeGridCell(pos);
+			//System.out.println("Cell added, add (" + e.getPos() + " - " + e.getID() + ") to " + c);
 			id = c.add(e);
 			c.setTime(System.currentTimeMillis());
 			addCellUnsafe(c);
 		}
 		else {
 			SafeGridCell c = grid.get(pos);
-			id = c.add(e);
+			if(c == null)
+				c = addQueue.get(pos);
+ 			id = c.add(e);
 			c.setTime(System.currentTimeMillis());
+			//System.out.println("Cell exists, add (" + e.getPos() + " - " + e.getID() + ") to " + grid.get(pos));
 		}
 		e.setID(id);
-		
 	}
 	public void remove(SafeGridElement e) {
 		SafeGridCell c = grid.get(e.getPos());

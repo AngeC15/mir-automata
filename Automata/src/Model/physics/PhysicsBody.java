@@ -95,7 +95,11 @@ public class PhysicsBody {
 		this.friction = friction;
 	}
 
-	public void setmaxSpeed(int speed) {
-		this.max_speed = speed;
+	public void setmaxSpeed(int f) {
+		this.max_speed = f;
+	}
+	
+	public float getmaxSpeed() {
+		return max_speed;
 	}
 }

@@ -9,6 +9,7 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
+import Utils.Vector2;
 
 public class Plane extends Enemy {
 
@@ -30,9 +31,16 @@ public class Plane extends Enemy {
 	public String toString() {
 		return "Plane";
 	}
-	
+
 	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Move(dir);
+	public void Pop(DirectionExtension dir) {
+		// TODO Auto-generated method stub
+		super.Pop(dir);
+		lastAttack = System.currentTimeMillis();
+		Vector2 vector = new Vector2(0, 1);
+		this.ShotStrike = weapon.attack(this, vector);
 	}
+
+
+	
 }

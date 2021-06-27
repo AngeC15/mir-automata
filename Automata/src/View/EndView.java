@@ -19,15 +19,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Menu extends JPanel implements ActionListener {
-
+public class EndView extends JPanel implements ActionListener {
 	private GameView gameView;
-	private JButton play, settings;
+	private JButton end, settings;
 	private JLabel titre;
 	// private JPanel center;
 	// private Settings pageSettings;
 
-	public Menu(Dimension frameSize, GameView gameView) {
+	public EndView(Dimension frameSize, GameView gameView) {
 		super(new GridLayout(3, 1));
 
 		this.setBounds(0, 0, frameSize.width, frameSize.height);
@@ -41,10 +40,8 @@ public class Menu extends JPanel implements ActionListener {
 
 		initButtonPlay();
 
-		this.setVisible(true);
-		// lf = new LifeBar();
-		// this.add(lf);
-		// lf.repaint();
+		
+		this.setVisible(false);
 		this.repaint();
 
 	}
@@ -53,22 +50,21 @@ public class Menu extends JPanel implements ActionListener {
 		JPanel panel = new JPanel(new FlowLayout());
 
 		panel.setOpaque(false);
-		play = new JButton();
+		end = new JButton();
 
-		play.setOpaque(false);
-		play.setContentAreaFilled(false);
-		play.setBorderPainted(false);
+		end.setOpaque(false);
+		end.setContentAreaFilled(false);
+		end.setBorderPainted(false);
 
-		ImageIcon img = new ImageIcon("Resources/Menu/Play.png");
-		play.setIcon(img);
-		play.setName("buttonPlay");
+		ImageIcon img = new ImageIcon("Resources/Menu/end.png");
+		end.setIcon(img);
+		end.setName("buttonEnd");
 
 		// this.add(play);
-		panel.add(play);
-
-		play.addActionListener(this);
-		play.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		play.setBounds(100, 100, 100, 100);
+		panel.add(end);
+		end.addActionListener(this);
+		end.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		end.setBounds(100, 100, 100, 100);
 		this.add(panel);
 		panel.setVisible(true);
 
@@ -76,12 +72,19 @@ public class Menu extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == play) {
-			System.out.println("Click play");
-			gameView.setupGame();
+		//System.out.println("_______________");
+		//System.out.println(e.getActionCommand());
+		/*
+		if(e.getActionCommand()) {
+			System.out.println("Bad finishing");
+			System.exit(0);
+		}
+		*/
+		if (e.getSource() == end) {
+			//System.out.println("Click Finish");
+			System.exit(0);
 		} else if (e.getSource() == settings) {
 			System.out.println("Click settings");
-			// pageSettings.initSettings();
 		}
 	}
 
@@ -89,8 +92,8 @@ public class Menu extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-
-		File imageFile = new File("Resources/Menu/menuDepart.png");
+		
+		File imageFile = new File("Resources/Menu/fond.jpg");
 
 		if (imageFile.exists()) {
 			BufferedImage image;
@@ -101,7 +104,6 @@ public class Menu extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 }

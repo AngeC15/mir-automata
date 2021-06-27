@@ -35,10 +35,10 @@ public class Weapon_cover extends Entity {
 		numeroArme = new ArrayList<Integer>();
 		
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(x,y)));
+		h.add(new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(5,5)));
 		this.body = new PhysicsBody(h, ColliderType.Area, 15.0f, 40.0f, this);
 		w = randomWeapon(); 
-		Template tmpPlane = TemplatesLoader.get("Plane");
+		Template tmpPlane = TemplatesLoader.get("WeaponCover");
 		new Avatar(this, tmpPlane);
 		this.getTransform().concatenate(AffineTransform.getTranslateInstance(x,y));
 		world.addEntity(this);
@@ -47,7 +47,7 @@ public class Weapon_cover extends Entity {
 	private Weapon randomWeapon() {
 		int nbItems = enum_weapon.values().length;
 	    Random r = new Random();
-        int random = r.nextInt(18);
+        int random = r.nextInt(6);
         enum_weapon weaponSel = enum_weapon.values()[random];
         Weapon weaponToRet = WeaponInTheBox(weaponSel);
 		//System.out.println("\n " + weaponToRet.toString());
@@ -59,40 +59,16 @@ public class Weapon_cover extends Entity {
 		switch (weaponSel) {
 		case AssaultRifle :
 			return new AssaultRifle("Bullet");
-		case Axe :
-			return new Axe();
-		case Croissant :
-			return new Croissant();
-		case Guisarm :
-			return new Guisarm();
 		case Halberd :
 			return new Halberd();
-		case Hammer :
-			return new Hammer();
-		case Juliette :
-			return new Juliette("Bullet");
-		case Longsword :
-			return new Longsword();
 		case MachineGun :
 			return new MachineGun("Bullet");
 		case Pistol :
 			return new Pistol("Bullet");
-		case Revolver :
-			return new Revolver("Bullet");
-		case Romeo :
-			return new Romeo();
-		case Scythe :
-			return new Scythe();
 		case Shotgun :
 			return new Shotgun("Bullet");
 		case Sniper :
 			return new Sniper("Bullet");
-		case Spear :
-			return new Spear();
-		case Sword :
-			return new Sword();
-		case TommyGun :
-			return new TommyGun("Bullet");
 		default:
 			System.out.println("Erreur reconnaissance de l'arme aléatoire dans Weapon_cover");
 			return null;

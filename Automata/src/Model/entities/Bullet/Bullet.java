@@ -37,7 +37,7 @@ public class Bullet extends LivingEntity {
 	 */
 	public Bullet(Entity e, Vector2 vect, String bulletSkin, int damage) {
 		super(AutomataLoader.get("Bullet"), e.getEquipe());
-
+		//System.out.println("New bullet");
 		// on créer tout le nécessaire pour gerer les physics body
 		this.e = e;
 		this.vect = vect;
@@ -75,7 +75,7 @@ public class Bullet extends LivingEntity {
 
 	private void initBullet() {
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3f, 3f)));
 		this.body = new PhysicsBody(h, ColliderType.Projectile, 0.0f, 60.0f, this);
 
 		vect = vect.normalize();
@@ -100,19 +100,6 @@ public class Bullet extends LivingEntity {
 		return null;
 	}
 
-	/**
-	 * Bullet movement
-	 */
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
 
-	}
-
-	@Override
-	public void Wizz(DirectionExtension dir) {
-
-
-	}
 
 }

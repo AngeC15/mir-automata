@@ -1,9 +1,11 @@
-package Model.entities;
+package Model.entities.Bullet;
 
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import Model.automata.creation.DirectionExtension;
+import Model.entities.Entity;
+import Model.entities.LivingEntity;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.physics.ColliderType;
@@ -16,9 +18,13 @@ import View.Avatar;
 
 public class SwordStrick extends LivingEntity {
 
+	private Entity e;
+	private Vector2 vect;
+
 	public SwordStrick(Entity e, Vector2 vector, int damage) {
-		super(AutomataLoader.get("Strick"), e.getEquipe());
-		this.damage = damage;
+		super(AutomataLoader.get("Bullet"), e.getEquipe());
+		this.vect = vector;
+		super.damage = damage;
 		this.life = 1000;
 		this.acceleration = 2000.0f;
 		this.team = e.team;
@@ -39,7 +45,7 @@ public class SwordStrick extends LivingEntity {
 
 		vector = vector.normalize();
 
-		float angle = (float) Math.atan2(-vector.x, vector.y);
+		float angle = (float) Math.atan2(-vect.x, vect.y);
 
 		this.getBody().setTransform(new AffineTransform(e.getTransform()));
 
@@ -59,16 +65,6 @@ public class SwordStrick extends LivingEntity {
 	@Override
 	public String toString() {
 		return "Strick";
-	}
-	
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-	
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Wait();
 	}
 
 }

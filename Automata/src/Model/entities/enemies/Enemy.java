@@ -24,7 +24,31 @@ public abstract class Enemy extends LivingEntity {
 		super(AutomataLoader.get(automaton), 2);
 	}
 
-	
+	protected void rotate() {
+		//for life duration
+		double now = System.currentTimeMillis();
+
+		if (this.daggerStrike != null && now - lastAttack > 125) {
+			//System.out.println("Remove daggerStrick from enemy: " );
+			this.world.removeEntity(daggerStrike.getID());
+			daggerStrike = null;
+		}
+		if (this.ShotStrike != null && now - lastAttack > 8000) {
+			//System.out.println("Remove Shotstrick from enemy: " );
+			this.world.removeEntity(ShotStrike.getID());
+			ShotStrike = null;
+		}
+		
+		
+		Entity player = world.getPlayer();
+
+		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
+		double relativeAngle = Math.atan2(relativeY, relativeX);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle - Math.toRadians(90));
+	}
 
 	/**
 	 * Takes a category and a direction and returns true if the closest entity of
@@ -103,18 +127,9 @@ public abstract class Enemy extends LivingEntity {
 		}
 	}
 
-	@Override
-	public void Pop(DirectionExtension dir) {
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
-	}
-
-	@Override
-	public void Hit(DirectionExtension dir) {
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		weapon.attack(this, vector);
+	
+	public void Wizz(DirectionExtension dir) {
+		this.getBody().setmaxSpeed((int) this.getBody().getmaxSpeed() * 2);
 	}
 
 	@Override
@@ -135,8 +150,8 @@ public abstract class Enemy extends LivingEntity {
 	public Color getColor() {
 		return Color.red;
 	}
-	
-	public boolean addLifeBar() {
+
+	public boolean hasLifeBar() {
 		return true;
 	}
 }

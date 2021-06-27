@@ -45,16 +45,22 @@ public class Game {
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
-		view.setupFrame();
+		
+		float block_size = 5.3f;
+		int n, p;
+		n = 60;
+		p = 60;
+		float game_w = p*block_size;
+		float game_h = n*block_size;
+		view.setupFrame(game_w, game_h);
 		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
-		world = new World(m_listener.getVirtualInput());
+		world = new World(m_listener.getVirtualInput(), block_size, game_w - block_size, game_h - block_size);
 		view.setWorld(world);
 
-		int n, p;
-		n = 100;
-		p = 100;
-		Map map = new Map(n, p, 5.3f, world);
+		
+		
+		Map map = new Map(n, p, block_size, world);
 		world.setMap(map);
 
 		/*
@@ -142,10 +148,8 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 	public void tick(long elapsed) {
-
-		world.tick(elapsed);
-		view.tick(elapsed);
-
+			world.tick(elapsed);
+			view.tick(elapsed);
 	}
 
 	/*
@@ -153,7 +157,12 @@ public class Game {
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
 	public void paint(Graphics g) {
-		view.paint((Graphics2D) g);
+		if(world.playerDead) {
+			//System.out.println("Detection de la mort du joueur");
+			view.paint((Graphics2D) g, true);
+		}else{
+			view.paint((Graphics2D) g);
+		}
 	}
 
 }

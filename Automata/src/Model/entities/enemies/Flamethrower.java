@@ -35,12 +35,11 @@ public class Flamethrower extends Enemy {
 
 	@Override
 	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Hit(dir);
+		// TODO Auto-generated method stub
+		super.Pop(dir);
+		 lastAttack = System.currentTimeMillis();
+		Vector2 vector = new Vector2(0, 1);
+		this.daggerStrike = weapon.attack(this, vector);
 	}
 
 }

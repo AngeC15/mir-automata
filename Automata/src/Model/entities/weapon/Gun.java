@@ -12,7 +12,7 @@ public class Gun extends Weapon {
 	public Gun(String bulletSkin) {
 		super(false);
 		this.bulletSkin = bulletSkin;
-		this.shot_frequency = 500;
+		this.shot_frequency = 350;
 	}
 
 	@Override

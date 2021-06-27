@@ -51,9 +51,9 @@ public class Game {
 		world = new World(m_listener.getVirtualInput());
 		view.setWorld(world);
 
-		int n, p; 
-		n = 70;
-		p = 70; 
+		int n, p;
+		n = 100;
+		p = 100;
 		Map map = new Map(n, p, 5.3f, world);
 		world.setMap(map);
 

@@ -161,15 +161,15 @@ public class World {
 		*/
 		
 
-		Tank tank = new Tank("Tank");
-		Template tmpTank = TemplatesLoader.get("Tank");
-		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-		this.addEntity(tank);
+		//Tank tank = new Tank("Tank");
+		//Template tmpTank = TemplatesLoader.get("Tank");
+		//new Avatar(tank, tmpTank);
+		//tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		//this.addEntity(tank);
 
 
-		Generator g = new Generator(this, 100, 1);
-		g.spawn_cover();
+		//Generator g = new Generator(this, 100, 1);
+		//g.spawn_cover();
 		/*
 		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
 		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);

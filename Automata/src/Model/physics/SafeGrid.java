@@ -26,9 +26,11 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 	}
 	
 	public void update() {
+		
 		for(SafeGridCell m : this) {
 			m.update();
-			if(m.size() == 0 && (m.getTime() - System.currentTimeMillis()) > emptyCellLife) {
+			if(m.empty() && (System.currentTimeMillis() - m.getTime()) > emptyCellLife) {
+				//System.out.println("timeout " + m.getPos());
 				removeCell(m.getPos());
 			}
 			for(Entry<Long, SafeMapElement> e : m) {
@@ -36,6 +38,7 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 				long prev_pos = em.getPos();
 				long pos = getPos(em.getPosX_f(), em.getPosY_f());
 				if(prev_pos != pos) {
+					//System.out.println("moved (" + em.getPos() + " - " + em.getID() + ") from " + prev_pos + " to " + pos);
 					remove(em);
 					addSafe(em);
 				}
@@ -81,17 +84,21 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 	public void addSafe(SafeGridElement e) {
 		long pos = getPos(e.getPosX_f(), e.getPosY_f());
 		long id;
+		e.setPos(pos);
 		if(!grid.containsKey(pos)) {
 			SafeGridCell c = new SafeGridCell(pos);
+			//System.out.println("Cell added, add (" + e.getPos() + " - " + e.getID() + ") to " + c);
 			id = c.add(e);
+			c.setTime(System.currentTimeMillis());
 			addCell(c);
 		}
 		else {
-			id = grid.get(pos).add(e);
+			SafeGridCell c = grid.get(pos);
+			id = c.add(e);
+			c.setTime(System.currentTimeMillis());
+			//System.out.println("Cell exists, add (" + e.getPos() + " - " + e.getID() + ") to " + grid.get(pos));
 		}
 		e.setID(id);
-		e.setPos(pos);
-		
 	}
 	public void add(SafeGridElement e) {
 		long pos = getPos(e.getPosX_f(), e.getPosY_f());
@@ -100,16 +107,23 @@ public class SafeGrid implements Iterable<SafeGridCell>{
 		if(!grid.containsKey(pos)) {
 			SafeGridCell c = new SafeGridCell(pos);
 			id = c.add(e);
+			c.setTime(System.currentTimeMillis());
 			addCellUnsafe(c);
 		}
 		else {
-			id = grid.get(pos).add(e);
+			SafeGridCell c = grid.get(pos);
+			id = c.add(e);
+			c.setTime(System.currentTimeMillis());
 		}
 		e.setID(id);
 		
 	}
 	public void remove(SafeGridElement e) {
-		grid.get(e.getPos()).remove(e.getID());
+		SafeGridCell c = grid.get(e.getPos());
+		//System.out.println("(rm) Remove (" + e.getPos() + " - " + e.getID() + ") from " + grid.get(e.getPos()));
+		
+		c.remove(e.getID());
+		c.setTime(System.currentTimeMillis());
 	}
 	public SafeGridCell get(long pos) {
 		if(!grid.containsKey(pos))

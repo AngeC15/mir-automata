@@ -112,7 +112,7 @@ public class Decor extends Entity {
 			setState(3);
 		} else {
 			Random rn = new Random();
-			random = rn.nextInt(70);
+			random = rn.nextInt(99999);
 		}
 	}
 

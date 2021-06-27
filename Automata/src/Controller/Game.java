@@ -53,8 +53,8 @@ public class Game {
 		view.setWorld(world);
 
 		int n, p; 
-		n = 30;
-		p = 30;
+		n = 50;
+		p = 50;
 		float dimension = 5.3f;
 		Map map = new Map(n, p, dimension, world);
 		world.setMap(map);

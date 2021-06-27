@@ -172,7 +172,7 @@ public class World {
 			Tank tank = new Tank("Tank");
 			Template tmpTank = TemplatesLoader.get("Tank");
 			new Avatar(tank, tmpTank);
-			tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+			tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 20));
 			this.addEntity(tank);
 		}
 

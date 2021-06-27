@@ -92,4 +92,8 @@ public class Map {
 	public int getY() {
 		return map[0].length;
 	}
+	
+	public float getDim() {
+		return dimension;
+	}
 }

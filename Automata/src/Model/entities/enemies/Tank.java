@@ -17,13 +17,13 @@ public class Tank extends Enemy {
 		super(automaton);
 		weapon = new Gun("EnemyBullet");
 		cooldown = 1900;
-		shootDistance = 40;
+		shootDistance = 30;
 		acceleration = 18;
 
 		life = 100;
 
 		HitBox h = new HitBox();
-		PrimitiveInstance prim = new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(10, 14));
+		PrimitiveInstance prim = new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(7, 8));
 		prim.get_transform().translate(0, -0.15);
 		h.add(prim);
 		this.body = new PhysicsBody(h, ColliderType.Character, 10, 20, this);

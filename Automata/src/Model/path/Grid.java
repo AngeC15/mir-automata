@@ -1,7 +1,9 @@
 package Model.path;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -16,9 +18,8 @@ public class Grid {
 	private int idx;
 	
 	PriorityQueue<Node> openSet = new PriorityQueue<Node>(1, new NodeComparator());
-	ArrayDeque<Node> path = new ArrayDeque();
+	LinkedList<Node> closedlist = new LinkedList();
 	Node currentNode;
-	Node previousNode;
 	
 	//erreur peut potentiellement venir d'ici
 	private class NodeComparator implements Comparator<Node>{
@@ -53,8 +54,9 @@ public class Grid {
 		
 		for (int k = 0 ; k < 4 ; k ++) {
 			tmp = nextNeighbor();
-			if (!tmp.containWall() && !openSet.contains(tmp)) {
-				tmp.SethCost(tmp.distance(goal)+currentNode.GethCost());
+			if (!tmp.containWall() && !openSet.contains(tmp) && !closedlist.contains(tmp)) {
+				tmp.SethCost(tmp.distance(goal));
+				tmp.setPrevious(currentNode);
 				openSet.add(tmp);
 			}
 		}
@@ -68,25 +70,43 @@ public class Grid {
 	public void InitNeighbors() {
 		int x = currentNode.getX();
 		int y = currentNode.getY();
-		neighbors[0] = grid[Math.floorMod(x+1,getP())][y];
-		neighbors[1] = grid[x][Math.floorMod(y+1, getN())];
-		neighbors[2] = grid[Math.floorMod(x-1,getP())][y];
-		neighbors[3] = grid[x][Math.floorMod(y-1,getN())];
+		neighbors[0] = grid[(x+1+getP())%getP()][y];
+		neighbors[1] = grid[x][(y+1+getN())%getN()];
+		neighbors[2] = grid[(x-1+getP())%getP()][y];
+		neighbors[3] = grid[x][(y-1+getN())%getN()];
+//		for (int k = 0 ; k < 4 ; k ++) {
+//			neighbors[k].setPrevious(currentNode);
+//		}
+	}
+	
+	public ArrayDeque<Node> construct_path(Node finalnode){
+		Node tmp = finalnode;
+		ArrayDeque<Node> path = new ArrayDeque<Node>();
+		while (tmp != null) {
+			path.push(tmp);
+			tmp = tmp.getPrevious();
+		}
+		return path;
 	}
 	
 	public ArrayDeque<Node> starPath(Node start, Node goal) {
 		currentNode = start;
-		previousNode = null;
+		start.setPrevious(null);
+
+		start.SethCost(start.distance(goal));
+
 		openSet.add(start);
 		
-		start.SethCost(start.distance(goal));
+
 		
 		while (!openSet.isEmpty()) {
 			currentNode = openSet.peek();
+			closedlist.add(currentNode);
 			
-			if (currentNode == goal) {
+			if (currentNode.equals(goal)) {
 				openSet.clear();
-				return path;
+				closedlist.clear();
+				return construct_path(currentNode);
 			}
 			openSet.remove();
 			
@@ -95,6 +115,7 @@ public class Grid {
 			
 		}
 		openSet.clear();
+		closedlist.clear();
 		return null;
 	}
 	

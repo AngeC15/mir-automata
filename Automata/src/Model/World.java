@@ -122,11 +122,11 @@ public class World {
 		
 		// uncomment if you want enemies
 
-//		Tank tank = new Tank("Tank");
-//		Template tmpTank = TemplatesLoader.get("Tank");
-//		new Avatar(tank, tmpTank);
-//		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-//		this.addEntity(tank);
+		Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		new Avatar(tank, tmpTank);
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		this.addEntity(tank);
 		
 //		Mecha mecha = new Mecha("Mecha");
 //		Template tmpMecha = TemplatesLoader.get("Mecha");

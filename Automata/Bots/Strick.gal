@@ -1,15 +1,5 @@
 Strick(Go){
  * (Go) :
- | True ? Move(F) : (Autre2)
-  * (Autre2) :
- | True ? Move(F) : (Att2)
-  * (Att2) :
- | True ? Move(F) : (Att3)
-  * (Att3) :
- | True ? Move(F) : (Att4)
-  * (Att4) :
- | True ? Move(F) : (Att7)
- * (Att7) :
  | True ? Move(F) : (Att)
  * (Att) :
  | True ? Wait : ()

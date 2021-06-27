@@ -25,9 +25,9 @@ public class Decor extends Entity {
 	private int random;
 
 	public Decor(Map m, int px, int py) {
-		super(AutomataLoader.get("Decor"), 3);
-		templates = new Template[3][10]; 
-		for (int k = 0 ; k < 10 ; k ++) {
+		super(AutomataLoader.get("DecorGeneration"), 3);
+		templates = new Template[3][10];
+		for (int k = 0; k < 10; k++) {
 			templates[0][k] = TemplatesLoader.get("Wall" + k);
 		}
 		templates[1][0] = TemplatesLoader.get("Dead");
@@ -89,7 +89,11 @@ public class Decor extends Entity {
 	}
 
 	public boolean generationOver() {
-		return map.stepCounter() >= map.getMaxStep();
+		boolean over = map.stepCounter() >= map.getMaxStep();
+		if(over) {
+			this.automaton = AutomataLoader.get("Decor");
+		}
+		return over;
 	}
 
 	@Override
@@ -105,12 +109,10 @@ public class Decor extends Entity {
 		if (dir == DirectionExtension.F) {
 			this.avatar.setTemplate(templates[0][5]);
 			setState(1);
-		}
-		else if (dir == DirectionExtension.B){
+		} else if (dir == DirectionExtension.B) {
 			this.avatar.setTemplate(templates[1][0]);
 			setState(0);
-		}
-		else if (dir == DirectionExtension.H){
+		} else if (dir == DirectionExtension.H) {
 			this.avatar.setTemplate(templates[2][0]);
 			setState(3);
 		} else {
@@ -122,19 +124,23 @@ public class Decor extends Entity {
 	public void setState(int state) {
 		this.state = state;
 	}
-	
+
 	private boolean voisin(int px, int py) {
-		if (map.get(px,  py) != null && map.get(px,  py).getAlive() == 1)
+		if (map.get(px, py) != null && map.get(px, py).getAlive() == 1)
 			return true;
 		return false;
 	}
-	
+
 	private int nbvoisins() {
 		int cmpt = 0;
-		if (voisin(x+1, y)) cmpt ++;
-		if (voisin(x, y+1)) cmpt ++;
-		if (voisin(x-1, y)) cmpt ++;
-		if (voisin(x, y-1)) cmpt ++;
+		if (voisin(x + 1, y))
+			cmpt++;
+		if (voisin(x, y + 1))
+			cmpt++;
+		if (voisin(x - 1, y))
+			cmpt++;
+		if (voisin(x, y - 1))
+			cmpt++;
 		return cmpt;
 	}
 
@@ -148,34 +154,32 @@ public class Decor extends Entity {
 		else if (state == 1) {
 			int nb_voisins = nbvoisins();
 			if (nb_voisins == 2) {
-				if (voisin(x-1, y) && voisin(x,y+1)) {
+				if (voisin(x - 1, y) && voisin(x, y + 1)) {
 					this.avatar.setTemplate(templates[0][1]);
 				}
-				if (voisin(x-1, y) && voisin(x,y-1)) {
+				if (voisin(x - 1, y) && voisin(x, y - 1)) {
 					this.avatar.setTemplate(templates[0][3]);
 				}
-				if (voisin(x, y+1) && voisin(x+1,y)) {
+				if (voisin(x, y + 1) && voisin(x + 1, y)) {
 					this.avatar.setTemplate(templates[0][7]);
 				}
-				if (voisin(x, y-1) && voisin(x+1,y)) {
+				if (voisin(x, y - 1) && voisin(x + 1, y)) {
 					this.avatar.setTemplate(templates[0][9]);
 				}
-			}
-			else if (nb_voisins == 3) {
-				if (!voisin(x+1, y)) {
+			} else if (nb_voisins == 3) {
+				if (!voisin(x + 1, y)) {
 					this.avatar.setTemplate(templates[0][2]);
 				}
-				if (!voisin(x, y+1)) {
+				if (!voisin(x, y + 1)) {
 					this.avatar.setTemplate(templates[0][6]);
 				}
-				if (!voisin(x-1, y)) {
+				if (!voisin(x - 1, y)) {
 					this.avatar.setTemplate(templates[0][8]);
 				}
-				if (!voisin(x, y-1)) {
+				if (!voisin(x, y - 1)) {
 					this.avatar.setTemplate(templates[0][4]);
 				}
-			}
-			else if (nb_voisins == 4) {
+			} else if (nb_voisins == 4) {
 				this.avatar.setTemplate(templates[0][5]);
 			}
 		}
@@ -207,6 +211,19 @@ public class Decor extends Entity {
 			return "Wall";
 		else
 			return "Tree";
+	}
+
+	@Override
+	public void Pop(DirectionExtension Dir) {
+		for (int k = 0; k < 10; k++) {
+			templates[1][k] = TemplatesLoader.get("Wall" + k);
+		}
+		templates[2][0] = TemplatesLoader.get("Dead");
+		templates[0][0] = TemplatesLoader.get("Tree");
+	}
+	
+	public void Wizz(DirectionExtension Dir) {
+		templates[2][0] = TemplatesLoader.get("Tree_FIRE");
 	}
 
 }

@@ -40,7 +40,7 @@ BulletZigZag(Forward){
 	| True ?  Move(F)  :(Forward)
 }
 
-Decor(Init){
+DecorGeneration(Init){
   	* (Init):
 	| True ? :(Dead)
 	| True ? :(Dead)
@@ -62,5 +62,10 @@ Decor(Init){
 	* (Tmp2):
 	| True ? Throw :(Wall)
 	* (Wall)
+}
+
+Decor(Init){
+	* (Init):
+    | True ? :()
 }
 

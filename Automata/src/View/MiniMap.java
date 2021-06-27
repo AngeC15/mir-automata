@@ -114,7 +114,7 @@ public class MiniMap extends JPanel {
 
 			if (c != null) {
 				g.setColor(c);
-				if (et.addLifeBar()&& et instanceof Player) {
+				if (et.hasLifeBar()&& et instanceof Player) {
 					g.fill(arrow);
 					//g.fillPolygon(triangleX, triangleY, 4);
 				} else if (et.getEquipe() == 4) {

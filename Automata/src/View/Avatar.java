@@ -42,7 +42,7 @@ public class Avatar {
 		compteur = System.currentTimeMillis();
 		currentAction = tmp.getDefaultAction();
 		template = tmp;
-		if (entity.addLifeBar()) {
+		if (entity.hasLifeBar()) {
 			int w = this.getSpriteW();
 			int h = this.getSpriteH();
 			lf = new LifeBar((LivingEntity) entity, w * 2 / 5, 30, w / 5, h / 20);

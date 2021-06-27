@@ -315,7 +315,7 @@ public class Entity implements SafeMapElement {
 		return this.getClass().getName();
 	}
 
-	public boolean addLifeBar() {
+	public boolean hasLifeBar() {
 		return false;
 	}
 

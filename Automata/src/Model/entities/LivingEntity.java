@@ -75,7 +75,7 @@ public class LivingEntity extends Entity {
 		return null;
 	}
 
-	public boolean addLifeBar() {
+	public boolean hasLifeBar() {
 		return false;
 	}
 

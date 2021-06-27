@@ -85,7 +85,7 @@ public class Player extends LivingEntity {
 
 		try {
 			// mouse angle relative to the player
-			double relativeAngle = Math.atan2(keyboard.getMousePlayer().y, keyboard.getMousePlayer().x);
+			double relativeAngle = Math.atan2(-keyboard.getMousePlayer().y, -keyboard.getMousePlayer().x);
 
 			// substract the players current angle and rotate
 			relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
@@ -104,7 +104,7 @@ public class Player extends LivingEntity {
 		double now = System.currentTimeMillis();
 		if(now - lastAttack> armeCac.getShot_frequency()) {
 			lastAttack = now;
-			this.daggerStrike = armeCac.attack(this, new Vector2(0, -1));
+			this.daggerStrike = armeCac.attack(this, new Vector2(0, 1));
 
 		}
 	}
@@ -119,7 +119,7 @@ public class Player extends LivingEntity {
 		
 		if(now - lastAttack> armeDist.getShot_frequency()) {
 			lastAttack = now;
-			this.ShotStrike = armeDist.attack(this, new Vector2(0, -1));
+			this.ShotStrike = armeDist.attack(this, new Vector2(0, 1));
 
 		}
 	}

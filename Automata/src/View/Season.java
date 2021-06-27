@@ -50,9 +50,8 @@ public class Season {
 
 			if (et instanceof Player && current == EnumSeason.WINTER) {
 				Player p = (Player) et;
-				p.getBody().setFriction(2); // normal 15
-				p.getBody().setmaxSpeed(100); // normal 40
-			}else if(et instanceof Player) {
+				p.getBody().setFriction(0); // normal 15
+			} else if (et instanceof Player) {
 				Player p = (Player) et;
 				p.getBody().setFriction(15); // normal 15
 				p.getBody().setmaxSpeed(40); // normal 40
@@ -79,31 +78,32 @@ public class Season {
 	 *         attribute )
 	 */
 	public int transitionSummerWinter(Graphics2D g, int intensitySnow, int cmpIntensity) {
-		int playerPosX = (int)w.getPlayer().getTransform().getTranslateX();
-		int playerPosY = (int)w.getPlayer().getTransform().getTranslateY();
+		int playerPosX = (int) w.getPlayer().getTransform().getTranslateX();
+		int playerPosY = (int) w.getPlayer().getTransform().getTranslateY();
 		if (cmpIntensity < intensitySnow && current == EnumSeason.SUMMER) {
 			cmpIntensity += 5;
 			g.setColor(Color.white);
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);
-				
-				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
+
+				g.fillOval(RandomUtil.genererInt(playerPosX - 100, playerPosX + 100),
+						RandomUtil.genererInt(playerPosY - 100, playerPosY + 100), size, size);
 			}
 		} else if (cmpIntensity > 0 && current == EnumSeason.WINTER) {
 			cmpIntensity -= 8;
 			g.setColor(new Color(230, 230, 230));
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);
-				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
+				g.fillOval(RandomUtil.genererInt(playerPosX - 100, playerPosX + 100),
+						RandomUtil.genererInt(playerPosY - 100, playerPosY + 100), size, size);
 			}
-		}else if ((cmpIntensity >= intensitySnow && current == EnumSeason.SUMMER) || (current != EnumSeason.SUMMER)) {
+		} else if ((cmpIntensity >= intensitySnow && current == EnumSeason.SUMMER) || (current != EnumSeason.SUMMER)) {
 			try {
 				this.nextSeason();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			intensitySnow = 0;
 		}
 		return cmpIntensity;

@@ -27,7 +27,7 @@ public class LifeBar extends JComponent {
 		this.repaint();
 		this.setVisible(true);
 	}
-	
+
 	private int getSizeBar(float life) {
 		return (int) ((life / 100.0f) * width);
 	}
@@ -35,11 +35,11 @@ public class LifeBar extends JComponent {
 	@Override
 	public void paint(Graphics g) {
 		int life = (int) ((livingEntity.getLife() / lifeMax) * 100);
-		
+
 		g.setColor(Color.black);
-		g.drawRect(x, y, getSizeBar(100), height);
+		g.drawRect(x, y + width * 2, getSizeBar(100), height);
 		g.setColor(Color.white);
-		g.fillRect(x, y, getSizeBar(100), height);
+		g.fillRect(x, y + width * 2, getSizeBar(100), height);
 		if (life < (100 * 1 / 3)) {
 			g.setColor(Color.red);
 		} else if (life >= (100 * 1 / 3) && life <= (100 * 2 / 3)) {
@@ -48,7 +48,7 @@ public class LifeBar extends JComponent {
 			g.setColor(Color.green);
 		}
 
-		g.fillRect(x, y, getSizeBar(life), height);
+		g.fillRect(x, y + width * 2, getSizeBar(life), height);
 
 	}
 }

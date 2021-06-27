@@ -1,4 +1,4 @@
-Player ; Resources/sprite_sheet_hero.png ; Resources/hero.ani ; 2 ; 4 ; 8 ; 0.8
+Player ; Resources/hero.png ; Resources/hero.ani ; 2 ; 4 ; 8 ; 0.8
 Wall0 ; Resources/sprite_sheet_decor2.png ; Resources/wall0.ani ; 5 ; 5 ; 25 ; 0.25
 Wall1 ; Resources/sprite_sheet_decor2.png ; Resources/wall1.ani ; 5 ; 5 ; 25 ; 0.25
 Wall2 ; Resources/sprite_sheet_decor2.png ; Resources/wall2.ani ; 5 ; 5 ; 25 ; 0.25

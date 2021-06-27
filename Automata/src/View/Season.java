@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Map.Entry;
 
@@ -52,7 +53,7 @@ public class Season {
 				Player p = (Player) et;
 				p.getBody().setFriction(2); // normal 15
 				p.getBody().setmaxSpeed(100); // normal 40
-			} else if (et instanceof Decor) {
+			} else if (et instanceof Decor && ((Decor) et).toString() != "Wall") {
 				avatar.setTemplate(TemplatesLoader.get(et.toString(), current));
 			}
 		}
@@ -74,12 +75,15 @@ public class Season {
 	 *         attribute )
 	 */
 	public int transitionSummerWinter(Graphics2D g, int intensitySnow, int cmpIntensity) {
+		int playerPosX = (int)w.getPlayer().getTransform().getTranslateX();
+		int playerPosY = (int)w.getPlayer().getTransform().getTranslateY();
 		if (cmpIntensity < intensitySnow && current == EnumSeason.SUMMER) {
-			cmpIntensity += 1;
+			cmpIntensity += 5;
 			g.setColor(Color.white);
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);
-				g.fillOval(RandomUtil.genererInt(-100, 100), RandomUtil.genererInt(-100, 100), size, size);
+				
+				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
 			}
 		} else if (cmpIntensity >= intensitySnow && current == EnumSeason.SUMMER) {
 			try {
@@ -88,11 +92,11 @@ public class Season {
 				e.printStackTrace();
 			}
 		} else if (cmpIntensity > 0 && current == EnumSeason.WINTER) {
-			cmpIntensity -= 2;
+			cmpIntensity -= 8;
 			g.setColor(new Color(230, 230, 230));
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);
-				g.fillOval(RandomUtil.genererInt(-100, 100), RandomUtil.genererInt(-100, 100), size, size);
+				g.fillOval(RandomUtil.genererInt(playerPosX-100, playerPosX+100), RandomUtil.genererInt(playerPosY-100, playerPosY+100), size, size);
 			}
 		}
 		return cmpIntensity;

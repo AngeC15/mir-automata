@@ -306,7 +306,7 @@ public class GameView {
 
 		}
 		if(world.niveau != null && lastLevel != world.niveau.level) {
-			 intensity = season.transitionSummerWinter(g, 200, intensity);
+			 intensity = season.transitionSummerWinter(g, 700, intensity);
 		}
 		/**
 		 * TO DECOMMENT : if you want to change season

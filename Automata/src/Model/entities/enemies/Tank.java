@@ -34,8 +34,4 @@ public class Tank extends Enemy {
 		return "Tank";
 	}
 	
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Move(dir);
-	}
 }

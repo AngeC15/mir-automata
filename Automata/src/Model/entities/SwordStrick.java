@@ -61,14 +61,6 @@ public class SwordStrick extends LivingEntity {
 		return "Strick";
 	}
 	
-	@Override
-	public void Pop(DirectionExtension dir) {
-		super.Move(dir);
-	}
-	
-	@Override
-	public void Wizz(DirectionExtension dir) {
-		super.Wait();
-	}
+
 
 }

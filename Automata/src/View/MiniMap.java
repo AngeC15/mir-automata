@@ -55,8 +55,9 @@ public class MiniMap extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g2) {
-		super.paintComponent(g2);
 		this.setBounds(5, 5, 200, 200);
+		super.paintComponent(g2);
+		
 		// Graphics g2 = this.getGraphics();
 		Graphics2D g = (Graphics2D) g2;
 

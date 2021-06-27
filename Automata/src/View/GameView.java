@@ -31,6 +31,9 @@ public class GameView {
 	JLabel m_text;
 	World world;
 	int intensity;
+	
+	private float game_w;
+	private float game_h;
 	private long m_textElapsed;
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
@@ -45,11 +48,11 @@ public class GameView {
 	private float sprite_pixels_per_unit = 6.0f;
 	private Season season;
 	
+	
 
 	// utiliser spritesheet pour charger le fond
 	// private File imageFond;
 
-	private BufferedImage bg;
 
 	private static final AffineTransform identity = new AffineTransform();
 
@@ -94,8 +97,8 @@ public class GameView {
 
 	}
 
-	public void setupFrame() {
-		m_frame.setTitle("Game");
+	public void setupFrame(float game_w, float game_h) {
+		m_frame.setTitle("MIR: Automata");
 		m_frame.setLayout(new BorderLayout());
 		m_frame.add(menu, BorderLayout.CENTER);
 		// center the window on the screen
@@ -103,6 +106,8 @@ public class GameView {
 
 		// make the window visible
 		m_frame.setVisible(true);
+		this.game_w = game_w;
+		this.game_h = game_h;
 	}
 
 	public void setupGame() {
@@ -112,14 +117,6 @@ public class GameView {
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
 
-		SpriteSheet sp = null;
-		try {
-			sp = new SpriteSheet("Resources/sprite_sheet_decor2.png", 5, 5, 25);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		bg = sp.getSprite(0);
 		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
@@ -247,15 +244,18 @@ public class GameView {
 		g.transform(canvasTransform);
 
 		AffineTransform screeSpace = new AffineTransform(g.getTransform());
-
+		
+		
 		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = new AffineTransform(g.getTransform());
 
+		drawGround(g, 20, 20, 0.5f, playerTransform);
+		
 		g.setTransform(gameTransform);
+		
 		SafeMap entities = world.getEntities();
-		drawGround(g, 200, 200, 10);
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
 
@@ -263,7 +263,7 @@ public class GameView {
 			Avatar av = et.getAvatar();
 			g.transform(et.getTransform());
 
-			//et.getBody().debug(g);
+			et.getBody().debug(g);
 			g.transform(localTransform);
 			g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center
 																			// the
@@ -285,13 +285,47 @@ public class GameView {
 
 	}
 
-	private void drawGround(Graphics2D g, int width, int height, int size) {
-
+	private void drawGround(Graphics2D g, int width, int height, float scale, AffineTransform playerTransform) {
+		/*
 		for (float w = -width / 2.0f; w < width / 2.0f; w += size) {
 			for (float h = -height / 2.0f; h < height / 2.0f; h += size) {
 				g.drawImage(season.getGround(), (int) w, (int) h, size, size, m_canvas);
 			}
+		}*/
+		BufferedImage bg = season.getGround();
+		
+		
+		
+		int imWidth = bg.getWidth();
+		int imHeight = bg.getHeight();
+		float bgw = imWidth/sprite_pixels_per_unit * scale;
+		float bgh = imHeight/sprite_pixels_per_unit * scale;
+	
+		float tX = (float) playerTransform.getTranslateX();
+		float tY = (float) playerTransform.getTranslateY();
+		
+		float ptX = (float) (playerTransform.getTranslateX() % bgw);
+		float ptY = (float) (playerTransform.getTranslateY() % bgh);
+		
+		g.translate(-bgw*width/2.0f + tX - ptX, -bgh*height/2.0f + tY - ptY);
+		AffineTransform backgroundTransform = new AffineTransform(g.getTransform());
+		//System.out.println("width " + width + " height" + heigth);
+		AffineTransform lineTransform = new AffineTransform();
+		AffineTransform tileTransform = null;
+		for(int y = 0; y < height; y++) {
+			tileTransform = new AffineTransform(lineTransform);
+			for(int x = 0; x < width ; x++) {
+				tileTransform.translate(bgw, 0);
+				g.transform(tileTransform);
+				g.transform(localTransform);
+				g.translate(-imWidth / 2.0f, -imHeight / 2.0f);
+				g.scale(scale, scale);
+				g.drawRenderedImage(bg, identity);
+				g.setTransform(backgroundTransform);
+			}
+			lineTransform.translate(0, bgh);
 		}
+
 	}
 
 }

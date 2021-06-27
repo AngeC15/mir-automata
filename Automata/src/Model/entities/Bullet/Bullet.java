@@ -75,7 +75,7 @@ public class Bullet extends LivingEntity {
 
 	private void initBullet() {
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3.1f, 5.2f)));
+		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(3f, 3f)));
 		this.body = new PhysicsBody(h, ColliderType.Projectile, 0.0f, 60.0f, this);
 
 		vect = vect.normalize();

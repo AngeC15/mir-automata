@@ -38,13 +38,19 @@ public class World {
 	private long elapsed;
 	private Newton newton;
 	private Map map;
+	private float block_size;
+	private float game_w;
+	private float game_h;
+	private static final AffineTransform identity = new AffineTransform();
 
-	public World(VirtualInput vi) {
+	public World(VirtualInput vi, float block_size, float game_w, float game_h) {
 		inputs = vi;
 		entities = new SafeMap();
 		elapsed = 0;
-		newton = new Newton();
-
+		newton = new Newton(block_size);
+		this.block_size = block_size;
+		this.game_w = game_w;
+		this.game_h = game_h;
 	}
 
 	public void tick(long elapsed) {
@@ -53,7 +59,43 @@ public class World {
 		
 
 		for (Entry<Long, SafeMapElement> e : entities) {
-			((Entity) e.getValue()).step();
+			Entity en = (Entity) e.getValue();
+			
+			AffineTransform player_tranform;
+			if(player == null)
+				player_tranform = identity;
+			else
+				player_tranform = player.getTransform();
+			
+			double fX = (player_tranform.getTranslateX() - en.getTransform().getTranslateX())*2;
+			double fY = (player_tranform.getTranslateY() - en.getTransform().getTranslateY())*2;
+			
+			double dX = Math.abs(fX) - block_size;
+			double dY = Math.abs(fY) - block_size;
+			
+			if(dX > game_w) {
+				AffineTransform t;
+				if(fX < 0.0f)
+					t = AffineTransform.getTranslateInstance(-game_w - block_size, 0);
+				else
+					t = AffineTransform.getTranslateInstance(game_w + block_size, 0);
+				t.concatenate(en.getTransform());
+				en.getBody().setTransform(t);
+			}
+			if(dY > game_h) {
+				AffineTransform t;
+				if(fY < 0.0f)
+					t = AffineTransform.getTranslateInstance(0, -game_h - block_size);
+				else
+					t = AffineTransform.getTranslateInstance(0, game_h + block_size);
+
+				t.concatenate(en.getTransform());
+				en.getBody().setTransform(t);
+			}
+		}
+		for (Entry<Long, SafeMapElement> e : entities) {
+			Entity en = (Entity) e.getValue();
+			en.step();
 
 		}
 		entities.update();
@@ -73,7 +115,9 @@ public class World {
 	public long getElapsed() {
 		return elapsed;
 	}
-
+	public float getBlockSize() {
+		return block_size;
+	}
 	public boolean getKey(KeyExtension k) {
 		return inputs.getKey(k);
 	}

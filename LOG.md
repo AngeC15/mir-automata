@@ -1,3 +1,54 @@
+# JOURNAL du Dimanche 27 juin
+
+#### *Julian* : Hitbox ( branche `dev.hitbox` )
+- Resolution de beugs sur les tirs et les balles fantomes
+
+#### *Joan + Samuel* : Réalisation de la vidéo de rendu final
+
+#### *Julian* : Map infinie
+- Bouclage de la map
+- Fixations de beugs divers
+
+#### *Camille + Cyprien* : Changement dans les fonctions POP et WIZZ
+
+#### *Camille + Julian* : Adaptation de la minimap à la map infinie
+
+#### *Camille* : Amélioration monde Hiver
+- Degats infligés au joueur quand il reste immobile
+
+#### *Cyprien + Camille* : Page de fin
+
+#### *Gergely + Théo* : Pathfinding
+
+#### *Gergely + Camille + Cyprien* : Merge de branches sur le master
+---
+
+# JOURNAL du Samedi 26 juin
+#### *Théo* : Génération de la map ( branche `dev.map` )
+- nouvelle façon de générer les murs, changements dans les sprites utilisés
+- Debeug collisions
+- Améliorations du gameplay
+
+#### *Joan* : Cache d'armes ( branche `dev.generation_monster` )
+- Developpement des caches d'armes
+
+#### *Camille* : Amélioration d'armes ( branche `dev.bullet` )
+- Ajout de nouveaux type de balles aux armes (en  zigzag et multiple)
+
+#### *Camille* : Amélioration de la minimap ( branche `improve.minimap` )
+- Changement de l'apercu du joueur dans la minimap
+- Ajout de cercles représentant les caches d'armes
+
+#### *Camille* : Fonctions Pop et Wizz ( branche `dev.PopWizz` )
+- Changement d'automates et modification de fonctions pop et wizz
+
+#### *Julian* : Hitbox ( branche `dev.hitbox` )
+- Optimisations des collisions
+
+#### *Gergely* : Pathfinding ( branche `dev.truePathfinding` )
+- L'algorithme A* ne fonctionne pas
+---
+
 # JOURNAL du Vendredi 25 juin
 #### *Cyprien* : Ajout de nouvelles armes ( branche `dev.armory` )
 - Implémentation de nouvelles armes
@@ -18,9 +69,6 @@
 - Ajout d'une arme aléatoire lorsqu'une box spawn
 - Placement des caches d'armes dans la map
 
-#### *Théo + Julian* : HitBox ( branche `dev.map` )
-- nouvelle façon de générer les murs, changements dans les sprites utilisés
-- [ ] `TODO` : *Les faire apparaitre dans la minimap*
 ---
 # JOURNAL du Jeudi 24 juin
 

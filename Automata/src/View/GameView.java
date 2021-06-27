@@ -49,8 +49,6 @@ public class GameView {
 	// utiliser spritesheet pour charger le fond
 	// private File imageFond;
 
-	private BufferedImage bg;
-
 	private static final AffineTransform identity = new AffineTransform();
 
 	public GameView(GameCanvasListener listener) {
@@ -111,15 +109,6 @@ public class GameView {
 		localTransform = AffineTransform.getScaleInstance(1 / sprite_pixels_per_unit, -1 / sprite_pixels_per_unit);
 		updateCanvasTransform();
 		cameraTransform = AffineTransform.getScaleInstance(1 / cameraDistance, 1 / cameraDistance);
-
-		SpriteSheet sp = null;
-		try {
-			sp = new SpriteSheet("Resources/sprite_sheet_decor2.png", 5, 5, 25);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		bg = sp.getSprite(0);
 		
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
@@ -281,7 +270,7 @@ public class GameView {
 		/**
 		 * TO DECOMMENT : if you want to change season
 		 */
-		 //intensity = season.transitionSummerWinter(g, 500, intensity);
+		 intensity = season.transitionSummerWinter(g, 500, intensity);
 
 	}
 

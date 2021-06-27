@@ -31,7 +31,7 @@ public class Level {
 		//System.out.println("Difference " + diff);
 		if(now - startTime > time) {
 			if(time == 10000) {
-				time = 20000;
+				time = 60000;
 			}
 			//changement de saison:
 			try {

@@ -336,4 +336,11 @@ public class Entity implements SafeMapElement {
 		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
 		getTransform().rotate(relativeAngle - Math.toRadians(90));
 	}
+	
+	public double getXRelatif() {
+        return(getTransform().getTranslateX()%world.getGame_w());
+    }
+    public double getYRelatif() {
+        return(getTransform().getTranslateY()%world.getGame_h());
+    }
 }

@@ -42,11 +42,11 @@ public class Generator {
 		//location choose
 		
 		double x, y;
-		double x_p = w.getPlayer().getTransform().getTranslateX();
-		double y_p = w.getPlayer().getTransform().getTranslateY();
+		double x_p = w.getPlayer().getXRelatif();
+		double y_p = w.getPlayer().getYRelatif();
 		do {
-			x = Math.random() * 2 * dim - dim;
-			y = Math.random() * 2 * dim - dim;
+			x = Math.random() * 2 * w.getGame_w() - w.getGame_w(); 
+            y = Math.random() * 2 * w.getGame_h() - w.getGame_h();
 		}
 		// not spawn if it's to close
 		while (!(x < x_p + 80 && x > x_p - 80) || (y < y_p + 80 && y > y_p - 80));
@@ -59,15 +59,15 @@ public class Generator {
 		int nb_monster = this.difficulty * level * level + level;
 		//int nb_monster = 0;
 		double x, y;
-		double x_p = w.getPlayer().getTransform().getTranslateX();
-		double y_p = w.getPlayer().getTransform().getTranslateY();
+		double x_p = w.getPlayer().getXRelatif();
+		double y_p = w.getPlayer().getYRelatif();
 		int toRet = nb_monster;
 		spawn_cover();
 		while (nb_monster > 0) {
 			// get a random coordinate
 			do {
-				x = Math.random() * 2 * dim - dim;
-				y = Math.random() * 2 * dim - dim;
+				x = Math.random() * 2 * w.getGame_w() - w.getGame_w(); 
+	            y = Math.random() * 2 * w.getGame_h() - w.getGame_h();
 			}
 			// not spawn if it's to close
 			while (!(x < x_p + 30 && x > x_p - 30) || (y < y_p + 30 && y > y_p - 30));

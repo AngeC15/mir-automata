@@ -216,4 +216,14 @@ public class World {
 		}
 	}
 
+	public double getGame_w() {
+		// TODO Auto-generated method stub
+		return this.game_w;
+	}
+
+	public double getGame_h() {
+		// TODO Auto-generated method stub
+		return this.game_h;
+	}
+
 }

@@ -7,7 +7,7 @@ import View.Season;
 
 public class Level {
 	private int time;
-	private int level;
+	public int level;
 	public World world;
 	private Generator generator;
 	private double startTime;
@@ -30,12 +30,13 @@ public class Level {
 		//double diff = now - startTime;
 		//System.out.println("Difference " + diff);
 		if(now - startTime > time) {
-			if(time == 100) {
+			if(time == 10000) {
 				time = 60000;
 			}
 			//changement de saison:
 			try {
-				season.nextSeason();
+				//season.nextSeason();
+				//season.transitionSummerWinter(g, 1000, intensity);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

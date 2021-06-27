@@ -2,13 +2,19 @@ package Controller;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+
+
 
 import Model.World;
+import Model.entities.enemies.Tank;
 import Model.loader.AutomataLoader;
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
+import View.Avatar;
 import View.GameView;
 import View.Sound;
+import View.Template;
 
 public class Game {
 
@@ -39,15 +45,22 @@ public class Game {
 	public void init_game() throws Exception {
 		System.out.println("init game");
 		m_listener.getVirtualInput().setView(view);
-		view.setupFrame();
-		AutomataLoader.load_all("Bots/loader.txt");
-		TemplatesLoader.load_all("Resources/loader.txt");
-		world = new World(m_listener.getVirtualInput());
-		view.setWorld(world);
+		
+		float block_size = 5.3f;
 		int n, p;
-		n = 30;
-		p = 30;
-		Map map = new Map(n, p, 5.3f, world);
+		n = 50;
+		p = 50;
+		float game_w = (p-1)*block_size;
+		float game_h = (n-1)*block_size;
+		view.setupFrame(game_w, game_h);
+		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
+		TemplatesLoader.load_all("Resources/loader.txt");
+		world = new World(m_listener.getVirtualInput(), block_size, game_w, game_h);
+		view.setWorld(world);
+
+		
+		
+		Map map = new Map(n, p, block_size, world);
 		world.setMap(map);
 
 		/*
@@ -56,7 +69,28 @@ public class Game {
 		 */
 
 
-		
+		/*Tank tank = new Tank("Tank");
+		Template tmpTank = TemplatesLoader.get("Tank");
+		new Avatar(tank, tmpTank);
+		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+		world.addEntity(tank);*/
+		/*
+		 * Mecha mecha = new Mecha("Mecha"); Template tmpMecha =
+		 * TemplatesLoader.get("Mecha"); new Avatar(mecha, tmpMecha);
+		 * mecha.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		 * 40)); world.addEntity(mecha);
+		 * 
+		 * Flamethrower flamethrower = new Flamethrower("Flamethrower"); Template
+		 * tmpFlamethrower = TemplatesLoader.get("Flamethrower"); new
+		 * Avatar(flamethrower, tmpFlamethrower);
+		 * flamethrower.getTransform().concatenate(AffineTransform.getTranslateInstance(
+		 * 0, -100)); world.addEntity(flamethrower);
+		 * 
+		 * Plane plane = new Plane("Plane"); Template tmpPlane =
+		 * TemplatesLoader.get("Plane"); new Avatar(plane, tmpPlane);
+		 * plane.getTransform().concatenate(AffineTransform.getTranslateInstance(0,
+		 * 20)); world.addEntity(plane);
+		 */
 
 		/*
 		 * Wall wall = new Wall(world); Avatar av2 = new Avatar(wall, tmp);

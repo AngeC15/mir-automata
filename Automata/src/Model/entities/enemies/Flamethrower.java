@@ -42,15 +42,4 @@ public class Flamethrower extends Enemy {
 		this.daggerStrike = weapon.attack(this, vector);
 	}
 
-	@Override
-	public void Hit(DirectionExtension dir) {
-		// TODO Auto-generated method stub
-		super.Hit(dir);
-		 lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		this.daggerStrike = weapon.attack(this, vector);
-	}
-	
-	
-
 }

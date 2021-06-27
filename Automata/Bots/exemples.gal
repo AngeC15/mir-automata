@@ -37,8 +37,7 @@ PopOrWizz1(Init){
 }
 
 PopOrWizz2(State1){
-  * (State1): True ? Pop  :(_)
-  * (State2): True ? Wizz :(_)
+  * (State1): True ? Pop  :(State1)
 }
 
 Fourmi(Init){

@@ -15,7 +15,7 @@ import Utils.SafeMapElement;
 
 public class Season {
 	public enum EnumSeason {
-		SUMMER, WINTER
+		SUMMER, WINTER, FIRE
 	}
 
 	private Template groundTemplate;
@@ -75,7 +75,7 @@ public class Season {
 	 */
 	public int transitionSummerWinter(Graphics2D g, int intensitySnow, int cmpIntensity) {
 		if (cmpIntensity < intensitySnow && current == EnumSeason.SUMMER) {
-			cmpIntensity += 5;
+			cmpIntensity += 1;
 			g.setColor(Color.white);
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);
@@ -88,7 +88,7 @@ public class Season {
 				e.printStackTrace();
 			}
 		} else if (cmpIntensity > 0 && current == EnumSeason.WINTER) {
-			cmpIntensity -= 10;
+			cmpIntensity -= 2;
 			g.setColor(new Color(230, 230, 230));
 			for (int i = 0; i < intensitySnow; i++) {
 				int size = RandomUtil.genererInt(0, 3);

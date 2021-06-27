@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import Model.automata.Automaton;
 import Model.automata.actions.EnumAction;
+import Model.entities.Bullet.Bullet;
 
 /**
  * add life for entities,
@@ -93,6 +94,10 @@ public class LivingEntity extends Entity {
 	@Override
 	public Color getColor() {
 		return null;
+	}
+
+	public boolean addLifeBar() {
+		return false;
 	}
 
 }

@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -41,6 +42,9 @@ public class Menu extends JPanel implements ActionListener {
 		initButtonPlay();
 
 		this.setVisible(true);
+		// lf = new LifeBar();
+		// this.add(lf);
+		// lf.repaint();
 		this.repaint();
 
 	}
@@ -85,6 +89,7 @@ public class Menu extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+
 		File imageFile = new File("Resources/Menu/fond.jpg");
 
 		if (imageFile.exists()) {
@@ -98,6 +103,5 @@ public class Menu extends JPanel implements ActionListener {
 			}
 
 		}
-
 	}
 }

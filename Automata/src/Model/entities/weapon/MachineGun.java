@@ -1,7 +1,7 @@
 package Model.entities.weapon;
 
 import Model.World;
-import Model.entities.Bullet;
+import Model.entities.Bullet.Bullet;
 import Model.entities.Entity;
 import Utils.Vector2;
 

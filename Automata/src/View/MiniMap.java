@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import Model.World;
 import Model.entities.Entity;
+import Model.entities.Player;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
 
@@ -21,15 +22,16 @@ public class MiniMap extends JPanel {
 	private AffineTransform canvasTransform;
 	private AffineTransform cameraTransform;
 	private AffineTransform localTransform;
-	private double cameraDistance = 3;
-	private float size;
+	private double cameraDistance = 1;
+	private static final float size = 12;
+	private static final int[] triangleX = new int[] { (int) -size, 0, (int) size, 0 };
+	private static final int[] triangleY = new int[] { 0, (int) (size * 2), 0, (int) size / 2 };
 
 	public MiniMap() {
 
 		super(new BorderLayout());
 		this.setVisible(true);
 		this.setBounds(5, 5, 200, 200);
-		size = 12;
 		setupFrame();
 	}
 
@@ -53,11 +55,12 @@ public class MiniMap extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g2) {
-		super.paintComponent(g2);
 		this.setBounds(5, 5, 200, 200);
+		super.paintComponent(g2);
+		
 		// Graphics g2 = this.getGraphics();
 		Graphics2D g = (Graphics2D) g2;
-
+		g.setColor(new Color(220, 220, 220));
 		g.fillRect(0, 0, 200, 200);
 
 		AffineTransform baseTransform = g.getTransform();
@@ -73,13 +76,15 @@ public class MiniMap extends JPanel {
 				-playerTransform.getTranslateY()));
 		g.transform(canvasTransform); // pixel au coordon�es du monde
 
+		g.transform(cameraTransform);
 		cameraTransform = cam_save;
 
 		AffineTransform gameTransform = g.getTransform();
 
 		SafeMap entities = world.getEntities();
-		g.setColor(new Color(220, 220, 220));
-		g.fillRect(-100, -100, 200, 200);
+		//g.setColor(new Color(220, 220, 220));
+		//g.fillRect(-100, -100, 200, 200);
+		
 
 		for (Entry<Long, SafeMapElement> entries : entities) {
 			Entity et = (Entity) entries.getValue();
@@ -88,12 +93,19 @@ public class MiniMap extends JPanel {
 			g.transform(et.getTransform());
 			g.transform(localTransform);
 			g.transform(AffineTransform.getTranslateInstance(-size / 2f, -size / 2f)); // center
-																						// the
+																			// the
 
 			Color c = et.getColor();
+
 			if (c != null) {
 				g.setColor(c);
-				g.fillOval(-1, 1, (int) size, (int) size);
+				if (et.addLifeBar()&& et instanceof Player) {
+					g.fillPolygon(triangleX, triangleY, 4);
+				} else if (et.getEquipe() == 4) {
+					g.fillRect(0, 0, (int) size, (int) size);
+				}else {
+					g.fillOval(-1, 1, (int) size, (int) size);
+				}
 			}
 			g.setTransform(gameTransform);
 

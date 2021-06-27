@@ -2,7 +2,7 @@ package Model.entities.weapon;
 
 import Model.World;
 import Model.entities.Entity;
-import Model.entities.SwordStrick;
+import Model.entities.Bullet.SwordStrick;
 import Model.physics.PhysicsBody;
 import Utils.Vector2;
 

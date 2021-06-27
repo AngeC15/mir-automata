@@ -10,6 +10,8 @@ import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
 import Utils.Vector2;
+import Model.physics.primitives.Square;
+
 
 public class Tank extends Enemy {
 
@@ -19,11 +21,12 @@ public class Tank extends Enemy {
 		cooldown = 1900;
 		shootDistance = 40;
 		acceleration = 18;
-
 		life = 100;
 
 		HitBox h = new HitBox();
-		h.add(new PrimitiveInstance(new Circle(), AffineTransform.getScaleInstance(10, 10)));
+		PrimitiveInstance prim = new PrimitiveInstance(new Square(), AffineTransform.getScaleInstance(11, 16));
+		prim.get_transform().translate(0, -0.15);
+		h.add(prim);
 		this.body = new PhysicsBody(h, ColliderType.Character, 10, 20, this);
 	}
 
@@ -41,13 +44,5 @@ public class Tank extends Enemy {
 		this.ShotStrike = weapon.attack(this, vector);
 	}
 
-	@Override
-	public void Hit(DirectionExtension dir) {
-		// TODO Auto-generated method stub
-		super.Hit(dir);	
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		this.ShotStrike = weapon.attack(this, vector);
-	}
 	
 }

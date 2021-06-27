@@ -1,14 +1,13 @@
 package Model.entities.weapon;
 
 import Model.World;
-import Model.entities.Bullet;
+import Model.entities.Bullet.Bullet;
 import Model.entities.Entity;
 import Utils.Vector2;
 
-public class TommyGun extends Weapon{
-	
-	String bulletSkin;
+public class TommyGun extends Weapon {
 
+	String bulletSkin;
 
 	public TommyGun(String bulletSkin) {
 		super(false);
@@ -22,7 +21,6 @@ public class TommyGun extends Weapon{
 		Bullet bul = new Bullet(e, vect, bulletSkin, 3);
 		World w = e.getWorld();
 		w.addEntity(bul);
-		Vector2 direction = new Vector2((float) bul.getTransform().getShearX(), (float) bul.getTransform().getScaleY());
 		return bul;
 	}
 

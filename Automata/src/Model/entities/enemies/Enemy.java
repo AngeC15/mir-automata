@@ -127,22 +127,9 @@ public abstract class Enemy extends LivingEntity {
 		}
 	}
 
-	@Override
-	public void Pop(DirectionExtension dir) {
-		/*
-		lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		this.ShotStrike = weapon.attack(this, vector);
-		*/
-	}
-
-	@Override
-	public void Hit(DirectionExtension dir) {
-		/*
-		 lastAttack = System.currentTimeMillis();
-		Vector2 vector = new Vector2(0, 1);
-		this.daggerStrike = weapon.attack(this, vector);
-		*/
+	
+	public void Wizz(DirectionExtension dir) {
+		this.getBody().setmaxSpeed((int) this.getBody().getmaxSpeed() * 2);
 	}
 
 	@Override
@@ -162,5 +149,9 @@ public abstract class Enemy extends LivingEntity {
 	@Override
 	public Color getColor() {
 		return Color.red;
+	}
+
+	public boolean addLifeBar() {
+		return true;
 	}
 }

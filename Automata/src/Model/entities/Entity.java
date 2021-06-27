@@ -11,6 +11,8 @@ import Model.automata.actions.EnumAction;
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
 import Model.automata.creation.KeyExtension;
+import Model.entities.Bullet.Bullet;
+import Model.entities.Bullet.SwordStrick;
 import Model.entities.weapon.Weapon;
 import Model.monster_generator.Weapon_cover;
 import Model.physics.ColliderType;
@@ -34,6 +36,7 @@ public class Entity implements SafeMapElement {
 	public int team; // équipe: 1 = joueur
 						// équipe: 2 = ennemis
 						// équipe: 3 = neutre
+						// Equipe 4 : cacheArme
 
 	public Entity(Automaton a, int equipe) {
 		// System.out.println("new entity");
@@ -44,6 +47,10 @@ public class Entity implements SafeMapElement {
 
 		this.team = equipe;
 
+	}
+
+	public void tick(long elapsed) {
+		
 	}
 
 	public void setAvatar(Avatar av) {
@@ -247,11 +254,11 @@ public class Entity implements SafeMapElement {
 	}
 
 	public boolean GotPower() {
-		return false;
+		return true;
 	}
 
 	public boolean GotStuff() {
-		return false;
+		return true;
 
 	}
 
@@ -267,30 +274,34 @@ public class Entity implements SafeMapElement {
 	}
 
 	public void colisionHappened(Entity other, ColliderType c) {
-		// System.out.println("Collision de type " + c.toString()+ " entre l'entité " +
+		//System.out.println("Collision de type " + c.toString()+ " entre l'entité " +
 		//this.toString()+ " et " + other.toString());
 
-		// if the bullet meet a wall, destroy it
-		if(this instanceof Player && other instanceof Weapon_cover) {
-			Weapon weapon=((Weapon_cover)other).getW();
-			if(weapon.isCac()) {
-				((Player)this).setArmeCac(weapon);
-			}
-			else {
-				((Player)this).setArmeDist(weapon);
+
+		if (this instanceof Player && other instanceof Weapon_cover) {
+			Weapon weapon = ((Weapon_cover) other).getW();
+			if (weapon.isCac()) {
+				((Player) this).setArmeCac(weapon);
+			} else {
+				((Player) this).setArmeDist(weapon);
 			}
 			world.removeEntity(other.getID());
 		}
+		// if the bullet meet a wall, destroy it
 		if ((this instanceof Bullet && other instanceof Decor) || (this instanceof SwordStrick && other instanceof Decor)) {
 			((LivingEntity) this).death();
+
 		}
+		
+		else if(!(this.team == other.team)) {
+			//System.out.println("equipe differente");
 		// we check if both have life and enventually damages
-		if ((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
-			// on regarde les teams:
-			if (!(this.team == other.team)) {
+			if ((this instanceof LivingEntity) && (other instanceof LivingEntity)) {
+				// on regarde les teams:
 				// we apply the damage on the life
 				float damageEntity1 = ((LivingEntity) this).getDamage();
 				float damageEntity2 = ((LivingEntity) other).getDamage();
+				//System.out.println("Damage 1  = " + damageEntity1 + " damage 2 = " + damageEntity2 );
 				((LivingEntity) this).damage(damageEntity2);
 				((LivingEntity) other).damage(damageEntity1);
 
@@ -305,8 +316,24 @@ public class Entity implements SafeMapElement {
 	public Color getColor() {
 		return Color.gray;
 	}
-	
-	public String toString(){
+
+	@Override
+	public String toString() {
 		return this.getClass().getName();
+	}
+
+	public boolean addLifeBar() {
+		return false;
+	}
+
+	protected void rotate() {
+		Entity player = world.getPlayer();
+
+		double relativeX = player.getTransform().getTranslateX() - getTransform().getTranslateX();
+		double relativeY = player.getTransform().getTranslateY() - getTransform().getTranslateY();
+		double relativeAngle = Math.atan2(relativeY, relativeX);
+
+		relativeAngle -= Math.atan2(getTransform().getShearY(), getTransform().getScaleY());
+		getTransform().rotate(relativeAngle - Math.toRadians(90));
 	}
 }

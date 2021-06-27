@@ -1,6 +1,8 @@
 package Model.entities.enemies;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
+import java.util.Vector;
 
 import Model.automata.creation.CategoryExtension;
 import Model.automata.creation.DirectionExtension;
@@ -9,6 +11,9 @@ import Model.entities.Entity;
 import Model.entities.LivingEntity;
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
+import Model.path.Grid;
+import Model.path.Node;
+import Utils.Functions;
 import Utils.Vector2;
 
 public abstract class Enemy extends LivingEntity {
@@ -19,9 +24,13 @@ public abstract class Enemy extends LivingEntity {
 	protected float friction;
 	protected float maxSpeed;
 	protected double lastAttack;
+	private ArrayDeque<Node> path;
+	private double start;
+	private Grid grid;
 
 	public Enemy(String automaton) {
 		super(AutomataLoader.get(automaton), 2);
+		start = System.currentTimeMillis();
 	}
 
 	protected void rotate() {
@@ -147,5 +156,53 @@ public abstract class Enemy extends LivingEntity {
 	
 	public boolean addLifeBar() {
 		return true;
+	}
+	
+	private void update_path() {
+		if (grid == null) grid = world.getGrid();
+		int x = (int) (((body.getTransform().getTranslateX()+0.5f)/grid.getDim()+grid.getN()/2)%grid.getN());
+		int y = (int) (((body.getTransform().getTranslateY()+0.5f)/grid.getDim()+grid.getP()/2)%grid.getP());
+		Node start = new Node(x, y, world.getMap());
+		x = (int) (((world.getPlayer().getTransform().getTranslateX()+0.5f)/grid.getDim()+grid.getN()/2)%grid.getN());
+		y = (int) (((world.getPlayer().getTransform().getTranslateX()+0.5f)/grid.getDim()+grid.getN()/2)%grid.getN());
+		Node goal = new Node(x, y, world.getMap());
+		path = grid.starPath(start, goal);
+	}
+	
+	private double distance() {
+		double tmpx = Math.pow(world.getPlayer().getTransform().getTranslateX() - body.getTransform().getTranslateX(), 2);
+		double tmpy = Math.pow(world.getPlayer().getTransform().getTranslateY() - body.getTransform().getTranslateY(), 2);
+		return Math.sqrt(tmpx + tmpy);
+	}
+	
+	@Override
+	public void Move(DirectionExtension dir) {
+		Vector2 vect;
+		// DirectionExtension dir2 =
+		// DirectionExtension.RelToAbsolute(this.directionEntite, dir);
+		if (dir.ordinal() < 4) {
+			Vector2 direction = new Vector2((float) body.getTransform().getShearX(),
+					(float) body.getTransform().getScaleY());
+			vect = Functions.getRelativeDir(dir, direction);
+		} else {
+			vect = Functions.getAbsoluteDir(dir);
+		}
+		double tmp = System.currentTimeMillis();
+		if (tmp - start > 1000 && distance() < 20) {
+			start = tmp;
+			update_path();
+		}
+		if (path == null)
+			update_path();
+		Vector2 vect_tmp = new Vector2(path.peek().getX()-path.remove().getX(), path.peek().getX()-path.remove().getX());
+		if (vect.dot(vect_tmp) != 0) {
+			vect = vect_tmp;
+		}
+		
+		// 2 next lines commented during the merge phase
+		// vect.scale(world.getElapsed()*velocity/1000.0f);
+		// transform.concatenate(AffineTransform.getTranslateInstance(vect.x, vect.y));
+		// System.out.println("BOuge vers " + dir2);
+		body.accelerate(world.getElapsed(), vect.scale(acceleration));
 	}
 }

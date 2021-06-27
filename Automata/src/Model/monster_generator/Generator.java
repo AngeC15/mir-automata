@@ -9,6 +9,7 @@ import Model.entities.enemies.Mecha;
 import Model.entities.enemies.Plane;
 import Model.entities.enemies.Tank;
 import Model.loader.TemplatesLoader;
+import Model.path.Grid;
 import View.Avatar;
 import View.Template;
 
@@ -16,8 +17,9 @@ public class Generator {
 	int difficulty;
 	World w;
 	float dim;
+	private Grid grid;
 
-	public Generator(World w, float dim, int dif) {
+	public Generator(World w, float dim, int dif, Grid grid) {
 		this.w = w;
 		this.dim = dim;
 		this.difficulty = dif;

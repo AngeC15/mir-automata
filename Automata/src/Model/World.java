@@ -19,6 +19,7 @@ import Model.entities.enemies.Tank;
 
 import Model.loader.TemplatesLoader;
 import Model.map.Map;
+import Model.path.Grid;
 import Model.physics.Newton;
 import Utils.SafeMap;
 import Utils.SafeMapElement;
@@ -34,6 +35,7 @@ public class World {
 	private long elapsed;
 	private Newton newton;
 	private Map map;
+	private Grid grid;
 
 	public World(VirtualInput vi) {
 		inputs = vi;
@@ -107,7 +109,19 @@ public class World {
 	public void setInputs(VirtualInput inputs) {
 		this.inputs = inputs;
 	}
+	
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+	}
 
+	public Map getMap(){
+		return map;
+	}
+	
+	public Grid getGrid(){
+		return grid;
+	}
+	
 	public void generationDone() throws IOException {
 		Player player = new Player();
 		Template tmp = TemplatesLoader.get("Player");
@@ -154,12 +168,13 @@ public class World {
 		enemy.getTransform().concatenate(AffineTransform.getTranslateInstance(0, -20));
 		world.addEntity(enemy);
 		*/
-		
-		Tank tank = new Tank("Tank");
-		Template tmpTank = TemplatesLoader.get("Tank");
-		new Avatar(tank, tmpTank);
-		tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
-		this.addEntity(tank);
+		if (grid != null) {
+			Tank tank = new Tank("Tank");
+			Template tmpTank = TemplatesLoader.get("Tank");
+			new Avatar(tank, tmpTank);
+			tank.getTransform().concatenate(AffineTransform.getTranslateInstance(0, 100));
+			this.addEntity(tank);
+		}
 
 	}
 }

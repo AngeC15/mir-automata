@@ -14,7 +14,6 @@ public class Node {
 	private int x;
 	private int y;
 	
-	private Node[] neighbors = new Node[4];
 	private int idx;
 	
 	public Node(int x, int y, Map map) {
@@ -57,9 +56,6 @@ public class Node {
 		return false;
 	}
 	
-	public Node nextNeighbor() {
-		idx = idx % neighbors.length;
-		return neighbors[idx ++];
-	}
+	
 	
 }

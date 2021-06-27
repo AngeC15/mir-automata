@@ -3,6 +3,7 @@ package Model.entities.enemies;
 import java.awt.geom.AffineTransform;
 
 import Model.entities.weapon.Gun;
+import Model.path.Grid;
 import Model.physics.ColliderType;
 import Model.physics.HitBox;
 import Model.physics.PhysicsBody;

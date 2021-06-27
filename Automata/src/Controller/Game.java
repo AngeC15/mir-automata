@@ -60,7 +60,7 @@ public class Game {
 		world.setMap(map);
 	
 		Grid grid = new Grid(n, p, dimension, map);
-
+		world.setGrid(grid);
 		/*
 		 * Player player = new Player(); Template tmp = TemplatesLoader.get("Player");
 		 * new Avatar(player, tmp); world.addEntity(player); world.setPlayer(player);

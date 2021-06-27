@@ -12,6 +12,9 @@ public class Grid {
 	private Node[][] grid;
 	private float dimension;
 	
+	private Node[] neighbors = new Node[4];
+	private int idx;
+	
 	PriorityQueue<Node> openSet = new PriorityQueue<Node>(1, new NodeComparator());
 	ArrayDeque<Node> path = new ArrayDeque();
 	Node currentNode;
@@ -49,12 +52,26 @@ public class Grid {
 		Node tmp;
 		
 		for (int k = 0 ; k < 4 ; k ++) {
-			tmp = currentNode.nextNeighbor();
-			if (!tmp.containWall() && openSet.contains(tmp)) {
+			tmp = nextNeighbor();
+			if (!tmp.containWall() && !openSet.contains(tmp)) {
 				tmp.SethCost(tmp.distance(goal)+currentNode.GethCost());
 				openSet.add(tmp);
 			}
 		}
+	}
+	
+	public Node nextNeighbor() {
+		idx = idx % 4;
+		return neighbors[idx ++];
+	}
+	
+	public void InitNeighbors() {
+		int x = currentNode.getX();
+		int y = currentNode.getY();
+		neighbors[0] = grid[Math.floorMod(x+1,getP())][y];
+		neighbors[1] = grid[x][Math.floorMod(y+1, getN())];
+		neighbors[2] = grid[Math.floorMod(x-1,getP())][y];
+		neighbors[3] = grid[x][Math.floorMod(y-1,getN())];
 	}
 	
 	public ArrayDeque<Node> starPath(Node start, Node goal) {
@@ -72,12 +89,21 @@ public class Grid {
 				return path;
 			}
 			openSet.remove();
+			
+			InitNeighbors();
 			neighbors(currentNode.getX(), currentNode.getY(), goal);
 			
-			path.add(currentNode);
 		}
 		openSet.clear();
 		return null;
+	}
+	
+	public int getN() {
+		return grid.length;
+	}
+	
+	public int getP() {
+		return grid[0].length;
 	}
 	
 

@@ -48,14 +48,14 @@ public class Game {
 		
 		float block_size = 5.3f;
 		int n, p;
-		n = 50;
-		p = 50;
-		float game_w = (p-1)*block_size;
-		float game_h = (n-1)*block_size;
+		n = 60;
+		p = 60;
+		float game_w = p*block_size;
+		float game_h = n*block_size;
 		view.setupFrame(game_w, game_h);
 		AutomataLoader.load_all("Bots/loader.txt", "Bots/entityAutomata.txt");
 		TemplatesLoader.load_all("Resources/loader.txt");
-		world = new World(m_listener.getVirtualInput(), block_size, game_w, game_h);
+		world = new World(m_listener.getVirtualInput(), block_size, game_w - block_size, game_h - block_size);
 		view.setWorld(world);
 
 		

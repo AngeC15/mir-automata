@@ -22,7 +22,6 @@ Player(Init){
 Bullet(Forward){
 	* (Forward) :
 	| True ?  Pop(F)  :(Forward)
-  	* ()
 }
 
 BulletZigZag(Forward){

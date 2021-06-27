@@ -7,7 +7,6 @@ import Controller.VirtualInput;
 import Model.automata.creation.DirectionExtension;
 import Model.entities.weapon.Dagger;
 import Model.entities.weapon.Gun;
-
 import Model.entities.weapon.Weapon;
 import Model.loader.AutomataLoader;
 import Model.physics.ColliderType;
@@ -15,7 +14,6 @@ import Model.physics.HitBox;
 import Model.physics.PhysicsBody;
 import Model.physics.PrimitiveInstance;
 import Model.physics.primitives.Circle;
-import Model.physics.primitives.Square;
 import Utils.Vector2;
 
 public class Player extends LivingEntity {

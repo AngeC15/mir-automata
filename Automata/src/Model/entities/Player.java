@@ -40,7 +40,7 @@ public class Player extends LivingEntity {
 		lastAttack = System.currentTimeMillis();
 		lastAttackFrequency = armeDist.getShot_frequency();
 
-		this.life = 4000;
+		this.life = 1000;
 		//System.out.println("Dagger" + armeCac.toString());
 
 	}

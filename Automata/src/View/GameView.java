@@ -381,9 +381,9 @@ public class GameView {
 				Avatar av = et.getAvatar();
 				g.transform(et.getTransform());
 				
-				//
-				//et.getBody().debug(g);
-				//
+				
+				et.getBody().debug(g);
+			
 				
 				g.transform(localTransform);
 				g.translate(-av.getSpriteW() / 2.0f, -av.getSpriteH() / 2.0f); // center

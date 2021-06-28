@@ -43,7 +43,7 @@ public class Level {
 			numEnemy = generator.new_wave(level);// (this.world.getPlayer().getTransform().getTranslateX(),
 													// this.world.getPlayer().getTransform().getTranslateX(), level);
 			world.deathEnnemies = 0;
-			((Player) world.getPlayer()).setLife(500); // remet la vie du joueur à son maximum
+			((Player) world.getPlayer()).setLife(1000); // remet la vie du joueur ï¿½ son maximum
 
 		}
 	}

@@ -56,7 +56,7 @@ public class Generator {
 	public int new_wave(int level) throws IOException {
 		//System.out.println("New enemy has appeared");
 
-		int nb_monster = this.difficulty * level * level + level;
+		int nb_monster = this.difficulty * level * 2;
 		//int nb_monster = 0;
 		double x, y;
 		double x_p = w.getPlayer().getXRelatif();
@@ -70,7 +70,7 @@ public class Generator {
 	            y = Math.random() * 2 * w.getGame_h() - w.getGame_h();
 			}
 			// not spawn if it's to close
-			while (!(x < x_p + 30 && x > x_p - 30) || (y < y_p + 30 && y > y_p - 30));
+			while (!(x < x_p + 90 && x > x_p - 90) || (y < y_p + 90 && y > y_p - 90));
 			// spawn a ennemy her
 			spawn(x, y, level);
 			nb_monster--;
